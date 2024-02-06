@@ -1,0 +1,36 @@
+:root {
+  --width: 40px;
+}
+
+.switch-container {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.switch {
+  position: relative;
+  width: var(--width);
+  aspect-ratio: 2;
+  background-color: #ccc;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.switch-container.on .switch {
+  background-color: #4caf50;
+}
+
+.circle {
+  aspect-ratio: 1;
+  width: 50%;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  transition: transform 0.3s;
+}
+
+.switch .circle.on {
+  transform: translateX(100%);
+}
