@@ -5,7 +5,7 @@ const DisableButton: React.FC = () => {
   const [isOn, setIsOn] = useState<boolean>(false);
 
   const toggleSwitch = async () => {
-    await chrome.storage.local.set({ isDisabled: !isOn });
+    await chrome.storage.local.set({ isDisabled: isOn });
     setIsOn((prev) => !prev);
   };
 
