@@ -11,7 +11,7 @@ const DisableButton: React.FC = () => {
 
   useEffect(() => {
     async function checkStatus() {
-      setIsOn((await chrome.storage.local.get())["isDisabled"] as boolean);
+      setIsOn(!((await chrome.storage.local.get())["isDisabled"] as boolean));
     }
     checkStatus();
   }, []);
