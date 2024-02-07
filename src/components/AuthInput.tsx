@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import "./Input.css";
+import { ChangeEvent, useEffect, useState } from "react";
+import "./AuthInput.css";
 import axios from "axios";
 
 interface InputProps {
@@ -7,7 +7,7 @@ interface InputProps {
   placeholder: string;
 }
 
-const Input: React.FC<InputProps> = ({ label, placeholder }) => {
+const Input = ({ label, placeholder }: InputProps) => {
   const [authKey, setAuthKey] = useState<string>("");
   const [show, setShow] = useState<boolean>(false);
 

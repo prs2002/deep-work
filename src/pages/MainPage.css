@@ -1,4 +1,4 @@
-.app {
+.main-page {
   width: 400px;
   height: 400px;
   display: flex;
@@ -7,8 +7,8 @@
   justify-content: center;
   background-color: #1e1e1e;
 }
-/*
-.app-header {
+
+.main-page-header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -17,18 +17,19 @@
   background-color: #0d0d0d;
 }
 
-.app-disable-button-text {
+.main-page-disable-button-text {
   font-size: 1.1rem;
   font-weight: 600;
   padding-left: 0.5rem;
   color: #33ff00;
 }
 
-.app-body {
+.main-page-body {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
   height: 90%;
   width: 100%;
   padding: 1rem;
-} */
+}

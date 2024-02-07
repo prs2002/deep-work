@@ -1,21 +1,13 @@
+import { useState } from "react";
 import "./App.css";
-import DisableButton from "./components/DisableButton";
-import Input from "./components/Input";
+import MainPage from "./pages/MainPage";
+import TagWebsitePage from "./pages/TagWebsitePage";
 
 function App() {
-
+  const [page, setPage] = useState<number>(0);
   return (
     <div className="app">
-      <div className="app-header">
-        <div className="app-disable-button-text">Enable Extension:</div>
-        <DisableButton />
-      </div>
-      <div className="app-body">
-        <Input
-          label="Auth Key"
-          placeholder="Enter your GPT-3.5 Auth Key"
-        />
-      </div>
+      {page === 0 ? <MainPage setPage={setPage}></MainPage> : <TagWebsitePage></TagWebsitePage>}
     </div>
   );
 }
