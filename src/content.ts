@@ -1,19 +1,24 @@
-var isExtensionEnabled: boolean = false;
+let lastVisibilityState = document.hidden;
 
-async function handleExtensionEnable() {
-  chrome.storage.onChanged.addListener(
-    async (changes: { [key: string]: chrome.storage.StorageChange }) => {
-      if (changes["isDisabled"]) {
-        isExtensionEnabled = changes["isDisabled"].newValue;
+function sendMessageToBackground(hidden: boolean) {
+  try {
+    chrome.runtime.sendMessage(
+      { message: "visibility_changed", hidden: hidden },
+      (response) => {
+        console.log(response.message);
       }
-    }
-  );
+    );
+  } catch (error) {
+    console.log(error);
+  }
 }
 
+setInterval(() => {
+  if (document.hidden !== lastVisibilityState) {
+    lastVisibilityState = document.hidden;
+    sendMessageToBackground(lastVisibilityState);
+  }
+}, 1000);
 
-
-
-
-
-handleExtensionEnable();
+sendMessageToBackground(lastVisibilityState);
 export {};
