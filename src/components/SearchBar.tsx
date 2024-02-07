@@ -3,11 +3,17 @@ import "./SearchBar.css";
 interface SearchBarProps {
   searchValue: string;
   setSearchValue: (value: string) => void;
+  setPage: (page: number) => void;
 }
 
-export default function SearchBar({searchValue, setSearchValue} : SearchBarProps) {
+export default function SearchBar({searchValue, setSearchValue, setPage} : SearchBarProps) {
+
+  const handleChangePage = () => {
+    setPage(0);
+  };
+
   return (
-    <>
+    <div className="search-bar-container">
       <input
         type="text"
         placeholder="Search for a website"
@@ -15,6 +21,7 @@ export default function SearchBar({searchValue, setSearchValue} : SearchBarProps
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
-    </>
+      <button className="page-button" onClick={handleChangePage}>Go back</button>
+    </div>
   );
 }

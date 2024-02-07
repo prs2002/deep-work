@@ -7,7 +7,7 @@ function App() {
   const [page, setPage] = useState<number>(0);
   return (
     <div className="app">
-      {page === 0 ? <MainPage setPage={setPage}></MainPage> : <TagWebsitePage></TagWebsitePage>}
+      {page === 0 ? <MainPage setPage={setPage}></MainPage> : <TagWebsitePage setPage={setPage}></TagWebsitePage>}
     </div>
   );
 }
