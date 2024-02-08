@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import "./WebsiteList.css";
+import { updateWebsitesInStorage } from "../utils/UpdateWebsitesInStorage";
+import { fetchWebsitesFromStorage } from "../utils/FetchWebsitesFromStorage";
 
 interface Website {
   id: string;
@@ -19,20 +21,7 @@ export default function WebsiteList({ searchValue }: { searchValue: string }) {
   }, [websites, searchValue]);
   useEffect(() => {
     async function fetchWebsites() {
-      const websiteData =
-        (await chrome.storage.local.get("visitedURLs"))?.visitedURLs || [];
-      let data: Website[] = [];
-      for (let i = 0; i < websiteData.length; i++) {
-        const website: string = websiteData[i];
-        data.push({ website, tag: 0, id: website });
-      }
-      const taggedData =
-        (await chrome.storage.local.get("taggedURLs"))?.taggedURLs || [];
-      for (let i = 0; i < taggedData.length; i++) {
-        const website: string = taggedData[i].website;
-        const tag: number = taggedData[i].tag;
-        data.push({ website, tag, id: website });
-      }
+      const data = await fetchWebsitesFromStorage();
       if (data.length === 0) {
         return;
       }
@@ -45,41 +34,8 @@ export default function WebsiteList({ searchValue }: { searchValue: string }) {
   }, [websites]);
 
   useEffect(() => {
-    async function updateWebsites() {
-      const oldTaggedWebsites =
-        (await chrome.storage.local.get("taggedURLs")).taggedURLs || [];
-      const oldVisitedWebsites =
-        (await chrome.storage.local.get("visitedURLs")).visitedURLs || [];
-
-      for (let i = 0; i < websites.length; i++) {
-        for (let j = 0; j < oldTaggedWebsites.length; j++) {
-          if (oldTaggedWebsites[j].website === websites[i].website) {
-            oldTaggedWebsites.splice(j, 1);
-          }
-        }
-        if (oldVisitedWebsites.includes(websites[i].website)) {
-          oldVisitedWebsites.splice(
-            oldVisitedWebsites.indexOf(websites[i].website),
-            1
-          );
-        }
-        if (websites[i].tag !== 0) {
-          oldTaggedWebsites.push(websites[i]);
-        } else {
-          oldVisitedWebsites.push(websites[i].website);
-        }
-      }
-      console.log(oldTaggedWebsites);
-      console.log(oldVisitedWebsites);
-
-      await chrome.storage.local.set({
-        taggedURLs: oldTaggedWebsites,
-      });
-      await chrome.storage.local.set({
-        visitedURLs: oldVisitedWebsites,
-      });
-    }
-    updateWebsites();
+    
+    updateWebsitesInStorage(websites);
   }, [websites]);
 
   function handleTagChange(e: React.ChangeEvent<HTMLSelectElement>) {

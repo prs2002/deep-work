@@ -1,3 +1,4 @@
+import { AITagging } from "./utils/AITagging";
 import { WebActivity } from "./utils/WebActivity";
 
 var isExtensionDisabled: boolean = false;
@@ -50,6 +51,18 @@ async function storeUrl() {
   }
 }
 
+async function tagWebsite() {
+  if(isExtensionDisabled) {
+    return;
+  }
+  await AITagging();
+};
+
+
 handleExtensionEnable();
 storeUrl();
+setInterval(tagWebsite, 30000);
+
+
+
 export {};

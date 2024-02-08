@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import "./AuthInput.css";
-import axios from "axios";
+import { verifyAPIKey } from "../utils/VerifyApiKey";
 
 interface InputProps {
   label: string;
@@ -27,33 +27,12 @@ const Input = ({ label, placeholder }: InputProps) => {
   }, []);
 
   const handleSaveKey = async () => {
-    try {
-      await chrome.storage.local.remove("authKey");
-      const res = await axios.post(
-        "https://api.openai.com/v1/chat/completions",
-        {
-          model: "gpt-3.5-turbo",
-          messages: [
-            {
-              role: "system",
-              content: "Check api key.",
-            },
-          ],
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${authKey}`,
-          },
-        }
-      );
-      if (res.status !== 200) {
-        throw new Error("Invalid API key");
-      }
-      await chrome.storage.local.set({ authKey });
-      alert("API key saved successfully!");
-    } catch (error) {
-      alert("Invalid API key");
+    await chrome.storage.local.remove("authKey");
+    const res = await verifyAPIKey(authKey);
+    if (res === 0) {
+      alert("API Key saved successfully");
+    } else {
+      alert("Invalid API Key");
     }
   };
 
