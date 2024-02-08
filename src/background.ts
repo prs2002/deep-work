@@ -1,7 +1,7 @@
 import { AITagging } from "./utils/AITagging";
 import { WebActivity } from "./utils/WebActivity";
 
-var isExtensionDisabled: boolean = false;
+var isExtensionDisabled: boolean = true;
 var webActivityInstance: WebActivity | null = null;
 var isWindowHidden: boolean = false;
 
@@ -23,6 +23,12 @@ async function handleExtensionEnable() {
       return;
     }
     isExtensionDisabled = data.isDisabled;
+    if (webActivityInstance) {
+      webActivityInstance.setExtensionDisabled(isExtensionDisabled);
+    }
+    else {
+      webActivityInstance = new WebActivity(isExtensionDisabled);
+    }
   });
 
   chrome.storage.onChanged.addListener(
@@ -32,24 +38,14 @@ async function handleExtensionEnable() {
         if (webActivityInstance) {
           webActivityInstance.setExtensionDisabled(isExtensionDisabled);
         }
+        else {
+          webActivityInstance = new WebActivity(isExtensionDisabled);
+        }
       }
     }
   );
 }
 
-async function storeUrl() {
-  if (isExtensionDisabled) {
-    // if disabled, do nothing
-    if (webActivityInstance) {
-      webActivityInstance.clear();
-    }
-    return;
-  }
-
-  if (!webActivityInstance) {
-    webActivityInstance = new WebActivity(isExtensionDisabled);
-  }
-}
 
 async function tagWebsite() {
   if(isExtensionDisabled) {
@@ -60,7 +56,6 @@ async function tagWebsite() {
 
 
 handleExtensionEnable();
-storeUrl();
 setInterval(tagWebsite, 30000);
 
 
