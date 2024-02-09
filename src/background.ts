@@ -16,10 +16,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 async function handleExtensionEnable() {
-  chrome.storage.sync.get("isDisabled", (data) => {
-    if (data.isDisabled === undefined) {
-      chrome.storage.sync.set({ isDisabled: false });
-      isExtensionDisabled = false;
+  chrome.storage.local.get("isDisabled", (data) => {
+    if (data === undefined) {
+      chrome.storage.local.set({ isDisabled: true });
+      isExtensionDisabled = true;
       return;
     }
     isExtensionDisabled = data.isDisabled;

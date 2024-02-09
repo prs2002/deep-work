@@ -2,6 +2,12 @@
 Class to handle time spent on a web page
 */
 
+interface Website {
+  id: string;
+  website: string;
+  tag: number;
+}
+
 export class WebActivity {
   baseUrl: string = "";
   timeSpent: number;
@@ -13,9 +19,8 @@ export class WebActivity {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (tabs && tabs[0] && tabs[0].url) {
         const currentUrl = new URL(tabs[0].url).origin;
-        chrome.storage.local.get("visitedURLs", (data) => {
-          const visitedURLs = data.visitedURLs || [];
-          this.isURLVisited = visitedURLs.includes(currentUrl);
+        WebActivity.checkIfURLVisited(currentUrl).then((isVisited) => {
+          this.isURLVisited = isVisited;
           this.baseUrl = currentUrl;
         });
       }
@@ -34,6 +39,8 @@ export class WebActivity {
   }
 
   keepTrack() {
+    console.log(this.baseUrl, this.isURLVisited, this.timeSpent);
+
     if (this.isExtensionDisabled || this.isWindowHidden) {
       return;
     }
@@ -41,9 +48,8 @@ export class WebActivity {
       if (tabs && tabs[0] && tabs[0].url) {
         const currentUrl = new URL(tabs[0].url).origin;
         if (this.baseUrl !== currentUrl) {
-          chrome.storage.local.get("visitedURLs", (data) => {
-            const visitedURLs = data.visitedURLs || [];
-            this.isURLVisited = visitedURLs.includes(currentUrl);
+          WebActivity.checkIfURLVisited(currentUrl).then((isVisited) => {
+            this.isURLVisited = isVisited;
             this.baseUrl = currentUrl;
             this.timeSpent = 1;
           });
@@ -51,10 +57,15 @@ export class WebActivity {
           return;
         } else if (this.timeSpent >= 30) {
           this.isURLVisited = true;
-          chrome.storage.local.get("visitedURLs", (data) => {
-            const visitedURLs = data.visitedURLs || [];
-            visitedURLs.push(this.baseUrl);
-            chrome.storage.local.set({ visitedURLs: visitedURLs });
+          WebActivity.checkIfURLVisited(this.baseUrl).then((isVisited) => {
+            if (isVisited) {
+              return;
+            }
+            chrome.storage.local.get("visitedURLs", (data) => {
+              const visitedURLs = data.visitedURLs || [];
+              visitedURLs.push(this.baseUrl);
+              chrome.storage.local.set({ visitedURLs: visitedURLs });
+            });
           });
           return;
         } else {
@@ -66,5 +77,18 @@ export class WebActivity {
 
   clear() {
     clearInterval(this.interval);
+  }
+
+  static checkIfURLVisited(url: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      chrome.storage.local.get(["visitedURLs", "taggedURLs"], (data) => {
+        const visitedURLs = data.visitedURLs || [];
+        const taggedURLs = data.taggedURLs || [];
+        resolve(
+          visitedURLs.includes(url) ||
+            taggedURLs.some((website: Website) => website.website === url)
+        );
+      });
+    });
   }
 }

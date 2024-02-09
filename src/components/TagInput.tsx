@@ -17,10 +17,15 @@ const Input = ({ label, placeholder, setPage }: InputProps) => {
 
   const handleTag = async () => {
     try {
+      const urlObject = new URL(website);
+      const visitedData = await chrome.storage.local.get("visitedURLs");
+      const visitedURLs = visitedData?.visitedURLs || [];
+      if (visitedURLs.indexOf(urlObject.origin) !== -1) {
+        visitedURLs.splice(visitedURLs.indexOf(urlObject.origin), 1);
+        await chrome.storage.local.set({ visitedURLs: visitedURLs });
+      }
       const taggedData =
         (await chrome.storage.local.get("taggedURLs"))?.taggedURLs || [];
-
-      const urlObject = new URL(website);
 
       for (let i = 0; i < taggedData.length; i++) {
         if (taggedData[i].id === urlObject.origin) {
@@ -36,13 +41,7 @@ const Input = ({ label, placeholder, setPage }: InputProps) => {
         id: urlObject.origin,
       });
       await chrome.storage.local.set({ taggedURLs: taggedData });
-
-      const visitedData = await chrome.storage.local.get("visitedURLs");
-      const visitedURLs = visitedData?.visitedURLs || [];
-      if (visitedURLs.indexOf(urlObject.origin) !== -1) {
-        visitedURLs.splice(visitedURLs.indexOf(urlObject.origin), 1);
-        await chrome.storage.local.set({ visitedURLs: visitedURLs });
-      }
+      setWebsite("");
     } catch (error) {
       console.error(error);
     }
