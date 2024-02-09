@@ -19,7 +19,7 @@
 }
 
 .switch-container.on .switch {
-  background-color: #4caf50;
+  background-color: var(--green);
 }
 
 .circle {

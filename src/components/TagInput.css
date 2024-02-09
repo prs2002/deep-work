@@ -20,42 +20,47 @@
   width: calc(100% - 80px);
   padding: 5px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--font-color);
   border-radius: 4px;
   outline: none;
 }
 
-.tag-input-field:focus {
-  border-color: #33ff00;
-}
 
 .tag-button {
-  width: 80px;
+  width: 90px;
   margin-top: 8px;
   padding: 5px 10px;
   font-size: 14px;
-  background-color: #33ff00;
-  border: none;
+  background-color: var(--green);
+  border: 1px solid var(--font-color);
   border-radius: 4px;
   cursor: pointer;
   margin-right: 1rem;
+  color: white;
 }
 
 .tag-button:hover {
-  background-color: #7cff5b;
+  background-color: var(--hover-green);
 }
 
 .show-button {
-  width: 80px;
+  width: 90px;
   margin-top: 8px;
   padding: 5px 10px;
   font-size: 14px;
-  background-color: #33ff00;
-  border: none;
+  background-color: var(--green);
+  border: 1px solid var(--font-color);
   border-radius: 4px;
   cursor: pointer;
+  margin-right: 1rem;
+  color: white;
 }
 
 .show-button:hover {
-  background-color: #7cff5b;
+  background-color: var(--hover-green);
+}
+
+.tag-input-container-select {
+  border: 1px solid var(--font-color);
+  border-radius: 4px;
 }

@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #1e1e1e;
+  background-color: var(--background-color);
 }
 
 .main-page-header {
@@ -14,14 +14,14 @@
   gap: 0.5rem;
   height: 10%;
   width: 100%;
-  background-color: #0d0d0d;
+  background-color: var(--header-color);
 }
 
 .main-page-disable-button-text {
   font-size: 1.1rem;
   font-weight: 600;
   padding-left: 0.5rem;
-  color: #33ff00;
+  color: var(--font-color);
 }
 
 .main-page-body {

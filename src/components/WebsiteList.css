@@ -26,11 +26,22 @@
 
 .website-list__row__col:first-of-type a{
   text-decoration: none;
-  color: purple;
+  color: var(--link-color);
   font-size: 1.2em;
+}
+
+.website-list__row__col:first-of-type a:hover{
+  text-decoration: underline;
 }
 
 .website-list__row__col:last-child:last-of-type {
   width: 30%;
   text-align: right;
+}
+
+.website-list__select {
+  width: 100%;
+  border: 1px solid var(--font-color);
+  border-radius: 4px;
+  outline: none;
 }

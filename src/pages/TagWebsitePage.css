@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #1e1e1e;
+  background-color: var(--background-color);
 }
 
 
@@ -14,7 +14,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  height: 15%;
+  height: 10%;
   width: 100%;
 }
 
@@ -23,6 +23,6 @@
     display: flex;
     justify-content: center;
     gap: 0.5rem;
-    height: 85%;
+    height: 90%;
     width: 100%;
 }

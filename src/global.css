@@ -1,11 +1,22 @@
+:root {
+    --background-color : #F9F6F2;
+    --font-color : #202020;
+    --green: #01a72b;
+    --hover-green: #6dc403;
+    --header-color : #E3E0DC;
+    --link-color : #0082c6
+}
+
+
+
 .container {
     height: 100%;
     width: 100%;
-    background-color: #f5f5f5;
 }
 
 
 * {
     margin: 0;
     padding: 0;
+    color: var(--font-color);
 }
