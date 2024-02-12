@@ -11,8 +11,11 @@ export default function SummaryPage({ setPage }: { setPage: any }) {
   const handleType = (e: any) => {
     const selectedType = e.target.innerText;
     setActiveNavItem(selectedType);
-    if (selectedType === "Today" || selectedType === "Daily")
+    if (selectedType === "Today")
       setType("dailyTime");
+    else if(selectedType === "Daily") {
+      setType("dailyAverage");
+    }
     else setType("webTime");
   };
 
