@@ -17,6 +17,9 @@ export default function MainPage({ setPage }: MainPageProps) {
       <div className="main-page-body">
         <Input label="Auth Key" placeholder="Enter your GPT-3.5 Auth Key" />
         <TagInput label="Tag Website" placeholder="Enter a website to tag" setPage={setPage} />
+        <button className="summary-button" onClick={() => setPage(2)}>
+          Summary
+        </button>
       </div>
     </div>
   );

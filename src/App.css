@@ -1,33 +1,10 @@
-/* .app {
-  width: 400px;
+.app {
+  width: 500px;
   height: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #1e1e1e;
-}
-.app-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  height: 10%;
-  width: 100%;
-  background-color: #0d0d0d;
+  background-color: var(--background-color);
+  overflow: auto;
 }
 
-.app-disable-button-text {
-  font-size: 1.1rem;
-  font-weight: 600;
-  padding-left: 0.5rem;
-  color: #33ff00;
+.app::-webkit-scrollbar {
+  display: none;
 }
-
-.app-body {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  height: 90%;
-  width: 100%;
-  padding: 1rem;
-} */
