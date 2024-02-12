@@ -1,9 +1,11 @@
 import { AITagging } from "./utils/AITagging";
 import { WebActivity } from "./utils/WebActivity";
+import { WebTime } from "./utils/WebTime";
 
 var isExtensionDisabled: boolean = true;
 var webActivityInstance: WebActivity | null = null;
 var isWindowHidden: boolean = false;
+var webTime: WebTime | null = null;
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.message === "visibility_changed") {
@@ -25,9 +27,13 @@ async function handleExtensionEnable() {
     isExtensionDisabled = data.isDisabled;
     if (webActivityInstance) {
       webActivityInstance.setExtensionDisabled(isExtensionDisabled);
-    }
-    else {
+    } else {
       webActivityInstance = new WebActivity(isExtensionDisabled);
+    }
+    if (webTime) {
+      webTime.setExtensionDisabled(isExtensionDisabled);
+    } else {
+      webTime = new WebTime(isWindowHidden, isExtensionDisabled);
     }
   });
 
@@ -37,27 +43,27 @@ async function handleExtensionEnable() {
         isExtensionDisabled = changes["isDisabled"].newValue;
         if (webActivityInstance) {
           webActivityInstance.setExtensionDisabled(isExtensionDisabled);
-        }
-        else {
+        } else {
           webActivityInstance = new WebActivity(isExtensionDisabled);
+        }
+        if (webTime) {
+          webTime.setExtensionDisabled(isExtensionDisabled);
+        } else {
+          webTime = new WebTime(isWindowHidden, isExtensionDisabled);
         }
       }
     }
   );
 }
 
-
 async function tagWebsite() {
-  if(isExtensionDisabled) {
+  if (isExtensionDisabled) {
     return;
   }
   await AITagging();
-};
-
+}
 
 handleExtensionEnable();
-setInterval(tagWebsite, 30000);
-
-
+setInterval(tagWebsite, 300000);
 
 export {};

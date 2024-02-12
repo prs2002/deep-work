@@ -1,5 +1,5 @@
 /*
-Class to handle time spent on a web page
+Class to store the web activity of the user
 */
 
 interface Website {
@@ -39,8 +39,6 @@ export class WebActivity {
   }
 
   keepTrack() {
-    console.log(this.baseUrl, this.isURLVisited, this.timeSpent);
-
     if (this.isExtensionDisabled || this.isWindowHidden) {
       return;
     }
