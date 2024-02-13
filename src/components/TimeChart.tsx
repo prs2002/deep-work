@@ -2,8 +2,15 @@ import { useEffect, useState } from "react";
 import "./TimeChart.css";
 import ReactEcharts from "echarts-for-react";
 
-export default function TimeChart({type} : {type: string}) {
+export default function TimeChart({ type }: { type: string }) {
   const [data, setData] = useState<any[]>([]);
+  function hhmmss(milliseconds: number) {
+    const seconds = Math.floor(milliseconds / 1000);
+    const hours = Math.floor((seconds % (3600 * 24)) / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const ss = Math.floor(seconds % 60);
+    return `${hours}h ${minutes}m ${ss}s`;
+  }
   const option = {
     series: [
       {
@@ -18,7 +25,7 @@ export default function TimeChart({type} : {type: string}) {
           show: false,
         },
         left: "-50%",
-        data: data.map((d) => ({ value: d.time, name: d.url }))
+        data: data.map((d) => ({ value: d.time, name: d.url })),
       },
     ],
     legend: {
@@ -26,6 +33,11 @@ export default function TimeChart({type} : {type: string}) {
       type: "scroll",
       orient: "vertical",
       data: data.map((d) => d.url),
+    },
+    tooltip: {
+      trigger: "item",
+      formatter: (params: any) =>
+        `${hhmmss(params.value)} (${params.percent}%)`,
     },
   };
 
@@ -36,7 +48,7 @@ export default function TimeChart({type} : {type: string}) {
         setData([]);
         return;
       }
-      
+
       setData(data);
     });
   }, [type]);
