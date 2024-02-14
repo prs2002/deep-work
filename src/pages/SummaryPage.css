@@ -1,6 +1,5 @@
 .summary-page-container {
   width: 500px;
-  height: 400px;
   background-color: var(--background-color);
 }
 
@@ -10,6 +9,7 @@
   gap: 0.5rem;
   height: 10%;
   width: 100%;
+  padding: 0.5em 0;
   background-color: var(--header-color);
 }
 
@@ -48,7 +48,7 @@
 }
 
 .back-button {
-  width: 80px;
+  min-width: 80px;
   padding: 5px 10px;
   font-size: 14px;
   background-color: var(--green);

@@ -48,7 +48,7 @@ const Input = ({ label, placeholder, setPage }: InputProps) => {
   };
 
   const handleChangePage = () => {
-    setPage(1);
+    setPage(2);
   };
 
   const handleTagChange = (event: ChangeEvent<HTMLSelectElement>) => {

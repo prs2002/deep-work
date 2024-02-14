@@ -20,14 +20,14 @@ export default function SummaryPage({ setPage }: { setPage: any }) {
   };
 
   const handlePage = () => {
-    setPage(0);
+    setPage(1);
   };
 
   return (
     <div className="summary-page-container">
       <div className="summary-page-header">
         <button className="back-button" onClick={handlePage}>
-          Back
+          Manage Extension
         </button>
       </div>
       <div className="summary-page-body">

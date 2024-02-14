@@ -1,6 +1,6 @@
 .app {
   width: 500px;
-  height: 400px;
+  height: fit-content;
   background-color: var(--background-color);
   overflow: auto;
 }
