@@ -36,8 +36,8 @@ function msToHMS(ms: number): string {
 export async function getTaggedTime(
   type: string
 ): Promise<TaggedTimeURL[] | undefined> {
-  const data: UsageData[] | null = (await chrome.storage.local.get(type))?.[
-    type
+  const data: UsageData[] | null = (await chrome.storage.local.get(type !== "dailyAverage"? type:"webTime"))?.[
+    type !== "dailyAverage"? type:"webTime"
   ];
   if (!data) {
     return;
@@ -51,6 +51,14 @@ export async function getTaggedTime(
   const result: TaggedTimeURL[] = data.map((d) => {
     return { label: d.url, time: d.time, tag: 0, value: msToHMS(d.time) };
   });
+
+  if(type === "dailyAverage"){
+    const numberOfDays: number = (await chrome.storage.local.get("numberOfDays"))?.numberOfDays || 1;
+    result.forEach((d) => {
+      d.time = d.time / numberOfDays;
+      d.value = msToHMS(d.time);
+    });
+  }
 
   if (taggedData) {
     for (const d of result) {

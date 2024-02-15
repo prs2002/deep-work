@@ -34,8 +34,8 @@ function msToHMS(ms: number): string {
 export async function calculateProductivity(
   type: string
 ): Promise<SummaryItem[] | undefined> {
-  const data: UsageData[] | null = (await chrome.storage.local.get(type))?.[
-    type
+  const data: UsageData[] | null = (await chrome.storage.local.get(type !== "dailyAverage" ? type : "webTime"))?.[
+    type !== "dailyAverage" ? type : "webTime"
   ];
   if (!data) {
     return;
@@ -46,7 +46,7 @@ export async function calculateProductivity(
     await chrome.storage.local.get("taggedURLs")
   )?.taggedURLs;
 
-  const total = data.reduce((acc: number, d: any) => acc + d.time, 0);
+  let total = data.reduce((acc: number, d: any) => acc + d.time, 0);
   // Calculate total time
 
   let productive = 0;
@@ -63,7 +63,13 @@ export async function calculateProductivity(
       }
     }
   }
-  let distracted = total - productive;
+  let distracted = total - productive;  
+  if(type === "dailyAverage") {
+    const days = (await chrome.storage.local.get("numberOfDays"))?.numberOfDays || 1;
+    total /= days;
+    productive /= days;
+    distracted /= days;
+  }
 
   return [
     {

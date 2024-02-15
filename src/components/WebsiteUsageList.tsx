@@ -22,6 +22,7 @@ export default function WebsiteUsageList({ type }: { type: string }) {
         setFilteredWebsites(data);
       }
     });
+    
   }, [type]);
 
   function handleFilter(e: React.ChangeEvent<HTMLSelectElement>) {
