@@ -1,3 +1,5 @@
+// Code to verify the API key and store it in the local storage
+
 import axios from "axios";
 
 export async function verifyAPIKey(authKey: string) : Promise<number> {
