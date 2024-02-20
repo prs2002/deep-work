@@ -1,4 +1,5 @@
 import { AITagging } from "./utils/AITagging";
+import { updateDynamicRules } from "./utils/BlockURLs";
 import { WebActivity } from "./utils/WebActivity";
 import { WebTime } from "./utils/WebTime";
 
@@ -52,6 +53,13 @@ async function handleExtensionEnable() {
           webTime = new WebTime(isWindowHidden, isExtensionDisabled);
         }
       }
+      if (changes["blockedURLs"]) {
+        const blockedURLs : string[] = changes["blockedURLs"].newValue;
+        if(blockedURLs.length === 0) {
+          blockedURLs.push("not_a_real_website_example.com");
+        }
+        updateDynamicRules(blockedURLs);
+      }
     }
   );
 }
@@ -60,10 +68,27 @@ async function tagWebsite() {
   if (isExtensionDisabled) {
     return;
   }
+  console.log("TAg");
+
   await AITagging();
 }
 
 handleExtensionEnable();
-setInterval(tagWebsite, 300000);
+setInterval(tagWebsite, 3600000);
+
+function loadData() {
+  fetch("../data/funny_lines.json").then((response) => {
+    response.json().then((data) => {
+      chrome.storage.local.set({ funnyLines: data });
+    });
+  });
+  fetch("../data/tagged_urls.json").then((response) => {
+    response.json().then((data) => {
+      chrome.storage.local.set({ preTaggedUrls: data });
+    });
+  });
+}
+
+loadData();
 
 export {};

@@ -14,9 +14,11 @@ export default function WebsiteList({ searchValue }: { searchValue: string }) {
   const [filteredWebsites, setFilteredWebsites] = useState<Website[]>([]);
   useEffect(() => {
     setFilteredWebsites(
-      websites.filter((website) =>
-        website.website.toLowerCase().includes(searchValue.toLowerCase())
-      )
+      websites.filter((website) => {
+        return website.website
+          .toLowerCase()
+          .includes(searchValue.toLowerCase());
+      })
     );
   }, [websites, searchValue]);
   useEffect(() => {
@@ -34,7 +36,6 @@ export default function WebsiteList({ searchValue }: { searchValue: string }) {
   }, [websites]);
 
   useEffect(() => {
-    
     updateWebsitesInStorage(websites);
   }, [websites]);
 
@@ -71,9 +72,9 @@ export default function WebsiteList({ searchValue }: { searchValue: string }) {
                   onChange={handleTagChange}
                 >
                   <option value="0">Untagged</option>
-                  <option value="1">Good</option>
-                  <option value="2">Bad</option>
-                  <option value="3">Dangerous</option>
+                  <option value="1">Productive</option>
+                  <option value="2">Unsure</option>
+                  <option value="3">Wasteful</option>
                 </select>
               </div>
             </div>

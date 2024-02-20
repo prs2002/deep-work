@@ -1,0 +1,41 @@
+.normal-input-container {
+    margin-bottom: 16px;
+    min-width: 300px;
+  }
+  
+  .normal-input-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  
+  .normal-input-container-inputs {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .normal-input-container-field {
+    width: calc(100% - 80px);
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid var(--font-color);
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  
+  .normal-input-container-button {
+    width: 90px;
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: var(--green);
+    border: 1px solid var(--font-color);
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .normal-input-container-button:hover {
+    background-color: var(--hover-green);
+  }

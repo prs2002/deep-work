@@ -71,9 +71,9 @@ const Input = ({ label, placeholder, setPage }: InputProps) => {
           onChange={handleTagChange}
           defaultValue="1"
         >
-          <option value="1">Good</option>
-          <option value="2">Bad</option>
-          <option value="3">Dangerous</option>
+          <option value="1">Productive</option>
+          <option value="2">Unsure</option>
+          <option value="3">Wasteful</option>
         </select>
       </div>
       <button className="tag-button" onClick={handleTag}>

@@ -1,7 +1,14 @@
+import { NudgeUser } from "./utils/NudgeUser";
+
 let lastVisibilityState = document.hidden;
+let isExtensionDisabled = false;
+let nudgeUser: NudgeUser;
 
 function sendMessageToBackground(hidden: boolean) {
   try {
+    if (isExtensionDisabled) {
+      return;
+    }
     chrome.runtime.sendMessage(
       { message: "visibility_changed", hidden: hidden },
       (response) => {
@@ -13,6 +20,42 @@ function sendMessageToBackground(hidden: boolean) {
   }
 }
 
+function setIsDisabled() {
+  chrome.storage.local.get("isDisabled", (data) => {
+    if (data === undefined) {
+      chrome.storage.local.set({ isDisabled: true });
+      isExtensionDisabled = true;
+      return;
+    }
+    isExtensionDisabled = data.isDisabled;
+    if (!nudgeUser) {
+      nudgeUser = new NudgeUser(isExtensionDisabled);
+    } else {
+      nudgeUser.setIsDisabled(isExtensionDisabled);
+    }
+  });
+  chrome.storage.onChanged.addListener(
+    async (changes: { [key: string]: chrome.storage.StorageChange }) => {
+      if (changes["isDisabled"]) {
+        isExtensionDisabled = changes["isDisabled"].newValue;
+      }
+      if (!nudgeUser) {
+        nudgeUser = new NudgeUser(isExtensionDisabled);
+      } else {
+        nudgeUser.setIsDisabled(isExtensionDisabled);
+        if(changes["promptInterval"]) {
+          nudgeUser.setPromptInterval(changes["promptInterval"].newValue);
+        }
+        if(changes["promptViolations"]) {
+          nudgeUser.setPromptViolations(changes["promptViolations"].newValue);
+        }
+      }
+    }
+  );
+}
+
+setIsDisabled();
+
 setInterval(() => {
   if (document.hidden !== lastVisibilityState) {
     lastVisibilityState = document.hidden;
@@ -21,4 +64,7 @@ setInterval(() => {
 }, 1000);
 
 sendMessageToBackground(lastVisibilityState);
+
+nudgeUser = new NudgeUser(isExtensionDisabled);
+
 export {};

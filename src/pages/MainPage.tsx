@@ -20,6 +20,12 @@ export default function MainPage({ setPage }: MainPageProps) {
         <button className="summary-button" onClick={() => setPage(0)}>
           Summary
         </button>
+        <button className="prompt-button" onClick={() => setPage(3)}>
+          Prompt Setting
+        </button>
+        <button className="prompt-button" onClick={() => setPage(4)}>
+          Block Page
+        </button>
       </div>
     </div>
   );

@@ -1,0 +1,75 @@
+.block-setting-page {
+  width: 500px;
+  height: 400px;
+  background-color: var(--background-color);
+}
+
+.block-setting-page-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 10%;
+  width: 100%;
+  padding: 0.5em 0;
+  background-color: var(--header-color);
+}
+
+.block-setting-page-back-button {
+  min-width: 80px;
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: var(--green);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  margin-left: 1rem;
+  border: 1px solid var(--font-color);
+}
+
+.block-setting-page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  height: 90%;
+  width: calc(100% - 2rem);
+  padding: 1rem 0;
+}
+
+.block-setting-page-content-website-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.block-setting-page-content-website-list .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  padding: 0.5rem 0;
+}
+
+.block-setting-page-content-website-list .row a{
+  text-decoration: none;
+  color: var(--link-color);
+  font-size: 1.2em;
+}
+.block-setting-page-content-website-list .row button{
+  min-width: 80px;
+  padding: 2px 1px;
+  font-size: 14px;
+  background-color: red;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  margin-left: 1rem;
+  border: 1px solid var(--font-color);
+}
+
