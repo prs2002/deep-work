@@ -2,20 +2,26 @@
 /******/ 	"use strict";
 var __webpack_exports__ = {};
 
-;// CONCATENATED MODULE: ./src/utils/BlockingPopUp.ts
+;// CONCATENATED MODULE: ./src/utils/CONSTANTS/constants.ts
+const grayscaleExtensionOverlayId = "grayscale-extension-overlay";
+const nonBlockingPopupId = "non-blocking-popup";
+const blockingPopupId = "blocking-popup";
+
+;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/BlockingPopUp.ts
 /*
     Function to create a blocking pop-up to nudge a user on a distracting website
 */
+
 function blockingPopUp(line) {
     return new Promise((resolve) => {
-        if (document.getElementById("blockingPopUp")) {
+        if (document.getElementById(blockingPopupId)) {
             resolve(0);
         }
         else {
             var styleElement = document.createElement("style");
-            styleElement.id = "blockingPopUp-style";
+            styleElement.id = `${blockingPopupId}-style`;
             styleElement.textContent = `
-    #blocking_popup {
+    #${blockingPopupId} {
       all: revert;
         position: absolute !important;
         left: 0 !important;
@@ -36,19 +42,19 @@ function blockingPopUp(line) {
         font-size: 16px !important;
     }
 
-    #blocking_popup * {
+    #${blockingPopupId} * {
       all: revert;
       color: black !important;
     }
 
-    .blocking_popup-content {
+    .${blockingPopupId}-content {
         text-align: center !important;
     }
 
-    .blocking_popup-content h2 {
+    .${blockingPopupId}-content h2 {
         margin-top: 0 !important;
     }
-    .blocking_popup-content #close_button {
+    .${blockingPopupId}-content #close_button {
         border-radius:10px !important;
         border:none !important;
         padding:0.75em 1.5em !important;
@@ -59,9 +65,9 @@ function blockingPopUp(line) {
 `;
             document.head.appendChild(styleElement);
             var popupDiv = document.createElement("div");
-            popupDiv.id = "blocking_popup";
+            popupDiv.id = blockingPopupId;
             popupDiv.innerHTML = `
-    <div class="blocking_popup-content">
+    <div class="${blockingPopupId}-content">
         <h2>${line}</h2>
         <p>Here's an activity to help you regain focus:</p>
         <p>Step away from your desk and take a five-minute break.</p>
@@ -113,12 +119,13 @@ function fetchFunnyLines(url) {
     });
 }
 
-;// CONCATENATED MODULE: ./src/utils/NonBlockingPopUp.ts
+;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/NonBlockingPopUp.ts
 /*
     Function to create a non-blocking pop-up to nudge a user on a distracting website
 */
+
 function nonBlockingPopUp() {
-    if (document.getElementById("non_blocking_popup")) {
+    if (document.getElementById(nonBlockingPopupId)) {
         return new Promise((resolve) => {
             resolve(0);
         });
@@ -126,9 +133,9 @@ function nonBlockingPopUp() {
     return new Promise((resolve) => {
         var _a, _b;
         var styleElement = document.createElement("style");
-        styleElement.id = "nonBlockingPopUp-style";
+        styleElement.id = `${nonBlockingPopupId}-style`;
         styleElement.textContent = `
-    #non_blocking_popup {
+    #${nonBlockingPopupId} {
       all: revert;
       position: absolute !important;
       top: 20px !important;
@@ -143,12 +150,12 @@ function nonBlockingPopUp() {
       text-align: center !important;
     }
 
-    #non_blocking_popup * {
+    #${nonBlockingPopupId} * {
       all: revert;
       color: black !important;
     }
 
-    #non_blocking_popup #agreeButton {
+    #${nonBlockingPopupId} #agreeButton {
       background-color: #4CAF50 !important;
       text-align: center !important;
       color: white !important;
@@ -162,7 +169,7 @@ function nonBlockingPopUp() {
       text-decoration: none !important;
     }
 
-    #non_blocking_popup #moreTimeButton {
+    #${nonBlockingPopupId} #moreTimeButton {
       background-color: #f44336 !important;
       text-align: center !important;
       color: white !important;
@@ -179,7 +186,7 @@ function nonBlockingPopUp() {
         document.head.appendChild(styleElement);
         const body = document.querySelector("body");
         const div = document.createElement("div");
-        div.id = "non_blocking_popup";
+        div.id = nonBlockingPopupId;
         div.innerHTML = `
       <h2>Feeling Distracted?</h2>
       <p>Would you like to go back to work?</p>
@@ -202,7 +209,7 @@ function nonBlockingPopUp() {
         (_b = document
             .getElementById("moreTimeButton")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", function () {
             var _a;
-            const nonBlockingPopUp = document.getElementById("non_blocking_popup");
+            const nonBlockingPopUp = document.getElementById(nonBlockingPopupId);
             if (nonBlockingPopUp) {
                 (_a = document.querySelector("body")) === null || _a === void 0 ? void 0 : _a.removeChild(nonBlockingPopUp);
                 document.head.removeChild(styleElement);

@@ -1909,7 +1909,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.removeSensor = exports.getSensor = exports.Sensors = void 0;
 var _id = _interopRequireDefault(__webpack_require__(244));
-var _sensors = __webpack_require__(152);
+var _sensors = __webpack_require__(772);
 var _constant = __webpack_require__(860);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 /**
@@ -1973,7 +1973,7 @@ exports.removeSensor = removeSensor;
 
 /***/ }),
 
-/***/ 152:
+/***/ 772:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -6842,7 +6842,7 @@ var SearchBar_update = injectStylesIntoStyleTag_default()(SearchBar/* default */
 
 function SearchBar_SearchBar({ searchValue, setSearchValue, setPage }) {
     const handleChangePage = () => {
-        setPage(0);
+        setPage(1);
     };
     return ((0,jsx_runtime.jsxs)("div", Object.assign({ className: "search-bar-container" }, { children: [(0,jsx_runtime.jsx)("input", { type: "text", placeholder: "Search for a website", className: "search-bar", value: searchValue, onChange: (e) => setSearchValue(e.target.value) }), (0,jsx_runtime.jsx)("button", Object.assign({ className: "page-button", onClick: handleChangePage }, { children: "Go back" }))] })));
 }

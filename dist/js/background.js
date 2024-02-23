@@ -174,67 +174,48 @@ function updateDynamicRules(blockedURLs) {
 /*
 Class to store the web activity of the user
 */
+var WebActivity_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 class WebActivity {
     constructor(isDisabled) {
-        this.baseUrl = "";
         this.isExtensionDisabled = true;
-        this.isURLVisited = false;
-        this.isWindowHidden = false;
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            if (tabs && tabs[0] && tabs[0].url) {
-                const currentUrl = new URL(tabs[0].url).origin;
-                WebActivity.checkIfURLVisited(currentUrl).then((isVisited) => {
-                    this.isURLVisited = isVisited;
-                    this.baseUrl = currentUrl;
-                });
-            }
-        });
-        this.timeSpent = 1;
-        this.interval = setInterval(this.keepTrack.bind(this), 1000);
+        this.interval = setInterval(this.keepTrack.bind(this), 10000);
         this.isExtensionDisabled = isDisabled;
     }
     setExtensionDisabled(isDisabled) {
         this.isExtensionDisabled = isDisabled;
     }
-    setWindowHidden(isHidden) {
-        this.isWindowHidden = isHidden;
-    }
     keepTrack() {
-        if (this.isExtensionDisabled || this.isWindowHidden) {
+        if (this.isExtensionDisabled) {
             return;
         }
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            if (tabs && tabs[0] && tabs[0].url) {
-                const currentUrl = new URL(tabs[0].url).origin;
-                if (this.baseUrl !== currentUrl) {
-                    WebActivity.checkIfURLVisited(currentUrl).then((isVisited) => {
-                        this.isURLVisited = isVisited;
-                        this.baseUrl = currentUrl;
-                        this.timeSpent = 1;
-                    });
-                }
-                else if (this.isURLVisited || !this.baseUrl) {
-                    return;
-                }
-                else if (this.timeSpent >= 30) {
-                    this.isURLVisited = true;
-                    WebActivity.checkIfURLVisited(this.baseUrl).then((isVisited) => {
-                        if (isVisited) {
-                            return;
-                        }
-                        chrome.storage.local.get("visitedURLs", (data) => {
+        chrome.storage.local.get(["webTime"], (data) => WebActivity_awaiter(this, void 0, void 0, function* () {
+            if (data.webTime === undefined) {
+                return;
+            }
+            const webTime = data.webTime;
+            for (let i = 0; i < webTime.length; i++) {
+                const timeSpent = webTime[i].time;
+                if (timeSpent > 30000) {
+                    const url = webTime[i].url;
+                    const visited = yield WebActivity.checkIfURLVisited(url);
+                    if (!visited) {
+                        chrome.storage.local.get(["visitedURLs"], (data) => {
                             const visitedURLs = data.visitedURLs || [];
-                            visitedURLs.push(this.baseUrl);
+                            visitedURLs.push(url);
                             chrome.storage.local.set({ visitedURLs: visitedURLs });
                         });
-                    });
-                    return;
-                }
-                else {
-                    this.timeSpent++;
+                    }
                 }
             }
-        });
+        }));
     }
     clear() {
         clearInterval(this.interval);
@@ -339,7 +320,7 @@ class WebTime {
         });
     }
     measureTime() {
-        if (this.isDisabled) {
+        if (this.isDisabled || this.baseUrl === "") {
             return;
         }
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -386,54 +367,6 @@ class WebTime {
         });
     }
 }
-// OLD CODE
-// async storeDailyAverage() { // Store the average time spent on the website for the day
-// let oldAverage =
-//   (await chrome.storage.local.get("prevDailyAverage"))?.prevDailyAverage ||
-//   []; // Average time a day before
-// let newAverage =
-//   (await chrome.storage.local.get("dailyAverage"))?.dailyAverage || []; // Average time including the current day
-// let numberOfDays =
-//   (await chrome.storage.local.get("numberOfDays"))?.numberOfDays || 1; // Number of days the user has been active
-// const date = new Date();
-// const dateString = date.toDateString(); // Get the current date
-// const oldDate = (await chrome.storage.local.get("today"))?.today || ""; // Get the last date the user was active
-// if (oldDate !== dateString) {
-//   await this.setNewDay();
-//   oldAverage = newAverage;
-//   newAverage = [];
-// }
-// const oldTime = oldAverage.find((element: any) => { // Find the average time for the current website calculated a day before
-//   return element.url === this.baseUrl;
-// });
-// if (oldTime) {
-//   for (let i = 0; i < newAverage.length; i++) {
-//     if (newAverage[i].url === this.baseUrl) {
-//       newAverage[i].time =
-//         (numberOfDays - 1) * oldTime.time + this.getTimeSpent();
-//       newAverage[i].time /= numberOfDays;
-//       await chrome.storage.local.set({ dailyAverage: newAverage });
-//       return;
-//     }
-//   }
-// } else {
-//   for (let i = 0; i < newAverage.length; i++) {
-//     if (newAverage[i].url === this.baseUrl) {
-//       newAverage[i].time *= numberOfDays;
-//       newAverage[i].time += this.getTimeSpent();
-//       newAverage[i].time /= numberOfDays;
-//       await chrome.storage.local.set({ dailyAverage: newAverage });
-//       return;
-//     }
-//   }
-// }
-// newAverage.push({
-//   url: this.baseUrl,
-//   time: this.getTimeSpent() / numberOfDays,
-// });
-// await chrome.storage.local.set({ dailyAverage: newAverage });
-// return;
-// }
 
 ;// CONCATENATED MODULE: ./src/background.ts
 var background_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -456,8 +389,8 @@ var webTime = null;
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.message === "visibility_changed") {
         isWindowHidden = request.hidden;
-        if (webActivityInstance) {
-            webActivityInstance.setWindowHidden(isWindowHidden);
+        if (webTime) {
+            webTime.setWindowHidden(isWindowHidden);
         }
     }
     sendResponse({ message: "received" });
@@ -515,12 +448,11 @@ function tagWebsite() {
         if (isExtensionDisabled) {
             return;
         }
-        console.log("TAg");
         yield AITagging();
     });
 }
 handleExtensionEnable();
-setInterval(tagWebsite, 3600000);
+setInterval(tagWebsite, 300000); // 5 minutes
 function loadData() {
     fetch("../data/funny_lines.json").then((response) => {
         response.json().then((data) => {

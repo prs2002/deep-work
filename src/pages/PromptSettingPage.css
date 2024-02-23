@@ -7,10 +7,8 @@
 .prompt-setting-page-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
   height: 10%;
   width: 100%;
-  padding: 0.5em 0;
   background-color: var(--header-color);
 }
 
@@ -33,7 +31,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  height: 90%;
+  height: calc(90% - 2rem);
   width: calc(100% - 2rem);
   padding: 1rem 0;
 }

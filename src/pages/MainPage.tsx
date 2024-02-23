@@ -26,6 +26,9 @@ export default function MainPage({ setPage }: MainPageProps) {
         <button className="prompt-button" onClick={() => setPage(4)}>
           Block Page
         </button>
+        <button className="prompt-button" onClick={() => setPage(5)}>
+          Achievement Page
+        </button>
       </div>
     </div>
   );
