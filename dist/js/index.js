@@ -1909,7 +1909,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.removeSensor = exports.getSensor = exports.Sensors = void 0;
 var _id = _interopRequireDefault(__webpack_require__(244));
-var _sensors = __webpack_require__(772);
+var _sensors = __webpack_require__(152);
 var _constant = __webpack_require__(860);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 /**
@@ -1973,7 +1973,7 @@ exports.removeSensor = removeSensor;
 
 /***/ }),
 
-/***/ 772:
+/***/ 152:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -125232,7 +125232,44 @@ var PromptSettingPage_update = injectStylesIntoStyleTag_default()(PromptSettingP
 
        /* harmony default export */ const pages_PromptSettingPage = (PromptSettingPage/* default */.c && PromptSettingPage/* default */.c.locals ? PromptSettingPage/* default */.c.locals : undefined);
 
+;// CONCATENATED MODULE: ./src/utils/chrome_api_utils/getCurrentWebsite.ts
+var getCurrentWebsite_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+function getCurrentWebsite() {
+    return getCurrentWebsite_awaiter(this, void 0, void 0, function* () {
+        const [tab] = yield chrome.tabs.query({ active: true, currentWindow: true });
+        if (!tab) {
+            return "";
+        }
+        try {
+            const url = new URL(tab.url || "");
+            return url.origin;
+        }
+        catch (e) {
+            console.log(e);
+            return "";
+        }
+    });
+}
+
 ;// CONCATENATED MODULE: ./src/pages/PromptSettingPage.tsx
+var PromptSettingPage_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
 
 
 
@@ -125244,12 +125281,27 @@ function PromptSettingPage_PromptSettingPage({ setPage }) {
         setPage(1);
     };
     (0,react.useEffect)(() => {
-        chrome.storage.local.get("promptInterval", (data) => {
-            setPromptInterval(data.promptInterval);
-        });
-        chrome.storage.local.get("promptViolations", (data) => {
-            setPromptViolations(data.promptViolations);
-        });
+        chrome.storage.local.get("promptParameters", (data) => PromptSettingPage_awaiter(this, void 0, void 0, function* () {
+            const currentWebsite = yield getCurrentWebsite();
+            let promptParameters = data.promptParameters;
+            if (!promptParameters) {
+                yield chrome.storage.local.set({ promptParameters: {} });
+                promptParameters = {};
+            }
+            if (!promptParameters[currentWebsite]) {
+                promptParameters[currentWebsite] = {
+                    promptInterval: 180,
+                    promptViolations: 5,
+                };
+                setPromptInterval("180");
+                setPromptViolations("5");
+                yield chrome.storage.local.set({ promptParameters: promptParameters });
+            }
+            else {
+                setPromptInterval(promptParameters[currentWebsite].promptInterval);
+                setPromptViolations(promptParameters[currentWebsite].promptViolations);
+            }
+        }));
     }, []);
     const saveViolations = (input) => {
         if (isNaN(Number(input)) || input === "" || parseInt(input) <= 0) {
@@ -125257,7 +125309,12 @@ function PromptSettingPage_PromptSettingPage({ setPage }) {
             return;
         }
         setPromptViolations(parseInt(input).toString());
-        chrome.storage.local.set({ promptViolations: parseInt(input) });
+        chrome.storage.local.get("promptParameters", (data) => PromptSettingPage_awaiter(this, void 0, void 0, function* () {
+            const currentWebsite = yield getCurrentWebsite();
+            const promptParameters = data.promptParameters;
+            promptParameters[currentWebsite].promptViolations = parseInt(input);
+            chrome.storage.local.set({ promptParameters: promptParameters });
+        }));
     };
     const saveInterval = (input) => {
         if (isNaN(Number(input)) || input === "" || parseInt(input) <= 0) {
@@ -125265,9 +125322,14 @@ function PromptSettingPage_PromptSettingPage({ setPage }) {
             return;
         }
         setPromptInterval(parseInt(input).toString());
-        chrome.storage.local.set({ promptInterval: parseInt(input) });
+        chrome.storage.local.get("promptParameters", (data) => PromptSettingPage_awaiter(this, void 0, void 0, function* () {
+            const currentWebsite = yield getCurrentWebsite();
+            const promptParameters = data.promptParameters;
+            promptParameters[currentWebsite].promptInterval = parseInt(input);
+            chrome.storage.local.set({ promptParameters: promptParameters });
+        }));
     };
-    return ((0,jsx_runtime.jsxs)("div", Object.assign({ className: "prompt-setting-page" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ className: "prompt-setting-page-header" }, { children: (0,jsx_runtime.jsx)("button", Object.assign({ className: "prompt-setting-page-back-button", onClick: handlePage }, { children: "Back" })) })), (0,jsx_runtime.jsxs)("div", Object.assign({ className: "prompt-setting-page-content" }, { children: [(0,jsx_runtime.jsx)(src_components_Input_0, { buttonText: "Save", label: "Enter interval (in seconds)", placeholder: "Enter the interval between the prompts", handleInput: saveInterval, input: promptInterval, setInput: setPromptInterval }), (0,jsx_runtime.jsx)(src_components_Input_0, { buttonText: "Save", label: "Enter number of violations", placeholder: "Enter number of violations after which the prompts will stop", handleInput: saveViolations, input: promptViolations, setInput: setPromptViolations })] }))] })));
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ className: "prompt-setting-page" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ className: "prompt-setting-page-header" }, { children: (0,jsx_runtime.jsx)("button", Object.assign({ className: "prompt-setting-page-back-button", onClick: handlePage }, { children: "Back" })) })), (0,jsx_runtime.jsxs)("div", Object.assign({ className: "prompt-setting-page-content" }, { children: [(0,jsx_runtime.jsx)(src_components_Input_0, { buttonText: "Save", label: "Enter interval (in seconds) for this website", placeholder: "Enter the interval between the prompts", handleInput: saveInterval, input: promptInterval, setInput: setPromptInterval }), (0,jsx_runtime.jsx)(src_components_Input_0, { buttonText: "Save", label: "Enter number of violations for this website", placeholder: "Enter number of violations after which the prompts will stop", handleInput: saveViolations, input: promptViolations, setInput: setPromptViolations })] }))] })));
 }
 
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./src/pages/BlockPage.css

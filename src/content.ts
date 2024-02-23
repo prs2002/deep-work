@@ -43,11 +43,17 @@ function setIsDisabled() {
         nudgeUser = new NudgeUser(isExtensionDisabled);
       } else {
         nudgeUser.setIsDisabled(isExtensionDisabled);
-        if(changes["promptInterval"]) {
-          nudgeUser.setPromptInterval(changes["promptInterval"].newValue);
-        }
-        if(changes["promptViolations"]) {
-          nudgeUser.setPromptViolations(changes["promptViolations"].newValue);
+        if (changes["promptParameters"]) {
+          const currentURL = window.location.origin;
+          const promptParameters = changes["promptParameters"].newValue;
+          if (promptParameters[currentURL]) {
+            nudgeUser.setPromptViolations(
+              promptParameters[currentURL].promptViolations
+            );
+            nudgeUser.setPromptInterval(
+              promptParameters[currentURL].promptInterval
+            );
+          }
         }
       }
     }

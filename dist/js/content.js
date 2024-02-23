@@ -238,8 +238,8 @@ var NudgeUser_awaiter = (undefined && undefined.__awaiter) || function (thisArg,
 class NudgeUser {
     constructor(isExtensionDisabled) {
         this.tag = -1;
-        this.violationsLimit = 3;
-        this.promptINTERVAL = 10;
+        this.violationsLimit = 5;
+        this.promptINTERVAL = 180;
         this.violations = 0;
         this.website = window.location.origin;
         this.isExtensionDisabled = isExtensionDisabled;
@@ -255,28 +255,32 @@ class NudgeUser {
                 }
             }
         });
-        chrome.storage.local.get("promptInterval", (result) => {
-            if (result.promptInterval) {
-                this.promptINTERVAL = result.promptInterval;
+        chrome.storage.local.get("promptParameters", (result) => NudgeUser_awaiter(this, void 0, void 0, function* () {
+            if (result.promptParameters) {
+                const promptParameters = result.promptParameters;
+                if (promptParameters[this.website]) {
+                    this.promptINTERVAL = promptParameters[this.website].promptInterval;
+                    this.violationsLimit =
+                        promptParameters[this.website].promptViolations;
+                }
+                else {
+                    promptParameters[this.website] = {
+                        promptInterval: 180,
+                        promptViolations: 5,
+                    };
+                    yield chrome.storage.local.set({
+                        promptParameters: promptParameters,
+                    });
+                }
+                this.interval = setInterval(() => {
+                    this.nudgeUser();
+                }, this.promptINTERVAL * 1000);
             }
-            else {
-                chrome.storage.local.set({ promptInterval: this.promptINTERVAL });
-            }
-            this.interval = setInterval(() => {
-                this.nudgeUser();
-            }, this.promptINTERVAL * 1000);
-        });
-        chrome.storage.local.get("promptViolations", (result) => {
-            if (result.promptViolations) {
-                this.violationsLimit = result.promptViolations;
-            }
-            else {
-                chrome.storage.local.set({ promptViolations: this.violationsLimit });
-            }
-        });
+        }));
     }
     nudgeUser() {
         return NudgeUser_awaiter(this, void 0, void 0, function* () {
+            console.log(this.interval, this.violationsLimit);
             if (this.tag === -1 || this.tag === 1 || this.isExtensionDisabled) {
                 return;
             }
@@ -293,6 +297,8 @@ class NudgeUser {
         this.isExtensionDisabled = disabled;
     }
     setPromptInterval(interval) {
+        if (interval === this.promptINTERVAL)
+            return;
         this.promptINTERVAL = interval;
         clearInterval(this.interval);
         this.interval = setInterval(() => {
@@ -300,6 +306,8 @@ class NudgeUser {
         }, this.promptINTERVAL * 1000);
     }
     setPromptViolations(violations) {
+        if (violations === this.violationsLimit)
+            return;
         this.violationsLimit = violations;
     }
 }
@@ -355,11 +363,13 @@ function setIsDisabled() {
         }
         else {
             nudgeUser.setIsDisabled(isExtensionDisabled);
-            if (changes["promptInterval"]) {
-                nudgeUser.setPromptInterval(changes["promptInterval"].newValue);
-            }
-            if (changes["promptViolations"]) {
-                nudgeUser.setPromptViolations(changes["promptViolations"].newValue);
+            if (changes["promptParameters"]) {
+                const currentURL = window.location.origin;
+                const promptParameters = changes["promptParameters"].newValue;
+                if (promptParameters[currentURL]) {
+                    nudgeUser.setPromptViolations(promptParameters[currentURL].promptViolations);
+                    nudgeUser.setPromptInterval(promptParameters[currentURL].promptInterval);
+                }
             }
         }
     }));

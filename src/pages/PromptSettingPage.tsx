@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Input from "../components/Input";
 import "./PromptSettingPage.css";
+import { getCurrentWebsite } from "../utils/chrome_api_utils/getCurrentWebsite";
 
 interface TagWebsitePageProps {
   setPage: (page: number) => void;
@@ -12,13 +13,26 @@ export default function PromptSettingPage({ setPage }: TagWebsitePageProps) {
   const handlePage = () => {
     setPage(1);
   };
-
   useEffect(() => {
-    chrome.storage.local.get("promptInterval", (data) => {
-      setPromptInterval(data.promptInterval);
-    });
-    chrome.storage.local.get("promptViolations", (data) => {
-      setPromptViolations(data.promptViolations);
+    chrome.storage.local.get("promptParameters", async (data) => {
+      const currentWebsite = await getCurrentWebsite();
+      let promptParameters = data.promptParameters;
+      if (!promptParameters) {
+        await chrome.storage.local.set({ promptParameters: {} });
+        promptParameters = {};
+      }
+      if (!promptParameters[currentWebsite]) {
+        promptParameters[currentWebsite] = {
+          promptInterval: 180,
+          promptViolations: 5,
+        };
+        setPromptInterval("180");
+        setPromptViolations("5");
+        await chrome.storage.local.set({ promptParameters: promptParameters });
+      } else {
+        setPromptInterval(promptParameters[currentWebsite].promptInterval);
+        setPromptViolations(promptParameters[currentWebsite].promptViolations);
+      }
     });
   }, []);
 
@@ -28,7 +42,12 @@ export default function PromptSettingPage({ setPage }: TagWebsitePageProps) {
       return;
     }
     setPromptViolations(parseInt(input).toString());
-    chrome.storage.local.set({ promptViolations: parseInt(input) });
+    chrome.storage.local.get("promptParameters", async (data) => {
+      const currentWebsite = await getCurrentWebsite();
+      const promptParameters = data.promptParameters;
+      promptParameters[currentWebsite].promptViolations = parseInt(input);
+      chrome.storage.local.set({ promptParameters: promptParameters });
+    });
   };
 
   const saveInterval = (input: string) => {
@@ -37,7 +56,12 @@ export default function PromptSettingPage({ setPage }: TagWebsitePageProps) {
       return;
     }
     setPromptInterval(parseInt(input).toString());
-    chrome.storage.local.set({ promptInterval: parseInt(input) });
+    chrome.storage.local.get("promptParameters", async (data) => {
+      const currentWebsite = await getCurrentWebsite();
+      const promptParameters = data.promptParameters;
+      promptParameters[currentWebsite].promptInterval = parseInt(input);
+      chrome.storage.local.set({ promptParameters: promptParameters });
+    });
   };
 
   return (
@@ -53,7 +77,7 @@ export default function PromptSettingPage({ setPage }: TagWebsitePageProps) {
       <div className="prompt-setting-page-content">
         <Input
           buttonText="Save"
-          label="Enter interval (in seconds)"
+          label="Enter interval (in seconds) for this website"
           placeholder="Enter the interval between the prompts"
           handleInput={saveInterval}
           input={promptInterval}
@@ -61,7 +85,7 @@ export default function PromptSettingPage({ setPage }: TagWebsitePageProps) {
         ></Input>
         <Input
           buttonText="Save"
-          label="Enter number of violations"
+          label="Enter number of violations for this website"
           placeholder="Enter number of violations after which the prompts will stop"
           handleInput={saveViolations}
           input={promptViolations}

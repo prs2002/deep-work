@@ -18,8 +18,8 @@ export class NudgeUser {
   tag: number = -1;
   interval: NodeJS.Timer | undefined;
   isExtensionDisabled: boolean;
-  violationsLimit: number = 3;
-  promptINTERVAL: number = 10;
+  violationsLimit: number = 5;
+  promptINTERVAL: number = 180;
   constructor(isExtensionDisabled: boolean) {
     this.violations = 0;
     this.website = window.location.origin;
@@ -37,30 +37,36 @@ export class NudgeUser {
         }
       }
     });
-    chrome.storage.local.get("promptInterval", (result) => {
-      if (result.promptInterval) {
-        this.promptINTERVAL = result.promptInterval;
-      } else {
-        chrome.storage.local.set({ promptInterval: this.promptINTERVAL });
-      }
-      this.interval = setInterval(() => {
-        this.nudgeUser();
-      }, this.promptINTERVAL * 1000);
-    });
-    chrome.storage.local.get("promptViolations", (result) => {
-      if (result.promptViolations) {
-        this.violationsLimit = result.promptViolations;
-      } else {
-        chrome.storage.local.set({ promptViolations: this.violationsLimit });
+    chrome.storage.local.get("promptParameters", async (result) => {
+      if (result.promptParameters) {
+        const promptParameters = result.promptParameters;
+        if (promptParameters[this.website]) {
+          this.promptINTERVAL = promptParameters[this.website].promptInterval;
+          this.violationsLimit =
+            promptParameters[this.website].promptViolations;
+        } else {
+          promptParameters[this.website] = {
+            promptInterval: 180,
+            promptViolations: 5,
+          };
+          await chrome.storage.local.set({
+            promptParameters: promptParameters,
+          });
+        }
+        this.interval = setInterval(() => {
+          this.nudgeUser();
+        }, this.promptINTERVAL * 1000);
       }
     });
   }
   async nudgeUser() {
+    console.log(this.interval, this.violationsLimit);
+
     if (this.tag === -1 || this.tag === 1 || this.isExtensionDisabled) {
       return;
     }
     if (this.violations >= this.violationsLimit) {
-      const line : string = await fetchFunnyLines(this.website);
+      const line: string = await fetchFunnyLines(this.website);
       blockingPopUp(line);
       clearInterval(this.interval);
       return;
@@ -73,6 +79,7 @@ export class NudgeUser {
   }
 
   setPromptInterval(interval: number) {
+    if (interval === this.promptINTERVAL) return;
     this.promptINTERVAL = interval;
     clearInterval(this.interval);
     this.interval = setInterval(() => {
@@ -80,6 +87,7 @@ export class NudgeUser {
     }, this.promptINTERVAL * 1000);
   }
   setPromptViolations(violations: number) {
+    if (violations === this.violationsLimit) return;
     this.violationsLimit = violations;
   }
 }
