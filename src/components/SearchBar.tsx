@@ -9,7 +9,7 @@ interface SearchBarProps {
 export default function SearchBar({searchValue, setSearchValue, setPage} : SearchBarProps) {
 
   const handleChangePage = () => {
-    setPage(0);
+    setPage(1);
   };
 
   return (

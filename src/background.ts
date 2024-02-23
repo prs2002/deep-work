@@ -11,8 +11,8 @@ var webTime: WebTime | null = null;
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.message === "visibility_changed") {
     isWindowHidden = request.hidden;
-    if (webActivityInstance) {
-      webActivityInstance.setWindowHidden(isWindowHidden);
+    if (webTime) {
+      webTime.setWindowHidden(isWindowHidden);
     }
   }
   sendResponse({ message: "received" });
@@ -68,13 +68,11 @@ async function tagWebsite() {
   if (isExtensionDisabled) {
     return;
   }
-  console.log("TAg");
-
   await AITagging();
 }
 
 handleExtensionEnable();
-setInterval(tagWebsite, 3600000);
+setInterval(tagWebsite, 300000); // 5 minutes
 
 function loadData() {
   fetch("../data/funny_lines.json").then((response) => {

@@ -4,7 +4,7 @@ import "./SummaryPage.css";
 import UsageSummary from "../components/UsageSummary";
 import WebsiteUsageList from "../components/WebsiteUsageList";
 
-export default function SummaryPage({ setPage }: { setPage: any }) {
+export default function SummaryPage({ setPage }: { setPage: (page: number) => void }) {
   const [type, setType] = useState<string>("dailyTime");
   const [activeNavItem, setActiveNavItem] = useState<string>("Today");
 

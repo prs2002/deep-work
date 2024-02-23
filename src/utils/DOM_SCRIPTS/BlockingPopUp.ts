@@ -2,15 +2,17 @@
     Function to create a blocking pop-up to nudge a user on a distracting website
 */
 
+import { blockingPopupId as id } from "../CONSTANTS/constants";
+
 export function blockingPopUp(line: string): Promise<number> {
   return new Promise((resolve) => {
-    if (document.getElementById("blockingPopUp")) {
+    if (document.getElementById(id)) {
       resolve(0);
     } else {
       var styleElement = document.createElement("style");
-      styleElement.id = "blockingPopUp-style";
+      styleElement.id = `${id}-style`;
       styleElement.textContent = `
-    #blocking_popup {
+    #${id} {
       all: revert;
         position: absolute !important;
         left: 0 !important;
@@ -31,19 +33,19 @@ export function blockingPopUp(line: string): Promise<number> {
         font-size: 16px !important;
     }
 
-    #blocking_popup * {
+    #${id} * {
       all: revert;
       color: black !important;
     }
 
-    .blocking_popup-content {
+    .${id}-content {
         text-align: center !important;
     }
 
-    .blocking_popup-content h2 {
+    .${id}-content h2 {
         margin-top: 0 !important;
     }
-    .blocking_popup-content #close_button {
+    .${id}-content #close_button {
         border-radius:10px !important;
         border:none !important;
         padding:0.75em 1.5em !important;
@@ -56,10 +58,10 @@ export function blockingPopUp(line: string): Promise<number> {
       document.head.appendChild(styleElement);
       var popupDiv = document.createElement("div");
 
-      popupDiv.id = "blocking_popup";
+      popupDiv.id = id;
 
       popupDiv.innerHTML = `
-    <div class="blocking_popup-content">
+    <div class="${id}-content">
         <h2>${line}</h2>
         <p>Here's an activity to help you regain focus:</p>
         <p>Step away from your desk and take a five-minute break.</p>

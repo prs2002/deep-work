@@ -9,24 +9,10 @@ interface Website {
 }
 
 export class WebActivity {
-  baseUrl: string = "";
-  timeSpent: number;
   interval: NodeJS.Timeout;
   isExtensionDisabled: boolean = true;
-  isURLVisited: boolean = false;
-  isWindowHidden: boolean = false;
   constructor(isDisabled: boolean) {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs && tabs[0] && tabs[0].url) {
-        const currentUrl = new URL(tabs[0].url).origin;
-        WebActivity.checkIfURLVisited(currentUrl).then((isVisited) => {
-          this.isURLVisited = isVisited;
-          this.baseUrl = currentUrl;
-        });
-      }
-    });
-    this.timeSpent = 1;
-    this.interval = setInterval(this.keepTrack.bind(this), 1000);
+    this.interval = setInterval(this.keepTrack.bind(this), 10000);
     this.isExtensionDisabled = isDisabled;
   }
 
@@ -34,40 +20,29 @@ export class WebActivity {
     this.isExtensionDisabled = isDisabled;
   }
 
-  setWindowHidden(isHidden: boolean) {
-    this.isWindowHidden = isHidden;
-  }
-
   keepTrack() {
-    if (this.isExtensionDisabled || this.isWindowHidden) {
+    if (this.isExtensionDisabled) {
       return;
     }
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs && tabs[0] && tabs[0].url) {
-        const currentUrl = new URL(tabs[0].url).origin;
-        if (this.baseUrl !== currentUrl) {
-          WebActivity.checkIfURLVisited(currentUrl).then((isVisited) => {
-            this.isURLVisited = isVisited;
-            this.baseUrl = currentUrl;
-            this.timeSpent = 1;
-          });
-        } else if (this.isURLVisited || !this.baseUrl) {
-          return;
-        } else if (this.timeSpent >= 30) {
-          this.isURLVisited = true;
-          WebActivity.checkIfURLVisited(this.baseUrl).then((isVisited) => {
-            if (isVisited) {
-              return;
-            }
-            chrome.storage.local.get("visitedURLs", (data) => {
+
+    chrome.storage.local.get(["webTime"], async (data) => {
+      if (data.webTime === undefined) {
+        return;
+      }
+      const webTime = data.webTime;
+      for (let i = 0; i < webTime.length; i++) {
+        const timeSpent = webTime[i].time;
+
+        if (timeSpent > 30000) {
+          const url = webTime[i].url;
+          const visited = await WebActivity.checkIfURLVisited(url);
+          if (!visited) {
+            chrome.storage.local.get(["visitedURLs"], (data) => {
               const visitedURLs = data.visitedURLs || [];
-              visitedURLs.push(this.baseUrl);
+              visitedURLs.push(url);
               chrome.storage.local.set({ visitedURLs: visitedURLs });
             });
-          });
-          return;
-        } else {
-          this.timeSpent++;
+          }
         }
       }
     });

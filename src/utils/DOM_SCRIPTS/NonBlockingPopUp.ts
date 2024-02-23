@@ -2,17 +2,19 @@
     Function to create a non-blocking pop-up to nudge a user on a distracting website
 */
 
+import { nonBlockingPopupId as id } from "../CONSTANTS/constants";
+
 export function nonBlockingPopUp(): Promise<number> {
-  if (document.getElementById("non_blocking_popup")) {
+  if (document.getElementById(id)) {
     return new Promise((resolve) => {
       resolve(0);
     });
   }
   return new Promise((resolve) => {
     var styleElement = document.createElement("style");
-    styleElement.id = "nonBlockingPopUp-style";
+    styleElement.id = `${id}-style`;
     styleElement.textContent = `
-    #non_blocking_popup {
+    #${id} {
       all: revert;
       position: absolute !important;
       top: 20px !important;
@@ -27,12 +29,12 @@ export function nonBlockingPopUp(): Promise<number> {
       text-align: center !important;
     }
 
-    #non_blocking_popup * {
+    #${id} * {
       all: revert;
       color: black !important;
     }
 
-    #non_blocking_popup #agreeButton {
+    #${id} #agreeButton {
       background-color: #4CAF50 !important;
       text-align: center !important;
       color: white !important;
@@ -46,7 +48,7 @@ export function nonBlockingPopUp(): Promise<number> {
       text-decoration: none !important;
     }
 
-    #non_blocking_popup #moreTimeButton {
+    #${id} #moreTimeButton {
       background-color: #f44336 !important;
       text-align: center !important;
       color: white !important;
@@ -64,7 +66,7 @@ export function nonBlockingPopUp(): Promise<number> {
     document.head.appendChild(styleElement);
     const body = document.querySelector("body");
     const div = document.createElement("div");
-    div.id = "non_blocking_popup";
+    div.id = id;
     div.innerHTML = `
       <h2>Feeling Distracted?</h2>
       <p>Would you like to go back to work?</p>
@@ -92,7 +94,7 @@ export function nonBlockingPopUp(): Promise<number> {
     document
       .getElementById("moreTimeButton")
       ?.addEventListener("click", function () {
-        const nonBlockingPopUp = document.getElementById("non_blocking_popup");
+        const nonBlockingPopUp = document.getElementById(id);
         if (nonBlockingPopUp) {
           document.querySelector("body")?.removeChild(nonBlockingPopUp);
           document.head.removeChild(styleElement);
@@ -101,4 +103,3 @@ export function nonBlockingPopUp(): Promise<number> {
       });
   });
 }
-

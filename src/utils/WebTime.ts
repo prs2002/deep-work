@@ -83,7 +83,7 @@ export class WebTime {
   }
 
   measureTime() {
-    if (this.isDisabled) {
+    if (this.isDisabled || this.baseUrl === "") {
       return;
     }
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -129,53 +129,3 @@ export class WebTime {
   }
 }
 
-// OLD CODE
-
-// async storeDailyAverage() { // Store the average time spent on the website for the day
-// let oldAverage =
-//   (await chrome.storage.local.get("prevDailyAverage"))?.prevDailyAverage ||
-//   []; // Average time a day before
-// let newAverage =
-//   (await chrome.storage.local.get("dailyAverage"))?.dailyAverage || []; // Average time including the current day
-
-// let numberOfDays =
-//   (await chrome.storage.local.get("numberOfDays"))?.numberOfDays || 1; // Number of days the user has been active
-// const date = new Date();
-// const dateString = date.toDateString(); // Get the current date
-// const oldDate = (await chrome.storage.local.get("today"))?.today || ""; // Get the last date the user was active
-// if (oldDate !== dateString) {
-//   await this.setNewDay();
-//   oldAverage = newAverage;
-//   newAverage = [];
-// }
-// const oldTime = oldAverage.find((element: any) => { // Find the average time for the current website calculated a day before
-//   return element.url === this.baseUrl;
-// });
-// if (oldTime) {
-//   for (let i = 0; i < newAverage.length; i++) {
-//     if (newAverage[i].url === this.baseUrl) {
-//       newAverage[i].time =
-//         (numberOfDays - 1) * oldTime.time + this.getTimeSpent();
-//       newAverage[i].time /= numberOfDays;
-//       await chrome.storage.local.set({ dailyAverage: newAverage });
-//       return;
-//     }
-//   }
-// } else {
-//   for (let i = 0; i < newAverage.length; i++) {
-//     if (newAverage[i].url === this.baseUrl) {
-//       newAverage[i].time *= numberOfDays;
-//       newAverage[i].time += this.getTimeSpent();
-//       newAverage[i].time /= numberOfDays;
-//       await chrome.storage.local.set({ dailyAverage: newAverage });
-//       return;
-//     }
-//   }
-// }
-// newAverage.push({
-//   url: this.baseUrl,
-//   time: this.getTimeSpent() / numberOfDays,
-// });
-// await chrome.storage.local.set({ dailyAverage: newAverage });
-// return;
-// }

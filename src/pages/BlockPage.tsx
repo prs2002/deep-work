@@ -3,7 +3,7 @@ import Input from "../components/Input";
 import "./BlockPage.css";
 
 interface BlockPageProps {
-  setPage: any;
+  setPage: (page: number) => void;
 }
 
 export default function BlockPage({ setPage }: BlockPageProps) {

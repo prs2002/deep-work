@@ -2,9 +2,9 @@
 Function to nudge a user by non blocking prompt on a distracting website
  */
 
-import { blockingPopUp } from "./BlockingPopUp";
+import { blockingPopUp } from "./DOM_SCRIPTS/BlockingPopUp";
 import { fetchFunnyLines } from "./FetchFunnyLines";
-import { nonBlockingPopUp } from "./NonBlockingPopUp";
+import { nonBlockingPopUp } from "./DOM_SCRIPTS/NonBlockingPopUp";
 
 interface TaggedURL {
   id: string;
