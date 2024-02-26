@@ -119,12 +119,42 @@ function fetchFunnyLines(url) {
     });
 }
 
+;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/AddGrayscale.ts
+
+function addGrayscale(percentage = 10) {
+    if (document.getElementById(grayscaleExtensionOverlayId)) {
+        removeGrayscale();
+    }
+    const div = document.createElement("div");
+    div.id = grayscaleExtensionOverlayId;
+    let sheet = new CSSStyleSheet();
+    sheet.replaceSync(`#${grayscaleExtensionOverlayId} {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 100vw;
+                z-index: 9999999999;    
+                pointer-events: none;    
+                backdrop-filter: grayscale(${percentage}%);
+            }`);
+    document.adoptedStyleSheets = [sheet];
+    document.body.appendChild(div);
+}
+function removeGrayscale() {
+    const div = document.getElementById(grayscaleExtensionOverlayId);
+    if (div) {
+        div.remove();
+    }
+}
+
 ;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/NonBlockingPopUp.ts
 /*
     Function to create a non-blocking pop-up to nudge a user on a distracting website
 */
 
-function nonBlockingPopUp() {
+
+function nonBlockingPopUp(grayScalePercentage) {
     if (document.getElementById(nonBlockingPopupId)) {
         return new Promise((resolve) => {
             resolve(0);
@@ -132,6 +162,7 @@ function nonBlockingPopUp() {
     }
     return new Promise((resolve) => {
         var _a, _b;
+        addGrayscale(grayScalePercentage);
         var styleElement = document.createElement("style");
         styleElement.id = `${nonBlockingPopupId}-style`;
         styleElement.textContent = `
@@ -240,6 +271,7 @@ class NudgeUser {
         this.tag = -1;
         this.violationsLimit = 5;
         this.promptINTERVAL = 180;
+        this.grayScalePercentage = 20;
         this.violations = 0;
         this.website = window.location.origin;
         this.isExtensionDisabled = isExtensionDisabled;
@@ -272,6 +304,7 @@ class NudgeUser {
                         promptParameters: promptParameters,
                     });
                 }
+                this.grayScalePercentage = 100 / this.violationsLimit;
                 this.interval = setInterval(() => {
                     this.nudgeUser();
                 }, this.promptINTERVAL * 1000);
@@ -290,7 +323,11 @@ class NudgeUser {
                 clearInterval(this.interval);
                 return;
             }
-            this.violations += yield nonBlockingPopUp();
+            const violated = yield nonBlockingPopUp(this.grayScalePercentage);
+            if (violated) {
+                this.violations++;
+                this.grayScalePercentage += 100 / this.violationsLimit;
+            }
         });
     }
     setIsDisabled(disabled) {

@@ -3,14 +3,16 @@
 */
 
 import { nonBlockingPopupId as id } from "../CONSTANTS/constants";
+import { addGrayscale } from "./AddGrayscale";
 
-export function nonBlockingPopUp(): Promise<number> {
+export function nonBlockingPopUp(grayScalePercentage : number): Promise<number> {
   if (document.getElementById(id)) {
     return new Promise((resolve) => {
       resolve(0);
     });
   }
   return new Promise((resolve) => {
+    addGrayscale(grayScalePercentage);
     var styleElement = document.createElement("style");
     styleElement.id = `${id}-style`;
     styleElement.textContent = `

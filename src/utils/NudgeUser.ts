@@ -20,6 +20,7 @@ export class NudgeUser {
   isExtensionDisabled: boolean;
   violationsLimit: number = 5;
   promptINTERVAL: number = 180;
+  grayScalePercentage: number = 20;
   constructor(isExtensionDisabled: boolean) {
     this.violations = 0;
     this.website = window.location.origin;
@@ -53,6 +54,7 @@ export class NudgeUser {
             promptParameters: promptParameters,
           });
         }
+        this.grayScalePercentage = 100 / this.violationsLimit;
         this.interval = setInterval(() => {
           this.nudgeUser();
         }, this.promptINTERVAL * 1000);
@@ -71,7 +73,11 @@ export class NudgeUser {
       clearInterval(this.interval);
       return;
     }
-    this.violations += await nonBlockingPopUp();
+    const violated = await nonBlockingPopUp(this.grayScalePercentage);
+    if (violated) {
+      this.violations++;
+      this.grayScalePercentage += 100 / this.violationsLimit;
+    }
   }
 
   setIsDisabled(disabled: boolean) {

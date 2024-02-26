@@ -1,13 +1,11 @@
 import { grayscaleExtensionOverlayId as id } from "../CONSTANTS/constants";
 
-export function addGrayscale() {
+export function addGrayscale(percentage: number = 10) {
   if (document.getElementById(id)) {
-    return;
+    removeGrayscale();
   }
-
   const div = document.createElement("div");
   div.id = id;
-
   let sheet = new CSSStyleSheet();
   sheet.replaceSync(`#${id} {
                 position: fixed;
@@ -17,8 +15,7 @@ export function addGrayscale() {
                 width: 100vw;
                 z-index: 9999999999;    
                 pointer-events: none;    
-                background-color: #fff;
-                mix-blend-mode: hue;
+                backdrop-filter: grayscale(${percentage}%);
             }`);
   document.adoptedStyleSheets = [sheet];
 
