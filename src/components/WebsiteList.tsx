@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import "./WebsiteList.css";
+import { DropdownOptions } from "../types/DropdownOptions";
+import "./WebsiteList.scss";
 import { updateWebsitesInStorage } from "../utils/UpdateWebsitesInStorage";
-import { fetchWebsitesFromStorage } from "../utils/FetchWebsitesFromStorage";
+import DropdownWithConfirm from "./DropdownWithConfirm";
 
 interface Website {
   id: string;
@@ -9,78 +10,119 @@ interface Website {
   tag: number;
 }
 
-export default function WebsiteList({ searchValue }: { searchValue: string }) {
+export default function WebsiteList() {
+  const dropdownOptions: DropdownOptions[] = [
+    {
+      id: "1",
+      value: "Productive",
+    },
+    {
+      id: "2",
+      value: "Unsure",
+    },
+    {
+      id: "3",
+      value: "Wasteful",
+    },
+  ];
+
   const [websites, setWebsites] = useState<Website[]>([]);
-  const [filteredWebsites, setFilteredWebsites] = useState<Website[]>([]);
-  useEffect(() => {
-    setFilteredWebsites(
-      websites.filter((website) => {
-        return website.website
-          .toLowerCase()
-          .includes(searchValue.toLowerCase());
-      })
-    );
-  }, [websites, searchValue]);
-  useEffect(() => {
-    async function fetchWebsites() {
-      const data = await fetchWebsitesFromStorage();
-      if (data.length === 0) {
-        return;
-      }
-      setWebsites(data);
-    }
+  const [activeOption, setActiveOption] = useState<DropdownOptions[]>([]);
 
-    if (websites.length === 0) {
-      fetchWebsites();
-    }
-  }, [websites]);
-
-  useEffect(() => {
-    updateWebsitesInStorage(websites);
-  }, [websites]);
-
-  function handleTagChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const id = e.target.parentElement?.parentElement?.id;
-    console.log(id);
-    console.log(websites);
-    const newWebsites = websites.map((website) => {
-      if (website.id === id) {
-        website.tag = parseInt(e.target.value);
-      }
-      return website;
+  const handleOptionSelect = (option: DropdownOptions, index: number) => {
+    setActiveOption((prev) => {
+      const newActiveOption = [...prev];
+      newActiveOption[index] = option;
+      return newActiveOption;
     });
-    console.log(newWebsites);
+  };
 
-    setWebsites(newWebsites);
-  }
+  useEffect(() => {
+    const dropdownOptions: DropdownOptions[] = [
+      {
+        id: "1",
+        value: "Productive",
+      },
+      {
+        id: "2",
+        value: "Unsure",
+      },
+      {
+        id: "3",
+        value: "Wasteful",
+      },
+    ];
+    chrome.storage.local.get("taggedURLs").then((result) => {
+      if (!result?.taggedURLs) return;
+      const visitedURLs: Website[] = result.taggedURLs;
+      setWebsites(visitedURLs);
+      setActiveOption(
+        visitedURLs.map((website) => dropdownOptions[website.tag - 1])
+      );
+    });
+  }, []);
+
+  const handleCancel = (index: number) => {
+    setActiveOption((prev) => {
+      const newActiveOption = [...prev];
+      newActiveOption[index] = dropdownOptions[websites[index].tag - 1];
+      return newActiveOption;
+    });
+  };
+
+  const handleTagChange = (index: number) => {
+    updateWebsitesInStorage([
+      {
+        id: websites[index].id,
+        website: websites[index].website,
+        tag: parseInt(activeOption[index].id),
+      },
+    ]);
+
+    setWebsites((prev) => {
+      const newWebsites = [...prev];
+      newWebsites[index].tag = parseInt(activeOption[index].id);
+      return newWebsites;
+    });
+
+    setActiveOption((prev) => {
+      const newActiveOption = [...prev];
+      newActiveOption[index] =
+        dropdownOptions[parseInt(activeOption[index].id) - 1];
+      return newActiveOption;
+    });
+  };
 
   return (
-    <>
-      <div className="website-list">
-        {filteredWebsites.map((website) => {
+    <div className="website_list">
+      <div className="website_list__header">Website List</div>
+      <div className="website_list__content">
+        {websites.map((website, index) => {
           return (
-            <div className="website-list__row" key={website.id} id={website.id}>
-              <div className="website-list__row__col">
-                <a href={website.website} target="_blank" rel="noreferrer">
-                  {website.website}
-                </a>
+            <div className="website_list__content__row" key={index}>
+              <div className="website_list__content__row__website">
+                {website.website.slice(0, 20) +
+                  (website.website.length > 20 ? "..." : "")}
               </div>
-              <div className="website-list__row__col">
-                <select
-                  className="website-list__select"
-                  defaultValue={website.tag}
-                  onChange={handleTagChange}
-                >
-                  <option value="0">Untagged</option>
-                  <option value="1">Productive</option>
-                  <option value="2">Unsure</option>
-                  <option value="3">Wasteful</option>
-                </select>
+              <div className="website_list__content__row__dropdown">
+                <DropdownWithConfirm
+                  dropdownOptions={dropdownOptions}
+                  activeOption={activeOption[index]}
+                  setActiveOption={(option) => {
+                    handleOptionSelect(option, index);
+                  }}
+                  handleCancel={() => {
+                    handleCancel(index);
+                  }}
+                  handleTagChange={() => {
+                    handleTagChange(index);
+                  }}
+                ></DropdownWithConfirm>
               </div>
             </div>
           );
         })}
       </div>
-    </>
+    </div>
   );
 }

@@ -1,51 +1,48 @@
 import { ChangeEvent } from "react";
-import "./Input.css";
+import "./Input.scss";
 
 interface InputProps {
-  label: string;
+  type: string;
   placeholder: string;
-  buttonText: string;
-  handleInput: (input: string) => void;
   input: string;
   setInput: (input: string) => void;
+  className?: string;
+  disablePaste?: boolean;
 }
 
 const Input = ({
-  label,
+  type,
   placeholder,
-  buttonText,
-  handleInput,
   input,
   setInput,
+  className,
+  disablePaste,
 }: InputProps) => {
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setInput(event.target.value);
-  };
+  }
 
-  const handleButtonClick = () => {
-    handleInput(input);
-  };
+  if (disablePaste) {
+    return (
+      <input
+        className={`input_box ${className}`}
+        type={type}
+        placeholder={placeholder}
+        value={input}
+        onChange={handleChange}
+        onPaste={(e) => e.preventDefault()}
+      ></input>
+    );
+  }
 
   return (
-    <div className="normal-input-container">
-      <label className="normal-input-label">{label}</label>
-      <div className="normal-input-container-inputs">
-        <input
-          className="normal-input-container-field"
-          type={"text"}
-          placeholder={placeholder}
-          value={input}
-          onChange={handleChange}
-        />
-        <button
-          className="normal-input-container-button"
-          onClick={handleButtonClick}
-          defaultValue="1"
-        >
-          {buttonText}
-        </button>
-      </div>
-    </div>
+    <input
+      className={`input_box ${className}`}
+      type={type}
+      placeholder={placeholder}
+      value={input}
+      onChange={handleChange}
+    ></input>
   );
 };
 

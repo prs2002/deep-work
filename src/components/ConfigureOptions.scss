@@ -1,0 +1,35 @@
+.configure_options {
+  width: 452px;
+  padding: 8px 10px;
+  border-radius: 60px;
+  display: flex;
+  justify-content: space-between;
+
+  &#good {
+    background: var(--secondary-orange);
+  }
+
+  &#bad {
+    background: var(--secondary-red);
+  }
+
+  &__option {
+    border-radius: 48px;
+    color: var(--tertiary-orange);
+    width: 212px;
+    height: 47px;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: Inter;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.selected {
+      background-color: var(--background-color);
+      color: var(--primary-orange);
+    }
+  }
+}

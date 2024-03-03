@@ -1,0 +1,21 @@
+.filter_options {
+  background: var(--secondary-orange);
+  width: 452px;
+  padding: 5px 6px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+  &__option {
+    padding: 9px 0;
+    border-radius: 18px;
+    width: 143px;
+    text-align: center;
+    color: var(--tertiary-orange);
+    font-weight: 400;
+    cursor: pointer;
+    &.selected {
+        background-color: var(--background-color);
+        color: var(--primary-orange);
+    }
+  }
+}

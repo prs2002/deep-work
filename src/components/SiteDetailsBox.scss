@@ -1,0 +1,134 @@
+.site_details {
+  height: 600px;
+  width: 520px;
+  background: #00000080;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  &__details {
+    position: fixed;
+    z-index: 99999;
+    width: 452px;
+    min-height: 333px;
+    top: 89px;
+    left: 34px;
+    background-color: var(--background-color);
+    border-radius: 30px;
+    border: 2px solid #f0f0f0;
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 24px;
+
+      &__title {
+        font-size: 20px;
+        line-height: 24px;
+        letter-spacing: 0em;
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-left: 24px;
+      }
+
+      &__buttons {
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 11px;
+        margin-right: 18px;
+        cursor: pointer;
+
+        &__edit {
+          height: 14px;
+          aspect-ratio: 1;
+          border-radius: 100%;
+          padding: 11px;
+          background: var(--primary-orange);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &__pencil {
+            color: #ffffff;
+          }
+        }
+        &__close {
+          height: 14px;
+          aspect-ratio: 1;
+          border-radius: 100%;
+          padding: 11px;
+          border: 2px solid #f0f0f0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &__cross {
+            color: #000000;
+          }
+        }
+      }
+    }
+    &__content {
+      margin-top: 19px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      &__item {
+        display: flex;
+        justify-content: space-between;
+        width: calc(100% - 48px);
+
+        &__label {
+          color: #373737;
+          width: 40%;
+          font-size: 16px;
+          line-height: 19px;
+          letter-spacing: 0em;
+          padding: 9px 0;
+          display: flex;
+          align-items: center;
+        }
+        &__value {
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 19px;
+          letter-spacing: 0em;
+          width: 60%;
+          text-align: right;
+          padding: 9px 0;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          &__dropdown {
+            width: 45%;
+            display: flex;
+            justify-content: flex-end;
+          }
+
+          &#link {
+            color: var(--blue);
+            text-decoration: none;
+          }
+
+          & .sd {
+            padding: 9px 0;
+          }
+          &__input {
+            width: 150px;
+          }
+
+          & .input {
+            padding: 12px;
+          }
+        }
+      }
+    }
+    &__button {
+      margin: 24px;
+    }
+  }
+}

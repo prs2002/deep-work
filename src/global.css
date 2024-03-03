@@ -1,6 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap');
+
 :root {
-    --background-color : #F9F6F2;
+    --background-color : #FFFFFF;
+    --primary-orange: #FF7020;
+    --secondary-orange: #FFC9AA;
+    --tertiary-orange: #CC4900;
     --font-color : #202020;
+    --hero-grey: #F4F4F4;
+    --input-grey: #E2E2E2;
+    --placeholder-grey: #777777;
+    --wasteful-red: #FF2020;
+    --secondary-red: #FFAAAA;
+    --tertiary-red: #CC0000;
+    --blue: #2087FF;
+    --bad-focus: linear-gradient(180deg, #FFBDBD 0%, rgba(255, 255, 255, 0) 40.64%);
+    --good-focus: linear-gradient(180deg, #FFD5BD 0%, rgba(255, 255, 255, 0) 40.64%);
+
+
+    /*Old*/
     --green: #01a72b;
     --hover-green: #6dc403;
     --header-color : #E3E0DC;
@@ -13,11 +30,14 @@
 .container {
     height: 100%;
     width: 100%;
+  background: #F4F4F4;
 }
 
 
 * {
     margin: 0;
     padding: 0;
-    color: var(--font-color);
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
 }

@@ -2,10 +2,9 @@
 Function to summarize the productivity data
 */
 
-interface SummaryItem {
-  label: string;
-  value: string;
-}
+import { SummaryItem } from "../types/SummaryItem";
+import { msToHM } from "./scripts/mmToHM";
+
 
 interface TaggedURL {
   website: string;
@@ -18,18 +17,7 @@ interface UsageData {
   time: number;
 }
 
-function msToHMS(ms: number): string {
-  // 1- Convert to seconds:
-  let seconds = Math.floor(ms / 1000);
-  // 2- Extract hours:
-  const hours = Math.floor(seconds / 3600); // 3,600 seconds in 1 hour
-  seconds = seconds % 3600; // seconds remaining after extracting hours
-  // 3- Extract minutes:
-  const minutes = Math.floor(seconds / 60); // 60 seconds in 1 minute
-  // 4- Keep only seconds not extracted to minutes:
-  seconds = seconds % 60;
-  return `${hours}h ${minutes}m ${seconds}s`;
-}
+
 
 export async function calculateProductivity(
   type: string
@@ -74,15 +62,15 @@ export async function calculateProductivity(
   return [
     {
       label: "Total time spent",
-      value: msToHMS(total),
+      value: msToHM(total),
     },
     {
       label: "Productive time spent",
-      value: msToHMS(productive),
+      value: msToHM(productive),
     },
     {
       label: "Distracted time spent",
-      value: msToHMS(distracted),
+      value: msToHM(distracted),
     },
   ];
 }

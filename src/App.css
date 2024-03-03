@@ -1,8 +1,18 @@
 .app {
-  width: 500px;
-  height: fit-content;
-  background-color: var(--background-color);
-  overflow: auto;
+  width: 520px;
+  height: 600px;
+  overflow-y: auto;
+}
+
+.app::-webkit-scrollbar {
+  display: none;
+}
+
+.app#good {
+  background: var(--good-focus);
+}
+.app#bad {
+  background: var(--bad-focus);
 }
 
 .app::-webkit-scrollbar {

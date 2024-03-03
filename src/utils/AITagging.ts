@@ -43,7 +43,6 @@ async function apiCall(website: string, authKey: any) {
 }
 
 export async function AITagging() {
-  console.log("AI");
   
   try {
     const authKey = await chrome.storage.local.get("authKey");
@@ -67,7 +66,6 @@ export async function AITagging() {
       const website : string = websiteList[i];
       let classification = "unsure";
       const obj : TaggedWebsite | undefined= preTaggedUrls.find((obj) => obj.URL === website);
-      console.log(obj);
       
       if(obj) {
         classification = obj.CLASSIFICATION.toLowerCase();
@@ -89,7 +87,6 @@ export async function AITagging() {
       }
       taggedWebsites.push({ id: website, website, tag });
     }
-    console.log(taggedWebsites);
     
     updateWebsitesInStorage(taggedWebsites);
   } catch (e) {

@@ -1,0 +1,28 @@
+.menu_options {
+  width: 345px;
+  padding: 5px 6px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+
+  &#good{
+    background: var(--secondary-orange);
+  }
+
+  &#bad{
+    background: var(--secondary-red);
+  }
+
+  &__option {
+    padding: 9px 24px;
+    border-radius: 18px;
+    color: var(--tertiary-orange);
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+    &.selected {
+        background-color: var(--background-color);
+        color: var(--primary-orange);
+    }
+  }
+}

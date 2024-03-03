@@ -1,0 +1,14 @@
+.input_box {
+  width: calc(100% - 19px);
+  background: #f0f0f0;
+  padding: 18px 0 19px 21px;
+  border: none;
+  border-radius: 48px;
+  &::placeholder {
+    color: var(--placeholder-grey);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

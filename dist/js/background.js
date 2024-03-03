@@ -91,7 +91,6 @@ function apiCall(website, authKey) {
 function AITagging() {
     var _a, _b;
     return AITagging_awaiter(this, void 0, void 0, function* () {
-        console.log("AI");
         try {
             const authKey = yield chrome.storage.local.get("authKey");
             if (!authKey.authKey) {
@@ -111,7 +110,6 @@ function AITagging() {
                 const website = websiteList[i];
                 let classification = "unsure";
                 const obj = preTaggedUrls.find((obj) => obj.URL === website);
-                console.log(obj);
                 if (obj) {
                     classification = obj.CLASSIFICATION.toLowerCase();
                 }
@@ -134,7 +132,6 @@ function AITagging() {
                 }
                 taggedWebsites.push({ id: website, website, tag });
             }
-            console.log(taggedWebsites);
             updateWebsitesInStorage(taggedWebsites);
         }
         catch (e) {
@@ -268,6 +265,13 @@ class WebTime {
     }
     setWindowHidden(isHidden) {
         this.isHidden = isHidden;
+        if (isHidden) {
+            this.storeDailyTime().then(() => {
+                this.storeTime().then(() => {
+                    this.startTime = Date.now();
+                });
+            });
+        }
     }
     setExtensionDisabled(isDisabled) {
         this.isDisabled = isDisabled;
@@ -282,7 +286,7 @@ class WebTime {
         var _a;
         return WebTime_awaiter(this, void 0, void 0, function* () {
             // Store the time spent on the website
-            let oldTime = ((_a = (yield chrome.storage.local.get("webTime"))) === null || _a === void 0 ? void 0 : _a.webTime) || [];
+            let oldTime = (((_a = (yield chrome.storage.local.get("webTime"))) === null || _a === void 0 ? void 0 : _a.webTime) || []).filter((e) => e.url !== "");
             for (let i = 0; i < oldTime.length; i++) {
                 if (oldTime[i].url === this.baseUrl) {
                     oldTime[i].time += this.getTimeSpent();
@@ -299,7 +303,7 @@ class WebTime {
         var _a, _b;
         return WebTime_awaiter(this, void 0, void 0, function* () {
             // Store the time spent on the website for the day
-            let oldTime = ((_a = (yield chrome.storage.local.get("dailyTime"))) === null || _a === void 0 ? void 0 : _a.dailyTime) || [];
+            let oldTime = (((_a = (yield chrome.storage.local.get("dailyTime"))) === null || _a === void 0 ? void 0 : _a.dailyTime) || []).filter((e) => e.url !== "");
             const date = new Date();
             const dateString = date.toDateString(); // Get the current date
             const oldDate = ((_b = (yield chrome.storage.local.get("today"))) === null || _b === void 0 ? void 0 : _b.today) || ""; // Get the last date the user was active
@@ -320,7 +324,8 @@ class WebTime {
         });
     }
     measureTime() {
-        if (this.isDisabled || this.baseUrl === "") {
+        if (this.isDisabled || this.baseUrl === "" || this.isHidden) {
+            this.startTime = Date.now();
             return;
         }
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -338,11 +343,6 @@ class WebTime {
                     });
                 }
                 else if (this.isHidden) {
-                    this.storeDailyTime().then(() => {
-                        this.storeTime().then(() => {
-                            this.startTime = Date.now();
-                        });
-                    });
                 }
                 else if (this.getTimeSpent() > 30000) {
                     // If the user has been on the website for more than 30 seconds
@@ -356,14 +356,12 @@ class WebTime {
         });
     }
     setNewDay() {
-        var _a, _b;
+        var _a;
         return WebTime_awaiter(this, void 0, void 0, function* () {
             const dateString = new Date().toDateString();
-            let newAverage = ((_a = (yield chrome.storage.local.get("dailyAverage"))) === null || _a === void 0 ? void 0 : _a.dailyAverage) || [];
-            let numberOfDays = ((_b = (yield chrome.storage.local.get("numberOfDays"))) === null || _b === void 0 ? void 0 : _b.numberOfDays) || 0;
+            let numberOfDays = ((_a = (yield chrome.storage.local.get("numberOfDays"))) === null || _a === void 0 ? void 0 : _a.numberOfDays) || 0;
             yield chrome.storage.local.set({ numberOfDays: numberOfDays + 1 });
             yield chrome.storage.local.set({ today: dateString });
-            yield chrome.storage.local.set({ prevDailyAverage: newAverage });
         });
     }
 }
@@ -382,7 +380,9 @@ var background_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 
 
 
-var isExtensionDisabled = true;
+var isExtensionDisabled = false;
+var isExtensionDisabledOnWeekend = true;
+var isWeekend = [0, 6].includes(new Date().getDay());
 var webActivityInstance = null;
 var isWindowHidden = false;
 var webTime = null;
@@ -395,42 +395,50 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
     sendResponse({ message: "received" });
 });
+function checkDisable() {
+    return isExtensionDisabled || isExtensionDisabledOnWeekend;
+}
 function handleExtensionEnable() {
     return background_awaiter(this, void 0, void 0, function* () {
+        isExtensionDisabledOnWeekend =
+            ((yield chrome.storage.local.get("isDisabledOnWeekend"))
+                .isDisabledOnWeekend ||
+                false) &&
+                isWeekend;
         chrome.storage.local.get("isDisabled", (data) => {
             if (data === undefined) {
-                chrome.storage.local.set({ isDisabled: true });
-                isExtensionDisabled = true;
+                chrome.storage.local.set({ isDisabled: false });
+                isExtensionDisabled = false;
                 return;
             }
             isExtensionDisabled = data.isDisabled;
             if (webActivityInstance) {
-                webActivityInstance.setExtensionDisabled(isExtensionDisabled);
+                webActivityInstance.setExtensionDisabled(checkDisable());
             }
             else {
-                webActivityInstance = new WebActivity(isExtensionDisabled);
+                webActivityInstance = new WebActivity(checkDisable());
             }
             if (webTime) {
-                webTime.setExtensionDisabled(isExtensionDisabled);
+                webTime.setExtensionDisabled(checkDisable());
             }
             else {
-                webTime = new WebTime(isWindowHidden, isExtensionDisabled);
+                webTime = new WebTime(isWindowHidden, checkDisable());
             }
         });
         chrome.storage.onChanged.addListener((changes) => background_awaiter(this, void 0, void 0, function* () {
             if (changes["isDisabled"]) {
                 isExtensionDisabled = changes["isDisabled"].newValue;
                 if (webActivityInstance) {
-                    webActivityInstance.setExtensionDisabled(isExtensionDisabled);
+                    webActivityInstance.setExtensionDisabled(checkDisable());
                 }
                 else {
-                    webActivityInstance = new WebActivity(isExtensionDisabled);
+                    webActivityInstance = new WebActivity(checkDisable());
                 }
                 if (webTime) {
-                    webTime.setExtensionDisabled(isExtensionDisabled);
+                    webTime.setExtensionDisabled(checkDisable());
                 }
                 else {
-                    webTime = new WebTime(isWindowHidden, isExtensionDisabled);
+                    webTime = new WebTime(isWindowHidden, checkDisable());
                 }
             }
             if (changes["blockedURLs"]) {
@@ -445,7 +453,7 @@ function handleExtensionEnable() {
 }
 function tagWebsite() {
     return background_awaiter(this, void 0, void 0, function* () {
-        if (isExtensionDisabled) {
+        if (checkDisable()) {
             return;
         }
         yield AITagging();
@@ -465,6 +473,7 @@ function loadData() {
         });
     });
 }
+console.log(checkDisable());
 loadData();
 
 /******/ })()

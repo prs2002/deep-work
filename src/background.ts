@@ -3,7 +3,9 @@ import { updateDynamicRules } from "./utils/BlockURLs";
 import { WebActivity } from "./utils/WebActivity";
 import { WebTime } from "./utils/WebTime";
 
-var isExtensionDisabled: boolean = true;
+var isExtensionDisabled: boolean = false;
+var isExtensionDisabledOnWeekend: boolean = true;
+var isWeekend: boolean = [0, 6].includes(new Date().getDay());
 var webActivityInstance: WebActivity | null = null;
 var isWindowHidden: boolean = false;
 var webTime: WebTime | null = null;
@@ -18,23 +20,32 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   sendResponse({ message: "received" });
 });
 
+function checkDisable(): boolean {
+  return isExtensionDisabled || isExtensionDisabledOnWeekend;
+}
+
 async function handleExtensionEnable() {
+  isExtensionDisabledOnWeekend =
+    ((await chrome.storage.local.get("isDisabledOnWeekend"))
+      .isDisabledOnWeekend ||
+      false) &&
+    isWeekend;
   chrome.storage.local.get("isDisabled", (data) => {
     if (data === undefined) {
-      chrome.storage.local.set({ isDisabled: true });
-      isExtensionDisabled = true;
+      chrome.storage.local.set({ isDisabled: false });
+      isExtensionDisabled = false;
       return;
     }
     isExtensionDisabled = data.isDisabled;
     if (webActivityInstance) {
-      webActivityInstance.setExtensionDisabled(isExtensionDisabled);
+      webActivityInstance.setExtensionDisabled(checkDisable());
     } else {
-      webActivityInstance = new WebActivity(isExtensionDisabled);
+      webActivityInstance = new WebActivity(checkDisable());
     }
     if (webTime) {
-      webTime.setExtensionDisabled(isExtensionDisabled);
+      webTime.setExtensionDisabled(checkDisable());
     } else {
-      webTime = new WebTime(isWindowHidden, isExtensionDisabled);
+      webTime = new WebTime(isWindowHidden, checkDisable());
     }
   });
 
@@ -43,19 +54,19 @@ async function handleExtensionEnable() {
       if (changes["isDisabled"]) {
         isExtensionDisabled = changes["isDisabled"].newValue;
         if (webActivityInstance) {
-          webActivityInstance.setExtensionDisabled(isExtensionDisabled);
+          webActivityInstance.setExtensionDisabled(checkDisable());
         } else {
-          webActivityInstance = new WebActivity(isExtensionDisabled);
+          webActivityInstance = new WebActivity(checkDisable());
         }
         if (webTime) {
-          webTime.setExtensionDisabled(isExtensionDisabled);
+          webTime.setExtensionDisabled(checkDisable());
         } else {
-          webTime = new WebTime(isWindowHidden, isExtensionDisabled);
+          webTime = new WebTime(isWindowHidden, checkDisable());
         }
       }
       if (changes["blockedURLs"]) {
-        const blockedURLs : string[] = changes["blockedURLs"].newValue;
-        if(blockedURLs.length === 0) {
+        const blockedURLs: string[] = changes["blockedURLs"].newValue;
+        if (blockedURLs.length === 0) {
           blockedURLs.push("not_a_real_website_example.com");
         }
         updateDynamicRules(blockedURLs);
@@ -65,7 +76,7 @@ async function handleExtensionEnable() {
 }
 
 async function tagWebsite() {
-  if (isExtensionDisabled) {
+  if (checkDisable()) {
     return;
   }
   await AITagging();
@@ -86,6 +97,9 @@ function loadData() {
     });
   });
 }
+
+console.log(checkDisable());
+
 
 loadData();
 
