@@ -13,7 +13,7 @@ export function addGrayscale(percentage: number = 10) {
                 left: 0;
                 height: 100vh;
                 width: 100vw;
-                z-index: 9999999999;    
+                z-index: 999999;    
                 pointer-events: none;    
                 backdrop-filter: grayscale(${percentage}%);
             }`);

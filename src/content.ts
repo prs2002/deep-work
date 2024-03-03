@@ -1,3 +1,5 @@
+import { addGreetingPopup } from "./utils/DOM_SCRIPTS/GreetingPopup";
+import { hourlySummary } from "./utils/HourlySummary";
 import { NudgeUser } from "./utils/NudgeUser";
 
 let lastVisibilityState = document.hidden;
@@ -72,5 +74,24 @@ setInterval(() => {
 sendMessageToBackground(lastVisibilityState);
 
 nudgeUser = new NudgeUser(isExtensionDisabled);
+
+
+chrome.storage.local.get("lastGreeted", (data) => {
+  if(data.lastGreeted === undefined) {
+    addGreetingPopup();
+    chrome.storage.local.set({ lastGreeted: new Date().toDateString() });
+  }
+  else {
+    const today = new Date().toDateString();
+    if(data.lastGreeted !== today) {
+      addGreetingPopup();
+      chrome.storage.local.set({ lastGreeted: today });
+    }
+  }
+});
+
+
+setInterval(hourlySummary, 300000);
+
 
 export {};
