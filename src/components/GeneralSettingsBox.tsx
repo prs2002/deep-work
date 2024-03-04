@@ -42,7 +42,7 @@ export default function GeneralSettingsBox() {
 
   return (
     <div className="general_settings">
-      <div className="general_settings__header">Tag WebsiteC</div>
+      <div className="general_settings__header">General Settings</div>
       <div className="general_settings__content">
         <div className="general_settings__content__row">
           <div className="general_settings__content__row__enable">

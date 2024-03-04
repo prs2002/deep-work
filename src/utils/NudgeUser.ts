@@ -2,9 +2,9 @@
 Function to nudge a user by  prompt on a distracting website
  */
 
-import { blockingPopUp } from "./DOM_SCRIPTS/BlockingPopUp";
 import { fetchFunnyLines } from "./FetchFunnyLines";
 import { nonBlockingPopUp } from "./DOM_SCRIPTS/NonBlockingPopUp";
+import { insertFinalAlert } from "./DOM_SCRIPTS/FinalAlert";
 
 export class NudgeUser {
   violations: number;
@@ -39,7 +39,7 @@ export class NudgeUser {
     }
     if (this.violations >= this.violationsLimit) {
       const line: string = await fetchFunnyLines(this.website);
-      blockingPopUp(line);
+      insertFinalAlert(line);
       clearInterval(this.interval);
       return;
     }

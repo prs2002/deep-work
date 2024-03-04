@@ -3,6 +3,7 @@ import AchievementsCard from "../components/AchievementsCard";
 import Navbar from "../components/Navbar";
 import { Achievements } from "../types/Achievements";
 import "./Profile.scss";
+import { weeklyProductivity } from "../utils/Achievements";
 
 interface ProfileProps {
   isFocused: boolean;
@@ -15,6 +16,7 @@ export default function Profile({ isFocused }: ProfileProps) {
       time: 0,
       trophy: "",
       color: "",
+      isCompleted: false,
     },
   ]);
 
@@ -24,26 +26,30 @@ export default function Profile({ isFocused }: ProfileProps) {
         {
           name: "GATEPASS",
           time: 5,
-          trophy: (await import("../images/trophy1.svg")).default,
+          trophy: (await import("../images/t1.png")).default,
           color: "blue",
+          isCompleted: await weeklyProductivity(5),
         },
         {
           name: "MAESTRO",
           time: 10,
-          trophy: (await import("../images/trophy2.svg")).default,
+          trophy: (await import("../images/t2.png")).default,
           color: "green",
+          isCompleted: await weeklyProductivity(10),
         },
         {
           name: "SENSEI",
           time: 20,
-          trophy: (await import("../images/trophy3.svg")).default,
+          trophy: (await import("../images/t3.png")).default,
           color: "yellow",
+          isCompleted: await weeklyProductivity(20),
         },
         {
           name: "RENSHI",
           time: 40,
-          trophy: (await import("../images/trophy4.svg")).default,
+          trophy: (await import("../images/t4.png")).default,
           color: "purple",
+          isCompleted: await weeklyProductivity(40),
         },
       ]);
     }
@@ -54,7 +60,16 @@ export default function Profile({ isFocused }: ProfileProps) {
     <div className="profile_page">
       <Navbar text="Profile" isFocused={isFocused}></Navbar>
       <div className="profile_page__content">
-        <AchievementsCard achievementsType={achievements[0]}></AchievementsCard>
+        {achievements.map((achievement, index) => {
+          if (!achievement.isCompleted) {
+            return null;
+          }
+          return (
+            <AchievementsCard
+              achievementsType={achievements[index]}
+            ></AchievementsCard>
+          );
+        })}
       </div>
     </div>
   );

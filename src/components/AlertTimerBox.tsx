@@ -5,6 +5,7 @@ import Button from "./Button";
 import Dropdown from "./Dropdown";
 import Input from "./Input";
 import { fetchWebsitesFromStorage } from "../utils/FetchWebsitesFromStorage";
+import { preprocessURL } from "../utils/PreprocessURL";
 
 export const AlertTimerBox = () => {
   const [time, setTime] = useState<string>("");
@@ -37,7 +38,7 @@ export const AlertTimerBox = () => {
 
   useEffect(() => {
     fetchWebsitesFromStorage().then((websites) => {
-      setWebsites(websites.map((website) => website.website));
+      setWebsites(websites.map((website) => (website.website)));
     });
   }, []);
 
@@ -160,7 +161,8 @@ export const AlertTimerBox = () => {
           </div>
           <div className="alert_timer_box__select_website__websites">
             <div className="alert_timer_box__select_website__websites__list">
-              {websites.map((website, index) => {
+              {websites.map((site, index) => {
+                const website = preprocessURL(site);
                 return (
                   <div
                     key={index}
@@ -168,9 +170,9 @@ export const AlertTimerBox = () => {
                   >
                     <input
                       type="checkbox"
-                      id={website}
-                      name={website}
-                      value={website}
+                      id={site}
+                      name={site}
+                      value={site}
                       onChange={handleCheckboxChange}
                     ></input>
                     <label htmlFor={website}>

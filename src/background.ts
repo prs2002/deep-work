@@ -71,6 +71,9 @@ async function handleExtensionEnable() {
         }
         updateDynamicRules(blockedURLs);
       }
+      if (changes["isDisabledOnWeekend"]) {
+        isExtensionDisabledOnWeekend = changes["isDisabledOnWeekend"].newValue && isWeekend;
+      }
     }
   );
 }
@@ -97,8 +100,6 @@ function loadData() {
     });
   });
 }
-
-console.log(checkDisable());
 
 
 loadData();

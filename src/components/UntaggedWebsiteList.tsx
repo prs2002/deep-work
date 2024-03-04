@@ -3,6 +3,7 @@ import { DropdownOptions } from "../types/DropdownOptions";
 import "./UntaggedWebsiteList.scss";
 import { updateWebsitesInStorage } from "../utils/UpdateWebsitesInStorage";
 import DropdownWithConfirm from "./DropdownWithConfirm";
+import { preprocessURL } from "../utils/PreprocessURL";
 
 export default function UntaggedWebsiteList() {
   const dropdownOptions: DropdownOptions[] = [
@@ -90,7 +91,7 @@ export default function UntaggedWebsiteList() {
           return (
             <div className="untagged_website_list__content__row" key={index}>
               <div className="untagged_website_list__content__row__website">
-                {website}
+                {preprocessURL(website)}
               </div>
               <div className="untagged_website_list__content__row__dropdown">
                 <DropdownWithConfirm

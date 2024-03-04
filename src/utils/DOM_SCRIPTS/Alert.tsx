@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./Alert.scss";
-import { TiTick } from "react-icons/ti";
 function Alert({ updateViolations }: { updateViolations: any }) {
   const [isMore, setIsMore] = useState(false);
 
@@ -21,7 +20,6 @@ function Alert({ updateViolations }: { updateViolations: any }) {
   function handleViolation() {
     const input = document.getElementById("non_blocking_alert__more_input") as HTMLInputElement;
     if (!input || input.value.toLowerCase() !== "maybe later") {
-      alert("Please type the phrase 'Maybe Later' to confirm");
       return; 
     }
     const root = document.getElementById("recenter_container");
@@ -40,26 +38,20 @@ function Alert({ updateViolations }: { updateViolations: any }) {
         <p>You got this!</p>
       </div>
       {!isMore ? (
-        <>
-          <button id="non_blocking_alert__button_quit" onClick={onClose}>
+        <div id="non_blocking_alert__button_container">
+          <button id="non_blocking_alert__button_container__quit" onClick={onClose}>
             Let's Go!
           </button>
-          <button id="non_blocking_alert__button_more" onClick={onMore}>
+          <button id="non_blocking_alert__button_container__more" onClick={onMore}>
             Maybe Later
           </button>{" "}
-        </>
+        </div>
       ) : (
-        <>
+        <div>
           <div id="non_blocking_alert__more_phrase">
             Type the phrase “Maybe Later” to confirm
           </div>
-          <input id="non_blocking_alert__more_input"></input>
-          <div
-            id="non_blocking_alert__more_submit_button"
-            onClick={handleViolation}
-          >
-            <TiTick id="non_blocking_alert__more_tick" />
-          </div>
+          <input id="non_blocking_alert__more_input" onChange={handleViolation}></input>
           <div id="non_blocking_alert__more_line"></div>
           <div id="non_blocking_alert__more_go_back">
             You can still get Back to Work
@@ -67,7 +59,7 @@ function Alert({ updateViolations }: { updateViolations: any }) {
           <button id="non_blocking_alert__more_go_back_btn" onClick={onClose}>
             Let's Go!
           </button>
-        </>
+        </div>
       )}
     </div>
   );

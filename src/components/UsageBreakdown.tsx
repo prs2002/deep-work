@@ -3,6 +3,7 @@ import useToggle from "../hooks/useToggle";
 import { TaggedTimeURL } from "../types/TaggedTimeUrl";
 import SiteDetailsBox from "./SiteDetailsBox";
 import "./UsageBreakdown.scss";
+import { preprocessURL } from "../utils/PreprocessURL";
 
 interface UsageBreakdownProps {
   totalTime: number;
@@ -33,6 +34,7 @@ export default function UsageBreakdown({
         </div>
         <div className="usage_breakdown__content__list">
           {websites.map((item, index) => {
+            const website = preprocessURL(item.label);
             return (
               <div className="usage_breakdown__content__list__item">
                 <div
@@ -49,11 +51,11 @@ export default function UsageBreakdown({
                       className="usage_breakdown__content__list__item__details__website__color"
                       id={websiteColor[item.tag]}
                     ></div>
-                    {item.label.slice(0, 20) +
-                      (item.label.length > 20 ? "..." : "")}
+                    {website.slice(0, 20) +
+                      (website.length > 20 ? "..." : "")}
                   </div>
                   <div className="usage_breakdown__content__list__item__details__usage">
-                    {`${((100 * item.time) / totalTime).toFixed(2)}%`}
+                    {`${((100 * item.time) / totalTime).toFixed(0)}%`}
                   </div>
                 </div>
                 <div className="usage_breakdown__content__list__item__bar">

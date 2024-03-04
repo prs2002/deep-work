@@ -3,6 +3,7 @@ import { DropdownOptions } from "../types/DropdownOptions";
 import "./WebsiteList.scss";
 import { updateWebsitesInStorage } from "../utils/UpdateWebsitesInStorage";
 import DropdownWithConfirm from "./DropdownWithConfirm";
+import { preprocessURL } from "../utils/PreprocessURL";
 
 interface Website {
   id: string;
@@ -97,12 +98,13 @@ export default function WebsiteList() {
     <div className="website_list">
       <div className="website_list__header">Website List</div>
       <div className="website_list__content">
-        {websites.map((website, index) => {
+        {websites.map((site, index) => {
+          const website = preprocessURL(site.website);
           return (
             <div className="website_list__content__row" key={index}>
               <div className="website_list__content__row__website">
-                {website.website.slice(0, 20) +
-                  (website.website.length > 20 ? "..." : "")}
+                {website.slice(0, 20) +
+                  (website.length > 20 ? "..." : "")}
               </div>
               <div className="website_list__content__row__dropdown">
                 <DropdownWithConfirm

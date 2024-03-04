@@ -1,0 +1,65 @@
+#final_alert_container {
+  width: 675px;
+  min-height: 256px;
+  background-color: #ff7020;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__title {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-top: 30px;
+    padding: 0;
+    color: #cc4900;
+  }
+
+  &__line {
+    margin-top: 24px;
+    width: 525px;
+    text-align: center;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    color: #ffffff;
+  }
+
+  &__activity {
+    font-family: Inter;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: center;
+    margin-top: 14px;
+    color: #ffffff;
+  }
+
+  &__button {
+    background: #ffffff;
+    margin-top: 29px;
+    padding: 7.5px 37px;
+    border-radius: 38px;
+    border: none;
+    cursor: pointer;
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

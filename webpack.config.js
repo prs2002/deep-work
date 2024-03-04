@@ -10,7 +10,7 @@ module.exports = {
   },
   mode: "production",
   optimization: {
-    minimize: false,
+    minimize: true,
   },
   module: {
     rules: [
@@ -36,8 +36,15 @@ module.exports = {
         use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
-        test: /\.svg$/,
-        use: ["file-loader"],
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              outputPath: "images",
+            },
+          },
+        ],
       },
     ],
   },
@@ -46,7 +53,7 @@ module.exports = {
       patterns: [
         { from: "manifest.json", to: "../manifest.json" },
         { from: "./src/data/", to: "../data" },
-        {from: "./src/html/", to: "../"}
+        { from: "./src/html/", to: "../" },
       ],
     }),
     ...getHtmlPlugins(["index"]),

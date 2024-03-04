@@ -55,6 +55,21 @@
             aspect-ratio: 1;
             background: var(--blue);
             border-radius: 100%;
+
+            &#blue {
+              background-color: var(--blue);
+            }
+
+            &#red {
+              background-color: var(--wasteful-red);
+            }
+
+            &#orange {
+              background-color: var(--primary-orange);
+            }
+            &#grey {
+              background-color: var(--hero-grey);
+            }
           }
         }
         &__tag {

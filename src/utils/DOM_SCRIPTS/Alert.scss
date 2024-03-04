@@ -2,40 +2,36 @@
   margin: 0;
   padding: 0;
   position: fixed;
-  width: 520px;
-  height: 378px;
+  width: 320px;
+  min-height: 257px;
   background: #ff7020;
   right: 20px;
   top: 20px;
   z-index: 9999999;
 
   &.more {
-    height: 525px;
+    min-height: 373px;
   }
 
   &__title {
     font-family: Inter;
-    font-size: 24px;
     font-weight: 600;
     line-height: 29px;
     letter-spacing: 0;
-    text-align: left;
-    color: #cc4900;
-    position: absolute;
-    top: 30px;
-    left: 32px;
-    margin: 0;
+    position: relative;
+    margin-top: 30px;
+    margin-left: 24px;
     padding: 0;
+    color: #cc4900;
   }
 
   &__content {
-    position: absolute;
-    top: 103px;
-    left: 32px;
+    margin-top: 24px;
+    margin-left: 24px;
     font-family: Inter;
-    font-size: 32px;
+    font-size: 20px;
     font-weight: 700;
-    line-height: 39px;
+    line-height: 24px;
     letter-spacing: 0;
     text-align: left;
 
@@ -53,48 +49,54 @@
     }
   }
 
-  &__button_quit {
-    position: absolute;
-    background: #ffffff;
-    width: 220px;
-    height: 56px;
-    top: 283px;
-    left: 32px;
-    padding: 9px 24px;
-    border-radius: 38px;
-    border: none;
-    cursor: pointer;
-    font-family: Inter;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19px;
-    letter-spacing: 0;
-    color: black;
-  }
+  &__button_container {
+    display: flex;
+    gap: 6px;
+    &__quit {
+      background: #ffffff;
+      width: 133px;
+      height: 30px;
+      margin-top: 32px;
+      margin-left: 24px;
+      padding: 9px 24px;
+      border-radius: 38px;
+      border: none;
+      cursor: pointer;
+      font-family: Inter;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 19px;
+      letter-spacing: 0;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-  &__button_more {
-    position: absolute;
-    color: #ffffff;
-    width: 220px;
-    height: 56px;
-    top: 283px;
-    left: 268px;
-    padding: 9px 24px;
-    border-radius: 38px;
-    border: 2px solid #ffffff;
-    background: transparent;
-    cursor: pointer;
-    font-family: Inter;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19px;
-    letter-spacing: 0;
+    &__more {
+      color: #ffffff;
+      width: 133px;
+      height: 30px;
+      margin-top: 32px;
+      padding: 9px 24px;
+      border-radius: 38px;
+      border: 2px solid #ffffff;
+      background: transparent;
+      cursor: pointer;
+      font-family: Inter;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 19px;
+      letter-spacing: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
   &__more {
     &_phrase {
-      position: absolute;
-      top: 249px;
-      left: 32px;
+      margin-top: 34px;
+      margin-left: 24px;
       font-family: Inter;
       font-size: 16px;
       font-weight: 400;
@@ -103,50 +105,32 @@
       color: #ffffff;
     }
     &_line {
-      position: absolute;
-      width: 456px;
-      top: 372px;
-      left: 32px;
+      width: 272px;
+      margin-top: 24px;
+      margin-left: 12px;
       border: 1px solid #cc4900;
     }
 
     &_input {
       margin: 0;
       padding: 0;
-      position: absolute;
-      width: 388px;
-      height: 56px;
-      top: 284px;
-      left: 32px;
+      width: 272px;
+      height: 30px;
+      margin-top: 14px;
+      margin-left: 24px;
       border-radius: 38px;
       background: transparent;
       border: 2px solid #ffffff;
       text-align: center;
-      font-size: 30px;
-      color: #FFFFFF;
+      font-size: 16px;
+      color: #ffffff;
       &:focus {
         outline: none;
       }
     }
-    &_submit_button {
-      position: absolute;
-      width: 56px;
-      height: 56px;
-      top: 284px;
-      left: 432px;
-      border-radius: 48px;
-      background-color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-    &_tick {
-      font-size: 30px;
-      color: #ff7020;
-    }
+
     &_go_back {
-      position: absolute;
+      position: relative;
       top: 423px;
       left: 148px;
       font-family: Inter;
@@ -156,11 +140,11 @@
       letter-spacing: 0em;
       color: rgba($color: #ffffff, $alpha: 62.5%);
       &_btn {
-        position: absolute;
-        width: 456px;
-        height: 56px;
-        top: 458px;
-        left: 32px;
+        position: relative;
+        width: 272px;
+        height: 30px;
+        margin-left: 24px;
+        margin-top: 12px;
         border-radius: 38px;
         border: none;
       }

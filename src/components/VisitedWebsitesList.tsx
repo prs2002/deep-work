@@ -4,16 +4,18 @@ import { TaggedTimeURL } from "../types/TaggedTimeUrl";
 import "./VisitedWebsitesList.scss";
 import { updateWebsitesInStorage } from "../utils/UpdateWebsitesInStorage";
 import DropdownWithConfirm from "./DropdownWithConfirm";
+import { preprocessURL } from "../utils/PreprocessURL";
 
 interface VisitedWebsitesListProps {
   visitedWebsites: TaggedTimeURL[];
-  setVisitedWebsites: React.Dispatch<React.SetStateAction<TaggedTimeURL[]>>
+  setVisitedWebsites: React.Dispatch<React.SetStateAction<TaggedTimeURL[]>>;
 }
+
+const websiteColor = ["grey", "orange", "blue", "red"];
 
 export default function VisitedWebsitesList({
   visitedWebsites,
   setVisitedWebsites,
-  
 }: VisitedWebsitesListProps) {
   const dropdownOptions: DropdownOptions[] = [
     {
@@ -107,19 +109,22 @@ export default function VisitedWebsitesList({
           <h3>Visited Websites</h3>
         </div>
         <div className="visited_website_list__content__list">
-          {visitedWebsites.map((website, index) => {
+          {visitedWebsites.map((site, index) => {
+            const website = preprocessURL(site.label);
             return (
               <div
                 className="visited_website_list__content__list__item"
                 key={index}
               >
                 <div className="visited_website_list__content__list__item__website">
-                  <div className="visited_website_list__content__list__item__website__color"></div>
-                  {website.label.slice(0, 20) +
-                    (website.label.length > 20 ? "..." : "")}
+                  <div
+                    className="visited_website_list__content__list__item__website__color"
+                    id={websiteColor[site.tag]}
+                  ></div>
+                  {website.slice(0, 20) + (website.length > 20 ? "..." : "")}
                 </div>
                 <div className="visited_website_list__content__list__item__tag">
-                <DropdownWithConfirm
+                  <DropdownWithConfirm
                     dropdownOptions={dropdownOptions}
                     activeOption={
                       activeOption[index] || { id: "0", value: "-1" }
@@ -131,7 +136,7 @@ export default function VisitedWebsitesList({
                       handleCancel(index);
                     }}
                     handleTagChange={() => {
-                      handleTagChange(index)
+                      handleTagChange(index);
                     }}
                   ></DropdownWithConfirm>
                 </div>

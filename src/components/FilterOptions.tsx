@@ -11,7 +11,7 @@ export default function FilterOptions({setFilter} : FilterOptionsProps) {
   const options = ["Today", "This Week", "This Month"];
   const [selectedOption, setSelectedOption] = useState<number>(0);
 
-  const filterOptions = ["dailyTime", "dailyAverage", "webTime"];
+  const filterOptions = ["dailyTime", "weeklyTime", "monthlyTime"];
 
   return (
     <div className="filter_options">

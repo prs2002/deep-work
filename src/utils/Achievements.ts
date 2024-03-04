@@ -3,45 +3,36 @@
  *
  */
 
+import { TaggedTimeURL } from "../types/TaggedTimeUrl";
 import { getTaggedTime } from "./GetTaggedTime";
 
-export async function dailyProductivity() {
-  const data = await getTaggedTime("dailyTime");
-  if (data) {
-    let productiveTime = 0;
-    data.forEach((d) => {
-      if (d.tag === 1) {
-        productiveTime += d.time;
-      }
-    });
+export async function weeklyProductivity(minTime: number): Promise<boolean> {
+  const taggedTime: TaggedTimeURL[] | undefined = await getTaggedTime(
+    "weeklyTime"
+  );
 
-    productiveTime = Math.floor(productiveTime / 1000); // converting to seconds
-    const previousMaxTime =
-      (await chrome.storage.local.get("maxProductivityTime"))
-        ?.maxProductivityTime || 0;
-    if (productiveTime > previousMaxTime) {
-      chrome.storage.local.set({ maxProductivityTime: productiveTime });
+  if (taggedTime === undefined) {
+    return false;
+  }
+
+  const productivityTime = taggedTime.reduce((acc, curr) => {
+    if (curr.tag === 1) {
+      return acc + curr.time;
     }
-  }
-}
+    return acc;
+  }, 0);
 
-export async function getDailyProductivity(): Promise<number> {
-  const data =
-    (await chrome.storage.local.get("maxProductivityTime"))
-      ?.maxProductivityTime || 0;
-  return data;
-}
 
-export async function getTotalProductivity(): Promise<number> {
-  const data = await getTaggedTime("webTime");
-  if (data) {
-    let productiveTime = 0;
-    data.forEach((d) => {
-      if (d.tag === 1) {
-        productiveTime += d.time;
-      }
-    });
-    return productiveTime;
+  // convert to hours
+
+  const productivityHours = productivityTime / 3600000; // 1000 * 60 * 60
+
+  console.log(productivityHours, minTime);
+  
+
+  if (productivityHours >= minTime) {
+    return true;
   }
-  return 0;
+
+  return false;
 }

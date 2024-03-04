@@ -5,7 +5,6 @@ Function to summarize the productivity data
 import { SummaryItem } from "../types/SummaryItem";
 import { msToHM } from "./scripts/mmToHM";
 
-
 interface TaggedURL {
   website: string;
   tag: number;
@@ -17,14 +16,10 @@ interface UsageData {
   time: number;
 }
 
-
-
 export async function calculateProductivity(
   type: string
 ): Promise<SummaryItem[] | undefined> {
-  const data: UsageData[] | null = (await chrome.storage.local.get(type !== "dailyAverage" ? type : "webTime"))?.[
-    type !== "dailyAverage" ? type : "webTime"
-  ];
+  const data: UsageData[] | null = (await chrome.storage.local.get(type))?.[type];
   if (!data) {
     return;
   }
@@ -51,9 +46,18 @@ export async function calculateProductivity(
       }
     }
   }
-  let distracted = total - productive;  
-  if(type === "dailyAverage") {
-    const days = (await chrome.storage.local.get("numberOfDays"))?.numberOfDays || 1;
+  let distracted = total - productive;
+  if (type === "weeklyTime") {
+    const days =
+      (await chrome.storage.local.get("numberOfDaysInWeek"))
+        ?.numberOfDaysInWeek || 1;
+    total /= days;
+    productive /= days;
+    distracted /= days;
+  } else if (type === "monthlyTime") {
+    const days =
+      (await chrome.storage.local.get("numberOfDays"))
+        ?.numberOfDays || 1;
     total /= days;
     productive /= days;
     distracted /= days;

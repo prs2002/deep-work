@@ -3,4 +3,5 @@ export interface Achievements {
     time: number;
     trophy: any;
     color: string;
+    isCompleted: boolean;
 };

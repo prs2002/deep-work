@@ -4,11 +4,17 @@ import { NudgeUser } from "./utils/NudgeUser";
 
 let lastVisibilityState = document.hidden;
 let isExtensionDisabled = false;
+var isExtensionDisabledOnWeekend: boolean = true;
+var isWeekend: boolean = [0, 6].includes(new Date().getDay());
 let nudgeUser: NudgeUser;
+
+function checkDisable(): boolean {
+  return isExtensionDisabled || isExtensionDisabledOnWeekend;
+}
 
 function sendMessageToBackground(hidden: boolean) {
   try {
-    if (isExtensionDisabled) {
+    if (checkDisable()) {
       return;
     }
     chrome.runtime.sendMessage(
@@ -22,7 +28,12 @@ function sendMessageToBackground(hidden: boolean) {
   }
 }
 
-function setIsDisabled() {
+async function setIsDisabled() {
+  isExtensionDisabledOnWeekend =
+    ((await chrome.storage.local.get("isDisabledOnWeekend"))
+      .isDisabledOnWeekend ||
+      false) &&
+    isWeekend;
   chrome.storage.local.get("isDisabled", (data) => {
     if (data === undefined) {
       chrome.storage.local.set({ isDisabled: true });
@@ -31,9 +42,9 @@ function setIsDisabled() {
     }
     isExtensionDisabled = data.isDisabled;
     if (!nudgeUser) {
-      nudgeUser = new NudgeUser(isExtensionDisabled);
+      nudgeUser = new NudgeUser(checkDisable());
     } else {
-      nudgeUser.setIsDisabled(isExtensionDisabled);
+      nudgeUser.setIsDisabled(checkDisable());
     }
   });
   chrome.storage.onChanged.addListener(
@@ -42,9 +53,9 @@ function setIsDisabled() {
         isExtensionDisabled = changes["isDisabled"].newValue;
       }
       if (!nudgeUser) {
-        nudgeUser = new NudgeUser(isExtensionDisabled);
+        nudgeUser = new NudgeUser(checkDisable());
       } else {
-        nudgeUser.setIsDisabled(isExtensionDisabled);
+        nudgeUser.setIsDisabled(checkDisable());
         if (changes["promptParameters"]) {
           const currentURL = window.location.origin;
           const promptParameters = changes["promptParameters"].newValue;
@@ -57,6 +68,10 @@ function setIsDisabled() {
             );
           }
         }
+      }
+      if (changes["isDisabledOnWeekend"]) {
+        isExtensionDisabledOnWeekend =
+          changes["isDisabledOnWeekend"].newValue && isWeekend;
       }
     }
   );
@@ -73,25 +88,21 @@ setInterval(() => {
 
 sendMessageToBackground(lastVisibilityState);
 
-nudgeUser = new NudgeUser(isExtensionDisabled);
-
+nudgeUser = new NudgeUser(checkDisable());
 
 chrome.storage.local.get("lastGreeted", (data) => {
-  if(data.lastGreeted === undefined) {
+  if (data.lastGreeted === undefined) {
     addGreetingPopup();
     chrome.storage.local.set({ lastGreeted: new Date().toDateString() });
-  }
-  else {
+  } else {
     const today = new Date().toDateString();
-    if(data.lastGreeted !== today) {
+    if (data.lastGreeted !== today) {
       addGreetingPopup();
       chrome.storage.local.set({ lastGreeted: today });
     }
   }
 });
 
-
 setInterval(hourlySummary, 300000);
-
 
 export {};
