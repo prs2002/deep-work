@@ -28,7 +28,7 @@ export class WebTime {
       }
     });
     this.startTime = Date.now();
-    this.interval = setInterval(this.measureTime.bind(this), 1000);
+    this.interval = setInterval(this.measureTime.bind(this), 2000);
     this.isHidden = isHidden;
     this.isDisabled = isDisabled;
   }
@@ -37,7 +37,9 @@ export class WebTime {
     this.isHidden = isHidden;
     if (isHidden) {
       this.storeDailyTime().then(() => {
-        this.storeTime().then(() => {
+        this.storeTime().then(async () => {
+          await this.storeWeeklyTime();
+          await this.storeMonthlyTime();
           this.startTime = Date.now();
         });
       });
