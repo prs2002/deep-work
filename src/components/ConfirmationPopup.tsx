@@ -7,13 +7,13 @@ import Input from "./Input";
 interface ConfirmationPopupProps {
   setShowPopup: () => void;
   text: string;
-  handleConfirm: () => void
+  handleConfirm: () => void;
 }
 
 export default function ConfirmationPopup({
   setShowPopup,
   text,
-  handleConfirm
+  handleConfirm,
 }: ConfirmationPopupProps) {
   function handleSiteDetails() {
     setShowPopup();
@@ -21,6 +21,14 @@ export default function ConfirmationPopup({
 
   const [input, setInput] = useState<string>("");
 
+  const checkInput = () => {
+    if (input === "Yes I understand") {
+      setShowPopup();
+      handleConfirm();
+    } else {
+      alert("Please type 'Yes I understand' to confirm");
+    }
+  };
 
   return (
     <div className="confirmation_popup">
@@ -46,15 +54,23 @@ export default function ConfirmationPopup({
           </div>
           <div className="confirmation_popup__details__content__input">
             <div className="confirmation_popup__details__content__input__label">
-            Type the phrase "Yes I understand" to confirm
+              Type the phrase "Yes I understand" to confirm
             </div>
             <div className="confirmation_popup__details__content__input__container">
-                <Input input={input} placeholder="" setInput={(input)=>{setInput(input)}} type="text" disablePaste={true}></Input>
+              <Input
+                input={input}
+                placeholder=""
+                setInput={(input) => {
+                  setInput(input);
+                }}
+                type="text"
+                disablePaste={true}
+              ></Input>
             </div>
           </div>
         </div>
         <div className="confirmation_popup__details__button">
-          <Button onClick={handleConfirm} text="Confirm"></Button>
+          <Button onClick={checkInput} text="Confirm"></Button>
         </div>
       </div>
     </div>

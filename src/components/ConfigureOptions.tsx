@@ -6,9 +6,12 @@ interface ConfigureOptionsProps {
   setSelectedOption: (index: number) => void;
 }
 
-export default function ConfigureOptions({ isFocused, selectedOption, setSelectedOption }: ConfigureOptionsProps) {
+export default function ConfigureOptions({
+  isFocused,
+  selectedOption,
+  setSelectedOption,
+}: ConfigureOptionsProps) {
   const options = ["Websites", "Settings"];
-
 
   return (
     <div className="configure_options" id={isFocused ? "good" : "bad"}>
@@ -18,6 +21,7 @@ export default function ConfigureOptions({ isFocused, selectedOption, setSelecte
             <div
               key={index}
               className="configure_options__option selected"
+              id={isFocused ? "good" : "bad"}
               onClick={() => {
                 setSelectedOption(index);
               }}
@@ -30,6 +34,7 @@ export default function ConfigureOptions({ isFocused, selectedOption, setSelecte
           <div
             key={index}
             className="configure_options__option"
+            id={isFocused ? "good" : "bad"}
             onClick={() => {
               setSelectedOption(index);
             }}

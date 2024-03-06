@@ -1,27 +1,26 @@
 .untagged_website_list {
-  width: 452px;
-  height: 239px;
+  width: 328px;
+  height: 173px;
   border: 2px solid #f0f0f0;
   border-radius: 30px;
   margin-bottom: 28px;
   padding-right: 14px;
   &__header {
     padding-top: 25px;
-    padding-left: 24px;
-    font-size: 20px;
-    line-height: 24px;
+    padding-left: 14px;
+    font-size: 1.25rem;
     letter-spacing: 0em;
   }
   &__content {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    height: 140px;
+    gap: 12px;
+    height: 100px;
     overflow-y: auto;
-    margin-top: 29px;
-    padding: 0 24px;
+    margin-top: 16px;
+    padding: 0 14px;
     &::-webkit-scrollbar {
-      width: 9px;
+      width: 5px;
     }
 
     &::-webkit-scrollbar-track {
@@ -45,7 +44,7 @@
       &__website {
         display: flex;
         justify-content: flex-start;
-        padding: 9px 0;
+        padding: 5px 0;
         width: 50%;
       }
 

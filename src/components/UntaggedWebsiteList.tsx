@@ -83,34 +83,38 @@ export default function UntaggedWebsiteList() {
     });
   };
 
+  const displayWebsites = () => {
+    return untaggedWebsites.map((website, index) => {
+      return (
+        <div className="untagged_website_list__content__row" key={index}>
+          <div className="untagged_website_list__content__row__website">
+            {preprocessURL(website)}
+          </div>
+          <div className="untagged_website_list__content__row__dropdown">
+            <DropdownWithConfirm
+              dropdownOptions={dropdownOptions}
+              activeOption={activeOption[index]}
+              setActiveOption={(option: DropdownOptions) => {
+                handleOptionSelect(option, index);
+              }}
+              handleCancel={() => {
+                handleCancel(index);
+              }}
+              handleTagChange={() => {
+                handleTagChange(index);
+              }}
+            ></DropdownWithConfirm>
+          </div>
+        </div>
+      );
+    });
+  };
+
   return (
     <div className="untagged_website_list">
       <div className="untagged_website_list__header">Untagged Sites</div>
       <div className="untagged_website_list__content">
-        {untaggedWebsites.map((website, index) => {
-          return (
-            <div className="untagged_website_list__content__row" key={index}>
-              <div className="untagged_website_list__content__row__website">
-                {preprocessURL(website)}
-              </div>
-              <div className="untagged_website_list__content__row__dropdown">
-                <DropdownWithConfirm
-                  dropdownOptions={dropdownOptions}
-                  activeOption={activeOption[index]}
-                  setActiveOption={(option: DropdownOptions) => {
-                    handleOptionSelect(option, index);
-                  }}
-                  handleCancel={() => {
-                    handleCancel(index)
-                  }}
-                  handleTagChange={() => {
-                    handleTagChange(index);
-                  }}
-                ></DropdownWithConfirm>
-              </div>
-            </div>
-          );
-        })}
+        {untaggedWebsites.length ? displayWebsites() : "No untagged websites"}
       </div>
     </div>
   );

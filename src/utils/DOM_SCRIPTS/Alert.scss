@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap");
 #non_blocking_alert {
   margin: 0;
   padding: 0;
@@ -130,9 +131,7 @@
     }
 
     &_go_back {
-      position: relative;
-      top: 423px;
-      left: 148px;
+      margin-top: 32px;
       font-family: Inter;
       font-size: 16px;
       font-weight: 400;
@@ -140,11 +139,11 @@
       letter-spacing: 0em;
       color: rgba($color: #ffffff, $alpha: 62.5%);
       &_btn {
+        cursor: pointer;
         position: relative;
         width: 272px;
         height: 30px;
-        margin-left: 24px;
-        margin-top: 12px;
+        margin-top: 16px;
         border-radius: 38px;
         border: none;
       }

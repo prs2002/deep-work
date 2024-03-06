@@ -31,6 +31,7 @@ export default function MenuOptions({ isFocused }: MenuOptionsProps) {
             <div
               key={index}
               className="menu_options__option selected"
+              id={isFocused ? "good" : "bad"}
               onClick={() => {
                 setSelectedOption(index);
               }}
@@ -44,6 +45,7 @@ export default function MenuOptions({ isFocused }: MenuOptionsProps) {
             to={`/${option.toLowerCase()}`}
             key={index}
             className="menu_options__option"
+            id={isFocused ? "good" : "bad"}
             onClick={() => {
               setSelectedOption(index);
             }}

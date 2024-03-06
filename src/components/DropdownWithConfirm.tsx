@@ -45,7 +45,7 @@ export default function DropdownWithConfirm({
 
 
   return (
-    <>
+    <div className="dropdown_with_confirm__container">
     <div className="dropdown_with_confirm" id={isActive ? "active" : ""}>
       <div className="dropdown_with_confirm__active_option" onClick={handleDropdownClick}>
         {isActive ? "Select" : activeOption.value}
@@ -84,6 +84,6 @@ export default function DropdownWithConfirm({
           </div>
         </>
       )}
-      </>
+      </div>
   );
 }

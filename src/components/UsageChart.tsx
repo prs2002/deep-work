@@ -25,32 +25,6 @@ export default function UsageChart({ type }: { type: string }) {
     },
   };
   useEffect(() => {
-    // if (type === "dailyAverage") {
-    //   chrome.storage.local.get("webTime", async (result) => {
-    //     const data = result?.webTime;
-    //     if (!data) {
-    //       setData([]);
-    //       return;
-    //     }
-    //     const numberOfDays : number =
-    //       (await chrome.storage.local.get("numberOfDays")).numberOfDays || 1;
-    //     const average = data.map((d: any) => ({
-    //       ...d,
-    //       time: d.time / numberOfDays,
-    //     }));
-    //     setData(average);
-    //   });
-    // } else {
-    //   chrome.storage.local.get(type, (result) => {
-    //     const data = result?.[type];
-    //     if (!data) {
-    //       setData([]);
-    //       return;
-    //     }
-
-    //     setData(data);
-    //   });
-    // }
     getTaggedTime(type).then((res : TaggedTimeURL[] | undefined) => {
       if(!res) {
         return;

@@ -1,35 +1,37 @@
 .tag_website {
-  width: 452px;
+  width: 328px;
   border: 2px solid #f0f0f0;
   border-radius: 30px;
   margin-bottom: 28px;
   &__header {
-    padding-top: 25px;
-    padding-left: 24px;
-    font-size: 20px;
-    line-height: 24px;
+    padding-top: 20px;
+    padding-left: 15px;
+    font-size: 1.25rem;
     letter-spacing: 0em;
   }
   &__content {
-    padding: 0 24px;
+    padding: 0 10px;
     display: flex;
     gap: 12px;
     margin-top: 23px;
 
     &__input {
       width: 252px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     &__dropdown {
       width: 140px;
-      height: 56px;
+      height: 40px;
       display: flex;
       justify-content: flex-end;
     }
   }
 
   &__max_time {
-    margin: 0 24px;
+    margin: 0 10px;
     margin-top: 20px;
     &__title {
       margin-bottom: 12px;
@@ -37,9 +39,9 @@
   }
 
   &__button {
-    width: 404px;
-    margin: 0 24px;
+    width: calc(100% - 20px);
     margin-top: 16px;
     margin-bottom: 30px;
+    padding: 0 10px;
   }
 }

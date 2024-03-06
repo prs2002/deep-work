@@ -139,7 +139,7 @@ export const AlertTimerBox = () => {
         <div className="alert_timer_box__content__input">
           <Input
             input={violations}
-            placeholder="Enter the number of violations"
+            placeholder="Enter number of violations"
             setInput={(violations) => {
               setViolations(violations);
             }}

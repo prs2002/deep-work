@@ -8,12 +8,12 @@ interface NavbarProps {
   isFocused: boolean;
 }
 
-export default function Navbar({ text, isFocused}: NavbarProps) {
+export default function Navbar({ text, isFocused }: NavbarProps) {
   const [isMenuExpanded, setIsMenuExpanded] = useState<boolean>(false);
   return (
     <div className="navbar">
       <div className="navbar__left">
-        <h1>{text}</h1>
+        <h1 id={isFocused ? "good" : "bad"}>{text}</h1>
       </div>
       <div className="navbar__right">
         <div

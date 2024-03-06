@@ -1,52 +1,60 @@
 .navbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: transparent;
-    display: flex;   
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: transparent;
+  display: flex;
 
-    &__left {
-        width: 50%;
-        display: flex;
-        justify-content: flex-start;
-        & h1 {
-            margin-left: 34px;
-            margin-top: 30px;
-            color: var(--tertiary-orange);
-            font-weight: 600;
-            font-size: 24px;
-        }
-    }
+  &__left {
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    & h1 {
+      margin-left: 34px;
+      margin-top: 30px;
+      font-weight: 600;
+      font-size: 1.5rem;
 
-    &__right {
-        width: 50%;
-        display: flex;
-        justify-content: flex-end;
-        &__menu_button {
-            margin-right: 34px;
-            margin-top: 26px;
-            background-color: var(--background-color);
-            padding: 9px 24px;
-            border-radius: 38px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            &#cross {
-                padding: 9px;
-                border-radius: 100%;
-            }
-        }
-        &__menu_expand {
-            display: none;
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            &#show {
-                display: block;
-            }
-        }
+      &#good {
+        color: var(--tertiary-orange);
+      }
+
+      &#bad {
+        color: var(--tertiary-red);
+      }
     }
+  }
+
+  &__right {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    &__menu_button {
+      margin-right: 25px;
+      margin-top: 23px;
+      margin-bottom: 3px;
+      background-color: var(--background-color);
+      padding: 9px 24px;
+      border-radius: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      &#cross {
+        padding: 9px;
+        border-radius: 100%;
+      }
+    }
+    &__menu_expand {
+      display: none;
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      &#show {
+        display: block;
+      }
+    }
+  }
 }

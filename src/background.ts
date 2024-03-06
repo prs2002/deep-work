@@ -20,6 +20,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   sendResponse({ message: "received" });
 });
 
+
 function checkDisable(): boolean {
   return isExtensionDisabled || isExtensionDisabledOnWeekend;
 }
@@ -99,7 +100,8 @@ function loadData() {
       chrome.storage.local.set({ preTaggedUrls: data });
     });
   });
-}
+} 
+
 
 
 loadData();

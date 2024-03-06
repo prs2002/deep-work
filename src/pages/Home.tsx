@@ -20,6 +20,19 @@ interface HomeProps {
 
 export default function Home({ isFocused, setIsFocused }: HomeProps) {
   const [filter, setFilter] = useState("dailyTime");
+  const focusMessage = [
+    { line1: "Stay focused today!", line2: "Keep trying harder!" },
+    { line1: "You're on track!", line2: "Stay in the zone!" },
+    { line1: "Keep pushing forward!", line2: "Almost there, keep it up!" },
+    { line1: "You're doing great!", line2: "Keep the momentum!" },
+    { line1: "Impressive focus!", line2: "Keep going strong!" },
+    { line1: "Amazing concentration!", line2: "You're unstoppable!" },
+    { line1: "Incredible dedication!", line2: "The sky's the limit!" },
+    { line1: "You're a focus master!", line2: "Unstoppable today!" },
+    { line1: "Maximum focus achieved!", line2: "Keep it up, champ!" },
+    { line1: "You're a focus legend!", line2: "On top of the world!" },
+  ];
+
   const [summary, setSummary] = useState<SummaryItem[]>([
     {
       label: "Total time spent",
@@ -66,6 +79,7 @@ export default function Home({ isFocused, setIsFocused }: HomeProps) {
     fetchWebsites();
   }, [filter]);
 
+
   return (
     <div className="home_page">
       <div className="home_page__menu">
@@ -73,13 +87,14 @@ export default function Home({ isFocused, setIsFocused }: HomeProps) {
       </div>
       <div className="home_page__header">
         <h3>Welcome Back</h3>
-        <h1>Great Day So Far.</h1>
-        <h1>Let's Keep Going!</h1>
+        <h1>{focusMessage[Math.floor(Math.min(focusRate, 99) / 10)].line1}</h1>
+        <h1>{focusMessage[Math.floor(Math.min(focusRate, 99) / 10)].line2}</h1>
       </div>
       <div className="home_page__boxes">
         <FocusRateBox
           focusRate={focusRate}
           time={summary[1].value}
+          isFocused={isFocused}
         ></FocusRateBox>
         <QuickActionsBox></QuickActionsBox>
       </div>

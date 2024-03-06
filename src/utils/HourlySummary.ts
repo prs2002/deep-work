@@ -51,8 +51,6 @@ export async function hourlySummary() {
       timeSpent.untaggedTime,
       timeSpent.wastedTime
     );
-    console.log(timeSpent);
-    
   }
 }
 

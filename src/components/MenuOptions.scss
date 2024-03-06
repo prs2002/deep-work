@@ -1,28 +1,42 @@
 .menu_options {
-  width: 345px;
+  width: 252px;
   padding: 5px 6px;
   border-radius: 30px;
   display: flex;
   justify-content: space-between;
 
-  &#good{
+  &#good {
     background: var(--secondary-orange);
   }
 
-  &#bad{
+  &#bad {
     background: var(--secondary-red);
   }
 
   &__option {
-    padding: 9px 24px;
+    padding: 6px 12.5px;
     border-radius: 18px;
-    color: var(--tertiary-orange);
     font-weight: 400;
     cursor: pointer;
     text-decoration: none;
+
+    &#good {
+      color: var(--tertiary-orange);
+    }
+
+    &#bad {
+      color: var(--tertiary-red);
+    }
+
     &.selected {
-        background-color: var(--background-color);
+      background-color: var(--background-color);
+      &#good {
         color: var(--primary-orange);
+      }
+
+      &#bad {
+        color: var(--wasteful-red);
+      }
     }
   }
 }

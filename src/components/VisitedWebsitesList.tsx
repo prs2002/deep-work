@@ -5,6 +5,8 @@ import "./VisitedWebsitesList.scss";
 import { updateWebsitesInStorage } from "../utils/UpdateWebsitesInStorage";
 import DropdownWithConfirm from "./DropdownWithConfirm";
 import { preprocessURL } from "../utils/PreprocessURL";
+import SiteDetailsBox from "./SiteDetailsBox";
+import useToggle from "../hooks/useToggle";
 
 interface VisitedWebsitesListProps {
   visitedWebsites: TaggedTimeURL[];
@@ -37,6 +39,8 @@ export default function VisitedWebsitesList({
   ];
 
   const [activeOption, setActiveOption] = useState<DropdownOptions[]>([]);
+  const [showSiteDetails, setShowSiteDetails] = useToggle(false);
+  const [site, setSite] = useState<string>("");
 
   const handleOptionSelect = (option: DropdownOptions, index: number) => {
     setActiveOption((prev) => {
@@ -102,47 +106,62 @@ export default function VisitedWebsitesList({
     });
   };
 
+  const handleSiteDetails = (website: string) => {
+    setShowSiteDetails();
+    setSite(website);
+  };
+
+  const displayWebsite = () => {
+    return visitedWebsites.map((site, index) => {
+      const website = preprocessURL(site.label);
+      return (
+        <div className="visited_website_list__content__list__item" key={index}>
+          <div
+            className="visited_website_list__content__list__item__website"
+            onClick={() => {
+              handleSiteDetails(site.label);
+            }}
+          >
+            <div
+              className="visited_website_list__content__list__item__website__color"
+              id={websiteColor[site.tag]}
+            ></div>
+            {website.slice(0, 20) + (website.length > 20 ? "..." : "")}
+          </div>
+          <div className="visited_website_list__content__list__item__tag">
+            <DropdownWithConfirm
+              dropdownOptions={dropdownOptions}
+              activeOption={activeOption[index] || { id: "0", value: "-1" }}
+              setActiveOption={(option: DropdownOptions) => {
+                handleOptionSelect(option, index);
+              }}
+              handleCancel={() => {
+                handleCancel(index);
+              }}
+              handleTagChange={() => {
+                handleTagChange(index);
+              }}
+            ></DropdownWithConfirm>
+          </div>
+        </div>
+      );
+    });
+  };
+
   return (
     <div className="visited_website_list">
+      {showSiteDetails && (
+        <SiteDetailsBox
+          setShowSiteDetails={setShowSiteDetails}
+          website={site}
+        ></SiteDetailsBox>
+      )}
       <div className="visited_website_list__content">
         <div className="visited_website_list__content__title">
           <h3>Visited Websites</h3>
         </div>
         <div className="visited_website_list__content__list">
-          {visitedWebsites.map((site, index) => {
-            const website = preprocessURL(site.label);
-            return (
-              <div
-                className="visited_website_list__content__list__item"
-                key={index}
-              >
-                <div className="visited_website_list__content__list__item__website">
-                  <div
-                    className="visited_website_list__content__list__item__website__color"
-                    id={websiteColor[site.tag]}
-                  ></div>
-                  {website.slice(0, 20) + (website.length > 20 ? "..." : "")}
-                </div>
-                <div className="visited_website_list__content__list__item__tag">
-                  <DropdownWithConfirm
-                    dropdownOptions={dropdownOptions}
-                    activeOption={
-                      activeOption[index] || { id: "0", value: "-1" }
-                    }
-                    setActiveOption={(option: DropdownOptions) => {
-                      handleOptionSelect(option, index);
-                    }}
-                    handleCancel={() => {
-                      handleCancel(index);
-                    }}
-                    handleTagChange={() => {
-                      handleTagChange(index);
-                    }}
-                  ></DropdownWithConfirm>
-                </div>
-              </div>
-            );
-          })}
+          {visitedWebsites.length ? displayWebsite() : "No websites visited"}
         </div>
       </div>
     </div>

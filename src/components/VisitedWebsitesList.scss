@@ -1,17 +1,16 @@
 .visited_website_list {
   border: 2px solid #f0f0f0;
   border-radius: 30px;
-  width: 452px;
-  height: 239px;
+  width: 328px;
+  height: 173px;
   margin-bottom: 28px;
   &__content {
     padding: 18px;
 
     &__title {
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       & > h3 {
-        font-size: 20px;
-        line-height: 24px;
+        font-size: 1.25rem;
         letter-spacing: 0em;
       }
     }
@@ -19,12 +18,12 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      height: 140px;
+      gap: 12px;
+      height: 100px;
       overflow-y: auto;
       padding-right: 14px;
       &::-webkit-scrollbar {
-        width: 9px;
+        width: 5px;
       }
 
       &::-webkit-scrollbar-track {
@@ -45,11 +44,12 @@
       &__item {
         display: flex;
         &__website {
+          cursor: pointer;
           width: 70%;
           display: flex;
           align-items: center;
           gap: 15px;
-          padding: 9px 14px;
+          padding: 5px 0px;
           &__color {
             height: 15px;
             aspect-ratio: 1;

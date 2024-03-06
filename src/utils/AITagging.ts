@@ -11,7 +11,25 @@ interface TaggedWebsite {
   CLASSIFICATION: string;
 }
 
+function pushToArray(
+  classification: string,
+  taggedWebsites: Website[],
+  website: string
+) {
+  let tag = 0;
+  if (classification === "productive") {
+    tag = 1;
+  } else if (classification === "unsure") {
+    tag = 2;
+  } else {
+    tag = 3;
+  }
+  taggedWebsites.push({ id: website, website, tag });
+}
+
 async function apiCall(website: string, authKey: any) {
+  console.log("API Call");
+
   try {
     const requestBody = {
       model: "gpt-3.5-turbo-0125",
@@ -28,11 +46,12 @@ async function apiCall(website: string, authKey: any) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${authKey.authKey}`,
+        Authorization: `Bearer ${authKey}`,
       },
       body: JSON.stringify(requestBody),
     });
     const data = await res.json();
+    console.log("API Call Response", data);
     const classifiedWebsites = data.choices[0].message.content;
     const classifiedWebsitesObject = JSON.parse(classifiedWebsites);
     return classifiedWebsitesObject;
@@ -43,51 +62,49 @@ async function apiCall(website: string, authKey: any) {
 }
 
 export async function AITagging() {
-  
   try {
-    const authKey = await chrome.storage.local.get("authKey");
-    if (!authKey.authKey) {
-      throw new Error("No API Key found");
-    }
-    const websites = await chrome.storage.local.get("visitedURLs");
-    if (!websites.visitedURLs) {
-      throw new Error("No URLs found");
-    }
-    const websiteList : string[] = websites.visitedURLs;
-    if (websiteList.length === 0) {
+    const authKey = (await chrome.storage.local.get("authKey"))?.authKey;
+    const websiteList: string[] = (
+      await chrome.storage.local.get("visitedURLs")
+    )?.visitedURLs;
+    if (!websiteList || websiteList.length === 0) {
       return;
     }
 
-    
-    const preTaggedUrls : TaggedWebsite[] = (await chrome.storage.local.get("preTaggedUrls"))?.preTaggedUrls || [];
+    const preTaggedUrls: TaggedWebsite[] =
+      (await chrome.storage.local.get("preTaggedUrls"))?.preTaggedUrls || [];
     const taggedWebsites: Website[] = [];
 
     for (let i = 0; i < websiteList.length; i++) {
-      const website : string = websiteList[i];
+      const website: string = websiteList[i];
       let classification = "unsure";
-      const obj : TaggedWebsite | undefined= preTaggedUrls.find((obj) => obj.URL === website);
-      
-      if(obj) {
+      const obj: TaggedWebsite | undefined = preTaggedUrls.find(
+        (obj) => obj.URL === website
+      );
+
+      if (obj) {
         classification = obj.CLASSIFICATION.toLowerCase();
-      }
-      else {
+        console.log("pre-tagged", website, classification);
+        pushToArray(classification, taggedWebsites, website);
+      } else if (authKey) {
+        const lastApiCall =
+          (await chrome.storage.local.get("lastApiCall"))?.lastApiCall ||
+          new Date(0).getTime();
+        const currentTime = new Date().getTime();
+        if (currentTime - lastApiCall < 30000) {
+          // if last api call was less than 2 minutes ago, skip to prevent rate limit
+          continue;
+        }
         const tagged: TaggedWebsite = await apiCall(website, authKey);
+        await chrome.storage.local.set({ lastApiCall: currentTime });
         classification = tagged.CLASSIFICATION?.toLowerCase();
-        // await new Promise((resolve) => {
-        //   setTimeout(resolve, 60000) // wait 30 seconds for rate limit
-        // })
+        pushToArray(classification, taggedWebsites, website);
+        await new Promise((resolve) => {
+          setTimeout(resolve, 30000); // wait 30 seconds for rate limit
+        });
       }
-      let tag = 0;
-      if (classification === "productive") {
-        tag = 1;
-      } else if (classification === "unsure") {
-        tag = 2;
-      } else {
-        tag = 3;
-      }
-      taggedWebsites.push({ id: website, website, tag });
     }
-    
+
     updateWebsitesInStorage(taggedWebsites);
   } catch (e) {
     console.error(e);

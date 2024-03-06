@@ -8,7 +8,12 @@ export default function GeneralSettingsBox() {
   const [showWarning, setShowWarning] = useState<boolean>(false);
   
   const setShowPopup = () => {
-    setShowWarning((prev) => !prev);
+    if(isOn) {
+      setShowWarning((prev) => !prev);
+    }
+    else {
+      toggleSwitch();
+    }
   }
 
   const toggleSwitch = async () => {

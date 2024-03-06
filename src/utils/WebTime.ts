@@ -28,7 +28,7 @@ export class WebTime {
       }
     });
     this.startTime = Date.now();
-    this.interval = setInterval(this.measureTime.bind(this), 2000);
+    this.interval = setInterval(this.measureTime.bind(this), 1000);
     this.isHidden = isHidden;
     this.isDisabled = isDisabled;
   }
@@ -174,8 +174,8 @@ export class WebTime {
             });
           });
         } else if (this.isHidden) {
-        } else if (this.getTimeSpent() > 30000) {
-          // If the user has been on the website for more than 30 seconds
+        } else if (this.getTimeSpent() > 20000) {
+          // If the user has been on the website for more than 20 seconds
           this.storeDailyTime().then(() => {
             this.storeTime().then(async () => {
               await this.storeWeeklyTime();

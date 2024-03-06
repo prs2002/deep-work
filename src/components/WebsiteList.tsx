@@ -94,36 +94,39 @@ export default function WebsiteList() {
     });
   };
 
+  const displayWebsites = () => {
+    return websites.map((site, index) => {
+      const website = preprocessURL(site.website);
+      return (
+        <div className="website_list__content__row" key={index}>
+          <div className="website_list__content__row__website">
+            {website.slice(0, 20) + (website.length > 20 ? "..." : "")}
+          </div>
+          <div className="website_list__content__row__dropdown">
+            <DropdownWithConfirm
+              dropdownOptions={dropdownOptions}
+              activeOption={activeOption[index]}
+              setActiveOption={(option) => {
+                handleOptionSelect(option, index);
+              }}
+              handleCancel={() => {
+                handleCancel(index);
+              }}
+              handleTagChange={() => {
+                handleTagChange(index);
+              }}
+            ></DropdownWithConfirm>
+          </div>
+        </div>
+      );
+    });
+  };
+
   return (
     <div className="website_list">
       <div className="website_list__header">Website List</div>
       <div className="website_list__content">
-        {websites.map((site, index) => {
-          const website = preprocessURL(site.website);
-          return (
-            <div className="website_list__content__row" key={index}>
-              <div className="website_list__content__row__website">
-                {website.slice(0, 20) +
-                  (website.length > 20 ? "..." : "")}
-              </div>
-              <div className="website_list__content__row__dropdown">
-                <DropdownWithConfirm
-                  dropdownOptions={dropdownOptions}
-                  activeOption={activeOption[index]}
-                  setActiveOption={(option) => {
-                    handleOptionSelect(option, index);
-                  }}
-                  handleCancel={() => {
-                    handleCancel(index);
-                  }}
-                  handleTagChange={() => {
-                    handleTagChange(index);
-                  }}
-                ></DropdownWithConfirm>
-              </div>
-            </div>
-          );
-        })}
+        {websites.length ? displayWebsites() : "No websites to display"}
       </div>
     </div>
   );

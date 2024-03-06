@@ -1,1 +1,17 @@
-window.onload=function(){var n=new URLSearchParams(window.location.search).get("redirectURL"),e=15,o=document.getElementById("countdown");o.innerHTML=e;var t=setInterval((function(){e--,o.innerHTML=e,e<=0&&(clearInterval(t),console.log("Redirecting to "+n),window.location.href=n)}),1e3)};
+window.onload = function () {
+  var params = new URLSearchParams(window.location.search);
+  var redirectURL = params.get("redirectURL");
+  var countdown = 15;
+  
+  var countdownElement = document.getElementById("countdown");
+  countdownElement.innerHTML = countdown;
+  var interval = setInterval(function () {
+    countdown--;
+    countdownElement.innerHTML = countdown;
+    if (countdown <= 0) {
+      clearInterval(interval);
+      console.log("Redirecting to " + redirectURL);
+      window.location.href = redirectURL;
+    }
+  }, 1000);
+};

@@ -1,5 +1,5 @@
 .configure_options {
-  width: 452px;
+  width: 330px;
   padding: 8px 10px;
   border-radius: 60px;
   display: flex;
@@ -15,21 +15,32 @@
 
   &__option {
     border-radius: 48px;
-    color: var(--tertiary-orange);
-    width: 212px;
-    height: 47px;
+    width: 154px;
+    height: 34px;
     cursor: pointer;
     text-decoration: none;
     font-family: Inter;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 1.25rem;
     letter-spacing: 0em;
     display: flex;
     align-items: center;
     justify-content: center;
+    &#good {
+      color: var(--tertiary-orange);
+    }
+
+    &#bad {
+      color: var(--tertiary-red);
+    }
     &.selected {
       background-color: var(--background-color);
-      color: var(--primary-orange);
+      &#good {
+        color: var(--primary-orange);
+      }
+
+      &#bad {
+        color: var(--wasteful-red);
+      }
     }
   }
 }
