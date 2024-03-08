@@ -10,31 +10,33 @@ interface Website {
 
 export class WebActivity {
   interval: NodeJS.Timeout;
-  isExtensionDisabled: boolean = true;
   constructor(isDisabled: boolean) {
     this.interval = setInterval(this.keepTrack.bind(this), 10000);
-    this.isExtensionDisabled = isDisabled;
+    if (isDisabled) {
+      this.clear();
+    }
   }
 
   setExtensionDisabled(isDisabled: boolean) {
-    this.isExtensionDisabled = isDisabled;
+    if(isDisabled) {
+      this.clear();
+    } else {
+      this.clear();
+      this.interval = setInterval(this.keepTrack.bind(this), 10000);
+    }
   }
 
   keepTrack() {
-    if (this.isExtensionDisabled) {
-      return;
-    }
-
-    chrome.storage.local.get(["webTime"], async (data) => {
-      if (data.webTime === undefined) {
+    chrome.storage.local.get(["dailyTime"], async (data) => {
+      if (data.dailyTime === undefined) {
         return;
       }
-      const webTime = data.webTime;
-      for (let i = 0; i < webTime.length; i++) {
-        const timeSpent = webTime[i].time;
+      const dailyTime = data.dailyTime;
+      for (let i = 0; i < dailyTime.length; i++) {
+        const timeSpent = dailyTime[i].time;
 
         if (timeSpent > 30000) {
-          const url = webTime[i].url;
+          const url = dailyTime[i].url;
           const visited = await WebActivity.checkIfURLVisited(url);
           if (!visited) {
             chrome.storage.local.get(["visitedURLs"], (data) => {

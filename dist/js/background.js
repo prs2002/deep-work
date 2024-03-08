@@ -63,14 +63,14 @@ function pushToArray(classification, taggedWebsites, website) {
     else if (classification === "unsure") {
         tag = 2;
     }
-    else {
+    else if (classification === "wasteful") {
         tag = 3;
     }
     taggedWebsites.push({ id: website, website, tag });
 }
 function apiCall(website, authKey) {
+    var _a;
     return AITagging_awaiter(this, void 0, void 0, function* () {
-        console.log("API Call");
         try {
             const requestBody = {
                 model: "gpt-3.5-turbo-0125",
@@ -92,14 +92,18 @@ function apiCall(website, authKey) {
                 body: JSON.stringify(requestBody),
             });
             const data = yield res.json();
-            console.log("API Call Response", data);
+            const usage = data.usage.total_tokens;
+            const pricing = 0.5 / 1000000;
+            const prevUsage = ((_a = (yield chrome.storage.local.get("usage"))) === null || _a === void 0 ? void 0 : _a.usage) || [];
+            prevUsage.push({ cost: usage * pricing, website: website });
+            yield chrome.storage.local.set({ usage: prevUsage });
             const classifiedWebsites = data.choices[0].message.content;
             const classifiedWebsitesObject = JSON.parse(classifiedWebsites);
             return classifiedWebsitesObject;
         }
         catch (err) {
             console.log(err);
-            return {};
+            return { website: website, CLASSIFICATION: "untagged" };
         }
     });
 }
@@ -120,7 +124,6 @@ function AITagging() {
                 const obj = preTaggedUrls.find((obj) => obj.URL === website);
                 if (obj) {
                     classification = obj.CLASSIFICATION.toLowerCase();
-                    console.log("pre-tagged", website, classification);
                     pushToArray(classification, taggedWebsites, website);
                 }
                 else if (authKey) {
@@ -175,279 +178,6 @@ function updateDynamicRules(blockedURLs) {
     });
 }
 
-;// CONCATENATED MODULE: ./src/utils/WebActivity.ts
-/*
-Class to store the web activity of the user
-*/
-var WebActivity_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-class WebActivity {
-    constructor(isDisabled) {
-        this.isExtensionDisabled = true;
-        this.interval = setInterval(this.keepTrack.bind(this), 10000);
-        this.isExtensionDisabled = isDisabled;
-    }
-    setExtensionDisabled(isDisabled) {
-        this.isExtensionDisabled = isDisabled;
-    }
-    keepTrack() {
-        if (this.isExtensionDisabled) {
-            return;
-        }
-        chrome.storage.local.get(["webTime"], (data) => WebActivity_awaiter(this, void 0, void 0, function* () {
-            if (data.webTime === undefined) {
-                return;
-            }
-            const webTime = data.webTime;
-            for (let i = 0; i < webTime.length; i++) {
-                const timeSpent = webTime[i].time;
-                if (timeSpent > 30000) {
-                    const url = webTime[i].url;
-                    const visited = yield WebActivity.checkIfURLVisited(url);
-                    if (!visited) {
-                        chrome.storage.local.get(["visitedURLs"], (data) => {
-                            const visitedURLs = data.visitedURLs || [];
-                            visitedURLs.push(url);
-                            chrome.storage.local.set({ visitedURLs: visitedURLs });
-                        });
-                    }
-                }
-            }
-        }));
-    }
-    clear() {
-        clearInterval(this.interval);
-    }
-    static checkIfURLVisited(url) {
-        return new Promise((resolve) => {
-            chrome.storage.local.get(["visitedURLs", "taggedURLs"], (data) => {
-                const visitedURLs = data.visitedURLs || [];
-                const taggedURLs = data.taggedURLs || [];
-                resolve(visitedURLs.includes(url) ||
-                    taggedURLs.some((website) => website.website === url));
-            });
-        });
-    }
-}
-
-;// CONCATENATED MODULE: ./src/utils/WebTime.ts
-/*
-
-Class to store the web time of the user
-
-*/
-var WebTime_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-class WebTime {
-    constructor(isHidden, isDisabled) {
-        this.baseUrl = "";
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            if (tabs && tabs[0] && tabs[0].url) {
-                if (!tabs[0].url || tabs[0].url === "chrome://newtab/") {
-                    return;
-                }
-                const currentUrl = new URL(tabs[0].url).origin;
-                if (currentUrl !== "") {
-                    this.baseUrl = currentUrl;
-                }
-            }
-        });
-        this.startTime = Date.now();
-        this.interval = setInterval(this.measureTime.bind(this), 1000);
-        this.isHidden = isHidden;
-        this.isDisabled = isDisabled;
-    }
-    setWindowHidden(isHidden) {
-        this.isHidden = isHidden;
-        if (isHidden) {
-            this.storeDailyTime().then(() => {
-                this.storeTime().then(() => WebTime_awaiter(this, void 0, void 0, function* () {
-                    yield this.storeWeeklyTime();
-                    yield this.storeMonthlyTime();
-                    this.startTime = Date.now();
-                }));
-            });
-        }
-    }
-    setExtensionDisabled(isDisabled) {
-        this.isDisabled = isDisabled;
-    }
-    setStartTime(startTime) {
-        this.startTime = startTime;
-    }
-    getTimeSpent() {
-        return Date.now() - this.startTime;
-    }
-    storeTime() {
-        var _a;
-        return WebTime_awaiter(this, void 0, void 0, function* () {
-            // Store the time spent on the website
-            let oldTime = (((_a = (yield chrome.storage.local.get("webTime"))) === null || _a === void 0 ? void 0 : _a.webTime) || []).filter((e) => e.url !== "");
-            for (let i = 0; i < oldTime.length; i++) {
-                if (oldTime[i].url === this.baseUrl) {
-                    oldTime[i].time += this.getTimeSpent();
-                    yield chrome.storage.local.set({ webTime: oldTime });
-                    return;
-                }
-            }
-            oldTime.push({ url: this.baseUrl, time: this.getTimeSpent() });
-            yield chrome.storage.local.set({ webTime: oldTime });
-            return;
-        });
-    }
-    storeWeeklyTime() {
-        var _a;
-        return WebTime_awaiter(this, void 0, void 0, function* () {
-            const day = new Date().getDay();
-            const lastDay = (yield chrome.storage.local.get("dayToday")).dayToday || 0;
-            if (day === 1 && day !== lastDay) {
-                // Monday
-                yield this.setNewWeek();
-            }
-            else if (day !== lastDay) {
-                // Same week but new day
-                yield chrome.storage.local.set({ dayToday: day });
-                const numberOfDaysInWeek = (yield chrome.storage.local.get("numberOfDaysInWeek"))
-                    .numberOfDaysInWeek || 0;
-                yield chrome.storage.local.set({
-                    numberOfDaysInWeek: numberOfDaysInWeek + 1,
-                });
-            }
-            let oldTime = (((_a = (yield chrome.storage.local.get("weeklyTime"))) === null || _a === void 0 ? void 0 : _a.weeklyTime) || []).filter((e) => e.url !== "");
-            for (let i = 0; i < oldTime.length; i++) {
-                if (oldTime[i].url === this.baseUrl) {
-                    oldTime[i].time += this.getTimeSpent();
-                    yield chrome.storage.local.set({ weeklyTime: oldTime });
-                    return;
-                }
-            }
-            oldTime.push({ url: this.baseUrl, time: this.getTimeSpent() });
-            yield chrome.storage.local.set({ weeklyTime: oldTime });
-            return;
-        });
-    }
-    storeMonthlyTime() {
-        var _a;
-        return WebTime_awaiter(this, void 0, void 0, function* () {
-            const month = new Date().getMonth();
-            const lastMonth = (yield chrome.storage.local.get("monthToday")).monthToday || 0;
-            if (month !== lastMonth) {
-                yield this.setNewMonth();
-            }
-            let oldTime = (((_a = (yield chrome.storage.local.get("monthlyTime"))) === null || _a === void 0 ? void 0 : _a.monthlyTime) || []).filter((e) => e.url !== "");
-            for (let i = 0; i < oldTime.length; i++) {
-                if (oldTime[i].url === this.baseUrl) {
-                    oldTime[i].time += this.getTimeSpent();
-                    yield chrome.storage.local.set({ monthlyTime: oldTime });
-                    return;
-                }
-            }
-            oldTime.push({ url: this.baseUrl, time: this.getTimeSpent() });
-            yield chrome.storage.local.set({ monthlyTime: oldTime });
-            return;
-        });
-    }
-    storeDailyTime() {
-        var _a, _b;
-        return WebTime_awaiter(this, void 0, void 0, function* () {
-            // Store the time spent on the website for the day
-            let oldTime = (((_a = (yield chrome.storage.local.get("dailyTime"))) === null || _a === void 0 ? void 0 : _a.dailyTime) || []).filter((e) => e.url !== "");
-            const date = new Date();
-            const dateString = date.toDateString(); // Get the current date
-            const oldDate = ((_b = (yield chrome.storage.local.get("today"))) === null || _b === void 0 ? void 0 : _b.today) || ""; // Get the last date the user was active
-            if (oldDate !== dateString) {
-                oldTime = [];
-                yield this.setNewDay();
-            }
-            for (let i = 0; i < oldTime.length; i++) {
-                if (oldTime[i].url === this.baseUrl) {
-                    oldTime[i].time += this.getTimeSpent();
-                    yield chrome.storage.local.set({ dailyTime: oldTime });
-                    return;
-                }
-            }
-            oldTime.push({ url: this.baseUrl, time: this.getTimeSpent() });
-            yield chrome.storage.local.set({ dailyTime: oldTime });
-            return;
-        });
-    }
-    measureTime() {
-        if (this.isDisabled || this.baseUrl === "" || this.isHidden) {
-            this.startTime = Date.now();
-            return;
-        }
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            if (tabs && tabs[0] && tabs[0].url) {
-                if (!tabs[0].url || tabs[0].url === "chrome://newtab/") {
-                    return;
-                }
-                const currentUrl = new URL(tabs[0].url).origin;
-                if (currentUrl !== this.baseUrl && currentUrl !== "") {
-                    this.storeDailyTime().then(() => {
-                        this.storeTime().then(() => WebTime_awaiter(this, void 0, void 0, function* () {
-                            yield this.storeWeeklyTime();
-                            yield this.storeMonthlyTime();
-                            this.baseUrl = currentUrl;
-                            this.startTime = Date.now();
-                        }));
-                    });
-                }
-                else if (this.isHidden) {
-                }
-                else if (this.getTimeSpent() > 20000) {
-                    // If the user has been on the website for more than 20 seconds
-                    this.storeDailyTime().then(() => {
-                        this.storeTime().then(() => WebTime_awaiter(this, void 0, void 0, function* () {
-                            yield this.storeWeeklyTime();
-                            yield this.storeMonthlyTime();
-                            this.startTime = Date.now();
-                        }));
-                    });
-                }
-            }
-        });
-    }
-    setNewDay() {
-        var _a;
-        return WebTime_awaiter(this, void 0, void 0, function* () {
-            const dateString = new Date().toDateString();
-            let numberOfDays = ((_a = (yield chrome.storage.local.get("numberOfDays"))) === null || _a === void 0 ? void 0 : _a.numberOfDays) || 0;
-            yield chrome.storage.local.set({ numberOfDays: numberOfDays + 1 });
-            yield chrome.storage.local.set({ today: dateString });
-        });
-    }
-    setNewWeek() {
-        return WebTime_awaiter(this, void 0, void 0, function* () {
-            const day = new Date().getDay();
-            yield chrome.storage.local.set({ numberOfDaysInWeek: 1 });
-            yield chrome.storage.local.set({ dayToday: day });
-            yield chrome.storage.local.set({ weeklyTime: [] });
-        });
-    }
-    setNewMonth() {
-        return WebTime_awaiter(this, void 0, void 0, function* () {
-            const month = new Date().getMonth();
-            yield chrome.storage.local.set({ numberOfDays: 1 });
-            yield chrome.storage.local.set({ monthToday: month });
-            yield chrome.storage.local.set({ monthlyTime: [] });
-        });
-    }
-}
-
 ;// CONCATENATED MODULE: ./src/background.ts
 var background_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -460,23 +190,9 @@ var background_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 };
 
 
-
-
 var isExtensionDisabled = false;
 var isExtensionDisabledOnWeekend = true;
 var isWeekend = [0, 6].includes(new Date().getDay());
-var webActivityInstance = null;
-var isWindowHidden = false;
-var webTime = null;
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.message === "visibility_changed") {
-        isWindowHidden = request.hidden;
-        if (webTime) {
-            webTime.setWindowHidden(isWindowHidden);
-        }
-    }
-    sendResponse({ message: "received" });
-});
 function checkDisable() {
     return isExtensionDisabled || isExtensionDisabledOnWeekend;
 }
@@ -494,34 +210,10 @@ function handleExtensionEnable() {
                 return;
             }
             isExtensionDisabled = data.isDisabled;
-            if (webActivityInstance) {
-                webActivityInstance.setExtensionDisabled(checkDisable());
-            }
-            else {
-                webActivityInstance = new WebActivity(checkDisable());
-            }
-            if (webTime) {
-                webTime.setExtensionDisabled(checkDisable());
-            }
-            else {
-                webTime = new WebTime(isWindowHidden, checkDisable());
-            }
         });
         chrome.storage.onChanged.addListener((changes) => background_awaiter(this, void 0, void 0, function* () {
             if (changes["isDisabled"]) {
                 isExtensionDisabled = changes["isDisabled"].newValue;
-                if (webActivityInstance) {
-                    webActivityInstance.setExtensionDisabled(checkDisable());
-                }
-                else {
-                    webActivityInstance = new WebActivity(checkDisable());
-                }
-                if (webTime) {
-                    webTime.setExtensionDisabled(checkDisable());
-                }
-                else {
-                    webTime = new WebTime(isWindowHidden, checkDisable());
-                }
             }
             if (changes["blockedURLs"]) {
                 const blockedURLs = changes["blockedURLs"].newValue;
@@ -531,7 +223,8 @@ function handleExtensionEnable() {
                 updateDynamicRules(blockedURLs);
             }
             if (changes["isDisabledOnWeekend"]) {
-                isExtensionDisabledOnWeekend = changes["isDisabledOnWeekend"].newValue && isWeekend;
+                isExtensionDisabledOnWeekend =
+                    changes["isDisabledOnWeekend"].newValue && isWeekend;
             }
         }));
     });
@@ -545,7 +238,7 @@ function tagWebsite() {
     });
 }
 handleExtensionEnable();
-setInterval(tagWebsite, 300000); // 5 minutes
+setInterval(tagWebsite, 300000);
 function loadData() {
     fetch("../data/funny_lines.json").then((response) => {
         response.json().then((data) => {
@@ -558,6 +251,24 @@ function loadData() {
         });
     });
 }
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.tabs.create({ url: chrome.runtime.getURL("landing.html") });
+});
+function checkAlarm() {
+    return background_awaiter(this, void 0, void 0, function* () {
+        const alarm = yield chrome.alarms.get("tagWebsite");
+        if (alarm) {
+            return;
+        }
+        chrome.alarms.create("tagWebsite", { periodInMinutes: 10 });
+    });
+}
+chrome.alarms.onAlarm.addListener((alarm) => background_awaiter(void 0, void 0, void 0, function* () {
+    if (alarm.name === "tagWebsite") {
+        tagWebsite();
+    }
+}));
+checkAlarm();
 loadData();
 
 /******/ })()

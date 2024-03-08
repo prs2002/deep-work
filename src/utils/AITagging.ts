@@ -21,15 +21,13 @@ function pushToArray(
     tag = 1;
   } else if (classification === "unsure") {
     tag = 2;
-  } else {
+  } else if (classification === "wasteful") {
     tag = 3;
   }
   taggedWebsites.push({ id: website, website, tag });
 }
 
 async function apiCall(website: string, authKey: any) {
-  console.log("API Call");
-
   try {
     const requestBody = {
       model: "gpt-3.5-turbo-0125",
@@ -51,13 +49,17 @@ async function apiCall(website: string, authKey: any) {
       body: JSON.stringify(requestBody),
     });
     const data = await res.json();
-    console.log("API Call Response", data);
+    const usage = data.usage.total_tokens;
+    const pricing = 0.5 / 1000000;
+    const prevUsage = (await chrome.storage.local.get("usage"))?.usage || [];
+    prevUsage.push({ cost: usage * pricing, website: website });
+    await chrome.storage.local.set({ usage: prevUsage });
     const classifiedWebsites = data.choices[0].message.content;
     const classifiedWebsitesObject = JSON.parse(classifiedWebsites);
     return classifiedWebsitesObject;
   } catch (err) {
     console.log(err);
-    return {};
+    return { website: website, CLASSIFICATION: "untagged" };
   }
 }
 
@@ -84,7 +86,6 @@ export async function AITagging() {
 
       if (obj) {
         classification = obj.CLASSIFICATION.toLowerCase();
-        console.log("pre-tagged", website, classification);
         pushToArray(classification, taggedWebsites, website);
       } else if (authKey) {
         const lastApiCall =

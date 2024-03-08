@@ -1,31 +1,18 @@
 import { addGreetingPopup } from "./utils/DOM_SCRIPTS/GreetingPopup";
 import { hourlySummary } from "./utils/HourlySummary";
 import { NudgeUser } from "./utils/NudgeUser";
+import { WebActivity } from "./utils/WebActivity";
+import { ContentWebTime } from "./ContentWebTime";
 
-let lastVisibilityState = document.hidden;
-let isExtensionDisabled = false;
+var isExtensionDisabled = false;
 var isExtensionDisabledOnWeekend: boolean = true;
 var isWeekend: boolean = [0, 6].includes(new Date().getDay());
-let nudgeUser: NudgeUser;
+var nudgeUser: NudgeUser;
+var contentWebTime: ContentWebTime;
+var webActivityInstance: WebActivity | null = null;
 
 function checkDisable(): boolean {
   return isExtensionDisabled || isExtensionDisabledOnWeekend;
-}
-
-function sendMessageToBackground(hidden: boolean) {
-  try {
-    if (checkDisable()) {
-      return;
-    }
-    chrome.runtime.sendMessage(
-      { message: "visibility_changed", hidden: hidden },
-      (response) => {
-        console.log(response.message);
-      }
-    );
-  } catch (error) {
-    console.log(error);
-  }
 }
 
 async function setIsDisabled() {
@@ -46,11 +33,31 @@ async function setIsDisabled() {
     } else {
       nudgeUser.setIsDisabled(checkDisable());
     }
+    if (!contentWebTime) {
+      contentWebTime = new ContentWebTime(checkDisable());
+    } else {
+      contentWebTime.setExtensionDisabled(checkDisable());
+    }
+    if (!webActivityInstance) {
+      webActivityInstance = new WebActivity(checkDisable());
+    } else {
+      webActivityInstance.setExtensionDisabled(checkDisable());
+    }
   });
   chrome.storage.onChanged.addListener(
     async (changes: { [key: string]: chrome.storage.StorageChange }) => {
       if (changes["isDisabled"]) {
         isExtensionDisabled = changes["isDisabled"].newValue;
+      }
+      if (!contentWebTime) {
+        contentWebTime = new ContentWebTime(checkDisable());
+      } else {
+        contentWebTime.setExtensionDisabled(checkDisable());
+      }
+      if (!webActivityInstance) {
+        webActivityInstance = new WebActivity(checkDisable());
+      } else {
+        webActivityInstance.setExtensionDisabled(checkDisable());
       }
       if (!nudgeUser) {
         nudgeUser = new NudgeUser(checkDisable());
@@ -79,15 +86,6 @@ async function setIsDisabled() {
 
 setIsDisabled();
 
-setInterval(() => {
-  if (document.hidden !== lastVisibilityState) {
-    lastVisibilityState = document.hidden;
-    sendMessageToBackground(lastVisibilityState);
-  }
-}, 1000);
-
-sendMessageToBackground(lastVisibilityState);
-
 nudgeUser = new NudgeUser(checkDisable());
 
 chrome.storage.local.get("lastGreeted", (data) => {
@@ -104,5 +102,8 @@ chrome.storage.local.get("lastGreeted", (data) => {
 });
 
 setInterval(hourlySummary, 300000);
+
+contentWebTime = new ContentWebTime(checkDisable());
+webActivityInstance = new WebActivity(checkDisable());
 
 export {};

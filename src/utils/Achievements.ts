@@ -27,9 +27,6 @@ export async function weeklyProductivity(minTime: number): Promise<boolean> {
 
   const productivityHours = productivityTime / 3600000; // 1000 * 60 * 60
 
-  console.log(productivityHours, minTime);
-  
-
   if (productivityHours >= minTime) {
     return true;
   }

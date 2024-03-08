@@ -1,25 +1,9 @@
 import { AITagging } from "./utils/AITagging";
 import { updateDynamicRules } from "./utils/BlockURLs";
-import { WebActivity } from "./utils/WebActivity";
-import { WebTime } from "./utils/WebTime";
 
 var isExtensionDisabled: boolean = false;
 var isExtensionDisabledOnWeekend: boolean = true;
 var isWeekend: boolean = [0, 6].includes(new Date().getDay());
-var webActivityInstance: WebActivity | null = null;
-var isWindowHidden: boolean = false;
-var webTime: WebTime | null = null;
-
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.message === "visibility_changed") {
-    isWindowHidden = request.hidden;
-    if (webTime) {
-      webTime.setWindowHidden(isWindowHidden);
-    }
-  }
-  sendResponse({ message: "received" });
-});
-
 
 function checkDisable(): boolean {
   return isExtensionDisabled || isExtensionDisabledOnWeekend;
@@ -38,32 +22,12 @@ async function handleExtensionEnable() {
       return;
     }
     isExtensionDisabled = data.isDisabled;
-    if (webActivityInstance) {
-      webActivityInstance.setExtensionDisabled(checkDisable());
-    } else {
-      webActivityInstance = new WebActivity(checkDisable());
-    }
-    if (webTime) {
-      webTime.setExtensionDisabled(checkDisable());
-    } else {
-      webTime = new WebTime(isWindowHidden, checkDisable());
-    }
   });
 
   chrome.storage.onChanged.addListener(
     async (changes: { [key: string]: chrome.storage.StorageChange }) => {
       if (changes["isDisabled"]) {
         isExtensionDisabled = changes["isDisabled"].newValue;
-        if (webActivityInstance) {
-          webActivityInstance.setExtensionDisabled(checkDisable());
-        } else {
-          webActivityInstance = new WebActivity(checkDisable());
-        }
-        if (webTime) {
-          webTime.setExtensionDisabled(checkDisable());
-        } else {
-          webTime = new WebTime(isWindowHidden, checkDisable());
-        }
       }
       if (changes["blockedURLs"]) {
         const blockedURLs: string[] = changes["blockedURLs"].newValue;
@@ -73,7 +37,8 @@ async function handleExtensionEnable() {
         updateDynamicRules(blockedURLs);
       }
       if (changes["isDisabledOnWeekend"]) {
-        isExtensionDisabledOnWeekend = changes["isDisabledOnWeekend"].newValue && isWeekend;
+        isExtensionDisabledOnWeekend =
+          changes["isDisabledOnWeekend"].newValue && isWeekend;
       }
     }
   );
@@ -87,7 +52,7 @@ async function tagWebsite() {
 }
 
 handleExtensionEnable();
-setInterval(tagWebsite, 300000); // 5 minutes
+setInterval(tagWebsite, 300000);
 
 function loadData() {
   fetch("../data/funny_lines.json").then((response) => {
@@ -100,9 +65,27 @@ function loadData() {
       chrome.storage.local.set({ preTaggedUrls: data });
     });
   });
-} 
+}
 
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.tabs.create({ url: chrome.runtime.getURL("landing.html") });
+});
 
+async function checkAlarm() {
+  const alarm = await chrome.alarms.get("tagWebsite");
+  if (alarm) {
+    await chrome.alarms.clear("tagWebsite");
+  }
+  chrome.alarms.create("tagWebsite", { periodInMinutes: 10 });
+}
+
+chrome.alarms.onAlarm.addListener(async (alarm) => {
+  if (alarm.name === "tagWebsite") {
+    tagWebsite();
+  }
+});
+
+checkAlarm();
 
 loadData();
 

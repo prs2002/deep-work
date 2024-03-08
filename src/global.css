@@ -16,13 +16,6 @@
     --bad-focus: linear-gradient(180deg, #FFBDBD 0%, rgba(255, 255, 255, 0) 40.64%);
     --good-focus: linear-gradient(180deg, #FFD5BD 0%, rgba(255, 255, 255, 0) 40.64%);
 
-
-    /*Old*/
-    --green: #01a72b;
-    --hover-green: #6dc403;
-    --header-color : #E3E0DC;
-    --link-color : #0082c6;
-    --red: #ff0000a4;
 }
 
 

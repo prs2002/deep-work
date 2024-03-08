@@ -93,6 +93,7 @@ export default function Home({ isFocused, setIsFocused }: HomeProps) {
       <div className="home_page__boxes">
         <FocusRateBox
           focusRate={focusRate}
+          totalTime={summary[0].value}
           time={summary[1].value}
           isFocused={isFocused}
         ></FocusRateBox>

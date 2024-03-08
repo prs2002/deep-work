@@ -1,12 +1,14 @@
 const path = require("path");
 const HTMLPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const fs = require("fs");
 
 module.exports = {
   entry: {
     index: "./src/index.tsx",
     background: "./src/background.ts",
     content: "./src/content.ts",
+    bundle: "./src/html/src/index.tsx",
   },
   mode: "production",
   optimization: {
@@ -53,7 +55,17 @@ module.exports = {
       patterns: [
         { from: "manifest.json", to: "../manifest.json" },
         { from: "./src/data/", to: "../data" },
-        { from: "./src/html/", to: "../" },
+        {
+          from: "./src/html/",
+          to: "../",
+          filter: (resourcePath) => {
+            // Check if the file is HTML
+            return (
+              fs.statSync(resourcePath).isFile() &&
+              resourcePath.endsWith(".html")
+            );
+          },
+        },
       ],
     }),
     ...getHtmlPlugins(["index"]),
