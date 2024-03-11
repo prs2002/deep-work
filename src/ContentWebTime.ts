@@ -16,16 +16,34 @@ function isMusicPlaying() {
 
 export class ContentWebTime {
   startTime: number;
-  interval: NodeJS.Timeout;
+  interval: NodeJS.Timeout | undefined;
+  timeout: NodeJS.Timeout;
+  idleTime: number = 30000;
   constructor(isDisabled: boolean) {
     this.startTime = Date.now();
     this.interval = setInterval(() => {
       this.measureTime();
     }, 1000);
+    this.timeout = setTimeout(this.clear.bind(this), this.idleTime);
+    document.addEventListener("click", this.handleTimeout.bind(this));
+    document.addEventListener("mousemove", this.handleTimeout.bind(this));
+    document.addEventListener("keydown", this.handleTimeout.bind(this));
     if (isDisabled) {
       clearInterval(this.interval);
     }
   }
+
+  handleTimeout() {
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(this.clear.bind(this), this.idleTime);
+    if (this.interval === undefined) {
+      this.setStartTime();
+      this.interval = setInterval(() => {
+        this.measureTime();
+      }, 1000);
+    }
+  }
+
   setExtensionDisabled(isDisabled: boolean) {
     if (isDisabled) {
       clearInterval(this.interval);
@@ -171,5 +189,11 @@ export class ContentWebTime {
     Promise.all(promises).then(() => {
       this.startTime = Date.now();
     });
+  }
+
+  clear() {
+    if (this.interval === undefined) return;
+    clearInterval(this.interval);
+    this.interval = undefined;
   }
 }

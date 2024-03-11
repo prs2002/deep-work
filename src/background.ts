@@ -1,6 +1,10 @@
 import { AITagging } from "./utils/AITagging";
 import { updateDynamicRules } from "./utils/BlockURLs";
 
+chrome.runtime.onMessage.addListener(function (request, sender) {
+  chrome.tabs.update(sender.tab!.id!, { url: request.redirect });
+});
+
 var isExtensionDisabled: boolean = false;
 var isExtensionDisabledOnWeekend: boolean = true;
 var isWeekend: boolean = [0, 6].includes(new Date().getDay());

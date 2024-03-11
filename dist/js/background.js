@@ -190,6 +190,9 @@ var background_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 };
 
 
+chrome.runtime.onMessage.addListener(function (request, sender) {
+    chrome.tabs.update(sender.tab.id, { url: request.redirect });
+});
 var isExtensionDisabled = false;
 var isExtensionDisabledOnWeekend = true;
 var isWeekend = [0, 6].includes(new Date().getDay());
@@ -258,7 +261,7 @@ function checkAlarm() {
     return background_awaiter(this, void 0, void 0, function* () {
         const alarm = yield chrome.alarms.get("tagWebsite");
         if (alarm) {
-            return;
+            yield chrome.alarms.clear("tagWebsite");
         }
         chrome.alarms.create("tagWebsite", { periodInMinutes: 10 });
     });

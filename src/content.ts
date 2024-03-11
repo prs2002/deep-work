@@ -3,6 +3,7 @@ import { hourlySummary } from "./utils/HourlySummary";
 import { NudgeUser } from "./utils/NudgeUser";
 import { WebActivity } from "./utils/WebActivity";
 import { ContentWebTime } from "./ContentWebTime";
+import { handleBlocking } from "./utils/Blocking";
 
 var isExtensionDisabled = false;
 var isExtensionDisabledOnWeekend: boolean = true;
@@ -105,5 +106,7 @@ setInterval(hourlySummary, 300000);
 
 contentWebTime = new ContentWebTime(checkDisable());
 webActivityInstance = new WebActivity(checkDisable());
+
+handleBlocking();
 
 export {};

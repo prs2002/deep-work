@@ -1531,12 +1531,27 @@ function isMusicPlaying() {
 }
 class ContentWebTime {
     constructor(isDisabled) {
+        this.idleTime = 30000;
         this.startTime = Date.now();
         this.interval = setInterval(() => {
             this.measureTime();
         }, 1000);
+        this.timeout = setTimeout(this.clear.bind(this), this.idleTime);
+        document.addEventListener("click", this.handleTimeout.bind(this));
+        document.addEventListener("mousemove", this.handleTimeout.bind(this));
+        document.addEventListener("keydown", this.handleTimeout.bind(this));
         if (isDisabled) {
             clearInterval(this.interval);
+        }
+    }
+    handleTimeout() {
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(this.clear.bind(this), this.idleTime);
+        if (this.interval === undefined) {
+            this.setStartTime();
+            this.interval = setInterval(() => {
+                this.measureTime();
+            }, 1000);
         }
     }
     setExtensionDisabled(isDisabled) {
@@ -1685,6 +1700,52 @@ class ContentWebTime {
             });
         });
     }
+    clear() {
+        if (this.interval === undefined)
+            return;
+        clearInterval(this.interval);
+        this.interval = undefined;
+    }
+}
+
+;// CONCATENATED MODULE: ./src/utils/Blocking.ts
+var Blocking_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+function redirect() {
+    chrome.runtime.sendMessage({ redirect: "blocked.html" });
+}
+function isTimeExceeded(url) {
+    var _a, _b;
+    return Blocking_awaiter(this, void 0, void 0, function* () {
+        const time = ((_a = (yield chrome.storage.local.get("maxTimes"))) === null || _a === void 0 ? void 0 : _a.maxTimes) || {};
+        if ((time === null || time === void 0 ? void 0 : time[url]) === undefined) {
+            return false;
+        }
+        const maxTime = (time === null || time === void 0 ? void 0 : time[url]) * 60 * 1000; // convert to milliseconds
+        const currentTime = ((_b = (yield chrome.storage.local.get("dailyTime"))) === null || _b === void 0 ? void 0 : _b.dailyTime) || {};
+        const obj = currentTime.find((obj) => obj.url === url);
+        if (obj === undefined) {
+            return false;
+        }
+        const timeElapsed = obj.time;
+        const timeExceeded = timeElapsed > maxTime;
+        return timeExceeded;
+    });
+}
+function handleBlocking() {
+    const url = window.location.origin;
+    isTimeExceeded(url).then((timeExceeded) => {
+        if (timeExceeded) {
+            redirect();
+        }
+    });
 }
 
 ;// CONCATENATED MODULE: ./src/content.ts
@@ -1697,6 +1758,7 @@ var content_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 
 
 
@@ -1799,6 +1861,7 @@ chrome.storage.local.get("lastGreeted", (data) => {
 setInterval(hourlySummary, 300000);
 contentWebTime = new ContentWebTime(checkDisable());
 webActivityInstance = new WebActivity(checkDisable());
+handleBlocking();
 
 })();
 

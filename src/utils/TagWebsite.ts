@@ -30,6 +30,9 @@ export async function tagWebsite(
   }
   try {
     const urlObject = new URL(website);
+    const prevMaxTimes = (await chrome.storage.local.get("maxTimes")).maxTimes || {};
+    prevMaxTimes[urlObject.origin] = parseInt(maxTime);
+    await chrome.storage.local.set({ maxTimes: prevMaxTimes });
     const visitedData = await chrome.storage.local.get("visitedURLs");
     const visitedURLs = visitedData?.visitedURLs || [];
     if (visitedURLs.indexOf(urlObject.origin) !== -1) {

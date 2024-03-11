@@ -53,6 +53,7 @@ export default function SiteDetailsBox({
   }
 
   const [siteDetails, setSiteDetails] = useState<SiteDetails[]>([]);
+  const [maxTime, setMaxTime] = useState<string>("");
   const [time, setTime] = useState<string>("");
   const [violations, setViolations] = useState<string>("");
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -176,6 +177,28 @@ export default function SiteDetailsBox({
           </div>
         );
       }
+      if (activeOption.id === "3" && index === 5) {
+        return (
+          <div className="site_details__details__content__item" key={index}>
+            <div className="site_details__details__content__item__label">
+              {item.label}
+            </div>
+            <div className="site_details__details__content__item__value">
+              <div className="site_details__details__content__item__value__input">
+                <Input
+                  input={maxTime}
+                  placeholder=""
+                  setInput={(input) => {
+                    setMaxTime(input);
+                  }}
+                  type="text"
+                  className="input"
+                ></Input>
+              </div>
+            </div>
+          </div>
+        );
+      }
       return (
         <div className="site_details__details__content__item" key={index}>
           <div className="site_details__details__content__item__label">
@@ -216,7 +239,18 @@ export default function SiteDetailsBox({
       alert("Please enter valid time");
       return;
     }
+    if (
+      activeOption.id === "3" &&
+      (isNaN(Number(maxTime)) || maxTime === "" || parseInt(maxTime) < 0)
+    ) {
+      alert("Please enter valid max time");
+      return;
+    }
     await updateAlertParameters();
+    const prevMaxTimes =
+      (await chrome.storage.local.get("maxTimes")).maxTimes || {};
+    prevMaxTimes[website] = maxTime;
+    await chrome.storage.local.set({ maxTimes: prevMaxTimes });
     await updateWebsitesInStorage([
       {
         id: website,
@@ -246,7 +280,8 @@ export default function SiteDetailsBox({
       setViolations(
         (promptParameters?.promptViolations || "Not Set (Default)") as string
       );
-      setSiteDetails([
+
+      const siteDetails: SiteDetails[] = [
         {
           label: "Name of the website",
           value: new URL(website).hostname.split(".")[1],
@@ -269,9 +304,48 @@ export default function SiteDetailsBox({
           value: (promptParameters?.promptViolations ||
             "Not Set (Default)") as string,
         },
-      ]);
+      ];
+
+      if (tag === 3) {
+        setMaxTime((res.maxTimes?.[website] || "Not Set (Default)") as string);
+
+        siteDetails.push({
+          label: "Max Time",
+          value: (res.maxTimes?.[website] || "Not Set (Default)") as string,
+        });
+      }
+
+      setSiteDetails(siteDetails);
     });
   }, [website, isEditing]);
+
+  useEffect(() => {
+    async function handleMaxTime() {
+      if (activeOption.id === "3") {
+        const maxTimes =
+          (await chrome.storage.local.get("maxTimes"))?.maxTimes || {};
+        setMaxTime((maxTimes?.[website] || "Not Set (Default)") as string);
+
+        setSiteDetails((prev) => {
+          prev = prev.filter((item) => item.label !== "Max Time");
+          return [
+            ...prev,
+            {
+              label: "Max Time",
+              value: (maxTimes?.[website] || "Not Set (Default)") as string,
+            },
+          ];
+        });
+      } else {
+        setMaxTime("");
+        setSiteDetails((prev) => {
+          prev = prev.filter((item) => item.label !== "Max Time");
+          return prev;
+        });
+      }
+    }
+    handleMaxTime();
+  }, [website, activeOption]);
 
   const handleDetailEdit = () => {
     setIsEditing(true);
