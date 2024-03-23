@@ -1,16 +1,12 @@
 import { addGreetingPopup } from "./utils/DOM_SCRIPTS/GreetingPopup";
 import { hourlySummary } from "./utils/HourlySummary";
 import { NudgeUser } from "./utils/NudgeUser";
-import { WebActivity } from "./utils/WebActivity";
-import { ContentWebTime } from "./ContentWebTime";
 import { handleBlocking } from "./utils/Blocking";
 
 var isExtensionDisabled = false;
 var isExtensionDisabledOnWeekend: boolean = true;
 var isWeekend: boolean = [0, 6].includes(new Date().getDay());
 var nudgeUser: NudgeUser;
-var contentWebTime: ContentWebTime;
-var webActivityInstance: WebActivity | null = null;
 
 function checkDisable(): boolean {
   return isExtensionDisabled || isExtensionDisabledOnWeekend;
@@ -34,31 +30,11 @@ async function setIsDisabled() {
     } else {
       nudgeUser.setIsDisabled(checkDisable());
     }
-    if (!contentWebTime) {
-      contentWebTime = new ContentWebTime(checkDisable());
-    } else {
-      contentWebTime.setExtensionDisabled(checkDisable());
-    }
-    if (!webActivityInstance) {
-      webActivityInstance = new WebActivity(checkDisable());
-    } else {
-      webActivityInstance.setExtensionDisabled(checkDisable());
-    }
   });
   chrome.storage.onChanged.addListener(
     async (changes: { [key: string]: chrome.storage.StorageChange }) => {
       if (changes["isDisabled"]) {
         isExtensionDisabled = changes["isDisabled"].newValue;
-      }
-      if (!contentWebTime) {
-        contentWebTime = new ContentWebTime(checkDisable());
-      } else {
-        contentWebTime.setExtensionDisabled(checkDisable());
-      }
-      if (!webActivityInstance) {
-        webActivityInstance = new WebActivity(checkDisable());
-      } else {
-        webActivityInstance.setExtensionDisabled(checkDisable());
       }
       if (!nudgeUser) {
         nudgeUser = new NudgeUser(checkDisable());
@@ -102,10 +78,7 @@ chrome.storage.local.get("lastGreeted", (data) => {
   }
 });
 
-setInterval(hourlySummary, 300000);
-
-contentWebTime = new ContentWebTime(checkDisable());
-webActivityInstance = new WebActivity(checkDisable());
+// setInterval(hourlySummary, 300000);
 
 handleBlocking();
 

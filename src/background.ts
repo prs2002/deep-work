@@ -1,5 +1,6 @@
 import { AITagging } from "./utils/AITagging";
 import { updateDynamicRules } from "./utils/BlockURLs";
+import { WebTime } from "./utils/WebTime";
 
 chrome.runtime.onMessage.addListener(function (request, sender) {
   chrome.tabs.update(sender.tab!.id!, { url: request.redirect });
@@ -71,8 +72,10 @@ function loadData() {
   });
 }
 
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.tabs.create({ url: chrome.runtime.getURL("landing.html") });
+chrome.runtime.onInstalled.addListener((reason) => {
+  if (reason.reason === "install") {
+    chrome.tabs.create({ url: chrome.runtime.getURL("landing.html") });
+  }  
 });
 
 async function checkAlarm() {
@@ -89,7 +92,24 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
   }
 });
 
+
 checkAlarm();
+
+
+chrome.storage.local.get((res)=>{
+    const dailyTime = res.dailyTime || [];
+    const weeklyTime = res.weeklyTime || [];
+    const monthlyTime = res.monthlyTime || [];
+    new WebTime(dailyTime, weeklyTime, monthlyTime);
+})
+
+chrome.runtime.onStartup.addListener(()=>{})
+
+chrome.action.setBadgeBackgroundColor(
+  {color: [0, 255, 0, 0]}
+);
+
+
 
 loadData();
 

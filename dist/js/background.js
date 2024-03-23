@@ -178,6 +178,223 @@ function updateDynamicRules(blockedURLs) {
     });
 }
 
+;// CONCATENATED MODULE: ./src/utils/scripts/setBadgeText.ts
+function setBadgeText(time, tabId) {
+    chrome.action.setBadgeText({ text: getTime(time), tabId: tabId });
+}
+function getTime(time) {
+    const sec = time;
+    const min = Number((time / 60).toFixed(0));
+    const hours = Number((time / (60 * 60)).toFixed(1));
+    if (sec < 60)
+        return `${sec}s`;
+    else if (min < 60)
+        return `${min}m`;
+    else
+        return `${hours}h`;
+}
+
+;// CONCATENATED MODULE: ./src/utils/WebTime.ts
+/*
+    Monitor user activity and store the time spent on websites
+*/
+var WebTime_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+class WebTime {
+    constructor(dailyTime, weeklyTime, monthlyTime) {
+        this.idleTime = 30;
+        this.isInFocus = true;
+        this.dailyTime = [];
+        this.weeklyTime = [];
+        this.monthlyTime = [];
+        this.focusInterval = setInterval(this.updateFocus.bind(this), 1000);
+        this.saveInterval = setInterval(this.updateData.bind(this), 1000);
+        this.dailyTime = dailyTime;
+        this.weeklyTime = weeklyTime;
+        this.monthlyTime = monthlyTime;
+    }
+    updateFocus() {
+        chrome.windows.getLastFocused({ populate: true }, (windows) => {
+            this.isInFocus = windows.focused;
+        });
+    }
+    updateData() {
+        chrome.windows.getLastFocused({ populate: true }, (windows) => {
+            if (!windows || !windows.tabs) {
+                return;
+            }
+            for (let tab of windows.tabs) {
+                if (tab.active) {
+                    this.focusedTab = tab;
+                    break;
+                }
+            }
+            if (this.focusedTab === undefined) {
+                return;
+            }
+            chrome.idle.queryState(this.idleTime, (state) => {
+                const url = this.focusedTab.url;
+                if (!url) {
+                    return;
+                }
+                const origin = new URL(url).origin;
+                if (state === "active" &&
+                    origin !== "" &&
+                    !origin.startsWith("chrome://")) {
+                    this.isInFocus && this.updateDataHelper(origin, this.focusedTab.id);
+                    this.isInFocus && this.saveData();
+                    this.isInFocus && this.addToUntagged(origin);
+                }
+            });
+        });
+    }
+    updateDataHelper(origin, tabId) {
+        let found = false;
+        for (let i = 0; i < this.dailyTime.length; i++) {
+            if (this.dailyTime[i].url === origin) {
+                this.dailyTime[i].time += 1000;
+                setBadgeText(this.dailyTime[i].time / 1000, tabId);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            this.dailyTime.push({ url: origin, time: 1000 });
+            found = false;
+        }
+        for (let i = 0; i < this.weeklyTime.length; i++) {
+            if (this.weeklyTime[i].url === origin) {
+                this.weeklyTime[i].time += 1000;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            this.weeklyTime.push({ url: origin, time: 1000 });
+            found = false;
+        }
+        for (let i = 0; i < this.monthlyTime.length; i++) {
+            if (this.monthlyTime[i].url === origin) {
+                this.monthlyTime[i].time += 1000;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            this.monthlyTime.push({ url: origin, time: 1000 });
+            found = false;
+        }
+    }
+    saveData() {
+        this.storeDailyTime();
+        this.storeWeeklyTime();
+        this.storeMonthlyTime();
+    }
+    addToUntagged(url) {
+        return WebTime_awaiter(this, void 0, void 0, function* () {
+            const visited = yield this.checkIfURLVisited(url);
+            if (!visited) {
+                chrome.storage.local.get(["visitedURLs"], (data) => {
+                    const visitedURLs = data.visitedURLs || [];
+                    visitedURLs.push(url);
+                    chrome.storage.local.set({ visitedURLs: visitedURLs });
+                });
+            }
+        });
+    }
+    storeWeeklyTime() {
+        return WebTime_awaiter(this, void 0, void 0, function* () {
+            const day = new Date().getDay();
+            const lastDay = (yield chrome.storage.local.get("dayToday")).dayToday || 0;
+            if (day === 1 && day !== lastDay) {
+                // Monday
+                yield this.setNewWeek();
+            }
+            else if (day !== lastDay) {
+                // Same week but new day
+                yield chrome.storage.local.set({ dayToday: day });
+                const numberOfDaysInWeek = (yield chrome.storage.local.get("numberOfDaysInWeek"))
+                    .numberOfDaysInWeek || 0;
+                yield chrome.storage.local.set({
+                    numberOfDaysInWeek: numberOfDaysInWeek + 1,
+                });
+            }
+            yield chrome.storage.local.set({ weeklyTime: this.weeklyTime });
+            return;
+        });
+    }
+    storeMonthlyTime() {
+        return WebTime_awaiter(this, void 0, void 0, function* () {
+            const month = new Date().getMonth();
+            const lastMonth = (yield chrome.storage.local.get("monthToday")).monthToday || 0;
+            if (month !== lastMonth) {
+                yield this.setNewMonth();
+            }
+            yield chrome.storage.local.set({ monthlyTime: this.monthlyTime });
+            return;
+        });
+    }
+    storeDailyTime() {
+        var _a;
+        return WebTime_awaiter(this, void 0, void 0, function* () {
+            // Store the time spent on the website for the day
+            const dateString = new Date().toDateString(); // Get the current date
+            const oldDate = ((_a = (yield chrome.storage.local.get("today"))) === null || _a === void 0 ? void 0 : _a.today) || ""; // Get the last date the user was active
+            if (oldDate !== dateString) {
+                yield this.setNewDay();
+            }
+            yield chrome.storage.local.set({ dailyTime: this.dailyTime });
+            return;
+        });
+    }
+    setNewDay() {
+        return WebTime_awaiter(this, void 0, void 0, function* () {
+            const dateString = new Date().toDateString();
+            let numberOfDays = (yield chrome.storage.local.get("numberOfDays")).numberOfDays || 0;
+            yield chrome.storage.local.set({ numberOfDays: numberOfDays + 1 });
+            yield chrome.storage.local.set({ today: dateString });
+            yield chrome.storage.local.set({ dailyTime: [] });
+            this.dailyTime = [];
+        });
+    }
+    setNewWeek() {
+        return WebTime_awaiter(this, void 0, void 0, function* () {
+            const day = new Date().getDay();
+            yield chrome.storage.local.set({ numberOfDaysInWeek: 1 });
+            yield chrome.storage.local.set({ dayToday: day });
+            yield chrome.storage.local.set({ weeklyTime: [] });
+            this.weeklyTime = [];
+        });
+    }
+    setNewMonth() {
+        return WebTime_awaiter(this, void 0, void 0, function* () {
+            const month = new Date().getMonth();
+            yield chrome.storage.local.set({ numberOfDays: 1 });
+            yield chrome.storage.local.set({ monthToday: month });
+            yield chrome.storage.local.set({ monthlyTime: [] });
+            this.monthlyTime = [];
+        });
+    }
+    checkIfURLVisited(url) {
+        return new Promise((resolve) => {
+            chrome.storage.local.get(["visitedURLs", "taggedURLs"], (data) => {
+                const visitedURLs = data.visitedURLs || [];
+                const taggedURLs = data.taggedURLs || [];
+                resolve(visitedURLs.includes(url) ||
+                    taggedURLs.some((website) => website.website === url));
+            });
+        });
+    }
+}
+
 ;// CONCATENATED MODULE: ./src/background.ts
 var background_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -188,6 +405,7 @@ var background_awaiter = (undefined && undefined.__awaiter) || function (thisArg
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 
 
 chrome.runtime.onMessage.addListener(function (request, sender) {
@@ -254,8 +472,10 @@ function loadData() {
         });
     });
 }
-chrome.runtime.onInstalled.addListener(() => {
-    chrome.tabs.create({ url: chrome.runtime.getURL("landing.html") });
+chrome.runtime.onInstalled.addListener((reason) => {
+    if (reason.reason === "install") {
+        chrome.tabs.create({ url: chrome.runtime.getURL("landing.html") });
+    }
 });
 function checkAlarm() {
     return background_awaiter(this, void 0, void 0, function* () {
@@ -272,6 +492,15 @@ chrome.alarms.onAlarm.addListener((alarm) => background_awaiter(void 0, void 0, 
     }
 }));
 checkAlarm();
+chrome.storage.local.get((res) => {
+    const dailyTime = res.dailyTime || [];
+    const weeklyTime = res.weeklyTime || [];
+    const monthlyTime = res.monthlyTime || [];
+    console.log(res);
+    new WebTime(dailyTime, weeklyTime, monthlyTime);
+});
+chrome.runtime.onStartup.addListener(() => { });
+chrome.action.setBadgeBackgroundColor({ color: [0, 255, 0, 0] });
 loadData();
 
 /******/ })()
