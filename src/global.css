@@ -12,9 +12,18 @@
     --wasteful-red: #FF2020;
     --secondary-red: #FFAAAA;
     --tertiary-red: #CC0000;
+
     --blue: #2087FF;
+    --dark-blue: #0052BD;
+    --light-blue: #CBDFFE;
+    --grey: #F4F4F4;
+    --dark-grey: #E2E2E2;
+    --darker-grey: #777777;
+    --red:#FF3B20;
+    --light-red: #FFAAAA;
+    --orange: #FF6F1F;
     --bad-focus: linear-gradient(180deg, #FFBDBD 0%, rgba(255, 255, 255, 0) 40.64%);
-    --good-focus: linear-gradient(180deg, #FFD5BD 0%, rgba(255, 255, 255, 0) 40.64%);
+    --good-focus: linear-gradient(180deg, #BDDDF7 0%, rgba(255, 255, 255, 0) 40.64%);
 
 }
 

@@ -38,7 +38,7 @@ export const AlertTimerBox = () => {
 
   useEffect(() => {
     fetchWebsitesFromStorage().then((websites) => {
-      setWebsites(websites.map((website) => (website.website)));
+      setWebsites(websites.map((website) => website.website));
     });
   }, []);
 
@@ -71,7 +71,7 @@ export const AlertTimerBox = () => {
         };
       }
       await chrome.storage.local.set({ promptParameters: prevData });
-      alert("Alert parameters saved successfully")
+      alert("Alert parameters saved successfully");
       setTime("");
       setViolations("");
       setSelectedWebsites([]);
@@ -123,74 +123,76 @@ export const AlertTimerBox = () => {
   return (
     <div className="alert_timer_box">
       <div className="alert_timer_box__header">Alert Timer</div>
-      <div className="alert_timer_box__max_time">
-        <div className="alert_timer_box__max_time__input">
-          <Input
-            input={time}
-            placeholder="Enter Duration (in seconds)"
-            setInput={(time) => {
-              setTime(time);
-            }}
-            type="text"
-          ></Input>
-        </div>
-      </div>
-      <div className="alert_timer_box__content">
-        <div className="alert_timer_box__content__input">
-          <Input
-            input={violations}
-            placeholder="Enter number of violations"
-            setInput={(violations) => {
-              setViolations(violations);
-            }}
-            type="text"
-          ></Input>
-        </div>
-        <div className="alert_timer_box__content__dropdown">
-          <Dropdown
-            dropdownOptions={dropdownOptions}
-            activeOption={activeOption}
-            setActiveOption={handleActiveOption}
-          ></Dropdown>
-        </div>
-      </div>
-      {activeOption.id === "5" && (
-        <div className="alert_timer_box__select_website">
-          <div className="alert_timer_box__select_website__header">
-            Select Websites
+      <div className="alert_timer_box__outline">
+        <div className="alert_timer_box__max_time">
+          <div className="alert_timer_box__max_time__input">
+            <Input
+              input={time}
+              placeholder="Enter Duration (in seconds)"
+              setInput={(time) => {
+                setTime(time);
+              }}
+              type="text"
+            ></Input>
           </div>
-          <div className="alert_timer_box__select_website__websites">
-            <div className="alert_timer_box__select_website__websites__list">
-              {websites.map((site, index) => {
-                const website = preprocessURL(site);
-                return (
-                  <div
-                    key={index}
-                    className="alert_timer_box__select_website__websites__list__item"
-                  >
-                    <input
-                      type="checkbox"
-                      id={site}
-                      name={site}
-                      value={site}
-                      onChange={handleCheckboxChange}
-                    ></input>
-                    <label htmlFor={website}>
-                      {website.slice(0, 20) +
-                        (website.length > 20 ? "..." : "")}
-                    </label>
-                  </div>
-                );
-              })}
+        </div>
+        <div className="alert_timer_box__content">
+          <div className="alert_timer_box__content__input">
+            <Input
+              input={violations}
+              placeholder="Enter number of violations"
+              setInput={(violations) => {
+                setViolations(violations);
+              }}
+              type="text"
+            ></Input>
+          </div>
+          <div className="alert_timer_box__content__dropdown">
+            <Dropdown
+              dropdownOptions={dropdownOptions}
+              activeOption={activeOption}
+              setActiveOption={handleActiveOption}
+            ></Dropdown>
+          </div>
+        </div>
+        {activeOption.id === "5" && (
+          <div className="alert_timer_box__select_website">
+            <div className="alert_timer_box__select_website__header">
+              Select Websites
+            </div>
+            <div className="alert_timer_box__select_website__websites">
+              <div className="alert_timer_box__select_website__websites__list">
+                {websites.map((site, index) => {
+                  const website = preprocessURL(site);
+                  return (
+                    <div
+                      key={index}
+                      className="alert_timer_box__select_website__websites__list__item"
+                    >
+                      <input
+                        type="checkbox"
+                        id={site}
+                        name={site}
+                        value={site}
+                        onChange={handleCheckboxChange}
+                      ></input>
+                      <label htmlFor={website}>
+                        {website.slice(0, 20) +
+                          (website.length > 20 ? "..." : "")}
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="alert_timer_box__select_website__count">
+              {selectedWebsites.length} websites added
             </div>
           </div>
-          <div className="alert_timer_box__select_website__count">
-            {selectedWebsites.length} websites added
-          </div>
+        )}
+        <div className="alert_timer_box__button">
+          <Button text={"Save"} onClick={handleSaveTime}></Button>
         </div>
-      )}
-      <div className="alert_timer_box__button">
-        <Button text={"Save"} onClick={handleSaveTime}></Button>
       </div>
     </div>
   );

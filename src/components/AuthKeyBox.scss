@@ -1,56 +1,57 @@
 .auth_key_box {
-    width: 328px; 
+  width: 328px;
+  margin-bottom: 28px;
+  &__header {
+    margin-bottom: 10px;
+    padding-left: 14px;
+    font-size: 1.25rem;
+    letter-spacing: 0em;
+  }
+  &__outline {
     border: 2px solid #f0f0f0;
     border-radius: 30px;
-    margin-bottom: 28px;
-    &__header {
-      padding-top: 20px;
-      padding-left: 14px;
-      font-size: 1.25rem;
-      letter-spacing: 0em;
+  }
+  &__content {
+    padding: 0 14px;
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+    align-items: center;
+
+    &__input {
+      width: 243px;
     }
-    &__content {
-      padding: 0 14px;
+
+    &__show {
+      width: 40px;
+      height: 40px;
       display: flex;
-      gap: 12px;
-      margin-top: 18px;
-      align-items: center;
-  
-      &__input {
-        width: 243px;
-      }
-  
-      &__show {
-        width: 40px;
-        height: 40px;
+      justify-content: flex-end;
+      &__eye {
+        border: 2px solid #f0f0f0;
+        height: 37px;
+        width: 37px;
         display: flex;
-        justify-content: flex-end;
-        &__eye {
-            border: 2px solid #F0F0F0;
-            height: 37px;
-            width: 37px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 100%;
-            cursor: pointer;
-        }
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        cursor: pointer;
       }
-    }
-  
-    &__max_time {
-      margin: 0 24px;
-      margin-top: 20px;
-      &__title {
-        margin-bottom: 12px;
-      }
-    }
-  
-    &__button {
-      width: 295px;
-      margin: 0 24px;
-      margin-top: 16px;
-      margin-bottom: 30px;
     }
   }
-  
+
+  &__max_time {
+    margin: 0 24px;
+    margin-top: 20px;
+    &__title {
+      margin-bottom: 12px;
+    }
+  }
+
+  &__button {
+    width: 295px;
+    margin: 0 24px;
+    margin-top: 16px;
+    margin-bottom: 30px;
+  }
+}

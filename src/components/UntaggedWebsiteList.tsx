@@ -77,8 +77,7 @@ export default function UntaggedWebsiteList() {
 
     setActiveOption((prev) => {
       const newActiveOption = [...prev];
-      newActiveOption[index] =
-        dropdownOptions[parseInt(activeOption[index].id) - 1];
+      newActiveOption.splice(index, 1);
       return newActiveOption;
     });
   };
@@ -113,8 +112,10 @@ export default function UntaggedWebsiteList() {
   return (
     <div className="untagged_website_list">
       <div className="untagged_website_list__header">Untagged Sites</div>
-      <div className="untagged_website_list__content">
-        {untaggedWebsites.length ? displayWebsites() : "No untagged websites"}
+      <div className="untagged_website_list__outline">
+        <div className="untagged_website_list__content">
+          {untaggedWebsites.length ? displayWebsites() : "No untagged websites"}
+        </div>
       </div>
     </div>
   );

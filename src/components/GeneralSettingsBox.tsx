@@ -6,15 +6,14 @@ export default function GeneralSettingsBox() {
   const [isOn, setIsOn] = useState<boolean>(false);
   const [isWeekendOn, setIsWeekendOn] = useState<boolean>(false);
   const [showWarning, setShowWarning] = useState<boolean>(false);
-  
+
   const setShowPopup = () => {
-    if(isOn) {
+    if (isOn) {
       setShowWarning((prev) => !prev);
-    }
-    else {
+    } else {
       toggleSwitch();
     }
-  }
+  };
 
   const toggleSwitch = async () => {
     await chrome.storage.local.set({ isDisabled: isOn });
@@ -48,51 +47,59 @@ export default function GeneralSettingsBox() {
   return (
     <div className="general_settings">
       <div className="general_settings__header">General Settings</div>
-      <div className="general_settings__content">
-        <div className="general_settings__content__row">
-          <div className="general_settings__content__row__enable">
-            Enable Extension
+      <div className="general_settings__outline">
+        <div className="general_settings__content">
+          <div className="general_settings__content__row">
+            <div className="general_settings__content__row__enable">
+              Enable Extension
+            </div>
+            <div className="general_settings__content__row__enable_button">
+              <div
+                className={`general_settings__content__row__enable_button__container ${
+                  isOn ? "on" : "off"
+                }`}
+                onClick={setShowPopup}
+              >
+                <div className="general_settings__content__row__enable_button__container__switch">
+                  <div
+                    className={`general_settings__content__row__enable_button__container__switch__circle ${
+                      isOn ? "on" : "off"
+                    }`}
+                  ></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="general_settings__content__row__enable_button">
-            <div
-              className={`general_settings__content__row__enable_button__container ${
-                isOn ? "on" : "off"
-              }`}
-              onClick={setShowPopup}
-            >
-              <div className="general_settings__content__row__enable_button__container__switch">
-                <div
-                  className={`general_settings__content__row__enable_button__container__switch__circle ${
-                    isOn ? "on" : "off"
-                  }`}
-                ></div>
+          <div className="general_settings__content__row">
+            <div className="general_settings__content__row__enable">
+              Enable Extension on weekends
+            </div>
+            <div className="general_settings__content__row__enable_button">
+              <div
+                className={`general_settings__content__row__enable_button__container ${
+                  isWeekendOn ? "on" : "off"
+                }`}
+                onClick={toggleSwitch_weekend}
+              >
+                <div className="general_settings__content__row__enable_button__container__switch">
+                  <div
+                    className={`general_settings__content__row__enable_button__container__switch__circle ${
+                      isWeekendOn ? "on" : "off"
+                    }`}
+                  ></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="general_settings__content__row">
-          <div className="general_settings__content__row__enable">
-            Enable Extension on weekends
-          </div>
-          <div className="general_settings__content__row__enable_button">
-            <div
-              className={`general_settings__content__row__enable_button__container ${
-                isWeekendOn ? "on" : "off"
-              }`}
-              onClick={toggleSwitch_weekend}
-            >
-              <div className="general_settings__content__row__enable_button__container__switch">
-                <div
-                  className={`general_settings__content__row__enable_button__container__switch__circle ${
-                    isWeekendOn ? "on" : "off"
-                  }`}
-                ></div>
-              </div>
-            </div>
-          </div>
-        </div>
+        {showWarning && (
+          <ConfirmationPopup
+            setShowPopup={setShowPopup}
+            text="Warning!"
+            handleConfirm={toggleSwitch}
+          ></ConfirmationPopup>
+        )}
       </div>
-      {showWarning && <ConfirmationPopup setShowPopup={setShowPopup} text="Warning!" handleConfirm={toggleSwitch}></ConfirmationPopup>}
     </div>
   );
 }

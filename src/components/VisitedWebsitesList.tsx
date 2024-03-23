@@ -13,7 +13,7 @@ interface VisitedWebsitesListProps {
   setVisitedWebsites: React.Dispatch<React.SetStateAction<TaggedTimeURL[]>>;
 }
 
-const websiteColor = ["grey", "orange", "blue", "red"];
+const websiteColor = ["grey", "blue", "orange", "red"];
 
 export default function VisitedWebsitesList({
   visitedWebsites,
@@ -160,8 +160,10 @@ export default function VisitedWebsitesList({
         <div className="visited_website_list__content__title">
           <h3>Visited Websites</h3>
         </div>
-        <div className="visited_website_list__content__list">
-          {visitedWebsites.length ? displayWebsite() : "No websites visited"}
+        <div className="visited_website_list__content__outline">
+          <div className="visited_website_list__content__list">
+            {visitedWebsites.length ? displayWebsite() : "No websites visited"}
+          </div>
         </div>
       </div>
     </div>

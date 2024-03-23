@@ -34,44 +34,53 @@ export default function TagWebsite() {
   };
 
   const handleAddWebsite = async () => {
-    tagWebsite(website, activeOption, maxTime, setWebsite, setActiveOption, setMaxTime);
+    tagWebsite(
+      website,
+      activeOption,
+      maxTime,
+      setWebsite,
+      setActiveOption,
+      setMaxTime
+    );
   };
 
   return (
     <div className="tag_website">
       <div className="tag_website__header">Tag Website</div>
-      <div className="tag_website__content">
-        <div className="tag_website__content__input">
-          <Input
-            input={website}
-            placeholder="Enter Website URL"
-            setInput={setWebsite}
-            type="text"
-          ></Input>
-        </div>
-        <div className="tag_website__content__dropdown">
-          <Dropdown
-            dropdownOptions={dropdownOptions}
-            activeOption={activeOption}
-            setActiveOption={handleActiveOption}
-          ></Dropdown>
-        </div>
-      </div>
-      {activeOption.id === "3" && (
-        <div className="tag_website__max_time">
-          <div className="tag_website__max_time__title">Max Time</div>
-          <div className="tag_website__max_time__input">
+      <div className="tag_website__outline">
+        <div className="tag_website__content">
+          <div className="tag_website__content__input">
             <Input
-              input={maxTime}
-              placeholder="Maximum Time of Usage per day in Minutes"
-              setInput={setMaxTime}
+              input={website}
+              placeholder="Enter Website URL"
+              setInput={setWebsite}
               type="text"
             ></Input>
           </div>
+          <div className="tag_website__content__dropdown">
+            <Dropdown
+              dropdownOptions={dropdownOptions}
+              activeOption={activeOption}
+              setActiveOption={handleActiveOption}
+            ></Dropdown>
+          </div>
         </div>
-      )}
-      <div className="tag_website__button">
-        <Button text={"Add a website"} onClick={handleAddWebsite}></Button>
+        {activeOption.id === "3" && (
+          <div className="tag_website__max_time">
+            <div className="tag_website__max_time__title">Max Time</div>
+            <div className="tag_website__max_time__input">
+              <Input
+                input={maxTime}
+                placeholder="Maximum Time of Usage per day in Minutes"
+                setInput={setMaxTime}
+                type="text"
+              ></Input>
+            </div>
+          </div>
+        )}
+        <div className="tag_website__button">
+          <Button text={"Add a website"} onClick={handleAddWebsite}></Button>
+        </div>
       </div>
     </div>
   );

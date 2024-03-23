@@ -4,7 +4,7 @@ import { TaggedTimeURL } from "../types/TaggedTimeUrl";
 import SiteDetailsBox from "./SiteDetailsBox";
 import "./UsageBreakdown.scss";
 import { preprocessURL } from "../utils/PreprocessURL";
-import { msToHM } from "../utils/scripts/mmToHM";
+import { SlOptionsVertical } from "react-icons/sl";
 
 interface UsageBreakdownProps {
   totalTime: number;
@@ -25,7 +25,8 @@ export default function UsageBreakdown({
 
   const displayWebsites = () => {
     return websites.map((item, index) => {
-      if ((100 * item.time) / totalTime < 3) { // less than 3 percent of total time
+      if ((100 * item.time) / totalTime < 1) {
+        // less than 1 percent of total time
         return null;
       }
       const website = preprocessURL(item.label);
@@ -35,12 +36,7 @@ export default function UsageBreakdown({
             className="usage_breakdown__content__list__item__details"
             key={index}
           >
-            <div
-              className="usage_breakdown__content__list__item__details__website"
-              onClick={() => {
-                handleSiteDetails(item);
-              }}
-            >
+            <div className="usage_breakdown__content__list__item__details__website">
               <div
                 className="usage_breakdown__content__list__item__details__website__color"
                 id={websiteColor[item.tag]}
@@ -48,7 +44,12 @@ export default function UsageBreakdown({
               {website.slice(0, 20) + (website.length > 20 ? "..." : "")}
             </div>
             <div className="usage_breakdown__content__list__item__details__usage">
-              {`${msToHM(item.time)}`}
+              {`${((100 * item.time) / totalTime).toFixed(2)}%`}
+              <SlOptionsVertical
+                onClick={() => {
+                  handleSiteDetails(item);
+                }}
+              />
             </div>
           </div>
           <div className="usage_breakdown__content__list__item__bar">
@@ -62,8 +63,7 @@ export default function UsageBreakdown({
       );
     });
   };
-
-  const websiteColor = ["grey", "orange", "blue", "red"];
+  const websiteColor = ["grey", "blue", "orange", "red"];
   return (
     <div className="usage_breakdown">
       {showSiteDetails && (
@@ -76,8 +76,10 @@ export default function UsageBreakdown({
         <div className="usage_breakdown__content__title">
           <h3>Usage Breakdown</h3>
         </div>
-        <div className="usage_breakdown__content__list">
-          {websites.length ? displayWebsites() : "No websites visited"}
+        <div className="usage_breakdown__content__outline">
+          <div className="usage_breakdown__content__list">
+            {websites.length ? displayWebsites() : "No websites visited"}
+          </div>
         </div>
       </div>
     </div>

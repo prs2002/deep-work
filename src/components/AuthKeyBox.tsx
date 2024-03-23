@@ -34,26 +34,28 @@ export default function AuthKeyBox() {
   return (
     <div className="auth_key_box">
       <div className="auth_key_box__header">Auth Key</div>
-      <div className="auth_key_box__content">
-        <div className="auth_key_box__content__input">
-          <Input
-            input={authKey}
-            placeholder="Enter Your Chatgpt Auth Key"
-            setInput={setAuthKey}
-            type={showAuthKey ? "text" : "password"}
-          ></Input>
-        </div>
-        <div className="auth_key_box__content__show">
-          <div
-            className="auth_key_box__content__show__eye"
-            onClick={handleShowAuthKey}
-          >
-            {showAuthKey ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
+      <div className="auth_key_box__outline">
+        <div className="auth_key_box__content">
+          <div className="auth_key_box__content__input">
+            <Input
+              input={authKey}
+              placeholder="Enter Your Chatgpt Auth Key"
+              setInput={setAuthKey}
+              type={showAuthKey ? "text" : "password"}
+            ></Input>
+          </div>
+          <div className="auth_key_box__content__show">
+            <div
+              className="auth_key_box__content__show__eye"
+              onClick={handleShowAuthKey}
+            >
+              {showAuthKey ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="auth_key_box__button">
-        <Button text={"Authenticate"} onClick={handleAddAuthKey}></Button>
+        <div className="auth_key_box__button">
+          <Button text={"Authenticate"} onClick={handleAddAuthKey}></Button>
+        </div>
       </div>
     </div>
   );

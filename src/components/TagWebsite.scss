@@ -1,13 +1,16 @@
 .tag_website {
   width: 328px;
-  border: 2px solid #f0f0f0;
-  border-radius: 30px;
   margin-bottom: 28px;
   &__header {
-    padding-top: 20px;
     padding-left: 15px;
     font-size: 1.25rem;
     letter-spacing: 0em;
+    margin-bottom: 10px;
+  }
+
+  &__outline {
+    border: 2px solid #f0f0f0;
+    border-radius: 30px;
   }
   &__content {
     padding: 0 10px;

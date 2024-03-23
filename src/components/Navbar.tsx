@@ -2,6 +2,9 @@ import { useState } from "react";
 import MenuOptions from "./MenuOptions";
 import { RxCross1 } from "react-icons/rx";
 import "./Navbar.scss";
+import { FaBars } from "react-icons/fa";
+import { IoChevronBack } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 interface NavbarProps {
   text: string;
@@ -13,6 +16,11 @@ export default function Navbar({ text, isFocused }: NavbarProps) {
   return (
     <div className="navbar">
       <div className="navbar__left">
+        <Link to={"/home"} className="navbar__left__menu_button">
+          <IoChevronBack />
+        </Link>
+      </div>
+      <div className="navbar__middle">
         <h1 id={isFocused ? "good" : "bad"}>{text}</h1>
       </div>
       <div className="navbar__right">
@@ -29,7 +37,7 @@ export default function Navbar({ text, isFocused }: NavbarProps) {
             setIsMenuExpanded((prev) => !prev);
           }}
         >
-          {isMenuExpanded ? <RxCross1></RxCross1> : "Menu"}
+          {isMenuExpanded ? <RxCross1></RxCross1> : <FaBars></FaBars>}
         </div>
       </div>
     </div>

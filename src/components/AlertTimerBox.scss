@@ -1,13 +1,15 @@
 .alert_timer_box {
   width: 328px;
-  border: 2px solid #f0f0f0;
-  border-radius: 30px;
   margin-bottom: 28px;
   &__header {
-    padding-top: 20px;
+    margin-bottom: 10px;
     padding-left: 14px;
     font-size: 1.25rem;
     letter-spacing: 0em;
+  }
+  &__outline {
+    border: 2px solid #f0f0f0;
+    border-radius: 30px;
   }
   &__content {
     padding: 0 14px;
@@ -62,7 +64,7 @@
       padding-bottom: 21px;
       border: 2px solid #f0f0f0;
       border-radius: 28px;
-      width: 300px;
+      width: 290px;
       margin-top: 16px;
       margin-bottom: 16px;
       &__list {
@@ -94,7 +96,7 @@
         &__item {
           display: flex;
           gap: 10px;
-          margin-left: 55px;
+          margin-left: 20px;
           & input {
             width: 15px;
             height: 15px;

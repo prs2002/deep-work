@@ -1,13 +1,15 @@
 .general_settings {
   width: 328px;
-  border: 2px solid #f0f0f0;
-  border-radius: 30px;
   margin-bottom: 28px;
   &__header {
-    padding-top: 20px;
+    margin-bottom: 10px;
     padding-left: 14px;
     font-size: 1.25rem;
     letter-spacing: 0em;
+  }
+  &__outline {
+    border: 2px solid #f0f0f0;
+    border-radius: 30px;
   }
   &__content {
     padding: 0 24px;
@@ -46,17 +48,18 @@
             display: flex;
             align-items: center;
             margin-right: 10px;
-            border: 2px solid #F0F0F0;
+            border: 2px solid #f0f0f0;
             &__circle {
               aspect-ratio: 1;
               width: 19px;
-              background: var(--primary-orange);
               border-radius: 100%;
               position: absolute;
               transition: transform 0.3s;
               margin-left: 5px;
+              background: black;
 
               &.on {
+                background: var(--blue);
                 transform: translateX(28px);
               }
             }

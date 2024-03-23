@@ -6,11 +6,11 @@
   justify-content: space-between;
 
   &#good {
-    background: var(--secondary-orange);
+    background: white;
   }
 
   &#bad {
-    background: var(--secondary-red);
+    background: white;
   }
 
   &__option {
@@ -26,20 +26,19 @@
     align-items: center;
     justify-content: center;
     &#good {
-      color: var(--tertiary-orange);
+      color: #7f7f7f;
     }
 
     &#bad {
-      color: var(--tertiary-red);
+      color: #7f7f7f;
     }
     &.selected {
-      background-color: var(--background-color);
+      background-color: black;
       &#good {
-        color: var(--primary-orange);
+        color: white;
       }
-
       &#bad {
-        color: var(--wasteful-red);
+        color: white;
       }
     }
   }

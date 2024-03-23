@@ -125,8 +125,10 @@ export default function WebsiteList() {
   return (
     <div className="website_list">
       <div className="website_list__header">Website List</div>
-      <div className="website_list__content">
-        {websites.length ? displayWebsites() : "No websites to display"}
+      <div className="website_list__outline">
+        <div className="website_list__content">
+          {websites.length ? displayWebsites() : "No websites to display"}
+        </div>
       </div>
     </div>
   );

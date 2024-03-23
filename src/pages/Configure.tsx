@@ -9,6 +9,7 @@ import GeneralSettingsBox from "../components/GeneralSettingsBox";
 import AuthKeyBox from "../components/AuthKeyBox";
 import { AlertTimerBox } from "../components/AlertTimerBox";
 import { useLocation } from "react-router-dom";
+import ProactiveOptionsBox from "../components/ProactiveOptionsBox";
 
 interface ConfigureProps {
   isFocused: boolean;
@@ -50,6 +51,7 @@ export default function Configure({ isFocused }: ConfigureProps) {
         ) : (
           <>
             <GeneralSettingsBox></GeneralSettingsBox>
+            <ProactiveOptionsBox></ProactiveOptionsBox>
             <AuthKeyBox></AuthKeyBox>
             <AlertTimerBox></AlertTimerBox>
           </>

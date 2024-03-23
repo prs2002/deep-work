@@ -1,60 +1,55 @@
 .summary_box {
-  border: 2px solid #f0f0f0;
-  border-radius: 30px;
   width:328px;
-  height: 173px;
   margin-bottom: 28px;
   &__content {
-    padding: 18px;
-
-    &__title {
-      margin-bottom: 16px;
-      & > h3 {
-        font-size: 1.25rem;
-        letter-spacing: 0em;
-      }
-    }
     &__list {
       width: 100%;
       display: flex;
-      flex-direction: column;
-      gap: 12px;
-      height: 100px;
+      justify-content: space-between;
       padding-right: 14px;
       &__item {
+        width: 33%;
         display: flex;
-        &__summary {
-          width: 70%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        &__time {
           display: flex;
-          align-items: center;
-          gap: 15px;
-          padding: 5px 0px;
-          color: #373737;
-          &__color {
-            height: 15px;
-            aspect-ratio: 1;
-            border-radius: 100%;
-
-            &#grey {
-              background-color: var(--input-grey);
-            }
-
-            &#red {
-              background-color: var(--wasteful-red);
-            }
-
-            &#orange {
-              background-color: var(--primary-orange);
-            }
+          gap: 0.25em;
+          justify-content: center;
+          &__spent {
+            color: #7F7F7F;
+            font-size: 13px;
+            font-weight: 700;
+          }
+          &__total {
+            color: #7F7F7F;
+            font-size: 13px;
           }
         }
-        &__time {
-          width: 30%;
+        &__type {
           display: flex;
-          justify-content: flex-end;
           align-items: center;
-          padding: 5px 10px;
-          font-weight: 600;
+          justify-content: center;
+          padding: 11px 12px;
+          gap: 10px;
+          background-color: var(--grey);
+          border-radius: 18px;
+          &__color {
+            width: 9px;
+            height: 9px;
+            border-radius: 100%;
+            &#red {
+              background-color: var(--red);
+            }
+            &#blue {
+              background-color: var(--blue);
+            }
+            &#orange {
+              background-color: var(--orange);
+            }
+          }
         }
       }
     }

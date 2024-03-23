@@ -6,12 +6,13 @@ import QuickActionsBox from "../components/QuickActionsBox";
 import SummaryBox from "../components/SummaryBox";
 import UsageBreakdown from "../components/UsageBreakdown";
 import UsageChart from "../components/UsageChart";
-import VisitedWebsitesList from "../components/VisitedWebsitesList";
 import "./Home.scss";
 import { SummaryItem } from "../types/SummaryItem";
 import { calculateProductivity } from "../utils/CalculateProductivity";
 import { TaggedTimeURL } from "../types/TaggedTimeUrl";
 import { getTaggedTime } from "../utils/GetTaggedTime";
+import HourlySummaryBox from "../components/HourlySummaryBox";
+import DailySummaryBox from "../components/DailySummaryBox";
 
 interface HomeProps {
   isFocused: boolean;
@@ -79,7 +80,6 @@ export default function Home({ isFocused, setIsFocused }: HomeProps) {
     fetchWebsites();
   }, [filter]);
 
-
   return (
     <div className="home_page">
       <div className="home_page__menu">
@@ -102,17 +102,21 @@ export default function Home({ isFocused, setIsFocused }: HomeProps) {
       <div className="home_page__usage">
         <FilterOptions setFilter={setFilter}></FilterOptions>
         <div className="home_page__usage__chart">
-          <UsageChart type={filter}></UsageChart>
+          <UsageChart type={filter} focusRate={focusRate}></UsageChart>
         </div>
-        <VisitedWebsitesList
-          visitedWebsites={websites}
-          setVisitedWebsites={setWebsites}
-        ></VisitedWebsitesList>
-        <SummaryBox summary={summary}></SummaryBox>
+        <SummaryBox filter={filter}></SummaryBox>
         <UsageBreakdown
           websites={websites}
           totalTime={totalTime}
         ></UsageBreakdown>
+        <HourlySummaryBox
+          focusRate={focusRate}
+          totalTime={totalTime}
+        ></HourlySummaryBox>
+        <DailySummaryBox
+          focusRate={focusRate}
+          totalTime={totalTime}
+        ></DailySummaryBox>
       </div>
     </div>
   );
