@@ -8,9 +8,9 @@ import UsageBreakdown from "../components/UsageBreakdown";
 import UsageChart from "../components/UsageChart";
 import "./Home.scss";
 import { SummaryItem } from "../types/SummaryItem";
-import { calculateProductivity } from "../utils/CalculateProductivity";
+import { calculateProductivity } from "../utils/queryStorage/CalculateProductivity";
 import { TaggedTimeURL } from "../types/TaggedTimeUrl";
-import { getTaggedTime } from "../utils/GetTaggedTime";
+import { getTaggedTime } from "../utils/queryStorage/GetTaggedTime";
 import HourlySummaryBox from "../components/HourlySummaryBox";
 import DailySummaryBox from "../components/DailySummaryBox";
 

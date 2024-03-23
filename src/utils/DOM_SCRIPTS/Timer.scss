@@ -1,0 +1,32 @@
+#recenter_timer {
+  z-index: 9999999;
+  border-radius: 60px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  max-width: 164px;
+  min-width: 164px;
+  display: flex;
+  background: #ff3b20;
+  padding: 15px 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  &__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & * {
+      color: #b70000;
+      font-size: 28px;
+    }
+  }
+
+  &__time {
+    font-family: Inter;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 34px;
+    color: #ffffff;
+  }
+}

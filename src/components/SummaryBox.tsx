@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./SummaryBox.scss";
 import { TaggedTimeURL } from "../types/TaggedTimeUrl";
-import { getTaggedTime } from "../utils/GetTaggedTime";
+import { getTaggedTime } from "../utils/queryStorage/GetTaggedTime";
 import { SummaryItem } from "../types/SummaryItem";
 
 interface SummaryBoxProps {

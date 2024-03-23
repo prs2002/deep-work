@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./UsageChart.scss";
 import ReactEcharts from "echarts-for-react";
-import { getTaggedTime } from "../utils/GetTaggedTime";
+import { getTaggedTime } from "../utils/queryStorage/GetTaggedTime";
 import { TaggedTimeURL } from "../types/TaggedTimeUrl";
 import { msToHM } from "../utils/scripts/mmToHM";
 

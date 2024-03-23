@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { DropdownOptions } from "../types/DropdownOptions";
 import { TaggedTimeURL } from "../types/TaggedTimeUrl";
 import "./VisitedWebsitesList.scss";
-import { updateWebsitesInStorage } from "../utils/UpdateWebsitesInStorage";
+import { updateWebsitesInStorage } from "../utils/queryStorage/UpdateWebsitesInStorage";
 import DropdownWithConfirm from "./DropdownWithConfirm";
-import { preprocessURL } from "../utils/PreprocessURL";
+import { preprocessURL } from "../utils/scripts/PreprocessURL";
 import SiteDetailsBox from "./SiteDetailsBox";
 import useToggle from "../hooks/useToggle";
 

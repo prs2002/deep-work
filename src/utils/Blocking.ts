@@ -2,28 +2,30 @@ function redirect() {
   chrome.runtime.sendMessage({ redirect: "blocked.html" });
 }
 
-async function isTimeExceeded(url: string): Promise<boolean> {
+async function isTimeExceeded(url: string): Promise<number | undefined> {
   const time = (await chrome.storage.local.get("maxTimes"))?.maxTimes || {};
-  if (time?.[url] === undefined) {
-    return false;
+  if (time[url] === undefined) {
+    return undefined;
   }
-  const maxTime = time?.[url] * 60 * 1000; // convert to milliseconds
+  const maxTime = parseInt(time[url]) * 60 * 1000; // convert to milliseconds
   const currentTime =
     (await chrome.storage.local.get("dailyTime"))?.dailyTime || {};
   const obj = currentTime.find((obj: any) => obj.url === url);
+  console.log(obj);
+  
   if (obj === undefined) {
-    return false;
+    return -1;
   }
   const timeElapsed = obj.time;
-  const timeExceeded = timeElapsed > maxTime;
-  return timeExceeded;
+  return maxTime - timeElapsed;
 }
 
-export function handleBlocking() {
+export async function handleBlocking(): Promise<number | undefined> {
   const url = window.location.origin;
-  isTimeExceeded(url).then((timeExceeded) => {
-    if (timeExceeded) {
-      redirect();
-    }
-  });
+  const remainingTime = await isTimeExceeded(url);
+  if (remainingTime !== undefined && remainingTime <= 0) {
+    redirect();
+    return 0;
+  }
+  return remainingTime;
 }

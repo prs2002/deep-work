@@ -1,6 +1,5 @@
-import { AITagging } from "./utils/AITagging";
-import { updateDynamicRules } from "./utils/BlockURLs";
-import { WebTime } from "./utils/WebTime";
+import { AITagging } from "./utils/chatGPT/AITagging";
+import { WebTime } from "./utils/main/WebTime";
 
 chrome.runtime.onMessage.addListener(function (request, sender) {
   chrome.tabs.update(sender.tab!.id!, { url: request.redirect });
@@ -33,13 +32,6 @@ async function handleExtensionEnable() {
     async (changes: { [key: string]: chrome.storage.StorageChange }) => {
       if (changes["isDisabled"]) {
         isExtensionDisabled = changes["isDisabled"].newValue;
-      }
-      if (changes["blockedURLs"]) {
-        const blockedURLs: string[] = changes["blockedURLs"].newValue;
-        if (blockedURLs.length === 0) {
-          blockedURLs.push("not_a_real_website_example.com");
-        }
-        updateDynamicRules(blockedURLs);
       }
       if (changes["isDisabledOnWeekend"]) {
         isExtensionDisabledOnWeekend =

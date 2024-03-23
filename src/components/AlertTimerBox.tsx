@@ -4,8 +4,8 @@ import "./AlertTimerBox.scss";
 import Button from "./Button";
 import Dropdown from "./Dropdown";
 import Input from "./Input";
-import { fetchWebsitesFromStorage } from "../utils/FetchWebsitesFromStorage";
-import { preprocessURL } from "../utils/PreprocessURL";
+import { fetchWebsitesFromStorage } from "../utils/queryStorage/FetchWebsitesFromStorage";
+import { preprocessURL } from "../utils/scripts/PreprocessURL";
 
 export const AlertTimerBox = () => {
   const [time, setTime] = useState<string>("");

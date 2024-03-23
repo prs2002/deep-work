@@ -43,7 +43,9 @@ module.exports = {
           {
             loader: "file-loader",
             options: {
+              context: "src/images",
               outputPath: "images",
+              name: "[path][name].[ext]",
             },
           },
         ],

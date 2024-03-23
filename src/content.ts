@@ -1,7 +1,6 @@
 import { addGreetingPopup } from "./utils/DOM_SCRIPTS/GreetingPopup";
-import { hourlySummary } from "./utils/HourlySummary";
-import { NudgeUser } from "./utils/NudgeUser";
-import { handleBlocking } from "./utils/Blocking";
+import { NudgeUser } from "./utils/main/NudgeUser";
+import { ProactiveTimer } from "./utils/main/ProactiveTimer";
 
 var isExtensionDisabled = false;
 var isExtensionDisabledOnWeekend: boolean = true;
@@ -17,11 +16,11 @@ async function setIsDisabled() {
     ((await chrome.storage.local.get("isDisabledOnWeekend"))
       .isDisabledOnWeekend ||
       false) &&
-    isWeekend;
+    !isWeekend;
   chrome.storage.local.get("isDisabled", (data) => {
     if (data === undefined) {
-      chrome.storage.local.set({ isDisabled: true });
-      isExtensionDisabled = true;
+      chrome.storage.local.set({ isDisabled: false });
+      isExtensionDisabled = false;
       return;
     }
     isExtensionDisabled = data.isDisabled;
@@ -55,7 +54,7 @@ async function setIsDisabled() {
       }
       if (changes["isDisabledOnWeekend"]) {
         isExtensionDisabledOnWeekend =
-          changes["isDisabledOnWeekend"].newValue && isWeekend;
+          changes["isDisabledOnWeekend"].newValue && !isWeekend;
       }
     }
   );
@@ -78,8 +77,8 @@ chrome.storage.local.get("lastGreeted", (data) => {
   }
 });
 
-// setInterval(hourlySummary, 300000);
 
-handleBlocking();
+
+new ProactiveTimer();
 
 export {};

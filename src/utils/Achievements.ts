@@ -4,7 +4,7 @@
  */
 
 import { TaggedTimeURL } from "../types/TaggedTimeUrl";
-import { getTaggedTime } from "./GetTaggedTime";
+import { getTaggedTime } from "./queryStorage/GetTaggedTime";
 
 export async function weeklyProductivity(minTime: number): Promise<boolean> {
   const taggedTime: TaggedTimeURL[] | undefined = await getTaggedTime(

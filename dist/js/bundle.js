@@ -1598,7 +1598,7 @@ var MainSection_update = injectStylesIntoStyleTag_default()(MainSection/* defaul
        /* harmony default export */ const components_MainSection = (MainSection/* default */.c && MainSection/* default */.c.locals ? MainSection/* default */.c.locals : undefined);
 
 ;// CONCATENATED MODULE: ./src/images/main_section_image.png
-/* harmony default export */ const main_section_image = (__webpack_require__.p + "images/e7b834e303afb20dad0501fbb0a74566.png");
+/* harmony default export */ const main_section_image = (__webpack_require__.p + "images/main_section_image.png");
 ;// CONCATENATED MODULE: ./src/html/src/components/MainSection.tsx
 
 

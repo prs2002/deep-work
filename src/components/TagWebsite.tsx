@@ -4,7 +4,7 @@ import Button from "./Button";
 import Dropdown from "./Dropdown";
 import Input from "./Input";
 import "./TagWebsite.scss";
-import { tagWebsite } from "../utils/TagWebsite";
+import { tagWebsite } from "../utils/queryStorage/TagWebsite";
 const dropdownOptions: DropdownOptions[] = [
   {
     id: "1",

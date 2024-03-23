@@ -3,7 +3,7 @@ import useToggle from "../hooks/useToggle";
 import { TaggedTimeURL } from "../types/TaggedTimeUrl";
 import SiteDetailsBox from "./SiteDetailsBox";
 import "./UsageBreakdown.scss";
-import { preprocessURL } from "../utils/PreprocessURL";
+import { preprocessURL } from "../utils/scripts/PreprocessURL";
 import { SlOptionsVertical } from "react-icons/sl";
 
 interface UsageBreakdownProps {

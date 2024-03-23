@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { DropdownOptions } from "../types/DropdownOptions";
 import "./UntaggedWebsiteList.scss";
-import { updateWebsitesInStorage } from "../utils/UpdateWebsitesInStorage";
+import { updateWebsitesInStorage } from "../utils/queryStorage/UpdateWebsitesInStorage";
 import DropdownWithConfirm from "./DropdownWithConfirm";
-import { preprocessURL } from "../utils/PreprocessURL";
+import { preprocessURL } from "../utils/scripts/PreprocessURL";
 
 export default function UntaggedWebsiteList() {
   const dropdownOptions: DropdownOptions[] = [

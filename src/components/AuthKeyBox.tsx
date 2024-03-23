@@ -4,7 +4,7 @@ import Input from "./Input";
 import "./AuthKeyBox.scss";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { verifyAPIKey } from "../utils/VerifyApiKey";
+import { verifyAPIKey } from "../utils/chatGPT/VerifyApiKey";
 
 export default function AuthKeyBox() {
   const [authKey, setAuthKey] = useState<string>("");

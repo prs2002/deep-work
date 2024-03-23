@@ -8,7 +8,7 @@ import Button from "./Button";
 import Dropdown from "./Dropdown";
 import { DropdownOptions } from "../types/DropdownOptions";
 import Input from "./Input";
-import { updateWebsitesInStorage } from "../utils/UpdateWebsitesInStorage";
+import { updateWebsitesInStorage } from "../utils/queryStorage/UpdateWebsitesInStorage";
 
 interface SiteDetailsProps {
   setShowSiteDetails: () => void;

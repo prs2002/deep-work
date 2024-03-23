@@ -10,15 +10,24 @@ function FinalAlert({ line }: { line: string }) {
     window.location.href = "https://www.google.com";
   }
 
+  const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
+
   return (
-    <div id="final_alert_container">
-      <div id="final_alert_container__title">Recenter</div>
-      <div id="final_alert_container__line">{line}</div>
-      <div id="final_alert_container__activity">
+    <div id="final_alert">
+      <div id="final_alert__title">
+        <div id="final_alert__title__logo">
+          <img src={logo} alt="logo" />
+        </div>
+        <div id="final_alert__title__text">
+          <h1>Recenter</h1>
+        </div>
+      </div>
+      <div id="final_alert__line">{line}</div>
+      <div id="final_alert__activity">
         Here is a quick activity to get you back to focus. Step away from the
         computer and try 5 pushups.
       </div>
-      <button id="final_alert_container__button" onClick={onClose}>
+      <button id="final_alert__button" onClick={onClose}>
         Let's Go!
       </button>
     </div>

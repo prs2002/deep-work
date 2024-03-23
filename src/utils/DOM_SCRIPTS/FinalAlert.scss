@@ -1,8 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap');
-#final_alert_container {
+@import url("https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap");
+#final_alert,
+#final_alert * {
+  all: revert;
+  margin: 0;
+  padding: 0;
+}
+
+#final_alert {
   width: 675px;
   min-height: 256px;
-  background-color: #ff7020;
+  background: #2087ff;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -12,15 +19,35 @@
   flex-direction: column;
   align-items: center;
   &__title {
-    font-family: Inter;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 19px;
-    letter-spacing: 0em;
-    text-align: left;
+    display: flex;
+    gap: 7px;
     margin-top: 30px;
-    padding: 0;
-    color: #cc4900;
+
+    &__logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      & img {
+        width: 28px;
+        aspect-ratio: 1;
+      }
+    }
+
+    &__text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      & h1 {
+        font-family: Inter;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 19px;
+        letter-spacing: 0em;
+        padding: 0;
+        color: #0052bd;
+      }
+    }
   }
 
   &__line {
@@ -62,5 +89,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 30px;
   }
 }

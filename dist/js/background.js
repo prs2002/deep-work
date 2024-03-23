@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 var __webpack_exports__ = {};
 
-;// CONCATENATED MODULE: ./src/utils/UpdateWebsitesInStorage.ts
+;// CONCATENATED MODULE: ./src/utils/queryStorage/UpdateWebsitesInStorage.ts
 /*
 Function to update websites in storage
 */
@@ -44,7 +44,7 @@ function updateWebsitesInStorage(websites) {
     });
 }
 
-;// CONCATENATED MODULE: ./src/utils/AITagging.ts
+;// CONCATENATED MODULE: ./src/utils/chatGPT/AITagging.ts
 var AITagging_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -151,33 +151,6 @@ function AITagging() {
     });
 }
 
-;// CONCATENATED MODULE: ./src/utils/BlockURLs.ts
-function updateDynamicRules(blockedURLs) {
-    chrome.declarativeNetRequest.getDynamicRules((previousRules) => {
-        const previousRuleIds = previousRules.map((rule) => rule.id);
-        chrome.declarativeNetRequest.updateDynamicRules({
-            removeRuleIds: previousRuleIds,
-            addRules: [
-                {
-                    action: {
-                        type: chrome.declarativeNetRequest.RuleActionType.BLOCK,
-                    },
-                    condition: {
-                        isUrlFilterCaseSensitive: true,
-                        regexFilter: blockedURLs.join("|"),
-                        resourceTypes: [
-                            chrome.declarativeNetRequest.ResourceType.MAIN_FRAME,
-                            chrome.declarativeNetRequest.ResourceType.SUB_FRAME,
-                        ],
-                    },
-                    id: 1,
-                    priority: 2,
-                },
-            ],
-        });
-    });
-}
-
 ;// CONCATENATED MODULE: ./src/utils/scripts/setBadgeText.ts
 function setBadgeText(time, tabId) {
     chrome.action.setBadgeText({ text: getTime(time), tabId: tabId });
@@ -194,7 +167,7 @@ function getTime(time) {
         return `${hours}h`;
 }
 
-;// CONCATENATED MODULE: ./src/utils/WebTime.ts
+;// CONCATENATED MODULE: ./src/utils/main/WebTime.ts
 /*
     Monitor user activity and store the time spent on websites
 */
@@ -407,7 +380,6 @@ var background_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 };
 
 
-
 chrome.runtime.onMessage.addListener(function (request, sender) {
     chrome.tabs.update(sender.tab.id, { url: request.redirect });
 });
@@ -435,13 +407,6 @@ function handleExtensionEnable() {
         chrome.storage.onChanged.addListener((changes) => background_awaiter(this, void 0, void 0, function* () {
             if (changes["isDisabled"]) {
                 isExtensionDisabled = changes["isDisabled"].newValue;
-            }
-            if (changes["blockedURLs"]) {
-                const blockedURLs = changes["blockedURLs"].newValue;
-                if (blockedURLs.length === 0) {
-                    blockedURLs.push("not_a_real_website_example.com");
-                }
-                updateDynamicRules(blockedURLs);
             }
             if (changes["isDisabledOnWeekend"]) {
                 isExtensionDisabledOnWeekend =
@@ -496,7 +461,6 @@ chrome.storage.local.get((res) => {
     const dailyTime = res.dailyTime || [];
     const weeklyTime = res.weeklyTime || [];
     const monthlyTime = res.monthlyTime || [];
-    console.log(res);
     new WebTime(dailyTime, weeklyTime, monthlyTime);
 });
 chrome.runtime.onStartup.addListener(() => { });
