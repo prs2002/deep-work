@@ -55,7 +55,7 @@ export class NudgeUser {
             this.promptINTERVAL = 180;
             this.violationsLimit = 5;
           }
-        } else {
+        } else if (this.tag > 1) {
           const promptParameters = {} as any;
           promptParameters[this.website] = {
             promptInterval: 180,

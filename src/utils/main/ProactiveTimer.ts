@@ -31,6 +31,9 @@ export class ProactiveTimer {
         await chrome.storage.local.set({ enableDistractingSiteTimer: false });
         return;
       }
+      else if(!res.enableDistractingSiteTimer) {
+        return;
+      }
       const websites: TaggedURL[] = res.taggedURLs;
       if (!websites) {
         return;

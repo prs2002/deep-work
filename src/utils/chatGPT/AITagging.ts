@@ -40,7 +40,21 @@ async function apiCall(website: string, authKey: any) {
         },
       ],
     };
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    const timeoutPromise = new Promise<Response>((resolve, reject) => {
+      setTimeout(() => {
+        const timeoutError = new Error("API call timeout");
+        const timeoutResponse = new Response(
+          JSON.stringify({ error: timeoutError }),
+          {
+            status: 408,
+            statusText: "Request Timeout",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        reject(timeoutResponse);
+      }, 30000);
+    });
+    const fetchPromise = fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,65 +62,69 @@ async function apiCall(website: string, authKey: any) {
       },
       body: JSON.stringify(requestBody),
     });
+    const res: Response = await Promise.race([fetchPromise, timeoutPromise]);
+    if (!res.ok) {
+      throw new Error("API request failed");
+    }
     const data = await res.json();
     const usage = data.usage.total_tokens;
-    const pricing = 0.5 / 1000000;
+    const pricing = 1.5 / 1000000;
     const prevUsage = (await chrome.storage.local.get("usage"))?.usage || [];
     prevUsage.push({ cost: usage * pricing, website: website });
     await chrome.storage.local.set({ usage: prevUsage });
     const classifiedWebsites = data.choices[0].message.content;
     const classifiedWebsitesObject = JSON.parse(classifiedWebsites);
+    await chrome.storage.local.set({ lastApiCall: new Date().getTime() });
     return classifiedWebsitesObject;
   } catch (err) {
     console.log(err);
+    await chrome.storage.local.set({ lastApiCall: new Date().getTime() }); // don't let any api call for next 2.5 min
     return { website: website, CLASSIFICATION: "untagged" };
   }
 }
 
 export async function AITagging() {
   try {
-    const authKey = (await chrome.storage.local.get("authKey"))?.authKey;
+    const authKey = (await chrome.storage.local.get("authKey"))?.authKey; // api key
     const websiteList: string[] = (
       await chrome.storage.local.get("visitedURLs")
-    )?.visitedURLs;
+    )?.visitedURLs; // untagged urls
     if (!websiteList || websiteList.length === 0) {
       return;
     }
 
     const preTaggedUrls: TaggedWebsite[] =
-      (await chrome.storage.local.get("preTaggedUrls"))?.preTaggedUrls || [];
+      (await chrome.storage.local.get("preTaggedUrls"))?.preTaggedUrls || []; // list of pre tagged urls
+
     const taggedWebsites: Website[] = [];
 
-    for (let i = 0; i < websiteList.length; i++) {
-      const website: string = websiteList[i];
-      let classification = "unsure";
-      const obj: TaggedWebsite | undefined = preTaggedUrls.find(
-        (obj) => obj.URL === website
-      );
+    const website: string = websiteList[0]; // get the first untagged website
 
-      if (obj) {
-        classification = obj.CLASSIFICATION.toLowerCase();
-        pushToArray(classification, taggedWebsites, website);
-      } else if (authKey) {
-        const lastApiCall =
-          (await chrome.storage.local.get("lastApiCall"))?.lastApiCall ||
-          new Date(0).getTime();
-        const currentTime = new Date().getTime();
-        if (currentTime - lastApiCall < 30000) {
-          // if last api call was less than 2 minutes ago, skip to prevent rate limit
-          continue;
-        }
-        const tagged: TaggedWebsite = await apiCall(website, authKey);
-        await chrome.storage.local.set({ lastApiCall: currentTime });
-        classification = tagged.CLASSIFICATION?.toLowerCase();
-        pushToArray(classification, taggedWebsites, website);
-        await new Promise((resolve) => {
-          setTimeout(resolve, 30000); // wait 30 seconds for rate limit
-        });
+    let classification = "untagged";
+
+    const obj: TaggedWebsite | undefined = preTaggedUrls.find(
+      (obj) => obj.URL === website
+    ); // find the current url in pre-tagged list
+
+    if (obj) {
+      // if found, push it to our list
+      classification = obj.CLASSIFICATION.toLowerCase();
+      pushToArray(classification, taggedWebsites, website);
+    } else if (authKey) {
+      // if api key is stored, try tagging it using chat gpt
+      const lastApiCall =
+        (await chrome.storage.local.get("lastApiCall"))?.lastApiCall ||
+        new Date(0).getTime();
+      const currentTime = new Date().getTime();
+      if (currentTime - lastApiCall < 30000) {
+        // if last api call was less than 2 minutes ago, skip to prevent rate limit
+        return;
       }
+      const tagged: TaggedWebsite = await apiCall(website, authKey); // tag the website
+      classification = tagged.CLASSIFICATION?.toLowerCase();
+      pushToArray(classification, taggedWebsites, website);
     }
-
-    updateWebsitesInStorage(taggedWebsites);
+    updateWebsitesInStorage(taggedWebsites); // update the website in storage
   } catch (e) {
     console.error(e);
   }

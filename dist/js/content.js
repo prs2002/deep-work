@@ -18,7 +18,30 @@
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `#non_blocking_alert,#non_blocking_alert *{all:revert;margin:0;padding:0}#non_blocking_alert{margin:0;padding:0;position:fixed;display:flex;flex-direction:column;width:320px;min-height:257px;background:#2087ff;right:20px;top:20px;z-index:9999999}#non_blocking_alert.more{min-height:373px}#non_blocking_alert__title{margin-top:24px;margin-left:24px;height:10%;display:flex;gap:9px;align-items:center}#non_blocking_alert__title__logo{display:flex;align-items:center;justify-content:center}#non_blocking_alert__title__logo img{width:28px;aspect-ratio:1}#non_blocking_alert__title__text{display:flex;align-items:center;justify-content:center}#non_blocking_alert__title__text h1{color:#0052bd;font-size:16px;font-weight:600;font-family:Inter}#non_blocking_alert__header{margin-top:21px;margin-left:24px;height:25%}#non_blocking_alert__header__light{font-family:Inter;font-size:20px;font-weight:700;color:rgba(255,255,255,.6196078431);line-height:24px}#non_blocking_alert__header__dark{font-family:Inter;font-size:20px;font-weight:700;color:#fff;line-height:24px}#non_blocking_alert__buttons{display:flex;gap:6px;margin-left:24px}#non_blocking_alert__buttons__button{margin-top:34px;width:133px;padding:7.5px 0;font-family:Inter;font-size:12px;font-weight:400;line-height:15px;border:none;border-radius:38px;cursor:pointer}#non_blocking_alert__buttons__button.white{background-color:#fff}#non_blocking_alert__buttons__button.blue{border:1px solid #fff;background-color:rgba(0,0,0,0);color:#fff}#non_blocking_alert__more_content{margin-top:24px;margin-left:24px}#non_blocking_alert__more_content__phrase__label{color:#fff;font-family:Inter;font-size:13px;font-weight:400;line-height:15px}#non_blocking_alert__more_content__phrase__input{border:1px solid #fff;width:272px;padding:7.5px 0;font-size:13px;font-weight:400;line-height:15px;text-align:center;outline:none;color:#fff;border-radius:38px;margin-top:14px;background-color:rgba(0,0,0,0)}#non_blocking_alert__more_content__line{border:1px solid #0052bd;margin-top:24px;margin-right:24px}#non_blocking_alert__more_content__go_back{margin-top:24px}#non_blocking_alert__more_content__go_back__label{color:#fff;font-family:Inter;font-size:13px;font-weight:400;line-height:15px;text-align:center}#non_blocking_alert__more_content__go_back__button{background:#fff;border:none;width:272px;margin-top:12px;padding:7.5px 0;margin-right:24px;border-radius:38px}`, ""]);
+___CSS_LOADER_EXPORT___.push([module.id, `#non_blocking_alert,#non_blocking_alert *{all:revert;margin:0;padding:0}#non_blocking_alert{margin:0;padding:0;position:fixed;display:flex;flex-direction:column;align-items:center;width:320px;min-height:257px;background:#2087ff;right:20px;top:20px;z-index:9999999}#non_blocking_alert.more{min-height:373px}#non_blocking_alert__title{margin-top:24px;width:85%;height:10%;display:flex;gap:9px;align-items:center}#non_blocking_alert__title__logo{display:flex;align-items:center;justify-content:center}#non_blocking_alert__title__logo img{width:28px;aspect-ratio:1}#non_blocking_alert__title__text{display:flex;align-items:center;justify-content:center}#non_blocking_alert__title__text h1{color:#0052bd;font-size:16px;font-weight:600;font-family:Inter}#non_blocking_alert__header{margin-top:21px;width:85%;height:25%}#non_blocking_alert__header__light{font-family:Inter;font-size:20px;font-weight:700;color:rgba(255,255,255,.6196078431);line-height:24px}#non_blocking_alert__header__dark{font-family:Inter;font-size:20px;font-weight:700;color:#fff;line-height:24px}#non_blocking_alert__buttons{display:flex;gap:6px;width:85%}#non_blocking_alert__buttons__button{margin-top:34px;width:133px;padding:7.5px 0;font-family:Inter;font-size:12px;font-weight:400;line-height:15px;border:none;border-radius:38px;cursor:pointer}#non_blocking_alert__buttons__button.white{background-color:#fff;color:#000}#non_blocking_alert__buttons__button.blue{border:1px solid #fff;background-color:rgba(0,0,0,0);color:#fff}#non_blocking_alert__more_content{margin-top:24px;width:85%}#non_blocking_alert__more_content__phrase__label{color:#fff;font-family:Inter;font-size:13px;font-weight:400;line-height:15px}#non_blocking_alert__more_content__phrase__input{border:1px solid #fff;width:272px;padding:7.5px 0;font-size:13px;font-weight:400;line-height:15px;text-align:center;outline:none;color:#fff;border-radius:38px;margin-top:14px;background-color:rgba(0,0,0,0)}#non_blocking_alert__more_content__line{border:1px solid #0052bd;margin-top:24px;margin-right:24px}#non_blocking_alert__more_content__go_back{margin-top:24px}#non_blocking_alert__more_content__go_back__label{color:#fff;font-family:Inter;font-size:13px;font-weight:400;line-height:15px;text-align:center}#non_blocking_alert__more_content__go_back__button{background:#fff;border:none;width:272px;margin-top:12px;padding:7.5px 0;margin-right:24px;border-radius:38px}`, ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 2760:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   c: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5500);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2312);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap);"]);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `#daily_summary,#daily_summary *{all:revert;margin:0;padding:0;font-family:Inter}#daily_summary{margin:0;padding:0;position:fixed;display:flex;flex-direction:column;align-items:center;width:320px;min-height:380px;background:#fff;right:20px;top:20px;z-index:9999999;width:328px;margin-bottom:28px}#daily_summary__title{width:85%;margin-bottom:16px;margin-top:31px}#daily_summary__title>h3{color:#0052bd;font-size:16px;letter-spacing:0em}#daily_summary__content{border-radius:30px;height:100%;width:100%;display:flex;flex-direction:column;align-items:center}#daily_summary__content__header{padding:24px 0;padding-bottom:0;width:90%}#daily_summary__content__header__focus_rate{padding-left:4px;font-size:24px;font-weight:700}#daily_summary__content__header__title{padding-left:4px;font-weight:700;font-size:16px;color:rgba(0,0,0,.62)}#daily_summary__content__header__bar{width:calc(100% - 24px);margin-top:10px;height:6px;border-radius:20px;background:#d9d9d9}#daily_summary__content__header__bar__fill{border-radius:20px;background-color:#2087ff;height:100%}#daily_summary__content__time{padding:24px 0;width:90%}#daily_summary__content__time__row{display:flex}#daily_summary__content__time__row__label{width:70%;display:flex;align-items:center;gap:10px;padding:5px 0px;color:#373737}#daily_summary__content__time__row__label__color{height:10px;aspect-ratio:1;border-radius:100%}#daily_summary__content__time__row__label__color.blue{background-color:#2087ff}#daily_summary__content__time__row__label__color.red{background-color:#ff3b20}#daily_summary__content__time__row__label__color.black{background-color:#000}#daily_summary__content__time__row__value{width:30%;text-align:right;font-weight:700}#daily_summary__content__line{border:1px solid #ebebeb;width:85%}#daily_summary__content__summary{font-size:13px;padding:24px}#daily_summary__content__button{width:85%}#daily_summary__content__button__btn{width:100%;padding:7.5px 0;font-size:12px;background:#2087ff;border-radius:38px;color:#fff;border:none;margin-bottom:24px;cursor:pointer}`, ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -48,7 +71,30 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#final_alert,#final_alert *{all:revert
 
 /***/ }),
 
-/***/ 424:
+/***/ 9448:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   c: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5500);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2312);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap);"]);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `#greeting_popup,#greeting_popup *{all:revert;margin:0;padding:0;font-family:Inter}#greeting_popup{margin:0;padding:0;position:fixed;display:flex;flex-direction:column;align-items:center;width:320px;min-height:405px;background:#2087ff;right:20px;top:20px;z-index:9999999}#greeting_popup__title{margin-top:24px;width:85%;height:10%;display:flex;gap:9px;align-items:center}#greeting_popup__title__logo{display:flex;align-items:center;justify-content:center}#greeting_popup__title__logo img{width:28px;aspect-ratio:1}#greeting_popup__title__text{display:flex;align-items:center;justify-content:center}#greeting_popup__title__text h1{color:#0052bd;font-size:16px;font-weight:600;font-family:Inter}#greeting_popup__header{margin-top:21px;width:85%;height:25%}#greeting_popup__header img{width:45px}#greeting_popup__header__light{font-family:Inter;font-size:20px;font-weight:700;color:rgba(255,255,255,.6196078431);line-height:24px}#greeting_popup__header__dark{font-family:Inter;font-size:20px;font-weight:700;color:#fff;line-height:24px}#greeting_popup__line{border:1px solid #0052bd;width:85%;margin-top:24px}#greeting_popup__focus_rate{width:85%;margin-top:29px}#greeting_popup__focus_rate__title{font-family:Inter;font-size:12px;font-weight:400;line-height:14.52px;color:rgba(255,255,255,.6196078431)}#greeting_popup__focus_rate__row{margin-top:11px;display:flex}#greeting_popup__focus_rate__row__label{width:50%;font-family:Inter;font-size:14px;font-weight:400;line-height:16.94px;text-align:left;color:#fff}#greeting_popup__focus_rate__row__value{width:50%;font-family:Inter;font-size:14px;font-weight:700;line-height:16.94px;text-align:right;color:#fff}#greeting_popup__focus_rate__bar{height:4px;background-color:#0052bd;border-radius:20px;margin-top:7px}#greeting_popup__focus_rate__bar__fill{height:100%;background-color:#fff;border-radius:20px}#greeting_popup__buttons{display:flex;gap:6px;width:85%}#greeting_popup__buttons__button{margin-top:34px;width:133px;padding:7.5px 0;font-family:Inter;font-size:12px;font-weight:400;line-height:15px;border:none;border-radius:38px;cursor:pointer}#greeting_popup__buttons__button.white{background-color:#fff;color:#2087ff}#greeting_popup__buttons__button.blue{border:1px solid #fff;background-color:rgba(0,0,0,0);color:#fff}`, ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 9424:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -553,7 +599,6 @@ if (true) {
 /***/ 4808:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-var __webpack_unused_export__;
 /**
  * @license React
  * react-jsx-runtime.production.min.js
@@ -564,7 +609,7 @@ var __webpack_unused_export__;
  * LICENSE file in the root directory of this source tree.
  */
 var f=__webpack_require__(1504),k=Symbol.for("react.element"),l=Symbol.for("react.fragment"),m=Object.prototype.hasOwnProperty,n=f.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner,p={key:!0,ref:!0,__self:!0,__source:!0};
-function q(c,a,g){var b,d={},e=null,h=null;void 0!==g&&(e=""+g);void 0!==a.key&&(e=""+a.key);void 0!==a.ref&&(h=a.ref);for(b in a)m.call(a,b)&&!p.hasOwnProperty(b)&&(d[b]=a[b]);if(c&&c.defaultProps)for(b in a=c.defaultProps,a)void 0===d[b]&&(d[b]=a[b]);return{$$typeof:k,type:c,key:e,ref:h,props:d,_owner:n.current}}__webpack_unused_export__=l;exports.jsx=q;exports.jsxs=q;
+function q(c,a,g){var b,d={},e=null,h=null;void 0!==g&&(e=""+g);void 0!==a.key&&(e=""+a.key);void 0!==a.ref&&(h=a.ref);for(b in a)m.call(a,b)&&!p.hasOwnProperty(b)&&(d[b]=a[b]);if(c&&c.defaultProps)for(b in a=c.defaultProps,a)void 0===d[b]&&(d[b]=a[b]);return{$$typeof:k,type:c,key:e,ref:h,props:d,_owner:n.current}}exports.Fragment=l;exports.jsx=q;exports.jsxs=q;
 
 
 /***/ }),
@@ -979,37 +1024,27 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 
-;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/GreetingPopup.ts
-/*
-    This popup will be shown to the user when they first open the extension on a new day.
-    It will be shown only once per day.
-    It will contain a greeting message and a button to close the popup. It will also automatically close after some time.
-*/
-function addGreetingPopup() {
-    var _a;
-    const popup = document.createElement("div");
-    popup.innerHTML = `
-        <div id="greeting-popup" style="position: absolute; top: 20px; right: 50px; background-color: #fff; border: 1px solid #ccc; padding: 10px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); z-index:9999999; color : #000;">
-            <p>Good morning! Let us try to have a great productive day ahead! 🥳.</p>
-            <button id="close-popup-btn" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer;">Close</button>
-        </div>
-    `;
-    document.body.appendChild(popup);
-    //   Close the popup after some time
-    setTimeout(() => {
-        var _a;
-        (_a = document.getElementById("greeting-popup")) === null || _a === void 0 ? void 0 : _a.remove();
-    }, 10000);
-    // Close the popup when the close button is clicked
-    (_a = document.getElementById("close-popup-btn")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
-        var _a;
-        (_a = document.getElementById("greeting-popup")) === null || _a === void 0 ? void 0 : _a.remove();
-    });
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(7624);
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(1504);
+// EXTERNAL MODULE: ./node_modules/react-dom/client.js
+var client = __webpack_require__(8352);
+;// CONCATENATED MODULE: ./src/utils/scripts/mmToHM.ts
+function msToHM(ms) {
+    // 1- Convert to seconds:
+    let seconds = Math.floor(ms / 1000);
+    // 2- Extract hours:
+    const hours = Math.floor(seconds / 3600); // 3,600 seconds in 1 hour
+    seconds = seconds % 3600; // seconds remaining after extracting hours
+    // 3- Extract minutes:
+    const minutes = Math.floor(seconds / 60); // 60 seconds in 1 minute
+    return `${hours}h ${minutes}m`;
 }
 
-;// CONCATENATED MODULE: ./src/utils/queryStorage/FetchFunnyLines.ts
+;// CONCATENATED MODULE: ./src/utils/queryStorage/GetTaggedTime.ts
 /*
-    This file is used to fetch funny lines local storage and randomly select a line to display to the user.
+Function to get the time of the user on a website along with tag
 */
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -1020,9 +1055,316 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+function msToHMS(ms) {
+    // 1- Convert to seconds:
+    let seconds = Math.floor(ms / 1000);
+    // 2- Extract hours:
+    const hours = Math.floor(seconds / 3600); // 3,600 seconds in 1 hour
+    seconds = seconds % 3600; // seconds remaining after extracting hours
+    // 3- Extract minutes:
+    const minutes = Math.floor(seconds / 60); // 60 seconds in 1 minute
+    // 4- Keep only seconds not extracted to minutes:
+    seconds = seconds % 60;
+    return `${hours}h ${minutes}m ${seconds}s`;
+}
+function getTaggedTime(type) {
+    var _a, _b, _c, _d;
+    return __awaiter(this, void 0, void 0, function* () {
+        const data = (_a = (yield chrome.storage.local.get(type))) === null || _a === void 0 ? void 0 : _a[type];
+        if (!data) {
+            return;
+        }
+        // get website tag data
+        const taggedData = (_b = (yield chrome.storage.local.get("taggedURLs"))) === null || _b === void 0 ? void 0 : _b.taggedURLs;
+        const result = data.map((d) => {
+            return { label: d.url, time: d.time, tag: 0, value: msToHMS(d.time) };
+        });
+        if (type === "weeklyTime") {
+            const numberOfDays = ((_c = (yield chrome.storage.local.get("numberOfDaysInWeek"))) === null || _c === void 0 ? void 0 : _c.numberOfDaysInWeek) || 1;
+            result.forEach((d) => {
+                d.time = d.time / numberOfDays;
+                d.value = msToHMS(d.time);
+            });
+        }
+        if (type === "monthlyTime") {
+            const numberOfDays = ((_d = (yield chrome.storage.local.get("numberOfDays"))) === null || _d === void 0 ? void 0 : _d.numberOfDays) || 1;
+            result.forEach((d) => {
+                d.time = d.time / numberOfDays;
+                d.value = msToHMS(d.time);
+            });
+        }
+        if (taggedData) {
+            for (const d of result) {
+                for (const tag of taggedData) {
+                    if (tag.website === d.label) {
+                        d.tag = tag.tag;
+                    }
+                }
+            }
+        }
+        return result;
+    });
+}
+
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(4596);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleDomAPI.js
+var styleDomAPI = __webpack_require__(6520);
+var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertBySelector.js
+var insertBySelector = __webpack_require__(6176);
+var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
+var setAttributesWithoutAttributes = __webpack_require__(5120);
+var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertStyleElement.js
+var insertStyleElement = __webpack_require__(6808);
+var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleTagTransform.js
+var styleTagTransform = __webpack_require__(1936);
+var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/utils/DOM_SCRIPTS/Greetings.scss
+var Greetings = __webpack_require__(9448);
+;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/Greetings.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (styleTagTransform_default());
+options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      options.insert = insertBySelector_default().bind(null, "head");
+    
+options.domAPI = (styleDomAPI_default());
+options.insertStyleElement = (insertStyleElement_default());
+
+var update = injectStylesIntoStyleTag_default()(Greetings/* default */.c, options);
+
+
+
+
+       /* harmony default export */ const DOM_SCRIPTS_Greetings = (Greetings/* default */.c && Greetings/* default */.c.locals ? Greetings/* default */.c.locals : undefined);
+
+;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/Greetings.tsx
+
+
+function Greetings_Greetings({ logo, gif, focusRate, handleClose, setShowSummary }) {
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__title__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__title__text" }, { children: (0,jsx_runtime.jsx)("h1", { children: "Recenter" }) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__header" }, { children: [(0,jsx_runtime.jsx)("img", { src: gif, alt: "greeting" }), (0,jsx_runtime.jsx)("p", Object.assign({ id: "greeting_popup__header__light" }, { children: "Good Morning!" })), (0,jsx_runtime.jsx)("p", Object.assign({ id: "greeting_popup__header__dark" }, { children: "Let's Begin the Day" })), (0,jsx_runtime.jsx)("p", Object.assign({ id: "greeting_popup__header__dark" }, { children: "With a Pinch of Focus" }))] })), (0,jsx_runtime.jsx)("div", { id: "greeting_popup__line" }), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__focus_rate" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__focus_rate__title" }, { children: "Quick Recap From Yesterday" })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__focus_rate__row" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__focus_rate__row__label" }, { children: "Focus Rate" })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__focus_rate__row__value" }, { children: focusRate.toFixed(0) }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__focus_rate__bar" }, { children: (0,jsx_runtime.jsx)("div", { id: "greeting_popup__focus_rate__bar__fill", style: { width: `${focusRate}%` } }) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__buttons" }, { children: [(0,jsx_runtime.jsx)("button", Object.assign({ id: "greeting_popup__buttons__button", className: "white", onClick: handleClose }, { children: "Get to work" })), (0,jsx_runtime.jsx)("button", Object.assign({ id: "greeting_popup__buttons__button", className: "blue", onClick: setShowSummary }, { children: "Read More" }))] }))] })));
+}
+
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/utils/DOM_SCRIPTS/DailySummary.scss
+var DailySummary = __webpack_require__(2760);
+;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/DailySummary.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var DailySummary_options = {};
+
+DailySummary_options.styleTagTransform = (styleTagTransform_default());
+DailySummary_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      DailySummary_options.insert = insertBySelector_default().bind(null, "head");
+    
+DailySummary_options.domAPI = (styleDomAPI_default());
+DailySummary_options.insertStyleElement = (insertStyleElement_default());
+
+var DailySummary_update = injectStylesIntoStyleTag_default()(DailySummary/* default */.c, DailySummary_options);
+
+
+
+
+       /* harmony default export */ const DOM_SCRIPTS_DailySummary = (DailySummary/* default */.c && DailySummary/* default */.c.locals ? DailySummary/* default */.c.locals : undefined);
+
+;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/DailySummary.tsx
+
+
+function DailySummary_DailySummary({ focusRate, timeSummary, summary, handleClose }) {
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__title" }, { children: (0,jsx_runtime.jsx)("h3", { children: "Daily Recap" }) })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__content" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__content__header" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__content__header__focus_rate" }, { children: [focusRate.toFixed(0), "%"] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__header__title" }, { children: "Focus Rate Yesterday" })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__header__bar" }, { children: (0,jsx_runtime.jsx)("div", { id: "daily_summary__content__header__bar__fill", style: { width: `${focusRate}%` } }) }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__time" }, { children: timeSummary.map((time, index) => ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__content__time__row" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__content__time__row__label" }, { children: [(0,jsx_runtime.jsx)("div", { id: "daily_summary__content__time__row__label__color", className: time.color }), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__time__row__label__name" }, { children: time.label }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__time__row__value" }, { children: time.value }))] }), index))) })), (0,jsx_runtime.jsx)("div", { id: "daily_summary__content__line" }), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__summary" }, { children: summary })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__button" }, { children: (0,jsx_runtime.jsx)("button", Object.assign({ id: "daily_summary__content__button__btn", onClick: handleClose }, { children: "Go to Work" })) }))] }))] })));
+}
+
+;// CONCATENATED MODULE: ./src/hooks/useToggle.ts
+
+function useToggle(defaultValue) {
+    const [value, setValue] = (0,react.useState)(defaultValue);
+    function toggle() {
+        setValue((prev) => !prev);
+    }
+    return [value, toggle];
+}
+
+;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/DailyPopup.tsx
+var DailyPopup_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+
+
+
+// import "../../images/recenter_logo.png";
+function DailyPopup() {
+    const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
+    const gif = chrome.runtime.getURL("js/images/gifs/2.gif");
+    const [summary, setSummary] = (0,react.useState)("");
+    const [showSummary, setShowSummary] = useToggle(false);
+    const [focusRate, setFocusRate] = (0,react.useState)(0);
+    const [totalTime, setTotalTime] = (0,react.useState)(0);
+    (0,react.useEffect)(() => {
+        function generateSummary() {
+            return DailyPopup_awaiter(this, void 0, void 0, function* () {
+                let prevDaySummary = (yield chrome.storage.local.get("prevDaySummary")).prevDaySummary;
+                var yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                if (!prevDaySummary || yesterday.toDateString() !== prevDaySummary[1]) {
+                    yield new Promise((resolve, reject) => {
+                        chrome.runtime.sendMessage({ summarize: "prevDay" }, function (response) {
+                            if (response.success)
+                                resolve(1);
+                            else
+                                reject(0);
+                        });
+                    });
+                }
+                prevDaySummary = (yield chrome.storage.local.get("prevDaySummary"))
+                    .prevDaySummary;
+                setSummary(prevDaySummary[0]);
+            });
+        }
+        function getProductivity() {
+            return DailyPopup_awaiter(this, void 0, void 0, function* () {
+                const yesterdayTime = yield getTaggedTime("yesterdayTime");
+                if (!yesterdayTime) {
+                    var yesterday = new Date();
+                    yesterday.setDate(yesterday.getDate() - 1);
+                    yield chrome.storage.local.set({
+                        prevDaySummary: [
+                            "No previous day data found.",
+                            yesterday.toDateString(),
+                        ],
+                    });
+                    setSummary("No previous day data found.");
+                    return;
+                }
+                generateSummary();
+                const totalTime = yesterdayTime.reduce((acc, website) => acc + website.time, 0);
+                const focusRate = totalTime &&
+                    (yesterdayTime.reduce((acc, website) => acc + (website.tag === 1 ? website.time : 0), 0) /
+                        totalTime) *
+                        100;
+                setFocusRate(focusRate);
+                setTotalTime(totalTime / 100);
+            });
+        }
+        getProductivity();
+    }, []);
+    const timeSummary = [
+        {
+            label: "Productive",
+            value: msToHM(totalTime * focusRate),
+            color: "blue",
+        },
+        {
+            label: "Distracted",
+            value: msToHM(totalTime * (100 - focusRate)),
+            color: "red",
+        },
+        { label: "Total", value: msToHM(totalTime), color: "black" },
+    ];
+    const handleClose = () => {
+        const root = document.getElementById("recenter_container");
+        if (root) {
+            root.remove();
+        }
+    };
+    const handleSummary = () => {
+        setShowSummary();
+    };
+    if (summary === "") {
+        return (0,jsx_runtime.jsx)(jsx_runtime.Fragment, {});
+    }
+    return ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [!showSummary && ((0,jsx_runtime.jsx)(Greetings_Greetings, { focusRate: focusRate, gif: gif, logo: logo, handleClose: handleClose, setShowSummary: handleSummary })), showSummary && ((0,jsx_runtime.jsx)(DailySummary_DailySummary, { focusRate: focusRate, summary: summary, timeSummary: timeSummary, handleClose: handleClose }))] }));
+}
+function insertGreetings() {
+    if (document.getElementById("recenter_container") !== null) {
+        return;
+    }
+    const root = document.createElement("div");
+    root.id = "recenter_container";
+    document.body.appendChild(root);
+    const rootDiv = client.createRoot(root);
+    rootDiv.render((0,jsx_runtime.jsx)(react.StrictMode, { children: (0,jsx_runtime.jsx)(DailyPopup, {}) }));
+}
+
+;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/GreetingPopup.ts
+/*
+    This popup will be shown to the user when they first open the extension on a new day.
+    It will be shown only once per day.
+    It will contain a greeting message and a button to close the popup. It will also automatically close after some time.
+*/
+
+function addGreetingPopup() {
+    //   const popup = document.createElement("div");
+    //   popup.innerHTML = `
+    //         <div id="greeting-popup" style="position: absolute; top: 20px; right: 50px; background-color: #fff; border: 1px solid #ccc; padding: 10px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); z-index:9999999; color : #000;">
+    //             <p>Good morning! Let us try to have a great productive day ahead! 🥳.</p>
+    //             <button id="close-popup-btn" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer;">Close</button>
+    //         </div>
+    //     `;
+    //   document.body.appendChild(popup);
+    // //   Close the popup after some time
+    //   setTimeout(() => {
+    //     document.getElementById("greeting-popup")?.remove();
+    //   }, 10000);
+    //   // Close the popup when the close button is clicked
+    //   document.getElementById("close-popup-btn")?.addEventListener("click", () => {
+    //     document.getElementById("greeting-popup")?.remove();
+    //   });
+    insertGreetings();
+}
+
+;// CONCATENATED MODULE: ./src/utils/queryStorage/FetchFunnyLines.ts
+/*
+    This file is used to fetch funny lines local storage and randomly select a line to display to the user.
+*/
+var FetchFunnyLines_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 function fetchFunnyLines(url) {
     var _a;
-    return __awaiter(this, void 0, void 0, function* () {
+    return FetchFunnyLines_awaiter(this, void 0, void 0, function* () {
         const funnyLines = ((_a = (yield chrome.storage.local.get("funnyLines"))) === null || _a === void 0 ? void 0 : _a.funnyLines) || [];
         const obj = funnyLines.find((obj) => {
             return obj["URL"] === url;
@@ -1069,30 +1411,6 @@ function removeGrayscale() {
     }
 }
 
-// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
-var jsx_runtime = __webpack_require__(7624);
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(1504);
-// EXTERNAL MODULE: ./node_modules/react-dom/client.js
-var client = __webpack_require__(8352);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
-var injectStylesIntoStyleTag = __webpack_require__(4596);
-var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleDomAPI.js
-var styleDomAPI = __webpack_require__(6520);
-var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertBySelector.js
-var insertBySelector = __webpack_require__(6176);
-var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
-var setAttributesWithoutAttributes = __webpack_require__(5120);
-var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertStyleElement.js
-var insertStyleElement = __webpack_require__(6808);
-var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
-// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleTagTransform.js
-var styleTagTransform = __webpack_require__(1936);
-var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/utils/DOM_SCRIPTS/Alert.scss
 var Alert = __webpack_require__(8944);
 ;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/Alert.scss
@@ -1107,17 +1425,17 @@ var Alert = __webpack_require__(8944);
       
       
 
-var options = {};
+var Alert_options = {};
 
-options.styleTagTransform = (styleTagTransform_default());
-options.setAttributes = (setAttributesWithoutAttributes_default());
+Alert_options.styleTagTransform = (styleTagTransform_default());
+Alert_options.setAttributes = (setAttributesWithoutAttributes_default());
 
-      options.insert = insertBySelector_default().bind(null, "head");
+      Alert_options.insert = insertBySelector_default().bind(null, "head");
     
-options.domAPI = (styleDomAPI_default());
-options.insertStyleElement = (insertStyleElement_default());
+Alert_options.domAPI = (styleDomAPI_default());
+Alert_options.insertStyleElement = (insertStyleElement_default());
 
-var update = injectStylesIntoStyleTag_default()(Alert/* default */.c, options);
+var Alert_update = injectStylesIntoStyleTag_default()(Alert/* default */.c, Alert_options);
 
 
 
@@ -1295,7 +1613,7 @@ class NudgeUser {
                         this.violationsLimit = 5;
                     }
                 }
-                else {
+                else if (this.tag > 1) {
                     const promptParameters = {};
                     promptParameters[this.website] = {
                         promptInterval: 180,
@@ -7716,7 +8034,7 @@ function FaRegWindowRestore (props) {
 };
 
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/utils/DOM_SCRIPTS/Timer.scss
-var Timer = __webpack_require__(424);
+var Timer = __webpack_require__(9424);
 ;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/Timer.scss
 
       
@@ -7767,11 +8085,10 @@ function isTimeExceeded(url) {
             return undefined;
         }
         const maxTime = parseInt(time[url]) * 60 * 1000; // convert to milliseconds
-        const currentTime = ((_b = (yield chrome.storage.local.get("dailyTime"))) === null || _b === void 0 ? void 0 : _b.dailyTime) || {};
+        const currentTime = ((_b = (yield chrome.storage.local.get("dailyTime"))) === null || _b === void 0 ? void 0 : _b.dailyTime) || [];
         const obj = currentTime.find((obj) => obj.url === url);
-        console.log(obj);
         if (obj === undefined) {
-            return -1;
+            return undefined;
         }
         const timeElapsed = obj.time;
         return maxTime - timeElapsed;
@@ -7779,7 +8096,7 @@ function isTimeExceeded(url) {
 }
 function handleBlocking() {
     return Blocking_awaiter(this, void 0, void 0, function* () {
-        const url = window.location.origin;
+        const url = document.location.origin;
         const remainingTime = yield isTimeExceeded(url);
         if (remainingTime !== undefined && remainingTime <= 0) {
             redirect();
@@ -7882,6 +8199,9 @@ class ProactiveTimer {
                 yield chrome.storage.local.set({ enableDistractingSiteTimer: false });
                 return;
             }
+            else if (!res.enableDistractingSiteTimer) {
+                return;
+            }
             const websites = res.taggedURLs;
             if (!websites) {
                 return;
@@ -7932,7 +8252,7 @@ function setIsDisabled() {
             ((yield chrome.storage.local.get("isDisabledOnWeekend"))
                 .isDisabledOnWeekend ||
                 false) &&
-                !isWeekend;
+                isWeekend;
         chrome.storage.local.get("isDisabled", (data) => {
             if (data === undefined) {
                 chrome.storage.local.set({ isDisabled: false });
@@ -7967,7 +8287,7 @@ function setIsDisabled() {
             }
             if (changes["isDisabledOnWeekend"]) {
                 isExtensionDisabledOnWeekend =
-                    changes["isDisabledOnWeekend"].newValue && !isWeekend;
+                    changes["isDisabledOnWeekend"].newValue && isWeekend;
             }
         }));
     });

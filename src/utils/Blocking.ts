@@ -9,19 +9,18 @@ async function isTimeExceeded(url: string): Promise<number | undefined> {
   }
   const maxTime = parseInt(time[url]) * 60 * 1000; // convert to milliseconds
   const currentTime =
-    (await chrome.storage.local.get("dailyTime"))?.dailyTime || {};
+    (await chrome.storage.local.get("dailyTime"))?.dailyTime || [];
   const obj = currentTime.find((obj: any) => obj.url === url);
-  console.log(obj);
   
   if (obj === undefined) {
-    return -1;
+    return undefined;
   }
   const timeElapsed = obj.time;
   return maxTime - timeElapsed;
 }
 
 export async function handleBlocking(): Promise<number | undefined> {
-  const url = window.location.origin;
+  const url = document.location.origin;
   const remainingTime = await isTimeExceeded(url);
   if (remainingTime !== undefined && remainingTime <= 0) {
     redirect();

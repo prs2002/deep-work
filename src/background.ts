@@ -1,8 +1,20 @@
 import { AITagging } from "./utils/chatGPT/AITagging";
+import { dailyRecap } from "./utils/chatGPT/DailyRecap";
 import { WebTime } from "./utils/main/WebTime";
 
-chrome.runtime.onMessage.addListener(function (request, sender) {
-  chrome.tabs.update(sender.tab!.id!, { url: request.redirect });
+let webTime: WebTime | undefined;
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.redirect) {
+    chrome.tabs.update(sender.tab!.id!, { url: request.redirect });
+  } else if (request.summarize === "prevDay") {
+    dailyRecap().then(function(result) {
+      sendResponse({ success: true, result });
+    }).catch(function(error) {
+      sendResponse({ success: false, error: error.message });
+    });
+    return true; // Indicates that response will be sent asynchronously
+  }
 });
 
 var isExtensionDisabled: boolean = false;
@@ -26,6 +38,9 @@ async function handleExtensionEnable() {
       return;
     }
     isExtensionDisabled = data.isDisabled;
+    if (webTime) {
+      webTime.setDisable(checkDisable());
+    }
   });
 
   chrome.storage.onChanged.addListener(
@@ -36,6 +51,9 @@ async function handleExtensionEnable() {
       if (changes["isDisabledOnWeekend"]) {
         isExtensionDisabledOnWeekend =
           changes["isDisabledOnWeekend"].newValue && isWeekend;
+      }
+      if (webTime) {
+        webTime.setDisable(checkDisable());
       }
     }
   );
@@ -49,7 +67,6 @@ async function tagWebsite() {
 }
 
 handleExtensionEnable();
-setInterval(tagWebsite, 300000);
 
 function loadData() {
   fetch("../data/funny_lines.json").then((response) => {
@@ -67,7 +84,7 @@ function loadData() {
 chrome.runtime.onInstalled.addListener((reason) => {
   if (reason.reason === "install") {
     chrome.tabs.create({ url: chrome.runtime.getURL("landing.html") });
-  }  
+  }
 });
 
 async function checkAlarm() {
@@ -75,7 +92,7 @@ async function checkAlarm() {
   if (alarm) {
     await chrome.alarms.clear("tagWebsite");
   }
-  chrome.alarms.create("tagWebsite", { periodInMinutes: 10 });
+  chrome.alarms.create("tagWebsite", { periodInMinutes: 0.75 });
 }
 
 chrome.alarms.onAlarm.addListener(async (alarm) => {
@@ -84,24 +101,18 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
   }
 });
 
-
 checkAlarm();
 
+chrome.storage.local.get((res) => {
+  const dailyTime = res.dailyTime || [];
+  const weeklyTime = res.weeklyTime || [];
+  const monthlyTime = res.monthlyTime || [];
+  webTime = new WebTime(dailyTime, weeklyTime, monthlyTime, checkDisable());
+});
 
-chrome.storage.local.get((res)=>{
-    const dailyTime = res.dailyTime || [];
-    const weeklyTime = res.weeklyTime || [];
-    const monthlyTime = res.monthlyTime || [];
-    new WebTime(dailyTime, weeklyTime, monthlyTime);
-})
+chrome.runtime.onStartup.addListener(() => {});
 
-chrome.runtime.onStartup.addListener(()=>{})
-
-chrome.action.setBadgeBackgroundColor(
-  {color: [0, 255, 0, 0]}
-);
-
-
+chrome.action.setBadgeBackgroundColor({ color: [0, 255, 0, 0] });
 
 loadData();
 

@@ -83,7 +83,18 @@ function apiCall(website, authKey) {
                     },
                 ],
             };
-            const res = yield fetch("https://api.openai.com/v1/chat/completions", {
+            const timeoutPromise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const timeoutError = new Error("API call timeout");
+                    const timeoutResponse = new Response(JSON.stringify({ error: timeoutError }), {
+                        status: 408,
+                        statusText: "Request Timeout",
+                        headers: { "Content-Type": "application/json" },
+                    });
+                    reject(timeoutResponse);
+                }, 30000);
+            });
+            const fetchPromise = fetch("https://api.openai.com/v1/chat/completions", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -91,18 +102,24 @@ function apiCall(website, authKey) {
                 },
                 body: JSON.stringify(requestBody),
             });
+            const res = yield Promise.race([fetchPromise, timeoutPromise]);
+            if (!res.ok) {
+                throw new Error("API request failed");
+            }
             const data = yield res.json();
             const usage = data.usage.total_tokens;
-            const pricing = 0.5 / 1000000;
+            const pricing = 1.5 / 1000000;
             const prevUsage = ((_a = (yield chrome.storage.local.get("usage"))) === null || _a === void 0 ? void 0 : _a.usage) || [];
             prevUsage.push({ cost: usage * pricing, website: website });
             yield chrome.storage.local.set({ usage: prevUsage });
             const classifiedWebsites = data.choices[0].message.content;
             const classifiedWebsitesObject = JSON.parse(classifiedWebsites);
+            yield chrome.storage.local.set({ lastApiCall: new Date().getTime() });
             return classifiedWebsitesObject;
         }
         catch (err) {
             console.log(err);
+            yield chrome.storage.local.set({ lastApiCall: new Date().getTime() }); // don't let any api call for next 2.5 min
             return { website: website, CLASSIFICATION: "untagged" };
         }
     });
@@ -111,42 +128,152 @@ function AITagging() {
     var _a, _b, _c, _d, _e;
     return AITagging_awaiter(this, void 0, void 0, function* () {
         try {
-            const authKey = (_a = (yield chrome.storage.local.get("authKey"))) === null || _a === void 0 ? void 0 : _a.authKey;
-            const websiteList = (_b = (yield chrome.storage.local.get("visitedURLs"))) === null || _b === void 0 ? void 0 : _b.visitedURLs;
+            const authKey = (_a = (yield chrome.storage.local.get("authKey"))) === null || _a === void 0 ? void 0 : _a.authKey; // api key
+            const websiteList = (_b = (yield chrome.storage.local.get("visitedURLs"))) === null || _b === void 0 ? void 0 : _b.visitedURLs; // untagged urls
             if (!websiteList || websiteList.length === 0) {
                 return;
             }
-            const preTaggedUrls = ((_c = (yield chrome.storage.local.get("preTaggedUrls"))) === null || _c === void 0 ? void 0 : _c.preTaggedUrls) || [];
+            const preTaggedUrls = ((_c = (yield chrome.storage.local.get("preTaggedUrls"))) === null || _c === void 0 ? void 0 : _c.preTaggedUrls) || []; // list of pre tagged urls
             const taggedWebsites = [];
-            for (let i = 0; i < websiteList.length; i++) {
-                const website = websiteList[i];
-                let classification = "unsure";
-                const obj = preTaggedUrls.find((obj) => obj.URL === website);
-                if (obj) {
-                    classification = obj.CLASSIFICATION.toLowerCase();
-                    pushToArray(classification, taggedWebsites, website);
-                }
-                else if (authKey) {
-                    const lastApiCall = ((_d = (yield chrome.storage.local.get("lastApiCall"))) === null || _d === void 0 ? void 0 : _d.lastApiCall) ||
-                        new Date(0).getTime();
-                    const currentTime = new Date().getTime();
-                    if (currentTime - lastApiCall < 30000) {
-                        // if last api call was less than 2 minutes ago, skip to prevent rate limit
-                        continue;
-                    }
-                    const tagged = yield apiCall(website, authKey);
-                    yield chrome.storage.local.set({ lastApiCall: currentTime });
-                    classification = (_e = tagged.CLASSIFICATION) === null || _e === void 0 ? void 0 : _e.toLowerCase();
-                    pushToArray(classification, taggedWebsites, website);
-                    yield new Promise((resolve) => {
-                        setTimeout(resolve, 30000); // wait 30 seconds for rate limit
-                    });
-                }
+            const website = websiteList[0]; // get the first untagged website
+            let classification = "untagged";
+            const obj = preTaggedUrls.find((obj) => obj.URL === website); // find the current url in pre-tagged list
+            if (obj) {
+                // if found, push it to our list
+                classification = obj.CLASSIFICATION.toLowerCase();
+                pushToArray(classification, taggedWebsites, website);
             }
-            updateWebsitesInStorage(taggedWebsites);
+            else if (authKey) {
+                // if api key is stored, try tagging it using chat gpt
+                const lastApiCall = ((_d = (yield chrome.storage.local.get("lastApiCall"))) === null || _d === void 0 ? void 0 : _d.lastApiCall) ||
+                    new Date(0).getTime();
+                const currentTime = new Date().getTime();
+                if (currentTime - lastApiCall < 30000) {
+                    // if last api call was less than 2 minutes ago, skip to prevent rate limit
+                    return;
+                }
+                const tagged = yield apiCall(website, authKey); // tag the website
+                classification = (_e = tagged.CLASSIFICATION) === null || _e === void 0 ? void 0 : _e.toLowerCase();
+                pushToArray(classification, taggedWebsites, website);
+            }
+            updateWebsitesInStorage(taggedWebsites); // update the website in storage
         }
         catch (e) {
             console.error(e);
+        }
+    });
+}
+
+;// CONCATENATED MODULE: ./src/utils/chatGPT/DailyRecap.ts
+var DailyRecap_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+function dailyRecap() {
+    var _a;
+    return DailyRecap_awaiter(this, void 0, void 0, function* () {
+        var yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        var startTime = yesterday.setHours(0, 0, 0, 0);
+        var endTime = yesterday.setHours(23, 59, 59, 999);
+        const historyItems = yield chrome.history.search({
+            text: "",
+            startTime: startTime,
+            endTime: endTime,
+            maxResults: 200,
+        });
+        const simplifiedItems = [];
+        historyItems.forEach(function (historyItem) {
+            const { url, lastVisitTime } = historyItem;
+            const simplifiedItem = {
+                url: url,
+                lastVisitTime: lastVisitTime,
+            };
+            simplifiedItems.push(simplifiedItem);
+        });
+        const authKey = (_a = (yield chrome.storage.local.get("authKey"))) === null || _a === void 0 ? void 0 : _a.authKey; // api key
+        if (!authKey) {
+            yield chrome.storage.local.set({
+                prevDaySummary: ["Please enter an api key to get the summary", yesterday.toDateString()],
+            });
+            return false;
+        }
+        if ((yield chrome.storage.local.get("lockAPI")).lockAPI) {
+            return false;
+        }
+        yield chrome.storage.local.set({ lockAPI: true });
+        const summary = yield prevDaySummary(simplifiedItems, authKey, yesterday);
+        if (summary === "") {
+            yield chrome.storage.local.set({
+                prevDaySummary: [
+                    "An unexpected error occurred while trying to generate a summary",
+                    yesterday.toDateString(),
+                ],
+            });
+            yield chrome.storage.local.set({ lockAPI: false });
+            return false;
+        }
+        yield chrome.storage.local.set({ prevDaySummary: [summary, yesterday.toDateString()] });
+        yield chrome.storage.local.set({ lockAPI: false });
+        return true;
+    });
+}
+function prevDaySummary(history, authKey, date) {
+    var _a;
+    return DailyRecap_awaiter(this, void 0, void 0, function* () {
+        try {
+            const requestBody = {
+                model: "gpt-3.5-turbo-0125",
+                messages: [
+                    {
+                        role: "user",
+                        content: `
+          ${JSON.stringify(history)}
+          This is the browser history in a certain time period. Summarize this into a simple 7-8 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for the previous day and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you"
+        `,
+                    },
+                ],
+            };
+            const timeoutPromise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const timeoutError = new Error("API call timeout");
+                    const timeoutResponse = new Response(JSON.stringify({ error: timeoutError }), {
+                        status: 408,
+                        statusText: "Request Timeout",
+                        headers: { "Content-Type": "application/json" },
+                    });
+                    reject(timeoutResponse);
+                }, 30000);
+            });
+            const fetchPromise = fetch("https://api.openai.com/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${authKey}`,
+                },
+                body: JSON.stringify(requestBody),
+            });
+            const res = yield Promise.race([fetchPromise, timeoutPromise]);
+            if (!res.ok) {
+                throw new Error("API request failed");
+            }
+            const data = yield res.json();
+            const usage = data.usage.total_tokens;
+            const pricing = 1.5 / 1000000;
+            const prevUsage = ((_a = (yield chrome.storage.local.get("usage"))) === null || _a === void 0 ? void 0 : _a.usage) || [];
+            prevUsage.push({ cost: usage * pricing, summary: date });
+            yield chrome.storage.local.set({ usage: prevUsage });
+            const summary = data.choices[0].message.content;
+            return summary;
+        }
+        catch (err) {
+            console.log(err);
+            return "";
         }
     });
 }
@@ -182,12 +309,13 @@ var WebTime_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _
 };
 
 class WebTime {
-    constructor(dailyTime, weeklyTime, monthlyTime) {
+    constructor(dailyTime, weeklyTime, monthlyTime, isDisabled) {
         this.idleTime = 30;
         this.isInFocus = true;
         this.dailyTime = [];
         this.weeklyTime = [];
         this.monthlyTime = [];
+        this.isDisabled = isDisabled;
         this.focusInterval = setInterval(this.updateFocus.bind(this), 1000);
         this.saveInterval = setInterval(this.updateData.bind(this), 1000);
         this.dailyTime = dailyTime;
@@ -221,7 +349,8 @@ class WebTime {
                 const origin = new URL(url).origin;
                 if (state === "active" &&
                     origin !== "" &&
-                    !origin.startsWith("chrome://")) {
+                    !origin.startsWith("chrome://") &&
+                    !this.isDisabled) {
                     this.isInFocus && this.updateDataHelper(origin, this.focusedTab.id);
                     this.isInFocus && this.saveData();
                     this.isInFocus && this.addToUntagged(origin);
@@ -335,6 +464,7 @@ class WebTime {
             yield chrome.storage.local.set({ numberOfDays: numberOfDays + 1 });
             yield chrome.storage.local.set({ today: dateString });
             yield chrome.storage.local.set({ dailyTime: [] });
+            yield chrome.storage.local.set({ yesterdayTime: this.dailyTime });
             this.dailyTime = [];
         });
     }
@@ -366,6 +496,9 @@ class WebTime {
             });
         });
     }
+    setDisable(isDisabled) {
+        this.isDisabled = isDisabled;
+    }
 }
 
 ;// CONCATENATED MODULE: ./src/background.ts
@@ -380,8 +513,20 @@ var background_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 };
 
 
-chrome.runtime.onMessage.addListener(function (request, sender) {
-    chrome.tabs.update(sender.tab.id, { url: request.redirect });
+
+let webTime;
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if (request.redirect) {
+        chrome.tabs.update(sender.tab.id, { url: request.redirect });
+    }
+    else if (request.summarize === "prevDay") {
+        dailyRecap().then(function (result) {
+            sendResponse({ success: true, result });
+        }).catch(function (error) {
+            sendResponse({ success: false, error: error.message });
+        });
+        return true; // Indicates that response will be sent asynchronously
+    }
 });
 var isExtensionDisabled = false;
 var isExtensionDisabledOnWeekend = true;
@@ -403,6 +548,9 @@ function handleExtensionEnable() {
                 return;
             }
             isExtensionDisabled = data.isDisabled;
+            if (webTime) {
+                webTime.setDisable(checkDisable());
+            }
         });
         chrome.storage.onChanged.addListener((changes) => background_awaiter(this, void 0, void 0, function* () {
             if (changes["isDisabled"]) {
@@ -411,6 +559,9 @@ function handleExtensionEnable() {
             if (changes["isDisabledOnWeekend"]) {
                 isExtensionDisabledOnWeekend =
                     changes["isDisabledOnWeekend"].newValue && isWeekend;
+            }
+            if (webTime) {
+                webTime.setDisable(checkDisable());
             }
         }));
     });
@@ -424,7 +575,6 @@ function tagWebsite() {
     });
 }
 handleExtensionEnable();
-setInterval(tagWebsite, 300000);
 function loadData() {
     fetch("../data/funny_lines.json").then((response) => {
         response.json().then((data) => {
@@ -448,7 +598,7 @@ function checkAlarm() {
         if (alarm) {
             yield chrome.alarms.clear("tagWebsite");
         }
-        chrome.alarms.create("tagWebsite", { periodInMinutes: 10 });
+        chrome.alarms.create("tagWebsite", { periodInMinutes: 0.75 });
     });
 }
 chrome.alarms.onAlarm.addListener((alarm) => background_awaiter(void 0, void 0, void 0, function* () {
@@ -461,7 +611,7 @@ chrome.storage.local.get((res) => {
     const dailyTime = res.dailyTime || [];
     const weeklyTime = res.weeklyTime || [];
     const monthlyTime = res.monthlyTime || [];
-    new WebTime(dailyTime, weeklyTime, monthlyTime);
+    webTime = new WebTime(dailyTime, weeklyTime, monthlyTime, checkDisable());
 });
 chrome.runtime.onStartup.addListener(() => { });
 chrome.action.setBadgeBackgroundColor({ color: [0, 255, 0, 0] });

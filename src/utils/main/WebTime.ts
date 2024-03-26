@@ -24,11 +24,14 @@ export class WebTime {
   weeklyTime: WebsiteTime[] = [];
   monthlyTime: WebsiteTime[] = [];
   focusInterval: NodeJS.Timeout;
+  isDisabled: boolean;
   constructor(
     dailyTime: WebsiteTime[],
     weeklyTime: WebsiteTime[],
-    monthlyTime: WebsiteTime[]
+    monthlyTime: WebsiteTime[],
+    isDisabled: boolean
   ) {
+    this.isDisabled = isDisabled;
     this.focusInterval = setInterval(this.updateFocus.bind(this), 1000);
     this.saveInterval = setInterval(this.updateData.bind(this), 1000);
     this.dailyTime = dailyTime;
@@ -65,7 +68,8 @@ export class WebTime {
         if (
           state === "active" &&
           origin !== "" &&
-          !origin.startsWith("chrome://")
+          !origin.startsWith("chrome://") &&
+          !this.isDisabled
         ) {
           this.isInFocus && this.updateDataHelper(origin, this.focusedTab!.id!);
           this.isInFocus && this.saveData();
@@ -117,7 +121,7 @@ export class WebTime {
     this.storeMonthlyTime();
   }
 
-  async addToUntagged(url : string) {
+  async addToUntagged(url: string) {
     const visited = await this.checkIfURLVisited(url);
     if (!visited) {
       chrome.storage.local.get(["visitedURLs"], (data) => {
@@ -178,6 +182,7 @@ export class WebTime {
     await chrome.storage.local.set({ numberOfDays: numberOfDays + 1 });
     await chrome.storage.local.set({ today: dateString });
     await chrome.storage.local.set({ dailyTime: [] });
+    await chrome.storage.local.set({ yesterdayTime: this.dailyTime });
     this.dailyTime = [];
   }
 
@@ -208,6 +213,10 @@ export class WebTime {
         );
       });
     });
+  }
+
+  setDisable(isDisabled: boolean) {
+    this.isDisabled = isDisabled;
   }
 }
 

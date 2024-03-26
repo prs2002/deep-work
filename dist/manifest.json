@@ -1,5 +1,5 @@
 {
-  "version": "1.4.0",
+  "version": "1.6.0",
   "manifest_version": 3,
   "name": "Recenter",
   "description": "A browser extension to help focus on what needs to be done and motivate you to get there",
@@ -18,7 +18,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["js/images/recenter_logo.png"],
+      "resources": ["js/images/recenter_logo.png", "js/images/gifs/*.gif"],
       "matches": ["<all_urls>"]
     }
   ],

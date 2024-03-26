@@ -16,7 +16,7 @@ async function setIsDisabled() {
     ((await chrome.storage.local.get("isDisabledOnWeekend"))
       .isDisabledOnWeekend ||
       false) &&
-    !isWeekend;
+    isWeekend;
   chrome.storage.local.get("isDisabled", (data) => {
     if (data === undefined) {
       chrome.storage.local.set({ isDisabled: false });
@@ -54,7 +54,7 @@ async function setIsDisabled() {
       }
       if (changes["isDisabledOnWeekend"]) {
         isExtensionDisabledOnWeekend =
-          changes["isDisabledOnWeekend"].newValue && !isWeekend;
+          changes["isDisabledOnWeekend"].newValue && isWeekend;
       }
     }
   );
