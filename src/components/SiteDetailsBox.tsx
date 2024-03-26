@@ -295,7 +295,7 @@ export default function SiteDetailsBox({
           value: siteTags[tag],
         },
         {
-          label: "Alert Duration",
+          label: "Alert Duration (in sec)",
           value: (promptParameters?.promptInterval ||
             "Not Set (Default)") as string,
         },
@@ -310,7 +310,7 @@ export default function SiteDetailsBox({
         setMaxTime((res.maxTimes?.[website] || "Not Set (Default)") as string);
 
         siteDetails.push({
-          label: "Max Time",
+          label: "Max Time (in min)",
           value: (res.maxTimes?.[website] || "Not Set (Default)") as string,
         });
       }

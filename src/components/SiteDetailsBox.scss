@@ -43,7 +43,7 @@
         cursor: pointer;
 
         &__edit {
-          height: 14px;
+          height: 35px;
           aspect-ratio: 1;
           border-radius: 100%;
           padding: 11px;
@@ -56,11 +56,11 @@
           }
         }
         &__close {
-          height: 14px;
+          height: 35px;
           aspect-ratio: 1;
           border-radius: 100%;
           padding: 11px;
-          border: 2px solid #f0f0f0;
+          background: #F4F4F4;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -113,7 +113,11 @@
             padding: 9px 0;
           }
           &__input {
-            width: 150px;
+            width: 120px;
+
+            & > input {
+              padding: 9px !important;
+            }
           }
 
           & .input {

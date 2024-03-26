@@ -1,12 +1,77 @@
+import { useEffect, useState } from "react";
 import "./DailySummaryBox.scss";
+import { dailyRecap } from "../utils/chatGPT/DailyRecap";
+import { getTaggedTime } from "../utils/queryStorage/GetTaggedTime";
+import { msToHM } from "../utils/scripts/mmToHM";
 
-interface HourlySummaryBoxProps {
-  focusRate: number;
-  totalTime: number;
-}
+export default function DailySummaryBox() {
+  const [summary, setSummary] = useState<string>("Processing");
+  const [focusRate, setFocusRate] = useState<number>(0);
+  const [totalTime, setTotalTime] = useState<number>(0);
 
-export default function DailySummaryBox({ focusRate, totalTime }: HourlySummaryBoxProps) {
-  const time = totalTime / 6000000;
+  useEffect(() => {
+    async function generateSummary() {
+      let prevDaySummary: any[] = (
+        await chrome.storage.local.get("prevDaySummary")
+      ).prevDaySummary;
+
+      var yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+
+      if (!prevDaySummary || yesterday.toDateString() !== prevDaySummary[1]) {
+        await dailyRecap();
+      }
+
+      prevDaySummary = (await chrome.storage.local.get("prevDaySummary"))
+        .prevDaySummary;
+
+      setSummary(prevDaySummary[0]);
+    }
+    async function getProductivity() {
+      const yesterdayTime = await getTaggedTime("yesterdayTime");
+      if (!yesterdayTime) {
+        var yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        await chrome.storage.local.set({
+          prevDaySummary: [
+            "No previous day data found.",
+            yesterday.toDateString(),
+          ],
+        });
+        setSummary("No previous day data found.");
+        return;
+      }
+      generateSummary();
+      const totalTime = yesterdayTime.reduce(
+        (acc, website) => acc + website.time,
+        0
+      );
+      const focusRate =
+        totalTime &&
+        (yesterdayTime.reduce(
+          (acc, website) => acc + (website.tag === 1 ? website.time : 0),
+          0
+        ) /
+          totalTime) *
+          100;
+      setFocusRate(focusRate);
+      setTotalTime(totalTime / 100);
+    }
+    getProductivity();
+  }, []);
+  const timeSummary = [
+    {
+      label: "Productive",
+      value: msToHM(totalTime * focusRate),
+      color: "blue",
+    },
+    {
+      label: "Distracted",
+      value: msToHM(totalTime * (100 - focusRate)),
+      color: "red",
+    },
+    { label: "Total", value: msToHM(totalTime), color: "black" },
+  ];
   return (
     <>
       <div className="daily_summary">
@@ -29,38 +94,22 @@ export default function DailySummaryBox({ focusRate, totalTime }: HourlySummaryB
             </div>
           </div>
           <div className="daily_summary__content__time">
-            <div className="daily_summary__content__time__productive">
-              <div className="daily_summary__content__time__productive__label">
-                <div className="daily_summary__content__time__productive__label__color"></div>
-                <div className="daily_summary__content__time__productive__label__name">
-                  Productive
+            {timeSummary.map((time, index) => (
+              <div className="daily_summary__content__time__row" key={index}>
+                <div className="daily_summary__content__time__row__label">
+                  <div className="daily_summary__content__time__row__label__color" id={time.color}></div>
+                  <div className="daily_summary__content__time__row__label__name">
+                    {time.label}
+                  </div>
+                </div>
+                <div className="daily_summary__content__time__row__value">
+                  {time.value}
                 </div>
               </div>
-              <div className="daily_summary__content__time__productive__value">
-                {(time * focusRate).toFixed(1)}m
-              </div>
-            </div>
-            <div className="daily_summary__content__time__unfocused">
-              <div className="daily_summary__content__time__unfocused__label">
-                <div className="daily_summary__content__time__unfocused__label__color"></div>
-                <div className="daily_summary__content__time__unfocused__label__name">
-                  Unfocused
-                </div>
-              </div>
-              <div className="daily_summary__content__time__unfocused__value">
-                {(time * (100 - focusRate)).toFixed(1)}m
-              </div>
-            </div>
+            ))}
           </div>
           <div className="daily_summary__content__line"></div>
-          <div className="daily_summary__content__summary">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, iste
-            enim, in tempore at magnam, eos nostrum labore magni cumque eius
-            similique rerum ullam sed amet. Velit, ipsam, ipsa dolore quaerat
-            aspernatur deleniti tempora reprehenderit optio, eos dignissimos
-            enim ad dolor? Repellendus ipsum commodi quaerat voluptates, ducimus
-            aliquam quidem earum.
-          </div>
+          <div className="daily_summary__content__summary">{summary}</div>
         </div>
       </div>
     </>

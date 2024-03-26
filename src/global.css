@@ -42,4 +42,5 @@
     font-family: Inter;
     font-size: 12px;
     font-weight: 400;
+    box-sizing: border-box;
 }

@@ -1,7 +1,6 @@
 .usage_breakdown {
   width: 328px;
   height: 317px;
-  margin-bottom: 28px;
   &__content {
     &__title {
       margin-bottom: 16px;
@@ -17,7 +16,7 @@
       width: 100%;
     }
     &__list {
-      width: 90%;
+      width: 98%;
       display: flex;
       flex-direction: column;
       gap: 12px;

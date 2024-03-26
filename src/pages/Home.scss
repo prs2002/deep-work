@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  
+
   &__menu {
     position: absolute;
     top: 20px;
@@ -43,6 +43,12 @@
 
     &__chart {
       width: 100%;
+    }
+
+    &__line {
+      border: 1px solid #ebebeb;
+      width: 85%;
+      margin-bottom: 18px;
     }
   }
 }

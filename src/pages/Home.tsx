@@ -105,17 +105,18 @@ export default function Home({ isFocused, setIsFocused }: HomeProps) {
           <UsageChart type={filter} focusRate={focusRate}></UsageChart>
         </div>
         <SummaryBox filter={filter}></SummaryBox>
+        <div className="home_page__usage__line"></div>
         <UsageBreakdown
           websites={websites}
           totalTime={totalTime}
         ></UsageBreakdown>
+        <div className="home_page__usage__line"></div>
         <HourlySummaryBox
           focusRate={focusRate}
           totalTime={totalTime}
         ></HourlySummaryBox>
+        <div className="home_page__usage__line"></div>
         <DailySummaryBox
-          focusRate={focusRate}
-          totalTime={totalTime}
         ></DailySummaryBox>
       </div>
     </div>

@@ -1,25 +1,32 @@
 .alert_timer_box {
   width: 328px;
   margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   &__header {
     margin-bottom: 10px;
-    padding-left: 14px;
     font-size: 1.25rem;
     letter-spacing: 0em;
+    width: 100%;
   }
   &__outline {
     border: 2px solid #f0f0f0;
     border-radius: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   &__content {
-    padding: 0 14px;
+    width: calc(100% - 20px);
     display: flex;
-    gap: 12px;
     margin-top: 18px;
-    align-items: center;
+    justify-content: space-between;
+
 
     &__input {
-      width: 190px;
+      width: 200px;
     }
 
     &__dropdown {
@@ -33,14 +40,21 @@
   &__max_time {
     margin: 0 14px;
     margin-top: 20px;
+    width: 100%;
+    padding: 0 10px;
+    &__input {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
     &__title {
       margin-bottom: 12px;
     }
   }
 
   &__button {
-    width: 300px;
-    margin: 0 14px;
+    width: 100%;
+    padding: 0 10px;
     margin-top: 16px;
     margin-bottom: 30px;
   }

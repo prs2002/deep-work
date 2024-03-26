@@ -19,6 +19,7 @@ function App() {
   const [isFocused, setIsFocused] = useState<boolean>(true);
   return (
     <div className="app" id={isFocused ? "good" : "bad"}>
+      <div className="app__top_bar" id={isFocused ? "good" : "bad"}></div>
       <Routes>
         <Route
           path="/"

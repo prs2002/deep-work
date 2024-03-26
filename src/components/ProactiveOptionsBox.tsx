@@ -34,26 +34,26 @@ export default function ProactiveOptionsBox() {
   }, []);
 
   return (
-    <div className="general_settings">
-      <div className="general_settings__header">Proactive Settings</div>
-      <div className="general_settings__outline">
-        <div className="general_settings__content">
+    <div className="proactive_setting">
+      <div className="proactive_setting__header">Proactive Settings</div>
+      <div className="proactive_setting__outline">
+        <div className="proactive_setting__content">
           {settings.map((setting, index) => {
             return (
-              <div className="general_settings__content__row" key={index}>
-                <div className="general_settings__content__row__enable">
+              <div className="proactive_setting__content__row" key={index}>
+                <div className="proactive_setting__content__row__enable">
                   {setting}
                 </div>
-                <div className="general_settings__content__row__enable_button">
+                <div className="proactive_setting__content__row__enable_button">
                   <div
-                    className={`general_settings__content__row__enable_button__container ${
+                    className={`proactive_setting__content__row__enable_button__container ${
                       isOn[index] ? "on" : "off"
                     }`}
                     onClick={() => toggleSwitch(index)}
                   >
-                    <div className="general_settings__content__row__enable_button__container__switch">
+                    <div className="proactive_setting__content__row__enable_button__container__switch">
                       <div
-                        className={`general_settings__content__row__enable_button__container__switch__circle ${
+                        className={`proactive_setting__content__row__enable_button__container__switch__circle ${
                           isOn[index] ? "on" : "off"
                         }`}
                       ></div>
