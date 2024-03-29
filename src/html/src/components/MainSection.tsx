@@ -8,7 +8,7 @@ export default function MainSection() {
       <div className="main_section__header">
         <div className="main_section__header__title">
           <p>Mindful Browsing Begins Here,</p>
-          <p id="orange">Introducing Recenter.</p>
+          <p id="blue">Introducing Recenter.</p>
         </div>
         <div className="main_section__header__subtitle">
           <p>The browser extension that reshapes your browsing habits.</p>

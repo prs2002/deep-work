@@ -1,8 +1,13 @@
 {
-  "version": "1.6.0",
+  "version": "1.7.0",
   "manifest_version": 3,
   "name": "Recenter",
   "description": "A browser extension to help focus on what needs to be done and motivate you to get there",
+  "icons": {
+    "16": "js/images/recenter_logo.png",
+    "48": "js/images/recenter_logo.png",
+    "128": "js/images/recenter_logo.png"
+  },
   "action": {
     "default_popup": "js/index.html",
     "default_title": "Recenter"

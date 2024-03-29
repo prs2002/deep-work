@@ -22,10 +22,13 @@ export async function weeklyProductivity(minTime: number): Promise<boolean> {
     return acc;
   }, 0);
 
+  const numberOfDaysInWeek =
+    (await chrome.storage.local.get("numberOfDaysInWeek")).numberOfDaysInWeek ||
+    1;
 
-  // convert to hours
+  // convert to hours and remove the average
 
-  const productivityHours = productivityTime / 3600000; // 1000 * 60 * 60
+  const productivityHours = (numberOfDaysInWeek * productivityTime) / 3600000; // 1000 * 60 * 60
 
   if (productivityHours >= minTime) {
     return true;

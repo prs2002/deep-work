@@ -76,6 +76,7 @@ export default function Home({ isFocused, setIsFocused }: HomeProps) {
         setWebsites(data);
       }
     };
+    chrome.storage.local.set({ lastTimeSummary: new Date().getTime() }); // don't show summary for another hour if user interacted with the extension
     fetchSummary();
     fetchWebsites();
   }, [filter]);
@@ -111,13 +112,9 @@ export default function Home({ isFocused, setIsFocused }: HomeProps) {
           totalTime={totalTime}
         ></UsageBreakdown>
         <div className="home_page__usage__line"></div>
-        <HourlySummaryBox
-          focusRate={focusRate}
-          totalTime={totalTime}
-        ></HourlySummaryBox>
+        <HourlySummaryBox></HourlySummaryBox>
         <div className="home_page__usage__line"></div>
-        <DailySummaryBox
-        ></DailySummaryBox>
+        <DailySummaryBox></DailySummaryBox>
       </div>
     </div>
   );

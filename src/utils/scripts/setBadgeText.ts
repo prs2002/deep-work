@@ -7,7 +7,7 @@ function getTime(time: number) {
   const min = Number((time / 60).toFixed(0));
   const hours = Number((time / (60 * 60)).toFixed(1));
 
-  if (sec < 60) return `${sec}s`;
+  if (sec < 60) return ``;
   else if (min < 60) return `${min}m`;
   else return `${hours}h`;
 }

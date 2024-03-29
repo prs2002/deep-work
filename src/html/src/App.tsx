@@ -121,7 +121,7 @@ export default function App() {
 
   return (
     <div className="app_container">
-      <div className="app_container__orange_line"></div>
+      <div className="app_container__blue_line"></div>
       <Navbar />
       <MainSection></MainSection>
       <WebsiteList></WebsiteList>

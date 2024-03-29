@@ -6,13 +6,18 @@ let webTime: WebTime | undefined;
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.redirect) {
+    if (checkDisable()) {
+      return;
+    }
     chrome.tabs.update(sender.tab!.id!, { url: request.redirect });
   } else if (request.summarize === "prevDay") {
-    dailyRecap().then(function(result) {
-      sendResponse({ success: true, result });
-    }).catch(function(error) {
-      sendResponse({ success: false, error: error.message });
-    });
+    dailyRecap()
+      .then(function (result) {
+        sendResponse({ success: true, result });
+      })
+      .catch(function (error) {
+        sendResponse({ success: false, error: error.message });
+      });
     return true; // Indicates that response will be sent asynchronously
   }
 });
@@ -107,7 +112,14 @@ chrome.storage.local.get((res) => {
   const dailyTime = res.dailyTime || [];
   const weeklyTime = res.weeklyTime || [];
   const monthlyTime = res.monthlyTime || [];
-  webTime = new WebTime(dailyTime, weeklyTime, monthlyTime, checkDisable());
+  const hourlyTime = res.hourlyTime || [];
+  webTime = new WebTime(
+    dailyTime,
+    weeklyTime,
+    monthlyTime,
+    hourlyTime,
+    checkDisable()
+  );
 });
 
 chrome.runtime.onStartup.addListener(() => {});

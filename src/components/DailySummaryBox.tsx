@@ -18,7 +18,11 @@ export default function DailySummaryBox() {
       var yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
 
-      if (!prevDaySummary || yesterday.toDateString() !== prevDaySummary[1]) {
+      if (
+        !prevDaySummary ||
+        yesterday.toDateString() !== prevDaySummary[1] ||
+        prevDaySummary[0].length < 70 // error message
+      ) {
         await dailyRecap();
       }
 
@@ -97,7 +101,10 @@ export default function DailySummaryBox() {
             {timeSummary.map((time, index) => (
               <div className="daily_summary__content__time__row" key={index}>
                 <div className="daily_summary__content__time__row__label">
-                  <div className="daily_summary__content__time__row__label__color" id={time.color}></div>
+                  <div
+                    className="daily_summary__content__time__row__label__color"
+                    id={time.color}
+                  ></div>
                   <div className="daily_summary__content__time__row__label__name">
                     {time.label}
                   </div>

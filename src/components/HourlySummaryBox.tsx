@@ -1,12 +1,26 @@
+import { useEffect, useState } from "react";
 import "./HourlySummaryBox.scss";
 
-interface HourlySummaryBoxProps {
-  focusRate: number;
-  totalTime: number;
-}
-
-export default function HourlySummaryBox({ focusRate, totalTime }: HourlySummaryBoxProps) {
-  const time = totalTime / 6000000;
+export default function HourlySummaryBox() {
+  const [summary, setSummary] = useState<string>(
+    "Time spent in last hour is too short to summarize"
+  );
+  const [productive, setProductive] = useState<number>(0);
+  const [unfocused, setUnfocused] = useState<number>(0);
+  useEffect(() => {
+    async function getSummary() {
+      const prevHourSummary =
+        (await chrome.storage.local.get("prevHourSummary")).prevHourSummary ||
+        [];
+      if (prevHourSummary.length === 0) {
+        return;
+      }
+      setSummary(prevHourSummary[0]);
+      setProductive(prevHourSummary[2] / 60000);
+      setUnfocused(prevHourSummary[3] / 60000);
+    }
+    getSummary();
+  }, []);
   return (
     <>
       <div className="hourly_summary">
@@ -16,7 +30,7 @@ export default function HourlySummaryBox({ focusRate, totalTime }: HourlySummary
         <div className="hourly_summary__content">
           <div className="hourly_summary__content__header">
             <div className="hourly_summary__content__header__focus_rate">
-              {focusRate.toFixed(0)}%
+              {((productive * 100) / Math.max(productive + unfocused, 1)).toFixed(0)}%
             </div>
             <div className="hourly_summary__content__header__title">
               Focus Rate in Past Hour
@@ -24,7 +38,9 @@ export default function HourlySummaryBox({ focusRate, totalTime }: HourlySummary
             <div className="hourly_summary__content__header__bar">
               <div
                 className="hourly_summary__content__header__bar__fill"
-                style={{ width: `${focusRate}%` }}
+                style={{
+                  width: `${(productive * 100) / Math.max(productive + unfocused, 1)}%`,
+                }}
               ></div>
             </div>
           </div>
@@ -37,7 +53,7 @@ export default function HourlySummaryBox({ focusRate, totalTime }: HourlySummary
                 </div>
               </div>
               <div className="hourly_summary__content__time__productive__value">
-                {(time * focusRate).toFixed(1)}m
+                {productive.toFixed(0)}m
               </div>
             </div>
             <div className="hourly_summary__content__time__unfocused">
@@ -48,19 +64,12 @@ export default function HourlySummaryBox({ focusRate, totalTime }: HourlySummary
                 </div>
               </div>
               <div className="hourly_summary__content__time__unfocused__value">
-                {(time * (100 - focusRate)).toFixed(1)}m
+                {unfocused.toFixed(0)}m
               </div>
             </div>
           </div>
           <div className="hourly_summary__content__line"></div>
-          <div className="hourly_summary__content__summary">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, iste
-            enim, in tempore at magnam, eos nostrum labore magni cumque eius
-            similique rerum ullam sed amet. Velit, ipsam, ipsa dolore quaerat
-            aspernatur deleniti tempora reprehenderit optio, eos dignissimos
-            enim ad dolor? Repellendus ipsum commodi quaerat voluptates, ducimus
-            aliquam quidem earum.
-          </div>
+          <div className="hourly_summary__content__summary">{summary}</div>
         </div>
       </div>
     </>

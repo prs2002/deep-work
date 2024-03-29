@@ -1,4 +1,5 @@
 import { updateWebsitesInStorage } from "../queryStorage/UpdateWebsitesInStorage";
+import { estimatedCost } from "./EstimatedCost";
 
 interface Website {
   id: string;
@@ -67,11 +68,9 @@ async function apiCall(website: string, authKey: any) {
       throw new Error("API request failed");
     }
     const data = await res.json();
-    const usage = data.usage.total_tokens;
-    const pricing = 1.5 / 1000000;
-    const prevUsage = (await chrome.storage.local.get("usage"))?.usage || [];
-    prevUsage.push({ cost: usage * pricing, website: website });
-    await chrome.storage.local.set({ usage: prevUsage });
+    const inputTokens = data.usage.prompt_tokens;
+    const outputTokens = data.usage.completion_tokens;
+    await estimatedCost(inputTokens, outputTokens, "tagging");
     const classifiedWebsites = data.choices[0].message.content;
     const classifiedWebsitesObject = JSON.parse(classifiedWebsites);
     await chrome.storage.local.set({ lastApiCall: new Date().getTime() });

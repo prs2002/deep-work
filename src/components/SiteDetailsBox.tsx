@@ -327,11 +327,11 @@ export default function SiteDetailsBox({
         setMaxTime((maxTimes?.[website] || "Not Set (Default)") as string);
 
         setSiteDetails((prev) => {
-          prev = prev.filter((item) => item.label !== "Max Time");
+          prev = prev.filter((item) => item.label !== "Max Time (in min)");
           return [
             ...prev,
             {
-              label: "Max Time",
+              label: "Max Time (in min)",
               value: (maxTimes?.[website] || "Not Set (Default)") as string,
             },
           ];
@@ -339,7 +339,7 @@ export default function SiteDetailsBox({
       } else {
         setMaxTime("");
         setSiteDetails((prev) => {
-          prev = prev.filter((item) => item.label !== "Max Time");
+          prev = prev.filter((item) => item.label !== "Max Time (in min)");
           return prev;
         });
       }

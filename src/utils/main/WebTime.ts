@@ -2,6 +2,8 @@
     Monitor user activity and store the time spent on websites
 */
 
+import { hourlyRecap } from "../chatGPT/HourlyRecap";
+import { getTaggedTime } from "../queryStorage/GetTaggedTime";
 import { setBadgeText } from "../scripts/setBadgeText";
 
 interface WebsiteTime {
@@ -23,12 +25,14 @@ export class WebTime {
   dailyTime: WebsiteTime[] = [];
   weeklyTime: WebsiteTime[] = [];
   monthlyTime: WebsiteTime[] = [];
+  hourlyTime: WebsiteTime[] = [];
   focusInterval: NodeJS.Timeout;
   isDisabled: boolean;
   constructor(
     dailyTime: WebsiteTime[],
     weeklyTime: WebsiteTime[],
     monthlyTime: WebsiteTime[],
+    hourlyTime: WebsiteTime[],
     isDisabled: boolean
   ) {
     this.isDisabled = isDisabled;
@@ -37,6 +41,7 @@ export class WebTime {
     this.dailyTime = dailyTime;
     this.weeklyTime = weeklyTime;
     this.monthlyTime = monthlyTime;
+    this.hourlyTime = hourlyTime;
   }
 
   updateFocus() {
@@ -69,10 +74,11 @@ export class WebTime {
           state === "active" &&
           origin !== "" &&
           !origin.startsWith("chrome://") &&
+          !origin.startsWith("chrome-extension://") &&
           !this.isDisabled
         ) {
           this.isInFocus && this.updateDataHelper(origin, this.focusedTab!.id!);
-          this.isInFocus && this.saveData();
+          this.isInFocus && this.saveData(this.focusedTab!);
           this.isInFocus && this.addToUntagged(origin);
         }
       });
@@ -80,6 +86,17 @@ export class WebTime {
   }
   updateDataHelper(origin: string, tabId: number) {
     let found = false;
+    for (let i = 0; i < this.hourlyTime.length; i++) {
+      if (this.hourlyTime[i].url === origin) {
+        this.hourlyTime[i].time += 1000;
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      this.hourlyTime.push({ url: origin, time: 1000 });
+      found = false;
+    }
     for (let i = 0; i < this.dailyTime.length; i++) {
       if (this.dailyTime[i].url === origin) {
         this.dailyTime[i].time += 1000;
@@ -115,10 +132,11 @@ export class WebTime {
       found = false;
     }
   }
-  saveData() {
+  saveData(tab: chrome.tabs.Tab) {
     this.storeDailyTime();
     this.storeWeeklyTime();
     this.storeMonthlyTime();
+    this.storeHourlyTime(tab);
   }
 
   async addToUntagged(url: string) {
@@ -174,6 +192,17 @@ export class WebTime {
     await chrome.storage.local.set({ dailyTime: this.dailyTime });
     return;
   }
+  async storeHourlyTime(tab: chrome.tabs.Tab) {
+    // Store the time spent on the website for the hour
+    const dateString = new Date().getTime(); // Get the current time
+    const oldDate =
+      (await chrome.storage.local.get("hourBegin"))?.hourBegin || 0; // Get the last hour beginning
+    if (dateString - oldDate > 60 * 60 * 1000) {
+      await this.setNewHour(tab);
+    }
+    await chrome.storage.local.set({ hourlyTime: this.hourlyTime });
+    return;
+  }
 
   async setNewDay() {
     const dateString = new Date().toDateString();
@@ -200,6 +229,16 @@ export class WebTime {
     await chrome.storage.local.set({ monthToday: month });
     await chrome.storage.local.set({ monthlyTime: [] });
     this.monthlyTime = [];
+  }
+
+  async setNewHour(tab: chrome.tabs.Tab) {
+    const time: number = new Date().getTime();
+    await chrome.storage.local.set({ hourBegin: time });
+    hourlyRecap(await getTaggedTime("hourlyTime")).then(() => {
+      // tab.id && chrome.tabs.sendMessage(tab.id, { message: "HourlySummary" });
+    });
+    await chrome.storage.local.set({ hourlyTime: [] });
+    this.hourlyTime = [];
   }
 
   checkIfURLVisited(url: string): Promise<boolean> {

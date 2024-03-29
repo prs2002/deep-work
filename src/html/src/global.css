@@ -3,17 +3,15 @@
 :root {
   /* Colors */
   --background-color: #ffffff;
-  --primary-orange: #ff7020;
-  --secondary-orange: #ffc9aa;
-  --tertiary-orange: #cc4900;
-  --font-color: #202020;
-  --hero-grey: #f4f4f4;
-  --input-grey: #e2e2e2;
-  --placeholder-grey: #777777;
-  --wasteful-red: #ff2020;
-  --secondary-red: #ffaaaa;
-  --tertiary-red: #cc0000;
   --blue: #2087ff;
+  --dark-blue: #0052bd;
+  --light-blue: #cbdffe;
+  --grey: #f4f4f4;
+  --dark-grey: #e2e2e2;
+  --darker-grey: #777777;
+  --red: #ff3b20;
+  --light-red: #ffaaaa;
+  --orange: #ff6f1f;
 
   /* Sizes */
 

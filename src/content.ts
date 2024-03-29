@@ -1,6 +1,8 @@
 import { addGreetingPopup } from "./utils/DOM_SCRIPTS/GreetingPopup";
+import { insertHourlySummary } from "./utils/DOM_SCRIPTS/HourlySummary";
 import { NudgeUser } from "./utils/main/NudgeUser";
 import { ProactiveTimer } from "./utils/main/ProactiveTimer";
+import { getTag } from "./utils/queryStorage/GetTag";
 
 var isExtensionDisabled = false;
 var isExtensionDisabledOnWeekend: boolean = true;
@@ -77,8 +79,36 @@ chrome.storage.local.get("lastGreeted", (data) => {
   }
 });
 
-
-
 new ProactiveTimer();
+
+setInterval(async () => {
+  if(!document.hasFocus()) {
+    return;
+  }
+  const lastTimeSummary =
+    (await chrome.storage.local.get("lastTimeSummary")).lastTimeSummary || 0;
+  const current = new Date().getTime();
+
+  const enableHourly =
+    (await chrome.storage.local.get("enableHourlyUpdates"))
+      .enableHourlyUpdates || false;
+
+  if (current - lastTimeSummary >= 61 * 60 * 1000 && enableHourly) {
+    // if summary not shown for more than an hour
+    insertHourlySummary();
+    await chrome.storage.local.set({ lastTimeSummary: current });
+  }
+}, 60 * 1000); // check every 1 minute
+
+chrome.storage.local.get("enableBlockDistractingSites", (res) => {
+  const isBlocking = res?.enableBlockDistractingSites || false;
+  if (isBlocking) {
+    getTag(document.location.origin).then((res) => {
+      if (res === 3) {
+        chrome.runtime.sendMessage({ redirect: "blocked.html" });
+      }
+    });
+  }
+});
 
 export {};

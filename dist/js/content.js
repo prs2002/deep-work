@@ -94,6 +94,29 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#greeting_popup,#greeting_popup *{all:
 
 /***/ }),
 
+/***/ 7147:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   c: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5500);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2312);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap);"]);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `#hourly_summary,#hourly_summary *{all:revert;margin:0;padding:0;font-family:Inter}#hourly_summary{margin:0;padding:0;position:fixed;display:flex;flex-direction:column;align-items:center;width:320px;min-height:380px;background:#fff;right:20px;top:20px;z-index:9999999;width:328px;margin-bottom:28px}#hourly_summary__title{width:85%;margin-bottom:16px;margin-top:31px}#hourly_summary__title>h3{color:#0052bd;font-size:16px;letter-spacing:0em}#hourly_summary__content{border-radius:30px;height:100%;width:100%;display:flex;flex-direction:column;align-items:center}#hourly_summary__content__header{padding:24px 0;padding-bottom:0;width:90%}#hourly_summary__content__header__focus_rate{padding-left:4px;font-size:24px;font-weight:700}#hourly_summary__content__header__title{padding-left:4px;font-weight:700;font-size:16px;color:rgba(0,0,0,.62)}#hourly_summary__content__header__bar{width:calc(100% - 24px);margin-top:10px;height:6px;border-radius:20px;background:#d9d9d9}#hourly_summary__content__header__bar__fill{border-radius:20px;background-color:#2087ff;height:100%}#hourly_summary__content__time{padding:24px 0;width:90%}#hourly_summary__content__time__row{display:flex}#hourly_summary__content__time__row__label{width:70%;display:flex;align-items:center;gap:10px;padding:5px 0px;color:#373737}#hourly_summary__content__time__row__label__color{height:10px;aspect-ratio:1;border-radius:100%}#hourly_summary__content__time__row__label__color.blue{background-color:#2087ff}#hourly_summary__content__time__row__label__color.red{background-color:#ff3b20}#hourly_summary__content__time__row__label__color.black{background-color:#000}#hourly_summary__content__time__row__value{width:30%;text-align:right;font-weight:700}#hourly_summary__content__line{border:1px solid #ebebeb;width:85%}#hourly_summary__content__summary{font-size:13px;padding:24px}#hourly_summary__content__button{width:85%}#hourly_summary__content__button__btn{width:100%;padding:7.5px 0;font-size:12px;background:#2087ff;border-radius:38px;color:#fff;border:none;margin-bottom:24px;cursor:pointer}`, ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 9424:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -1330,23 +1353,108 @@ function insertGreetings() {
 */
 
 function addGreetingPopup() {
-    //   const popup = document.createElement("div");
-    //   popup.innerHTML = `
-    //         <div id="greeting-popup" style="position: absolute; top: 20px; right: 50px; background-color: #fff; border: 1px solid #ccc; padding: 10px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); z-index:9999999; color : #000;">
-    //             <p>Good morning! Let us try to have a great productive day ahead! 🥳.</p>
-    //             <button id="close-popup-btn" style="background-color: #007bff; color: #fff; border: none; padding: 5px 10px; cursor: pointer;">Close</button>
-    //         </div>
-    //     `;
-    //   document.body.appendChild(popup);
-    // //   Close the popup after some time
-    //   setTimeout(() => {
-    //     document.getElementById("greeting-popup")?.remove();
-    //   }, 10000);
-    //   // Close the popup when the close button is clicked
-    //   document.getElementById("close-popup-btn")?.addEventListener("click", () => {
-    //     document.getElementById("greeting-popup")?.remove();
-    //   });
     insertGreetings();
+}
+
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/utils/DOM_SCRIPTS/HourlySummary.scss
+var HourlySummary = __webpack_require__(7147);
+;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/HourlySummary.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var HourlySummary_options = {};
+
+HourlySummary_options.styleTagTransform = (styleTagTransform_default());
+HourlySummary_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      HourlySummary_options.insert = insertBySelector_default().bind(null, "head");
+    
+HourlySummary_options.domAPI = (styleDomAPI_default());
+HourlySummary_options.insertStyleElement = (insertStyleElement_default());
+
+var HourlySummary_update = injectStylesIntoStyleTag_default()(HourlySummary/* default */.c, HourlySummary_options);
+
+
+
+
+       /* harmony default export */ const DOM_SCRIPTS_HourlySummary = (HourlySummary/* default */.c && HourlySummary/* default */.c.locals ? HourlySummary/* default */.c.locals : undefined);
+
+;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/HourlySummary.tsx
+var HourlySummary_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+const handleClose = () => {
+    const root = document.getElementById("recenter_container");
+    if (root) {
+        root.remove();
+    }
+};
+function HourlySummary_HourlySummary() {
+    const [unfocused, setUnfocused] = (0,react.useState)(0);
+    const [productive, setProductive] = (0,react.useState)(0);
+    const focusRate = (productive / Math.max(productive + unfocused, 1)) * 100;
+    const timeSummary = [
+        {
+            label: "Productive",
+            value: msToHM(productive),
+            color: "blue",
+        },
+        {
+            label: "Distracted",
+            value: msToHM(unfocused),
+            color: "red",
+        },
+        { label: "Total", value: msToHM(productive + unfocused), color: "black" },
+    ];
+    (0,react.useEffect)(() => {
+        function getSummary() {
+            return HourlySummary_awaiter(this, void 0, void 0, function* () {
+                const prevHourSummary = (yield chrome.storage.local.get("prevHourSummary")).prevHourSummary ||
+                    [];
+                if (prevHourSummary.length === 0) {
+                    return;
+                }
+                setProductive(prevHourSummary[2]);
+                setUnfocused(prevHourSummary[3]);
+            });
+        }
+        getSummary();
+    }, []);
+    if (productive + unfocused <= 60 * 10 * 1000) {
+        // if user spent less than 10 min in last hour, don't alert
+        return (0,jsx_runtime.jsx)(jsx_runtime.Fragment, {});
+    }
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__title" }, { children: (0,jsx_runtime.jsx)("h3", { children: "Hourly Recap" }) })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__content" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__content__header" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__content__header__focus_rate" }, { children: [focusRate.toFixed(0), "%"] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__header__title" }, { children: "Focus Rate in the past hour" })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__header__bar" }, { children: (0,jsx_runtime.jsx)("div", { id: "hourly_summary__content__header__bar__fill", style: { width: `${focusRate}%` } }) }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__time" }, { children: timeSummary.map((time, index) => ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__content__time__row" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__content__time__row__label" }, { children: [(0,jsx_runtime.jsx)("div", { id: "hourly_summary__content__time__row__label__color", className: time.color }), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__time__row__label__name" }, { children: time.label }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__time__row__value" }, { children: time.value }))] }), index))) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__button" }, { children: (0,jsx_runtime.jsx)("button", Object.assign({ id: "hourly_summary__content__button__btn", onClick: handleClose }, { children: "Go to Work" })) }))] }))] })));
+}
+function insertHourlySummary() {
+    if (document.getElementById("recenter_container") !== null) {
+        return;
+    }
+    setTimeout(handleClose, 10000);
+    const root = document.createElement("div");
+    root.id = "recenter_container";
+    document.body.appendChild(root);
+    const rootDiv = client.createRoot(root);
+    rootDiv.render((0,jsx_runtime.jsx)(react.StrictMode, { children: (0,jsx_runtime.jsx)(HourlySummary_HourlySummary, {}) }));
 }
 
 ;// CONCATENATED MODULE: ./src/utils/queryStorage/FetchFunnyLines.ts
@@ -8226,6 +8334,28 @@ class ProactiveTimer {
     }
 }
 
+;// CONCATENATED MODULE: ./src/utils/queryStorage/GetTag.ts
+var GetTag_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+function getTag(website) {
+    return GetTag_awaiter(this, void 0, void 0, function* () {
+        const taggedURLs = (yield chrome.storage.local.get("taggedURLs")).taggedURLs || [];
+        for (let i = 0; i < taggedURLs.length; i++) {
+            if (website === taggedURLs[i].id) {
+                return taggedURLs[i].tag;
+            }
+        }
+        return 0;
+    });
+}
+
 ;// CONCATENATED MODULE: ./src/content.ts
 var content_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -8236,6 +8366,8 @@ var content_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
+
 
 
 
@@ -8308,6 +8440,30 @@ chrome.storage.local.get("lastGreeted", (data) => {
     }
 });
 new ProactiveTimer();
+setInterval(() => content_awaiter(void 0, void 0, void 0, function* () {
+    if (!document.hasFocus()) {
+        return;
+    }
+    const lastTimeSummary = (yield chrome.storage.local.get("lastTimeSummary")).lastTimeSummary || 0;
+    const current = new Date().getTime();
+    const enableHourly = (yield chrome.storage.local.get("enableHourlyUpdates"))
+        .enableHourlyUpdates || false;
+    if (current - lastTimeSummary >= 61 * 60 * 1000 && enableHourly) {
+        // if summary not shown for more than an hour
+        insertHourlySummary();
+        yield chrome.storage.local.set({ lastTimeSummary: current });
+    }
+}), 60 * 1000); // check every 1 minute
+chrome.storage.local.get("enableBlockDistractingSites", (res) => {
+    const isBlocking = (res === null || res === void 0 ? void 0 : res.enableBlockDistractingSites) || false;
+    if (isBlocking) {
+        getTag(document.location.origin).then((res) => {
+            if (res === 3) {
+                chrome.runtime.sendMessage({ redirect: "blocked.html" });
+            }
+        });
+    }
+});
 
 })();
 
