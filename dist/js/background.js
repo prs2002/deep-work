@@ -57,13 +57,49 @@ var EstimatedCost_awaiter = (undefined && undefined.__awaiter) || function (this
 function estimatedCost(inputToken, outputToken, purpose) {
     var _a;
     return EstimatedCost_awaiter(this, void 0, void 0, function* () {
-        const prevUsage = ((_a = (yield chrome.storage.local.get("usage"))) === null || _a === void 0 ? void 0 : _a.usage) || [];
+        let prevUsage = ((_a = (yield chrome.storage.local.get("usage"))) === null || _a === void 0 ? void 0 : _a.usage) || {
+            monthly: { month: "", usage: [] },
+            weekly: { week: "", usage: [] },
+            daily: { day: "", usage: [] },
+        };
+        if (prevUsage.monthly === undefined ||
+            prevUsage.weekly === undefined ||
+            prevUsage.daily === undefined) {
+            prevUsage = {
+                monthly: { month: "", usage: [] },
+                weekly: { week: "", usage: [] },
+                daily: { day: "", usage: [] },
+            };
+        }
         const inputCost = 0.0005 / 1000;
         const outputCost = 0.0015 / 1000;
         let usage = 0;
         usage += inputCost * inputToken;
         usage += outputCost * outputToken;
-        prevUsage.push({ cost: usage, purpose: purpose });
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth();
+        const currentWeek = currentDate.getDay();
+        const currentDay = currentDate.toDateString();
+        // Update current month, week, and day if necessary
+        if (prevUsage.monthly.month !== currentMonth) {
+            // new month
+            prevUsage.monthly.month = currentMonth;
+            prevUsage.monthly.usage = [];
+        }
+        if (prevUsage.weekly.week !== currentWeek && currentWeek === 1) {
+            // monday
+            prevUsage.weekly.week = currentWeek;
+            prevUsage.weekly.usage = [];
+        }
+        if (prevUsage.daily.day !== currentDay) {
+            // new day
+            prevUsage.daily.day = currentDay;
+            prevUsage.daily.usage = [];
+        }
+        // Store usage in the corresponding arrays
+        prevUsage.monthly.usage.push({ cost: usage, purpose: purpose });
+        prevUsage.weekly.usage.push({ cost: usage, purpose: purpose });
+        prevUsage.daily.usage.push({ cost: usage, purpose: purpose });
         yield chrome.storage.local.set({ usage: prevUsage });
     });
 }
@@ -219,7 +255,6 @@ function dailyRecap() {
             };
             simplifiedItems.push(simplifiedItem);
         });
-        console.log(simplifiedItems);
         const authKey = (_a = (yield chrome.storage.local.get("authKey"))) === null || _a === void 0 ? void 0 : _a.authKey; // api key
         if (!authKey) {
             yield chrome.storage.local.set({

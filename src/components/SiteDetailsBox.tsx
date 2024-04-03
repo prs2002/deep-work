@@ -228,14 +228,18 @@ export default function SiteDetailsBox({
 
   const handleSave = async () => {
     if (
-      isNaN(Number(violations)) ||
-      violations === "" ||
-      parseInt(violations) < 0
+      activeOption.id !== "1" &&
+      (isNaN(Number(violations)) ||
+        violations === "" ||
+        parseInt(violations) < 0)
     ) {
       alert("Please enter valid violations");
       return;
     }
-    if (isNaN(Number(time)) || time === "" || parseInt(time) < 0) {
+    if (
+      activeOption.id !== "1" &&
+      (isNaN(Number(time)) || time === "" || parseInt(time) < 0)
+    ) {
       alert("Please enter valid time");
       return;
     }
@@ -246,7 +250,7 @@ export default function SiteDetailsBox({
       alert("Please enter valid max time");
       return;
     }
-    await updateAlertParameters();
+    if (activeOption.id !== "1") await updateAlertParameters();
     const prevMaxTimes =
       (await chrome.storage.local.get("maxTimes")).maxTimes || {};
     prevMaxTimes[website] = maxTime;
@@ -314,7 +318,7 @@ export default function SiteDetailsBox({
           value: (res.maxTimes?.[website] || "Not Set (Default)") as string,
         });
       }
-
+      // setActiveOption(dropdownOptions[tag])
       setSiteDetails(siteDetails);
     });
   }, [website, isEditing]);
@@ -379,7 +383,7 @@ export default function SiteDetailsBox({
           {isEditing ? showEditableElements() : showElements()}
         </div>
         <div className="site_details__details__button">
-          <Button onClick={handleSave} text="Save"></Button>
+          {isEditing && <Button onClick={handleSave} text="Save"></Button>}
         </div>
       </div>
     </div>

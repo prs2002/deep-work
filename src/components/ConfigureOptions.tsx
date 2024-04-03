@@ -4,14 +4,15 @@ interface ConfigureOptionsProps {
   isFocused: boolean;
   selectedOption: number;
   setSelectedOption: (index: number) => void;
+  options : string[];
 }
 
 export default function ConfigureOptions({
   isFocused,
   selectedOption,
   setSelectedOption,
+  options
 }: ConfigureOptionsProps) {
-  const options = ["Websites", "Settings"];
 
   return (
     <div className="configure_options" id={isFocused ? "good" : "bad"}>

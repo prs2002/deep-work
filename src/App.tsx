@@ -6,16 +6,6 @@ import { Route, Routes } from "react-router-dom";
 import Profile from "./pages/Profile";
 
 function App() {
-  // const [page, setPage] = useState<number>(0);
-  // const pageOptions = [
-  //   <Home></Home>,
-  //   <SummaryPage setPage={setPage}></SummaryPage>,
-  //   <MainPage setPage={setPage}></MainPage>,
-  //   <TagWebsitePage setPage={setPage}></TagWebsitePage>,
-  //   <PromptSettingPage setPage={setPage}></PromptSettingPage>,
-  //   <BlockPage setPage={setPage}></BlockPage>,
-  //   <AchievementsPage setPage={setPage}></AchievementsPage>,
-  // ];
   const [isFocused, setIsFocused] = useState<boolean>(true);
   return (
     <div className="app" id={isFocused ? "good" : "bad"}>

@@ -25,7 +25,6 @@ export async function dailyRecap(): Promise<boolean> {
     simplifiedItems.push(simplifiedItem);
   });
 
-  console.log(simplifiedItems);
 
   const authKey = (await chrome.storage.local.get("authKey"))?.authKey; // api key
   if (!authKey) {

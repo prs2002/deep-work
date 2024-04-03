@@ -4,6 +4,9 @@
   align-items: center;
   position: relative;
   height: 100%;
+  &__header {
+    margin-top: 87px;
+  }
   &__content {
     display: flex;
     flex-direction: column;
@@ -12,7 +15,7 @@
     height: 100%;
     border-radius: 50px 50px 0 0;
     background: var(--background-color);
-    margin-top: 80px;
+    margin-top: 36px;
     padding-top: 36px;
     padding-bottom: 50px;
     min-height: calc(100% - 166px);

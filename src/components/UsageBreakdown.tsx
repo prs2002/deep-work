@@ -44,7 +44,7 @@ export default function UsageBreakdown({
               {website.slice(0, 20) + (website.length > 20 ? "..." : "")}
             </div>
             <div className="usage_breakdown__content__list__item__details__usage">
-              {`${((100 * item.time) / totalTime).toFixed(2)}%`}
+              {`${((100 * item.time) / totalTime).toFixed(0)}%`}
               <SlOptionsVertical
                 onClick={() => {
                   handleSiteDetails(item);

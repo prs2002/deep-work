@@ -4,12 +4,16 @@ import Navbar from "../components/Navbar";
 import { Achievements } from "../types/Achievements";
 import "./Profile.scss";
 import { weeklyProductivity } from "../utils/Achievements";
+import ConfigureOptions from "../components/ConfigureOptions";
+import UsageBox from "../components/UsageBox";
 
 interface ProfileProps {
   isFocused: boolean;
 }
 
 export default function Profile({ isFocused }: ProfileProps) {
+  const options = ["API usage", "Achievements"];
+  const [selectedOption, setSelectedOption] = useState<number>(0);
   const [achievements, setAchievements] = useState<Achievements[]>([
     {
       name: "",
@@ -59,17 +63,29 @@ export default function Profile({ isFocused }: ProfileProps) {
   return (
     <div className="profile_page">
       <Navbar text="Profile" isFocused={isFocused}></Navbar>
+      <div className="profile_page__header">
+        <ConfigureOptions
+          isFocused={isFocused}
+          selectedOption={selectedOption}
+          setSelectedOption={setSelectedOption}
+          options={options}
+        ></ConfigureOptions>
+      </div>
       <div className="profile_page__content">
-        {achievements.map((achievement, index) => {
-          if (!achievement.isCompleted) {
-            return null;
-          }
-          return (
-            <AchievementsCard
-              achievementsType={achievements[index]}
-            ></AchievementsCard>
-          );
-        })}
+        {selectedOption === 1 ? (
+          achievements.map((achievement, index) => {
+            if (!achievement.isCompleted) {
+              return null;
+            }
+            return (
+              <AchievementsCard
+                achievementsType={achievements[index]}
+              ></AchievementsCard>
+            );
+          })
+        ) : (
+          <UsageBox></UsageBox>
+        )}
       </div>
     </div>
   );

@@ -16,6 +16,7 @@ interface ConfigureProps {
 }
 
 export default function Configure({ isFocused }: ConfigureProps) {
+  const options = ["Websites", "Settings"];
   const [selectedOption, setSelectedOption] = useState<number>(0);
 
   const {search} = useLocation();
@@ -39,6 +40,7 @@ export default function Configure({ isFocused }: ConfigureProps) {
           isFocused={isFocused}
           selectedOption={selectedOption}
           setSelectedOption={setSelectedOption}
+          options={options}
         ></ConfigureOptions>
       </div>
       <div className="configure_page__content">

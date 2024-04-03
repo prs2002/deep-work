@@ -41,6 +41,13 @@ export class NudgeUser {
         if (result.promptParameters) {
           const promptParameters = result.promptParameters;
           if (promptParameters[this.website]) {
+            if(this.tag === 1) {
+              delete promptParameters[this.website];
+              await chrome.storage.local.set({
+                promptParameters: promptParameters,
+              });
+              return;
+            }
             this.promptINTERVAL = promptParameters[this.website].promptInterval;
             this.violationsLimit =
               promptParameters[this.website].promptViolations;
