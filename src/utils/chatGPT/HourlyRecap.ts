@@ -1,4 +1,5 @@
 import { TaggedTimeURL } from "../../types/TaggedTimeUrl";
+import { API_CALL_FAILED_SUMMARY, NO_API_KEY_SUMMARY, SUMMARY_TIME_TOO_SHORT } from "../CONSTANTS/texts";
 import { estimatedCost } from "./EstimatedCost";
 
 export async function hourlyRecap(
@@ -9,7 +10,7 @@ export async function hourlyRecap(
   if (!hourlyTime) {
     await chrome.storage.local.set({
       prevHourSummary: [
-        "Time spent in last hour is too short to summarize",
+        SUMMARY_TIME_TOO_SHORT,
         today,
         0,
         0,
@@ -34,7 +35,7 @@ export async function hourlyRecap(
     // if time spent less than 15 min
     await chrome.storage.local.set({
       prevHourSummary: [
-        "Time spent in last hour is too short to summarize",
+        SUMMARY_TIME_TOO_SHORT,
         today,
         productiveTime,
         unfocusedTime,
@@ -65,7 +66,7 @@ export async function hourlyRecap(
   if (!authKey) {
     await chrome.storage.local.set({
       prevHourSummary: [
-        "Please enter an api key to get the summary",
+        NO_API_KEY_SUMMARY,
         today,
         productiveTime, unfocusedTime
       ],
@@ -83,7 +84,7 @@ export async function hourlyRecap(
   if (summary === "") {
     await chrome.storage.local.set({
       prevHourSummary: [
-        "An unexpected error occurred while trying to generate a summary",
+        API_CALL_FAILED_SUMMARY,
         today,
         productiveTime,
         unfocusedTime

@@ -5,6 +5,7 @@ import { getTaggedTime } from "../queryStorage/GetTaggedTime";
 import Greetings from "./Greetings";
 import DailySummary from "./DailySummary";
 import useToggle from "../../hooks/useToggle";
+import { SUMMARY_NO_DATA } from "../CONSTANTS/texts";
 // import "../../images/recenter_logo.png";
 
 function DailyPopup() {
@@ -49,11 +50,11 @@ function DailyPopup() {
         yesterday.setDate(yesterday.getDate() - 1);
         await chrome.storage.local.set({
           prevDaySummary: [
-            "No previous day data found.",
+            SUMMARY_NO_DATA,
             yesterday.toDateString(),
           ],
         });
-        setSummary("No previous day data found.");
+        setSummary(SUMMARY_NO_DATA);
         return;
       }
       generateSummary();

@@ -5,7 +5,7 @@ import "./Timer.scss";
 import { handleBlocking } from "../Blocking";
 
 function Timer() {
-  const [remainingTime, setRemainingTime] = useState<number>(1200);
+  const [remainingTime, setRemainingTime] = useState<number>(0);
 
   useEffect(() => {
     const timer = setInterval(async () => {

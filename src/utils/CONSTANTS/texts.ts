@@ -1,0 +1,17 @@
+export const NO_API_KEY_SUMMARY = "Please enter an api key to get the summary";
+export const API_CALL_FAILED_SUMMARY = "An unexpected error occurred while trying to generate a summary";
+export const SUMMARY_TIME_TOO_SHORT = "Time spent in last hour is too short to summarize";
+export const SUMMARY_NO_DATA = "No data found for the last day";
+export const ALERT_TEXT__LIGHT = "Feeling Distracted?";
+export const ALERT_TEXT__DARK = "Let's Get Back to Work.";
+export const ALERT_TEXT__DARK_2 = "You got this!";
+export const ALERT_ACTIVITY = "Here is a quick activity to get you back to focus. Step away from the computer and try 5 pushups.";
+export const TYPE_PHRASE = "Type the phrase “Maybe Later” to confirm";
+export const ALERT_GO_BACK = "You can still get Back to Work";
+export const ALERT_LEAVE_BUTTON = "Let's Go";
+export const ALERT_STAY_BUTTON = "Maybe Later";
+export const GREETING_TEXT__LIGHT = "Good Morning!";
+export const GREETING_TEXT__DARK = "Let's Begin the Day";
+export const GREETING_TEXT__DARK_2 = "With a Pinch of Focus";
+export const GREETING_RECAP = "Quick Recap From Yesterday";
+export const NO_FUNNY_LINES = "Feeling Distracted?";

@@ -3,6 +3,7 @@ import "./DailySummaryBox.scss";
 import { dailyRecap } from "../utils/chatGPT/DailyRecap";
 import { getTaggedTime } from "../utils/queryStorage/GetTaggedTime";
 import { msToHM } from "../utils/scripts/mmToHM";
+import { SUMMARY_NO_DATA } from "../utils/CONSTANTS/texts";
 
 export default function DailySummaryBox() {
   const [summary, setSummary] = useState<string>("Processing");
@@ -38,11 +39,11 @@ export default function DailySummaryBox() {
         yesterday.setDate(yesterday.getDate() - 1);
         await chrome.storage.local.set({
           prevDaySummary: [
-            "No previous day data found.",
+            SUMMARY_NO_DATA,
             yesterday.toDateString(),
           ],
         });
-        setSummary("No previous day data found.");
+        setSummary(SUMMARY_NO_DATA);
         return;
       }
       generateSummary();

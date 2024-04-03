@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import "./HourlySummaryBox.scss";
+import { SUMMARY_TIME_TOO_SHORT } from "../utils/CONSTANTS/texts";
 
 export default function HourlySummaryBox() {
-  const [summary, setSummary] = useState<string>(
-    "Time spent in last hour is too short to summarize"
-  );
+  const [summary, setSummary] = useState<string>(SUMMARY_TIME_TOO_SHORT);
   const [productive, setProductive] = useState<number>(0);
   const [unfocused, setUnfocused] = useState<number>(0);
   useEffect(() => {
@@ -30,7 +29,11 @@ export default function HourlySummaryBox() {
         <div className="hourly_summary__content">
           <div className="hourly_summary__content__header">
             <div className="hourly_summary__content__header__focus_rate">
-              {((productive * 100) / Math.max(productive + unfocused, 1)).toFixed(0)}%
+              {(
+                (productive * 100) /
+                Math.max(productive + unfocused, 1)
+              ).toFixed(0)}
+              %
             </div>
             <div className="hourly_summary__content__header__title">
               Focus Rate in Past Hour
@@ -39,7 +42,9 @@ export default function HourlySummaryBox() {
               <div
                 className="hourly_summary__content__header__bar__fill"
                 style={{
-                  width: `${(productive * 100) / Math.max(productive + unfocused, 1)}%`,
+                  width: `${
+                    (productive * 100) / Math.max(productive + unfocused, 1)
+                  }%`,
                 }}
               ></div>
             </div>

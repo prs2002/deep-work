@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./FinalAlert.scss";
+import { ALERT_ACTIVITY } from "../CONSTANTS/texts";
 function FinalAlert({ line }: { line: string }) {
   function onClose() {
     const root = document.getElementById("recenter_container");
@@ -24,8 +25,7 @@ function FinalAlert({ line }: { line: string }) {
       </div>
       <div id="final_alert__line">{line}</div>
       <div id="final_alert__activity">
-        Here is a quick activity to get you back to focus. Step away from the
-        computer and try 5 pushups.
+        {ALERT_ACTIVITY}
       </div>
       <button id="final_alert__button" onClick={onClose}>
         Let's Go!

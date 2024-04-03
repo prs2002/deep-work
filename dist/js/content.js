@@ -1129,6 +1129,25 @@ function getTaggedTime(type) {
     });
 }
 
+;// CONCATENATED MODULE: ./src/utils/CONSTANTS/texts.ts
+const NO_API_KEY_SUMMARY = "Please enter an api key to get the summary";
+const API_CALL_FAILED_SUMMARY = "An unexpected error occurred while trying to generate a summary";
+const SUMMARY_TIME_TOO_SHORT = "Time spent in last hour is too short to summarize";
+const SUMMARY_NO_DATA = "No data found for the last day";
+const ALERT_TEXT__LIGHT = "Feeling Distracted?";
+const ALERT_TEXT__DARK = "Let's Get Back to Work.";
+const ALERT_TEXT__DARK_2 = "You got this!";
+const ALERT_ACTIVITY = "Here is a quick activity to get you back to focus. Step away from the computer and try 5 pushups.";
+const TYPE_PHRASE = "Type the phrase “Maybe Later” to confirm";
+const ALERT_GO_BACK = "You can still get Back to Work";
+const ALERT_LEAVE_BUTTON = "Let's Go";
+const ALERT_STAY_BUTTON = "Maybe Later";
+const GREETING_TEXT__LIGHT = "Good Morning!";
+const GREETING_TEXT__DARK = "Let's Begin the Day";
+const GREETING_TEXT__DARK_2 = "With a Pinch of Focus";
+const GREETING_RECAP = "Quick Recap From Yesterday";
+const NO_FUNNY_LINES = "Feeling Distracted?";
+
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(4596);
 var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
@@ -1181,8 +1200,9 @@ var update = injectStylesIntoStyleTag_default()(Greetings/* default */.c, option
 ;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/Greetings.tsx
 
 
-function Greetings_Greetings({ logo, gif, focusRate, handleClose, setShowSummary }) {
-    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__title__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__title__text" }, { children: (0,jsx_runtime.jsx)("h1", { children: "Recenter" }) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__header" }, { children: [(0,jsx_runtime.jsx)("img", { src: gif, alt: "greeting" }), (0,jsx_runtime.jsx)("p", Object.assign({ id: "greeting_popup__header__light" }, { children: "Good Morning!" })), (0,jsx_runtime.jsx)("p", Object.assign({ id: "greeting_popup__header__dark" }, { children: "Let's Begin the Day" })), (0,jsx_runtime.jsx)("p", Object.assign({ id: "greeting_popup__header__dark" }, { children: "With a Pinch of Focus" }))] })), (0,jsx_runtime.jsx)("div", { id: "greeting_popup__line" }), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__focus_rate" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__focus_rate__title" }, { children: "Quick Recap From Yesterday" })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__focus_rate__row" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__focus_rate__row__label" }, { children: "Focus Rate" })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__focus_rate__row__value" }, { children: focusRate.toFixed(0) }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__focus_rate__bar" }, { children: (0,jsx_runtime.jsx)("div", { id: "greeting_popup__focus_rate__bar__fill", style: { width: `${focusRate}%` } }) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__buttons" }, { children: [(0,jsx_runtime.jsx)("button", Object.assign({ id: "greeting_popup__buttons__button", className: "white", onClick: handleClose }, { children: "Get to work" })), (0,jsx_runtime.jsx)("button", Object.assign({ id: "greeting_popup__buttons__button", className: "blue", onClick: setShowSummary }, { children: "Read More" }))] }))] })));
+
+function Greetings_Greetings({ logo, gif, focusRate, handleClose, setShowSummary, }) {
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__title__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__title__text" }, { children: (0,jsx_runtime.jsx)("h1", { children: "Recenter" }) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__header" }, { children: [(0,jsx_runtime.jsx)("img", { src: gif, alt: "greeting" }), (0,jsx_runtime.jsx)("p", Object.assign({ id: "greeting_popup__header__light" }, { children: GREETING_TEXT__LIGHT })), (0,jsx_runtime.jsx)("p", Object.assign({ id: "greeting_popup__header__dark" }, { children: GREETING_TEXT__DARK })), (0,jsx_runtime.jsx)("p", Object.assign({ id: "greeting_popup__header__dark" }, { children: GREETING_TEXT__DARK_2 }))] })), (0,jsx_runtime.jsx)("div", { id: "greeting_popup__line" }), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__focus_rate" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__focus_rate__title" }, { children: GREETING_RECAP })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__focus_rate__row" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__focus_rate__row__label" }, { children: "Focus Rate" })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__focus_rate__row__value" }, { children: focusRate.toFixed(0) }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__focus_rate__bar" }, { children: (0,jsx_runtime.jsx)("div", { id: "greeting_popup__focus_rate__bar__fill", style: { width: `${focusRate}%` } }) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__buttons" }, { children: [(0,jsx_runtime.jsx)("button", Object.assign({ id: "greeting_popup__buttons__button", className: "white", onClick: handleClose }, { children: "Get to work" })), (0,jsx_runtime.jsx)("button", Object.assign({ id: "greeting_popup__buttons__button", className: "blue", onClick: setShowSummary }, { children: "Read More" }))] }))] })));
 }
 
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/utils/DOM_SCRIPTS/DailySummary.scss
@@ -1251,6 +1271,7 @@ var DailyPopup_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 
 
 
+
 // import "../../images/recenter_logo.png";
 function DailyPopup() {
     const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
@@ -1288,11 +1309,11 @@ function DailyPopup() {
                     yesterday.setDate(yesterday.getDate() - 1);
                     yield chrome.storage.local.set({
                         prevDaySummary: [
-                            "No previous day data found.",
+                            SUMMARY_NO_DATA,
                             yesterday.toDateString(),
                         ],
                     });
-                    setSummary("No previous day data found.");
+                    setSummary(SUMMARY_NO_DATA);
                     return;
                 }
                 generateSummary();
@@ -1470,6 +1491,7 @@ var FetchFunnyLines_awaiter = (undefined && undefined.__awaiter) || function (th
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 function fetchFunnyLines(url) {
     var _a;
     return FetchFunnyLines_awaiter(this, void 0, void 0, function* () {
@@ -1481,7 +1503,7 @@ function fetchFunnyLines(url) {
             const randomLine = obj.lines[Math.floor(Math.random() * obj.lines.length)];
             return randomLine;
         }
-        return "Feeling Distracted?";
+        return NO_FUNNY_LINES;
     });
 }
 
@@ -1555,6 +1577,7 @@ var Alert_update = injectStylesIntoStyleTag_default()(Alert/* default */.c, Aler
 
 
 
+
 function Alert_Alert({ updateViolations }) {
     const [isMore, setIsMore] = (0,react.useState)(false);
     const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
@@ -1580,7 +1603,7 @@ function Alert_Alert({ updateViolations }) {
         }
         updateViolations(1);
     }
-    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "non_blocking_alert", className: isMore ? "more" : "" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "non_blocking_alert__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "non_blocking_alert__title__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "non_blocking_alert__title__text" }, { children: (0,jsx_runtime.jsx)("h1", { children: "Recenter" }) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "non_blocking_alert__header" }, { children: [(0,jsx_runtime.jsx)("p", Object.assign({ id: "non_blocking_alert__header__light" }, { children: "Feeling Distracted?" })), (0,jsx_runtime.jsx)("p", Object.assign({ id: "non_blocking_alert__header__dark" }, { children: "Let's Get Back to Work." })), (0,jsx_runtime.jsx)("p", Object.assign({ id: "non_blocking_alert__header__dark" }, { children: "You got this!" }))] })), !isMore && ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "non_blocking_alert__buttons" }, { children: [(0,jsx_runtime.jsx)("button", Object.assign({ id: "non_blocking_alert__buttons__button", className: "white", onClick: onClose }, { children: "Let's Go" })), (0,jsx_runtime.jsx)("button", Object.assign({ id: "non_blocking_alert__buttons__button", className: "blue", onClick: onMore }, { children: "Maybe Later" }))] }))), isMore && ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "non_blocking_alert__more_content" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "non_blocking_alert__more_content__phrase" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "non_blocking_alert__more_content__phrase__label" }, { children: "Type the phrase \u201CMaybe Later\u201D to confirm" })), (0,jsx_runtime.jsx)("input", { id: "non_blocking_alert__more_content__phrase__input", type: "text", onChange: handleViolation })] })), (0,jsx_runtime.jsx)("div", { id: "non_blocking_alert__more_content__line" }), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "non_blocking_alert__more_content__go_back" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "non_blocking_alert__more_content__go_back__label" }, { children: "You can still get Back to Work" })), (0,jsx_runtime.jsx)("button", Object.assign({ id: "non_blocking_alert__more_content__go_back__button", onClick: onClose }, { children: "Let's Go" }))] }))] })))] })));
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "non_blocking_alert", className: isMore ? "more" : "" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "non_blocking_alert__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "non_blocking_alert__title__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "non_blocking_alert__title__text" }, { children: (0,jsx_runtime.jsx)("h1", { children: "Recenter" }) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "non_blocking_alert__header" }, { children: [(0,jsx_runtime.jsx)("p", Object.assign({ id: "non_blocking_alert__header__light" }, { children: ALERT_TEXT__LIGHT })), (0,jsx_runtime.jsx)("p", Object.assign({ id: "non_blocking_alert__header__dark" }, { children: ALERT_TEXT__DARK })), (0,jsx_runtime.jsx)("p", Object.assign({ id: "non_blocking_alert__header__dark" }, { children: ALERT_TEXT__DARK_2 }))] })), !isMore && ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "non_blocking_alert__buttons" }, { children: [(0,jsx_runtime.jsx)("button", Object.assign({ id: "non_blocking_alert__buttons__button", className: "white", onClick: onClose }, { children: ALERT_LEAVE_BUTTON })), (0,jsx_runtime.jsx)("button", Object.assign({ id: "non_blocking_alert__buttons__button", className: "blue", onClick: onMore }, { children: ALERT_STAY_BUTTON }))] }))), isMore && ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "non_blocking_alert__more_content" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "non_blocking_alert__more_content__phrase" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "non_blocking_alert__more_content__phrase__label" }, { children: TYPE_PHRASE })), (0,jsx_runtime.jsx)("input", { id: "non_blocking_alert__more_content__phrase__input", type: "text", onChange: handleViolation })] })), (0,jsx_runtime.jsx)("div", { id: "non_blocking_alert__more_content__line" }), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "non_blocking_alert__more_content__go_back" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "non_blocking_alert__more_content__go_back__label" }, { children: ALERT_GO_BACK })), (0,jsx_runtime.jsx)("button", Object.assign({ id: "non_blocking_alert__more_content__go_back__button", onClick: onClose }, { children: ALERT_LEAVE_BUTTON }))] }))] })))] })));
 }
 function insertAlert(updateViolations) {
     if (document.getElementById("recenter_container") !== null) {
@@ -1643,6 +1666,7 @@ var FinalAlert_update = injectStylesIntoStyleTag_default()(FinalAlert/* default 
 
 
 
+
 function FinalAlert_FinalAlert({ line }) {
     function onClose() {
         const root = document.getElementById("recenter_container");
@@ -1652,7 +1676,7 @@ function FinalAlert_FinalAlert({ line }) {
         window.location.href = "https://www.google.com";
     }
     const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
-    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "final_alert" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "final_alert__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "final_alert__title__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "final_alert__title__text" }, { children: (0,jsx_runtime.jsx)("h1", { children: "Recenter" }) }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "final_alert__line" }, { children: line })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "final_alert__activity" }, { children: "Here is a quick activity to get you back to focus. Step away from the computer and try 5 pushups." })), (0,jsx_runtime.jsx)("button", Object.assign({ id: "final_alert__button", onClick: onClose }, { children: "Let's Go!" }))] })));
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "final_alert" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "final_alert__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "final_alert__title__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "final_alert__title__text" }, { children: (0,jsx_runtime.jsx)("h1", { children: "Recenter" }) }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "final_alert__line" }, { children: line })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "final_alert__activity" }, { children: ALERT_ACTIVITY })), (0,jsx_runtime.jsx)("button", Object.assign({ id: "final_alert__button", onClick: onClose }, { children: "Let's Go!" }))] })));
 }
 function insertFinalAlert(line) {
     if (document.getElementById("recenter_container") !== null) {
@@ -8206,18 +8230,18 @@ function isTimeExceeded(url) {
             return undefined;
         }
         const timeElapsed = obj.time;
-        return maxTime - timeElapsed;
+        return [maxTime - timeElapsed, timeElapsed];
     });
 }
 function handleBlocking() {
     return Blocking_awaiter(this, void 0, void 0, function* () {
         const url = document.location.origin;
         const remainingTime = yield isTimeExceeded(url);
-        if (remainingTime !== undefined && remainingTime <= 0) {
+        if (remainingTime !== undefined && remainingTime[0] <= 0) {
             redirect();
             return 0;
         }
-        return remainingTime;
+        return remainingTime ? remainingTime[1] : undefined;
     });
 }
 
@@ -8238,7 +8262,7 @@ var Timer_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _ar
 
 
 function Timer_Timer() {
-    const [remainingTime, setRemainingTime] = (0,react.useState)(1200);
+    const [remainingTime, setRemainingTime] = (0,react.useState)(0);
     (0,react.useEffect)(() => {
         const timer = setInterval(() => Timer_awaiter(this, void 0, void 0, function* () {
             const remainingTime = yield handleBlocking();

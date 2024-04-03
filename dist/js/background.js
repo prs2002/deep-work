@@ -222,6 +222,25 @@ function AITagging() {
     });
 }
 
+;// CONCATENATED MODULE: ./src/utils/CONSTANTS/texts.ts
+const NO_API_KEY_SUMMARY = "Please enter an api key to get the summary";
+const API_CALL_FAILED_SUMMARY = "An unexpected error occurred while trying to generate a summary";
+const SUMMARY_TIME_TOO_SHORT = "Time spent in last hour is too short to summarize";
+const SUMMARY_NO_DATA = "No data found for the last day";
+const ALERT_TEXT__LIGHT = "Feeling Distracted?";
+const ALERT_TEXT__DARK = "Let's Get Back to Work.";
+const ALERT_TEXT__DARK_2 = "You got this!";
+const ALERT_ACTIVITY = "Here is a quick activity to get you back to focus. Step away from the computer and try 5 pushups.";
+const TYPE_PHRASE = "Type the phrase “Maybe Later” to confirm";
+const ALERT_GO_BACK = "You can still get Back to Work";
+const ALERT_LEAVE_BUTTON = "Let's Go";
+const ALERT_STAY_BUTTON = "Maybe Later";
+const GREETING_TEXT__LIGHT = "Good Morning!";
+const GREETING_TEXT__DARK = "Let's Begin the Day";
+const GREETING_TEXT__DARK_2 = "With a Pinch of Focus";
+const GREETING_RECAP = "Quick Recap From Yesterday";
+const NO_FUNNY_LINES = "Feeling Distracted?";
+
 ;// CONCATENATED MODULE: ./src/utils/chatGPT/DailyRecap.ts
 var DailyRecap_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -232,6 +251,7 @@ var DailyRecap_awaiter = (undefined && undefined.__awaiter) || function (thisArg
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 
 function dailyRecap() {
     var _a;
@@ -259,7 +279,7 @@ function dailyRecap() {
         if (!authKey) {
             yield chrome.storage.local.set({
                 prevDaySummary: [
-                    "Please enter an api key to get the summary",
+                    NO_API_KEY_SUMMARY,
                     yesterday.toDateString(),
                 ],
             });
@@ -275,7 +295,7 @@ function dailyRecap() {
         if (summary === "") {
             yield chrome.storage.local.set({
                 prevDaySummary: [
-                    "An unexpected error occurred while trying to generate a summary",
+                    API_CALL_FAILED_SUMMARY,
                     yesterday.toDateString(),
                 ],
             });
@@ -350,6 +370,7 @@ var HourlyRecap_awaiter = (undefined && undefined.__awaiter) || function (thisAr
     });
 };
 
+
 function hourlyRecap(hourlyTime) {
     var _a;
     return HourlyRecap_awaiter(this, void 0, void 0, function* () {
@@ -358,7 +379,7 @@ function hourlyRecap(hourlyTime) {
         if (!hourlyTime) {
             yield chrome.storage.local.set({
                 prevHourSummary: [
-                    "Time spent in last hour is too short to summarize",
+                    SUMMARY_TIME_TOO_SHORT,
                     today,
                     0,
                     0,
@@ -380,7 +401,7 @@ function hourlyRecap(hourlyTime) {
             // if time spent less than 15 min
             yield chrome.storage.local.set({
                 prevHourSummary: [
-                    "Time spent in last hour is too short to summarize",
+                    SUMMARY_TIME_TOO_SHORT,
                     today,
                     productiveTime,
                     unfocusedTime,
@@ -407,7 +428,7 @@ function hourlyRecap(hourlyTime) {
         if (!authKey) {
             yield chrome.storage.local.set({
                 prevHourSummary: [
-                    "Please enter an api key to get the summary",
+                    NO_API_KEY_SUMMARY,
                     today,
                     productiveTime, unfocusedTime
                 ],
@@ -423,7 +444,7 @@ function hourlyRecap(hourlyTime) {
         if (summary === "") {
             yield chrome.storage.local.set({
                 prevHourSummary: [
-                    "An unexpected error occurred while trying to generate a summary",
+                    API_CALL_FAILED_SUMMARY,
                     today,
                     productiveTime,
                     unfocusedTime

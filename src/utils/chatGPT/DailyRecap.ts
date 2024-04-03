@@ -1,3 +1,4 @@
+import { API_CALL_FAILED_SUMMARY, NO_API_KEY_SUMMARY } from "../CONSTANTS/texts";
 import { estimatedCost } from "./EstimatedCost";
 
 export async function dailyRecap(): Promise<boolean> {
@@ -30,7 +31,7 @@ export async function dailyRecap(): Promise<boolean> {
   if (!authKey) {
     await chrome.storage.local.set({
       prevDaySummary: [
-        "Please enter an api key to get the summary",
+        NO_API_KEY_SUMMARY,
         yesterday.toDateString(),
       ],
     });
@@ -48,7 +49,7 @@ export async function dailyRecap(): Promise<boolean> {
   if (summary === "") {
     await chrome.storage.local.set({
       prevDaySummary: [
-        "An unexpected error occurred while trying to generate a summary",
+        API_CALL_FAILED_SUMMARY,
         yesterday.toDateString(),
       ],
     });

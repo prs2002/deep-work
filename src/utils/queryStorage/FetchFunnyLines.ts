@@ -2,6 +2,8 @@
     This file is used to fetch funny lines local storage and randomly select a line to display to the user.
 */
 
+import { NO_FUNNY_LINES } from "../CONSTANTS/texts";
+
 interface FunnyLine {
   lines: string[];
   URL: string;
@@ -20,5 +22,5 @@ export async function fetchFunnyLines(url: string): Promise<string> {
       obj.lines[Math.floor(Math.random() * obj.lines.length)];
     return randomLine;
   }
-  return "Feeling Distracted?";
+  return NO_FUNNY_LINES;
 }

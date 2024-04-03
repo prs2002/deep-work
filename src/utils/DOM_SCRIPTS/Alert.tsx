@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./Alert.scss";
+import { ALERT_GO_BACK, ALERT_LEAVE_BUTTON, ALERT_STAY_BUTTON, ALERT_TEXT__DARK, ALERT_TEXT__DARK_2, ALERT_TEXT__LIGHT, TYPE_PHRASE } from "../CONSTANTS/texts";
 
 function Alert({ updateViolations }: { updateViolations: any }) {
   const [isMore, setIsMore] = useState(false);
@@ -43,9 +44,9 @@ function Alert({ updateViolations }: { updateViolations: any }) {
         </div>
       </div>
       <div id="non_blocking_alert__header">
-        <p id="non_blocking_alert__header__light">Feeling Distracted?</p>
-        <p id="non_blocking_alert__header__dark">Let's Get Back to Work.</p>
-        <p id="non_blocking_alert__header__dark">You got this!</p>
+        <p id="non_blocking_alert__header__light">{ALERT_TEXT__LIGHT}</p>
+        <p id="non_blocking_alert__header__dark">{ALERT_TEXT__DARK}</p>
+        <p id="non_blocking_alert__header__dark">{ALERT_TEXT__DARK_2}</p>
       </div>
       {!isMore && (
         <div id="non_blocking_alert__buttons">
@@ -54,14 +55,14 @@ function Alert({ updateViolations }: { updateViolations: any }) {
             className="white"
             onClick={onClose}
           >
-            Let's Go
+            {ALERT_LEAVE_BUTTON}
           </button>
           <button
             id="non_blocking_alert__buttons__button"
             className="blue"
             onClick={onMore}
           >
-            Maybe Later
+            {ALERT_STAY_BUTTON}
           </button>
         </div>
       )}
@@ -69,7 +70,7 @@ function Alert({ updateViolations }: { updateViolations: any }) {
         <div id="non_blocking_alert__more_content">
           <div id="non_blocking_alert__more_content__phrase">
             <div id="non_blocking_alert__more_content__phrase__label">
-              Type the phrase “Maybe Later” to confirm
+              {TYPE_PHRASE}
             </div>
             <input
               id="non_blocking_alert__more_content__phrase__input"
@@ -80,13 +81,13 @@ function Alert({ updateViolations }: { updateViolations: any }) {
           <div id="non_blocking_alert__more_content__line"></div>
           <div id="non_blocking_alert__more_content__go_back">
             <div id="non_blocking_alert__more_content__go_back__label">
-              You can still get Back to Work
+              {ALERT_GO_BACK}
             </div>
             <button
               id="non_blocking_alert__more_content__go_back__button"
               onClick={onClose}
             >
-              Let's Go
+              {ALERT_LEAVE_BUTTON}
             </button>
           </div>
         </div>

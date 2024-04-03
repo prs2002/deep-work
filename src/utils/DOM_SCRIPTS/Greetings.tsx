@@ -1,11 +1,17 @@
-import "./Greetings.scss"
+import {
+  GREETING_RECAP,
+  GREETING_TEXT__DARK,
+  GREETING_TEXT__DARK_2,
+  GREETING_TEXT__LIGHT,
+} from "../CONSTANTS/texts";
+import "./Greetings.scss";
 
 interface GreetingsProps {
   logo: string;
   gif: string;
   focusRate: number;
   handleClose: () => void;
-  setShowSummary: () => void
+  setShowSummary: () => void;
 }
 
 export default function Greetings({
@@ -13,7 +19,7 @@ export default function Greetings({
   gif,
   focusRate,
   handleClose,
-  setShowSummary
+  setShowSummary,
 }: GreetingsProps) {
   return (
     <div id="greeting_popup">
@@ -27,14 +33,14 @@ export default function Greetings({
       </div>
       <div id="greeting_popup__header">
         <img src={gif} alt="greeting"></img>
-        <p id="greeting_popup__header__light">Good Morning!</p>
-        <p id="greeting_popup__header__dark">Let's Begin the Day</p>
-        <p id="greeting_popup__header__dark">With a Pinch of Focus</p>
+        <p id="greeting_popup__header__light">{GREETING_TEXT__LIGHT}</p>
+        <p id="greeting_popup__header__dark">{GREETING_TEXT__DARK}</p>
+        <p id="greeting_popup__header__dark">{GREETING_TEXT__DARK_2}</p>
       </div>
       <div id="greeting_popup__line"></div>
       <div id="greeting_popup__focus_rate">
         <div id="greeting_popup__focus_rate__title">
-          Quick Recap From Yesterday
+          {GREETING_RECAP}
         </div>
         <div id="greeting_popup__focus_rate__row">
           <div id="greeting_popup__focus_rate__row__label">Focus Rate</div>
@@ -57,7 +63,11 @@ export default function Greetings({
         >
           Get to work
         </button>
-        <button id="greeting_popup__buttons__button" className="blue" onClick={setShowSummary}>
+        <button
+          id="greeting_popup__buttons__button"
+          className="blue"
+          onClick={setShowSummary}
+        >
           Read More
         </button>
       </div>
