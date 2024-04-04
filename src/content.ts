@@ -82,7 +82,7 @@ chrome.storage.local.get("lastGreeted", (data) => {
 new ProactiveTimer();
 
 setInterval(async () => {
-  if(!document.hasFocus()) {
+  if (!document.hasFocus()) {
     return;
   }
   const lastTimeSummary =
@@ -100,8 +100,8 @@ setInterval(async () => {
   }
 }, 60 * 1000); // check every 1 minute
 
-chrome.storage.local.get("enableBlockDistractingSites", (res) => {
-  const isBlocking = res?.enableBlockDistractingSites || false;
+chrome.storage.local.get("enableSuperFocusMode", (res) => {
+  const isBlocking = res?.enableSuperFocusMode || false;
   if (isBlocking) {
     getTag(document.location.origin).then((res) => {
       if (res === 3) {

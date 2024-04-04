@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
 import "./ProactiveOptionsBox.scss";
+import ToggleButton from "./ToggleButton";
+import ToggleButtonWithConfirm from "./ToggleButtonWithConfirm";
 
 const settingsKey = [
   "enableHourlyUpdates",
@@ -7,31 +8,26 @@ const settingsKey = [
   "enableDistractingSiteTimer",
 ];
 export default function ProactiveOptionsBox() {
-  const [isOn, setIsOn] = useState<boolean[]>([false, false, false]);
   const settings = [
     "Hourly Updates",
     "Block distracting sites",
     "Distracting site timer",
   ];
 
-  const toggleSwitch = async (index: number) => {
-    await chrome.storage.local.set({ [settingsKey[index]]: !isOn[index] });
-    setIsOn((prev) => {
-      const newState = [...prev];
-      newState[index] = !newState[index];
-      return newState;
-    });
+  const callback = async (type: string) => {
+    const oldAlarm = await chrome.alarms.get("updateFocusMode");
+    if (oldAlarm) {
+      await chrome.storage.local.remove("focusModeEndTime");
+      await chrome.alarms.clear("updateFocusMode");
+    }
+    if (type === "enable") {
+      const scheduledTime = new Date().getTime() + 50 * 60 * 1000;
+      await chrome.alarms.create("updateFocusMode", {
+        delayInMinutes: 50,
+      });
+      await chrome.storage.local.set({focusModeEndTime: scheduledTime});
+    }
   };
-
-  useEffect(() => {
-    chrome.storage.local.get(settingsKey, (res) => {
-      setIsOn([
-        res.enableHourlyUpdates,
-        res.enableBlockDistractingSites,
-        res.enableDistractingSiteTimer,
-      ]);
-    });
-  }, []);
 
   return (
     <div className="proactive_setting">
@@ -40,29 +36,27 @@ export default function ProactiveOptionsBox() {
         <div className="proactive_setting__content">
           {settings.map((setting, index) => {
             return (
-              <div className="proactive_setting__content__row" key={index}>
-                <div className="proactive_setting__content__row__enable">
-                  {setting}
-                </div>
-                <div className="proactive_setting__content__row__enable_button">
-                  <div
-                    className={`proactive_setting__content__row__enable_button__container ${
-                      isOn[index] ? "on" : "off"
-                    }`}
-                    onClick={() => toggleSwitch(index)}
-                  >
-                    <div className="proactive_setting__content__row__enable_button__container__switch">
-                      <div
-                        className={`proactive_setting__content__row__enable_button__container__switch__circle ${
-                          isOn[index] ? "on" : "off"
-                        }`}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ToggleButton
+                text={setting}
+                storeKey={settingsKey[index]}
+                key={index}
+              ></ToggleButton>
             );
           })}
+          <ToggleButtonWithConfirm
+            phrase="Yes, End focus mode"
+            storeKey="enableSuperFocusMode"
+            text="Enable Super Focus Mode"
+            textWarning={
+              <>
+                Are you sure? once you turn off super focus mode,{" "}
+                <strong>Recenter</strong> will not block the distracting
+                websites.
+              </>
+            }
+            opposite={true}
+            callback={callback}
+          ></ToggleButtonWithConfirm>
         </div>
       </div>
     </div>

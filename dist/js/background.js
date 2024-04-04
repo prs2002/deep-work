@@ -933,16 +933,30 @@ chrome.runtime.onInstalled.addListener((reason) => {
 });
 function checkAlarm() {
     return background_awaiter(this, void 0, void 0, function* () {
-        const alarm = yield chrome.alarms.get("tagWebsite");
+        let alarm = yield chrome.alarms.get("tagWebsite");
         if (alarm) {
             yield chrome.alarms.clear("tagWebsite");
         }
-        chrome.alarms.create("tagWebsite", { periodInMinutes: 0.75 });
+        yield chrome.alarms.create("tagWebsite", { periodInMinutes: 0.75 });
+        alarm = yield chrome.alarms.get("updateFocusMode");
+        if (!alarm) {
+            const scheduledTime = (yield chrome.storage.local.get("focusModeEndTime"))
+                .focusModeEndTime;
+            if (scheduledTime) {
+                const time = scheduledTime - new Date().getTime();
+                yield chrome.alarms.create("updateFocusMode", {
+                    when: new Date().getTime() + time,
+                });
+            }
+        }
     });
 }
 chrome.alarms.onAlarm.addListener((alarm) => background_awaiter(void 0, void 0, void 0, function* () {
     if (alarm.name === "tagWebsite") {
         tagWebsite();
+    }
+    if (alarm.name === "updateFocusMode") {
+        yield chrome.storage.local.set({ enableSuperFocusMode: false });
     }
 }));
 checkAlarm();

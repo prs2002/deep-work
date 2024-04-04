@@ -1,19 +1,21 @@
 import "./ConfirmationPopup.scss";
 import { RxCross1 } from "react-icons/rx";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import Button from "./Button";
 import Input from "./Input";
 
 interface ConfirmationPopupProps {
   setShowPopup: () => void;
-  text: string;
+  text: ReactNode;
   handleConfirm: () => void;
+  phrase: string;
 }
 
 export default function ConfirmationPopup({
   setShowPopup,
   text,
   handleConfirm,
+  phrase,
 }: ConfirmationPopupProps) {
   function handleSiteDetails() {
     setShowPopup();
@@ -22,11 +24,11 @@ export default function ConfirmationPopup({
   const [input, setInput] = useState<string>("");
 
   const checkInput = () => {
-    if (input === "Yes I understand") {
+    if (input === phrase) {
       setShowPopup();
       handleConfirm();
     } else {
-      alert("Please type 'Yes I understand' to confirm");
+      alert(`Please type ${phrase} to confirm`);
     }
   };
 
@@ -35,7 +37,7 @@ export default function ConfirmationPopup({
       <div className="confirmation_popup__details">
         <div className="confirmation_popup__details__header">
           <div className="confirmation_popup__details__header__title">
-            {text}
+            Warning!
           </div>
           <div className="confirmation_popup__details__header__buttons">
             <div
@@ -54,7 +56,7 @@ export default function ConfirmationPopup({
           </div>
           <div className="confirmation_popup__details__content__input">
             <div className="confirmation_popup__details__content__input__label">
-              Type the phrase "Yes I understand" to confirm
+              Type the phrase "{phrase}" to confirm
             </div>
             <div className="confirmation_popup__details__content__input__container">
               <Input

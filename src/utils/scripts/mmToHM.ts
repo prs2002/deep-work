@@ -6,5 +6,18 @@ export function msToHM(ms: number): string {
   seconds = seconds % 3600; // seconds remaining after extracting hours
   // 3- Extract minutes:
   const minutes = Math.floor(seconds / 60); // 60 seconds in 1 minute
+
+  if (hours === 0 && minutes === 0) {
+    return "<0m";
+  }
+
+  if (hours === 0) {
+    return `${minutes}m`;
+  }
+
+  if (minutes === 0) {
+    return `${hours}h`;
+  }
+
   return `${hours}h ${minutes}m`;
 }

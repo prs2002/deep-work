@@ -93,16 +93,30 @@ chrome.runtime.onInstalled.addListener((reason) => {
 });
 
 async function checkAlarm() {
-  const alarm = await chrome.alarms.get("tagWebsite");
+  let alarm = await chrome.alarms.get("tagWebsite");
   if (alarm) {
     await chrome.alarms.clear("tagWebsite");
   }
-  chrome.alarms.create("tagWebsite", { periodInMinutes: 0.75 });
+  await chrome.alarms.create("tagWebsite", { periodInMinutes: 0.75 });
+  alarm = await chrome.alarms.get("updateFocusMode");
+  if (!alarm) {
+    const scheduledTime = (await chrome.storage.local.get("focusModeEndTime"))
+      .focusModeEndTime;
+    if (scheduledTime) {
+      const time = scheduledTime - new Date().getTime();
+      await chrome.alarms.create("updateFocusMode", {
+        when: new Date().getTime() + time,
+      });
+    }
+  }
 }
 
 chrome.alarms.onAlarm.addListener(async (alarm) => {
   if (alarm.name === "tagWebsite") {
     tagWebsite();
+  }
+  if (alarm.name === "updateFocusMode") {
+    await chrome.storage.local.set({ enableSuperFocusMode: false });
   }
 });
 

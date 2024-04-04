@@ -5,6 +5,7 @@ import SiteDetailsBox from "./SiteDetailsBox";
 import "./UsageBreakdown.scss";
 import { preprocessURL } from "../utils/scripts/PreprocessURL";
 import { SlOptionsVertical } from "react-icons/sl";
+import { msToHM } from "../utils/scripts/mmToHM";
 
 interface UsageBreakdownProps {
   totalTime: number;
@@ -43,7 +44,7 @@ export default function UsageBreakdown({
               ></div>
               {website.slice(0, 20) + (website.length > 20 ? "..." : "")}
             </div>
-            <div className="usage_breakdown__content__list__item__details__usage">
+            <div className="usage_breakdown__content__list__item__details__usage" title={((100 * item.time) / totalTime).toFixed(2) + "% " + msToHM(item.time)}>
               {`${((100 * item.time) / totalTime).toFixed(0)}%`}
               <SlOptionsVertical
                 onClick={() => {

@@ -1062,6 +1062,15 @@ function msToHM(ms) {
     seconds = seconds % 3600; // seconds remaining after extracting hours
     // 3- Extract minutes:
     const minutes = Math.floor(seconds / 60); // 60 seconds in 1 minute
+    if (hours === 0 && minutes === 0) {
+        return "<0m";
+    }
+    if (hours === 0) {
+        return `${minutes}m`;
+    }
+    if (minutes === 0) {
+        return `${hours}h`;
+    }
     return `${hours}h ${minutes}m`;
 }
 
@@ -8238,7 +8247,9 @@ function handleBlocking() {
         const url = document.location.origin;
         const remainingTime = yield isTimeExceeded(url);
         if (remainingTime !== undefined && remainingTime[0] <= 0) {
-            redirect();
+            const isBlocking = (yield chrome.storage.local.get("enableBlockDistractingSites"))
+                .enableBlockDistractingSites || true;
+            isBlocking && redirect();
             return 0;
         }
         return remainingTime ? remainingTime[1] : undefined;
@@ -8485,8 +8496,8 @@ setInterval(() => content_awaiter(void 0, void 0, void 0, function* () {
         yield chrome.storage.local.set({ lastTimeSummary: current });
     }
 }), 60 * 1000); // check every 1 minute
-chrome.storage.local.get("enableBlockDistractingSites", (res) => {
-    const isBlocking = (res === null || res === void 0 ? void 0 : res.enableBlockDistractingSites) || false;
+chrome.storage.local.get("enableSuperFocusMode", (res) => {
+    const isBlocking = (res === null || res === void 0 ? void 0 : res.enableSuperFocusMode) || false;
     if (isBlocking) {
         getTag(document.location.origin).then((res) => {
             if (res === 3) {
