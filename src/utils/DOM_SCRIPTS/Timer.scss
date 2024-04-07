@@ -2,11 +2,9 @@
   z-index: 9999999;
   border-radius: 60px;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  max-width: 164px;
+  top: 20px;
+  right: 30px;
   min-width: 164px;
-  display: flex;
   background: #ff3b20;
   padding: 15px 14px;
   display: flex;
@@ -28,5 +26,30 @@
     font-weight: 700;
     line-height: 34px;
     color: #ffffff;
+  }
+
+  &.jiggle {
+    animation: jiggle 0.5s ease-in-out;
+  }
+}
+
+@keyframes jiggle {
+  0% {
+    transform: rotate(0);
+  }
+  20% {
+    transform: rotate(-10deg);
+  }
+  40% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(-10deg);
+  }
+  80% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0);
   }
 }

@@ -117,6 +117,8 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
   }
   if (alarm.name === "updateFocusMode") {
     await chrome.storage.local.set({ enableSuperFocusMode: false });
+    await chrome.storage.local.remove("focusModeEndTime");
+    await chrome.storage.local.remove("focusModeDuration");
   }
 });
 

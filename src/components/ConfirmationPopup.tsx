@@ -50,9 +50,7 @@ export default function ConfirmationPopup({
         </div>
         <div className="confirmation_popup__details__content">
           <div className="confirmation_popup__details__content__text">
-            Are you sure? once you turn off monitoring,{" "}
-            <strong>Recenter</strong> won't be able to help you focus and
-            improve your workflow.
+            {text}
           </div>
           <div className="confirmation_popup__details__content__input">
             <div className="confirmation_popup__details__content__input__label">

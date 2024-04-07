@@ -6,14 +6,24 @@ import { handleBlocking } from "../Blocking";
 
 function Timer() {
   const [remainingTime, setRemainingTime] = useState<number>(0);
-
+  const [jiggle, setJiggle] = useState<boolean>(false);
   useEffect(() => {
     const timer = setInterval(async () => {
       const remainingTime = await handleBlocking();
       if (remainingTime !== undefined) setRemainingTime(remainingTime / 1000);
     }, 1000);
 
-    return () => clearInterval(timer);
+    const jiggleTimer = setInterval(() => {
+      setJiggle(true);
+      setTimeout(() => {
+        setJiggle(false);
+      }, 1000);
+    }, 60000);
+
+    return () => {
+      clearInterval(timer);
+      clearInterval(jiggleTimer);
+    };
   }, []);
 
   function secondsToTime(time: number): string {
@@ -25,7 +35,7 @@ function Timer() {
   }
 
   return (
-    <div id="recenter_timer">
+    <div id="recenter_timer" className={jiggle ? "jiggle" : ""}>
       <div id="recenter_timer__logo">
         <FaRegClock />
       </div>

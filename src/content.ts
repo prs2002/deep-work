@@ -105,7 +105,7 @@ chrome.storage.local.get("enableSuperFocusMode", (res) => {
   if (isBlocking) {
     getTag(document.location.origin).then((res) => {
       if (res === 3) {
-        chrome.runtime.sendMessage({ redirect: "blocked.html" });
+        chrome.runtime.sendMessage({ redirect: "superfocus.html" });
       }
     });
   }

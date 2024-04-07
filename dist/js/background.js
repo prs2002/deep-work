@@ -138,7 +138,7 @@ function apiCall(website, authKey) {
                 messages: [
                     {
                         role: "user",
-                        content: `Imagine you're a digital detective tasked with classifying websites as either 'wasteful,' 'productive,' or 'unsure.' You're given a website URL, and you must determine its classification based on whether it helps with work, is used to kill time, or is ambiguous in its purpose. For the purpose of this task, 'work' is defined as any activity that contributes to one's professional or educational goals, such as research, learning, collaboration, or productivity tools. Your output should be a JSON object containing the classification, the URL. For example, if the website is Netflix.com and the description is your response might be: {'CLASSIFICATION': 'Wasteful', 'URL': 'netflix.com'}. Now, classify ${website}
+                        content: `Tag the given site as wasteful, productive, or unsure depending on whether it is something that helps in work or is used to kill time. Your output should be a JSON object containing the classification, the URL. For example, if the website is Netflix.com and the description is your response might be: {'CLASSIFICATION': 'Wasteful', 'URL': 'netflix.com'}. Now, classify ${website}
       `,
                     },
                 ],
@@ -264,24 +264,30 @@ function dailyRecap() {
             text: "",
             startTime: startTime,
             endTime: endTime,
-            maxResults: 100,
+            maxResults: 1000,
         });
-        const simplifiedItems = [];
+        const historySummary = {};
         historyItems.forEach(function (historyItem) {
-            const { url, lastVisitTime } = historyItem;
-            const simplifiedItem = {
-                url: url,
-                lastVisitTime: lastVisitTime,
-            };
-            simplifiedItems.push(simplifiedItem);
+            const { url } = historyItem;
+            const domain = new URL(url).hostname;
+            // Aggregate similar URLs
+            if (historySummary[domain]) {
+                historySummary[domain]++;
+            }
+            else {
+                historySummary[domain] = 1;
+            }
+        });
+        // Sort and display summary
+        const sortedSummary = Object.entries(historySummary).sort((a, b) => b[1] - a[1]);
+        let summaryText = "Yesterday's browsing history summary:\n";
+        sortedSummary.forEach(([domain, count]) => {
+            summaryText += `${domain}: ${count} visits\n`;
         });
         const authKey = (_a = (yield chrome.storage.local.get("authKey"))) === null || _a === void 0 ? void 0 : _a.authKey; // api key
         if (!authKey) {
             yield chrome.storage.local.set({
-                prevDaySummary: [
-                    NO_API_KEY_SUMMARY,
-                    yesterday.toDateString(),
-                ],
+                prevDaySummary: [NO_API_KEY_SUMMARY, yesterday.toDateString()],
             });
             return false;
         }
@@ -291,13 +297,10 @@ function dailyRecap() {
             return false;
         }
         yield chrome.storage.local.set({ summaryLock: new Date().getTime() });
-        const summary = yield prevDaySummary(simplifiedItems, authKey, yesterday);
+        const summary = yield prevDaySummary(summaryText, authKey, yesterday);
         if (summary === "") {
             yield chrome.storage.local.set({
-                prevDaySummary: [
-                    API_CALL_FAILED_SUMMARY,
-                    yesterday.toDateString(),
-                ],
+                prevDaySummary: [API_CALL_FAILED_SUMMARY, yesterday.toDateString()],
             });
             return false;
         }
@@ -316,12 +319,13 @@ function prevDaySummary(history, authKey, date) {
                     {
                         role: "user",
                         content: `
-          ${JSON.stringify(history)}
+          ${history}
           This is the browser history in a certain time period. Summarize this into a simple 7-8 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for the previous day and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you"
         `,
                     },
                 ],
             };
+            console.log(requestBody.messages[0].content);
             const timeoutPromise = new Promise((resolve, reject) => {
                 setTimeout(() => {
                     const timeoutError = new Error("API call timeout");
@@ -413,16 +417,23 @@ function hourlyRecap(hourlyTime) {
             text: "",
             startTime: hourAgo,
             endTime: today,
-            maxResults: 100,
+            maxResults: 1000,
         });
-        const simplifiedItems = [];
+        const historySummary = {};
         historyItems.forEach(function (historyItem) {
-            const { url, lastVisitTime } = historyItem;
-            const simplifiedItem = {
-                url: url,
-                lastVisitTime: lastVisitTime,
-            };
-            simplifiedItems.push(simplifiedItem);
+            const { url } = historyItem;
+            const domain = new URL(url).hostname;
+            if (historySummary[domain]) {
+                historySummary[domain]++;
+            }
+            else {
+                historySummary[domain] = 1;
+            }
+        });
+        const sortedSummary = Object.entries(historySummary).sort((a, b) => b[1] - a[1]);
+        let summaryText = "Last hour's browsing history summary:\n";
+        sortedSummary.forEach(([domain, count]) => {
+            summaryText += `${domain}: ${count} visits\n`;
         });
         const authKey = (_a = (yield chrome.storage.local.get("authKey"))) === null || _a === void 0 ? void 0 : _a.authKey; // api key
         if (!authKey) {
@@ -440,7 +451,7 @@ function hourlyRecap(hourlyTime) {
             return false;
         }
         yield chrome.storage.local.set({ summaryLock: new Date().getTime() });
-        const summary = yield prevHourSummary(simplifiedItems, authKey, today);
+        const summary = yield prevHourSummary(summaryText, authKey, today);
         if (summary === "") {
             yield chrome.storage.local.set({
                 prevHourSummary: [
@@ -465,7 +476,7 @@ function prevHourSummary(history, authKey, date) {
                     {
                         role: "user",
                         content: `
-            ${JSON.stringify(history)}
+            ${history}
             This is the browser history in a certain time period. Summarize this into a simple 4 or 5 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for one hour and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you"
           `,
                     },
@@ -957,6 +968,8 @@ chrome.alarms.onAlarm.addListener((alarm) => background_awaiter(void 0, void 0, 
     }
     if (alarm.name === "updateFocusMode") {
         yield chrome.storage.local.set({ enableSuperFocusMode: false });
+        yield chrome.storage.local.remove("focusModeEndTime");
+        yield chrome.storage.local.remove("focusModeDuration");
     }
 }));
 checkAlarm();

@@ -30,8 +30,7 @@ export class ProactiveTimer {
       if (typeof res.enableDistractingSiteTimer !== "boolean") {
         await chrome.storage.local.set({ enableDistractingSiteTimer: false });
         return;
-      }
-      else if(!res.enableDistractingSiteTimer) {
+      } else if (!res.enableDistractingSiteTimer) {
         return;
       }
       const websites: TaggedURL[] = res.taggedURLs;
@@ -53,6 +52,11 @@ export class ProactiveTimer {
         maxTimes[url] = "20";
         await chrome.storage.local.set({ maxTimes: maxTimes });
       }
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(1);
+        }, 2000);
+      }); // sleep for 2 seconds
       insertTimer();
     });
   }

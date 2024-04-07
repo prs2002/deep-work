@@ -8,7 +8,7 @@ interface ToggleButtonWithConfirmProps {
   phrase: string;
   textWarning: ReactNode;
   opposite?: boolean;
-  callback?: (type: string) => void;
+  callback?: (type: string) => Promise<void>;
 }
 
 export default function ToggleButtonWithConfirm({
@@ -38,8 +38,8 @@ export default function ToggleButtonWithConfirm({
     }
   };
 
-  const handleToggle = () => {
-    callback && callback(isOn ? "disable" : "enable"); // callback is optional, used to set / clear alarms
+  const handleToggle = async () => {
+    if (callback) await callback(isOn ? "disable" : "enable"); // callback is optional, used to set / clear alarms
     setIsOn((prev) => !prev);
     chrome.storage.local.set({ [storeKey]: !isOn });
   };

@@ -1,4 +1,7 @@
-import { API_CALL_FAILED_SUMMARY, NO_API_KEY_SUMMARY } from "../CONSTANTS/texts";
+import {
+  API_CALL_FAILED_SUMMARY,
+  NO_API_KEY_SUMMARY,
+} from "../CONSTANTS/texts";
 import { estimatedCost } from "./EstimatedCost";
 
 export async function dailyRecap(): Promise<boolean> {
@@ -11,29 +14,38 @@ export async function dailyRecap(): Promise<boolean> {
     text: "",
     startTime: startTime,
     endTime: endTime,
-    maxResults: 100,
+    maxResults: 1000,
   });
-  const simplifiedItems: any[] = [];
+  const historySummary: {
+    [key: string]: number;
+  } = {};
 
   historyItems.forEach(function (historyItem) {
-    const { url, lastVisitTime } = historyItem;
+    const { url } = historyItem;
+    const domain = new URL(url!).hostname;
 
-    const simplifiedItem = {
-      url: url,
-      lastVisitTime: lastVisitTime,
-    };
-
-    simplifiedItems.push(simplifiedItem);
+    // Aggregate similar URLs
+    if (historySummary[domain]) {
+      historySummary[domain]++;
+    } else {
+      historySummary[domain] = 1;
+    }
   });
 
+  // Sort and display summary
+  const sortedSummary = Object.entries(historySummary).sort(
+    (a, b) => b[1] - a[1]
+  );
+
+  let summaryText = "Yesterday's browsing history summary:\n";
+  sortedSummary.forEach(([domain, count]) => {
+    summaryText += `${domain}: ${count} visits\n`;
+  });
 
   const authKey = (await chrome.storage.local.get("authKey"))?.authKey; // api key
   if (!authKey) {
     await chrome.storage.local.set({
-      prevDaySummary: [
-        NO_API_KEY_SUMMARY,
-        yesterday.toDateString(),
-      ],
+      prevDaySummary: [NO_API_KEY_SUMMARY, yesterday.toDateString()],
     });
     return false;
   }
@@ -44,14 +56,11 @@ export async function dailyRecap(): Promise<boolean> {
   }
   await chrome.storage.local.set({ summaryLock: new Date().getTime() });
 
-  const summary = await prevDaySummary(simplifiedItems, authKey, yesterday);
+  const summary = await prevDaySummary(summaryText, authKey, yesterday);
 
   if (summary === "") {
     await chrome.storage.local.set({
-      prevDaySummary: [
-        API_CALL_FAILED_SUMMARY,
-        yesterday.toDateString(),
-      ],
+      prevDaySummary: [API_CALL_FAILED_SUMMARY, yesterday.toDateString()],
     });
     return false;
   }
@@ -63,7 +72,7 @@ export async function dailyRecap(): Promise<boolean> {
 }
 
 async function prevDaySummary(
-  history: any[],
+  history: string,
   authKey: any,
   date: Date
 ): Promise<String> {
@@ -74,13 +83,15 @@ async function prevDaySummary(
         {
           role: "user",
           content: `
-          ${JSON.stringify(history)}
+          ${history}
           This is the browser history in a certain time period. Summarize this into a simple 7-8 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for the previous day and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you"
         `,
         },
       ],
     };
 
+    console.log(requestBody.messages[0].content);
+    
     const timeoutPromise = new Promise<Response>((resolve, reject) => {
       setTimeout(() => {
         const timeoutError = new Error("API call timeout");

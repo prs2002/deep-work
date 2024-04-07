@@ -48,19 +48,30 @@ export async function hourlyRecap(
     text: "",
     startTime: hourAgo,
     endTime: today,
-    maxResults: 100,
+    maxResults: 1000,
   });
-  const simplifiedItems: any[] = [];
+  const historySummary: {
+    [key: string]: number;
+  } = {};
 
   historyItems.forEach(function (historyItem) {
-    const { url, lastVisitTime } = historyItem;
+    const { url } = historyItem;
+    const domain = new URL(url!).hostname;
 
-    const simplifiedItem = {
-      url: url,
-      lastVisitTime: lastVisitTime,
-    };
+    if (historySummary[domain]) {
+      historySummary[domain]++;
+    } else {
+      historySummary[domain] = 1;
+    }
+  });
 
-    simplifiedItems.push(simplifiedItem);
+  const sortedSummary = Object.entries(historySummary).sort(
+    (a, b) => b[1] - a[1]
+  );
+
+  let summaryText = "Last hour's browsing history summary:\n";
+  sortedSummary.forEach(([domain, count]) => {
+    summaryText += `${domain}: ${count} visits\n`;
   });
   const authKey = (await chrome.storage.local.get("authKey"))?.authKey; // api key
   if (!authKey) {
@@ -79,7 +90,7 @@ export async function hourlyRecap(
   }
   await chrome.storage.local.set({ summaryLock: new Date().getTime() });
 
-  const summary = await prevHourSummary(simplifiedItems, authKey, today);
+  const summary = await prevHourSummary(summaryText, authKey, today);
 
   if (summary === "") {
     await chrome.storage.local.set({
@@ -98,7 +109,7 @@ export async function hourlyRecap(
 }
 
 async function prevHourSummary(
-  history: any[],
+  history: string,
   authKey: any,
   date: number
 ): Promise<String> {
@@ -109,7 +120,7 @@ async function prevHourSummary(
         {
           role: "user",
           content: `
-            ${JSON.stringify(history)}
+            ${history}
             This is the browser history in a certain time period. Summarize this into a simple 4 or 5 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for one hour and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you"
           `,
         },

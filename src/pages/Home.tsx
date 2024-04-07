@@ -13,6 +13,7 @@ import { TaggedTimeURL } from "../types/TaggedTimeUrl";
 import { getTaggedTime } from "../utils/queryStorage/GetTaggedTime";
 import HourlySummaryBox from "../components/HourlySummaryBox";
 import DailySummaryBox from "../components/DailySummaryBox";
+import SuperFocusMode from "../components/SuperFocusMode";
 
 interface HomeProps {
   isFocused: boolean;
@@ -111,6 +112,8 @@ export default function Home({ isFocused, setIsFocused }: HomeProps) {
           websites={websites}
           totalTime={totalTime}
         ></UsageBreakdown>
+        <div className="home_page__usage__line"></div>
+        <SuperFocusMode></SuperFocusMode>
         <div className="home_page__usage__line"></div>
         <HourlySummaryBox></HourlySummaryBox>
         <div className="home_page__usage__line"></div>

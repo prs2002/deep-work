@@ -132,7 +132,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#hourly_summary,#hourly_summary *{all:
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `#recenter_timer{z-index:9999999;border-radius:60px;position:fixed;bottom:20px;right:20px;max-width:164px;min-width:164px;display:flex;background:#ff3b20;padding:15px 14px;display:flex;align-items:center;gap:14px}#recenter_timer__logo{display:flex;align-items:center;justify-content:center}#recenter_timer__logo *{color:#b70000;font-size:28px}#recenter_timer__time{font-family:Inter;font-size:28px;font-weight:700;line-height:34px;color:#fff}`, ""]);
+___CSS_LOADER_EXPORT___.push([module.id, `#recenter_timer{z-index:9999999;border-radius:60px;position:fixed;top:20px;right:30px;min-width:164px;background:#ff3b20;padding:15px 14px;display:flex;align-items:center;gap:14px}#recenter_timer__logo{display:flex;align-items:center;justify-content:center}#recenter_timer__logo *{color:#b70000;font-size:28px}#recenter_timer__time{font-family:Inter;font-size:28px;font-weight:700;line-height:34px;color:#fff}#recenter_timer.jiggle{animation:jiggle .5s ease-in-out}@keyframes jiggle{0%{transform:rotate(0)}20%{transform:rotate(-10deg)}40%{transform:rotate(10deg)}60%{transform:rotate(-10deg)}80%{transform:rotate(10deg)}100%{transform:rotate(0)}}`, ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -8274,13 +8274,23 @@ var Timer_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _ar
 
 function Timer_Timer() {
     const [remainingTime, setRemainingTime] = (0,react.useState)(0);
+    const [jiggle, setJiggle] = (0,react.useState)(false);
     (0,react.useEffect)(() => {
         const timer = setInterval(() => Timer_awaiter(this, void 0, void 0, function* () {
             const remainingTime = yield handleBlocking();
             if (remainingTime !== undefined)
                 setRemainingTime(remainingTime / 1000);
         }), 1000);
-        return () => clearInterval(timer);
+        const jiggleTimer = setInterval(() => {
+            setJiggle(true);
+            setTimeout(() => {
+                setJiggle(false);
+            }, 1000);
+        }, 60000);
+        return () => {
+            clearInterval(timer);
+            clearInterval(jiggleTimer);
+        };
     }, []);
     function secondsToTime(time) {
         const minutes = Math.floor(time / 60);
@@ -8289,7 +8299,7 @@ function Timer_Timer() {
         const secondsStr = String(seconds).padStart(2, "0");
         return `${minutesStr} : ${secondsStr}`;
     }
-    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "recenter_timer" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "recenter_timer__logo" }, { children: (0,jsx_runtime.jsx)(FaRegClock, {}) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "recenter_timer__time" }, { children: secondsToTime(remainingTime) }))] })));
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "recenter_timer", className: jiggle ? "jiggle" : "" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "recenter_timer__logo" }, { children: (0,jsx_runtime.jsx)(FaRegClock, {}) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "recenter_timer__time" }, { children: secondsToTime(remainingTime) }))] })));
 }
 function insertTimer() {
     if (document.getElementById("recenter_container__timer") !== null) {
@@ -8371,6 +8381,11 @@ class ProactiveTimer {
                 maxTimes[url] = "20";
                 yield chrome.storage.local.set({ maxTimes: maxTimes });
             }
+            yield new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(1);
+                }, 2000);
+            }); // sleep for 2 seconds
             insertTimer();
         }));
     }
@@ -8501,7 +8516,7 @@ chrome.storage.local.get("enableSuperFocusMode", (res) => {
     if (isBlocking) {
         getTag(document.location.origin).then((res) => {
             if (res === 3) {
-                chrome.runtime.sendMessage({ redirect: "blocked.html" });
+                chrome.runtime.sendMessage({ redirect: "superfocus.html" });
             }
         });
     }

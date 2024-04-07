@@ -1,0 +1,142 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  margin-top: 46px;
+  &__logo {
+    & img {
+      width: 34px;
+      aspect-ratio: 1/1;
+    }
+  }
+
+  &__title {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+
+.main_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - 100px);
+  &__title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__text {
+      font-family: Inter;
+      font-size: 64px;
+      font-weight: 700;
+
+      &:first-of-type {
+        color: #2087ff;
+
+        & img {
+          width: 71px;
+          aspect-ratio: 1/1;
+          transform: scaleX(-1);
+        }
+      }
+    }
+  }
+
+  &__text {
+    font-family: Inter;
+    font-size: 23px;
+    font-weight: 400;
+    margin-top: 30px;
+    width: 40%;
+    text-align: center;
+  }
+
+  &__buttons {
+    margin-top: 25px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &__text {
+      font-family: Inter;
+      font-size: 23px;
+      font-weight: 400;
+      text-align: center;
+    }
+
+    &__container {
+      display: flex;
+      width: 100%;
+      gap: 12px;
+      margin-top: 28px;
+
+      &__button {
+        width: 267px;
+        height: 42px;
+        border-radius: 38px;
+        border: none;
+        font-family: Inter;
+        font-size: 16px;
+        font-weight: 400;
+        background: #2087ff;
+        color: white;
+        cursor: pointer;
+
+        &:first-of-type {
+          border: 1px solid #2087ff;
+          background-color: transparent;
+          color: #2087ff;
+        }
+      }
+    }
+  }
+
+  &__timer {
+    margin-top: auto;
+    font-family: Inter;
+    font-size: 23px;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 30px;
+
+    &__time_remaining {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      &__timer {
+        margin-top: 10px;
+        background-color: black;
+        border-radius: 60px;
+        color: white;
+        width: fit-content;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5em;
+        font-family: Inter;
+        font-size: 28px;
+        font-weight: 700;
+
+        & i {
+          color: #2087ff;
+        }
+      }
+    }
+  }
+}
