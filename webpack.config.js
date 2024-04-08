@@ -10,7 +10,6 @@ module.exports = [
       index: "./src/index.tsx",
       background: "./src/background.ts",
       content: "./src/content.ts",
-      bundle: "./src/html/src/index.tsx",
       superfocus: "./src/html/superfocus.ts",
     },
     mode: "production",

@@ -6,7 +6,7 @@ import Greetings from "./Greetings";
 import DailySummary from "./DailySummary";
 import useToggle from "../../hooks/useToggle";
 import { SUMMARY_NO_DATA } from "../CONSTANTS/texts";
-// import "../../images/recenter_logo.png";
+import "../../images/gifs/3.gif";
 
 function DailyPopup() {
   const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
