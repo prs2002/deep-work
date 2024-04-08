@@ -60,19 +60,19 @@ export default function DailySummaryBox() {
           totalTime) *
           100;
       setFocusRate(focusRate);
-      setTotalTime(totalTime / 100);
+      setTotalTime(totalTime);
     }
     getProductivity();
   }, []);
   const timeSummary = [
     {
       label: "Productive",
-      value: msToHM(totalTime * focusRate),
+      value: msToHM(totalTime * focusRate / 100),
       color: "blue",
     },
     {
       label: "Distracted",
-      value: msToHM(totalTime * (100 - focusRate)),
+      value: msToHM(totalTime * (100 - focusRate) / 100),
       color: "red",
     },
     { label: "Total", value: msToHM(totalTime), color: "black" },

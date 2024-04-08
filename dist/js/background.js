@@ -939,7 +939,7 @@ function loadData() {
 }
 chrome.runtime.onInstalled.addListener((reason) => {
     if (reason.reason === "install") {
-        chrome.tabs.create({ url: chrome.runtime.getURL("landing.html") });
+        chrome.tabs.create({ url: "https://recenter.netlify.app/" });
     }
 });
 function checkAlarm() {

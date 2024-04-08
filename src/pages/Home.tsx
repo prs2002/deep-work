@@ -22,6 +22,13 @@ interface HomeProps {
 
 export default function Home({ isFocused, setIsFocused }: HomeProps) {
   const [filter, setFilter] = useState("dailyTime");
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+
+  const disabledMessage = {
+    line1: "The extension is disabled",
+    line2: "Please enable it to monitor",
+  };
+
   const focusMessage = [
     { line1: "Stay focused today!", line2: "Keep trying harder!" },
     { line1: "You're on track!", line2: "Stay in the zone!" },
@@ -61,6 +68,11 @@ export default function Home({ isFocused, setIsFocused }: HomeProps) {
       totalTime) *
       100;
   useEffect(() => {
+    chrome.storage.local.get("isDisabled", (data) => {
+      if (typeof data.isDisabled === "boolean") {
+        setIsDisabled(data.isDisabled);
+      }
+    });
     const isFocused = focusRate >= 50;
     setIsFocused(isFocused);
   }, [totalTime, websites, setIsFocused, focusRate]);
@@ -84,13 +96,27 @@ export default function Home({ isFocused, setIsFocused }: HomeProps) {
 
   return (
     <div className="home_page">
+      {isDisabled && <div className="home_page__disabled"></div>}
       <div className="home_page__menu">
         <MenuOptions isFocused={isFocused}></MenuOptions>
       </div>
       <div className="home_page__header">
         <h3>Welcome Back</h3>
-        <h1>{focusMessage[Math.floor(Math.min(focusRate, 99) / 10)].line1}</h1>
-        <h1>{focusMessage[Math.floor(Math.min(focusRate, 99) / 10)].line2}</h1>
+        {isDisabled ? (
+          <>
+            <h1>{disabledMessage.line1}</h1>
+            <h1>{disabledMessage.line2}</h1>
+          </>
+        ) : (
+          <>
+            <h1>
+              {focusMessage[Math.floor(Math.min(focusRate, 99) / 10)].line1}
+            </h1>
+            <h1>
+              {focusMessage[Math.floor(Math.min(focusRate, 99) / 10)].line2}
+            </h1>
+          </>
+        )}
       </div>
       <div className="home_page__boxes">
         <FocusRateBox

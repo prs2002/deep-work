@@ -10,6 +10,7 @@ import AuthKeyBox from "../components/AuthKeyBox";
 import { AlertTimerBox } from "../components/AlertTimerBox";
 import { useLocation } from "react-router-dom";
 import ProactiveOptionsBox from "../components/ProactiveOptionsBox";
+import { MaxTimerBox } from "../components/MaxTimerBox";
 
 interface ConfigureProps {
   isFocused: boolean;
@@ -56,6 +57,7 @@ export default function Configure({ isFocused }: ConfigureProps) {
             <ProactiveOptionsBox></ProactiveOptionsBox>
             <AuthKeyBox></AuthKeyBox>
             <AlertTimerBox></AlertTimerBox>
+            <MaxTimerBox></MaxTimerBox>
           </>
         )}
       </div>

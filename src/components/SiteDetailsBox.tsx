@@ -251,10 +251,12 @@ export default function SiteDetailsBox({
       return;
     }
     if (activeOption.id !== "1") await updateAlertParameters();
-    const prevMaxTimes =
-      (await chrome.storage.local.get("maxTimes")).maxTimes || {};
-    prevMaxTimes[website] = maxTime;
-    await chrome.storage.local.set({ maxTimes: prevMaxTimes });
+    if (activeOption.id === "3") {
+      const prevMaxTimes =
+        (await chrome.storage.local.get("maxTimes")).maxTimes || {};
+      prevMaxTimes[website] = maxTime;
+      await chrome.storage.local.set({ maxTimes: prevMaxTimes });
+    }
     await updateWebsitesInStorage([
       {
         id: website,

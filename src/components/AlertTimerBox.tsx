@@ -80,6 +80,10 @@ export const AlertTimerBox = () => {
   }
 
   function handleSaveTime() {
+    if(activeOption.id === "0") {
+      alert("Please select an option");
+      return;
+    }
     if (
       isNaN(Number(violations)) ||
       violations === "" ||
