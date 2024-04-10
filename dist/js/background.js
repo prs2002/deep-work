@@ -2,6 +2,18 @@
 /******/ 	"use strict";
 var __webpack_exports__ = {};
 
+;// CONCATENATED MODULE: ./src/utils/CONSTANTS/ChatGPT.ts
+// ChatGPT CONSTANTS
+const baseUrl = "https://api.openai.com/v1";
+const model = "gpt-3.5-turbo-0125";
+const costPer1000Token_INPUT = 0.0005;
+const costPer1000Token_OUTPUT = 0.0015;
+// Anyscale CONSTANTS
+// export const baseUrl = "https://api.endpoints.anyscale.com/v1";
+// export const model = "mistralai/Mistral-7B-Instruct-v0.1";
+// export const costPer1000Token_INPUT = 0.00015;
+// export const costPer1000Token_OUTPUT = 0.00015;
+
 ;// CONCATENATED MODULE: ./src/utils/queryStorage/UpdateWebsitesInStorage.ts
 /*
 Function to update websites in storage
@@ -54,6 +66,7 @@ var EstimatedCost_awaiter = (undefined && undefined.__awaiter) || function (this
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 function estimatedCost(inputToken, outputToken, purpose) {
     var _a;
     return EstimatedCost_awaiter(this, void 0, void 0, function* () {
@@ -71,8 +84,8 @@ function estimatedCost(inputToken, outputToken, purpose) {
                 daily: { day: "", usage: [] },
             };
         }
-        const inputCost = 0.0005 / 1000;
-        const outputCost = 0.0015 / 1000;
+        const inputCost = costPer1000Token_INPUT / 1000;
+        const outputCost = costPer1000Token_OUTPUT / 1000;
         let usage = 0;
         usage += inputCost * inputToken;
         usage += outputCost * outputToken;
@@ -116,6 +129,7 @@ var AITagging_awaiter = (undefined && undefined.__awaiter) || function (thisArg,
 };
 
 
+
 function pushToArray(classification, taggedWebsites, website) {
     let tag = 0;
     if (classification === "productive") {
@@ -133,12 +147,12 @@ function apiCall(website, authKey) {
     return AITagging_awaiter(this, void 0, void 0, function* () {
         try {
             const requestBody = {
-                model: "gpt-3.5-turbo-0125",
+                model: model,
                 response_format: { type: "json_object" },
                 messages: [
                     {
                         role: "user",
-                        content: `Tag the given site as wasteful, productive, or unsure depending on whether it is something that helps in work or is used to kill time. Your output should be a JSON object containing the classification, the URL. For example, if the website is Netflix.com and the description is your response might be: {'CLASSIFICATION': 'Wasteful', 'URL': 'netflix.com'}. Now, classify ${website}
+                        content: `Tag the given site as wasteful, productive, or unsure depending on whether it is something that helps in work or is used to kill time. Your output should be a json object containing the classification, the URL. For example, if the website is Netflix.com and the description is your response might be: {'CLASSIFICATION': 'Wasteful', 'URL': 'netflix.com'}. Now, classify ${website}
       `,
                     },
                 ],
@@ -154,7 +168,7 @@ function apiCall(website, authKey) {
                     reject(timeoutResponse);
                 }, 30000);
             });
-            const fetchPromise = fetch("https://api.openai.com/v1/chat/completions", {
+            const fetchPromise = fetch(`${baseUrl}/chat/completions`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -241,6 +255,27 @@ const GREETING_TEXT__DARK_2 = "With a Pinch of Focus";
 const GREETING_RECAP = "Quick Recap From Yesterday";
 const NO_FUNNY_LINES = "Feeling Distracted?";
 
+;// CONCATENATED MODULE: ./src/utils/scripts/mmToHM.ts
+function msToHM(ms) {
+    // 1- Convert to seconds:
+    let seconds = Math.floor(ms / 1000);
+    // 2- Extract hours:
+    const hours = Math.floor(seconds / 3600); // 3,600 seconds in 1 hour
+    seconds = seconds % 3600; // seconds remaining after extracting hours
+    // 3- Extract minutes:
+    const minutes = Math.floor(seconds / 60); // 60 seconds in 1 minute
+    if (hours === 0 && minutes === 0) {
+        return "<0m";
+    }
+    if (hours === 0) {
+        return `${minutes}m`;
+    }
+    if (minutes === 0) {
+        return `${hours}h`;
+    }
+    return `${hours}h ${minutes}m`;
+}
+
 ;// CONCATENATED MODULE: ./src/utils/chatGPT/DailyRecap.ts
 var DailyRecap_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -253,6 +288,26 @@ var DailyRecap_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 };
 
 
+
+
+function organizeHistoryByBaseUrl(history) {
+    return DailyRecap_awaiter(this, void 0, void 0, function* () {
+        const organizedHistory = {};
+        const times = (yield chrome.storage.local.get("yesterdayTime")).yesterdayTime || [];
+        history.forEach((entry) => {
+            var _a;
+            const url = entry.url;
+            const baseUrl = new URL(url).origin;
+            if (!organizedHistory[baseUrl]) {
+                const time = ((_a = times.find((x) => x.url === baseUrl)) === null || _a === void 0 ? void 0 : _a.time) || 0;
+                organizedHistory[baseUrl] = { Explored: [], totalTime: msToHM(time) };
+            }
+            if (!organizedHistory[baseUrl]["Explored"].includes(entry.title))
+                organizedHistory[baseUrl]["Explored"].push(entry.title);
+        });
+        return organizedHistory;
+    });
+}
 function dailyRecap() {
     var _a;
     return DailyRecap_awaiter(this, void 0, void 0, function* () {
@@ -266,24 +321,7 @@ function dailyRecap() {
             endTime: endTime,
             maxResults: 1000,
         });
-        const historySummary = {};
-        historyItems.forEach(function (historyItem) {
-            const { url } = historyItem;
-            const domain = new URL(url).hostname;
-            // Aggregate similar URLs
-            if (historySummary[domain]) {
-                historySummary[domain]++;
-            }
-            else {
-                historySummary[domain] = 1;
-            }
-        });
-        // Sort and display summary
-        const sortedSummary = Object.entries(historySummary).sort((a, b) => b[1] - a[1]);
-        let summaryText = "Yesterday's browsing history summary:\n";
-        sortedSummary.forEach(([domain, count]) => {
-            summaryText += `${domain}: ${count} visits\n`;
-        });
+        const organizedHistory = yield organizeHistoryByBaseUrl(historyItems);
         const authKey = (_a = (yield chrome.storage.local.get("authKey"))) === null || _a === void 0 ? void 0 : _a.authKey; // api key
         if (!authKey) {
             yield chrome.storage.local.set({
@@ -297,7 +335,7 @@ function dailyRecap() {
             return false;
         }
         yield chrome.storage.local.set({ summaryLock: new Date().getTime() });
-        const summary = yield prevDaySummary(summaryText, authKey, yesterday);
+        const summary = yield prevDaySummary(organizedHistory, authKey, yesterday);
         if (summary === "") {
             yield chrome.storage.local.set({
                 prevDaySummary: [API_CALL_FAILED_SUMMARY, yesterday.toDateString()],
@@ -314,12 +352,12 @@ function prevDaySummary(history, authKey, date) {
     return DailyRecap_awaiter(this, void 0, void 0, function* () {
         try {
             const requestBody = {
-                model: "gpt-3.5-turbo-0125",
+                model: model,
                 messages: [
                     {
                         role: "user",
                         content: `
-          ${history}
+          ${JSON.stringify(history)}
           This is the browser history in a certain time period. Summarize this into a simple 7-8 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for the previous day and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you"
         `,
                     },
@@ -337,7 +375,7 @@ function prevDaySummary(history, authKey, date) {
                     reject(timeoutResponse);
                 }, 30000);
             });
-            const fetchPromise = fetch("https://api.openai.com/v1/chat/completions", {
+            const fetchPromise = fetch(`${baseUrl}/chat/completions`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -375,6 +413,26 @@ var HourlyRecap_awaiter = (undefined && undefined.__awaiter) || function (thisAr
 };
 
 
+
+
+function HourlyRecap_organizeHistoryByBaseUrl(history) {
+    return HourlyRecap_awaiter(this, void 0, void 0, function* () {
+        const organizedHistory = {};
+        const times = (yield chrome.storage.local.get("yesterdayTime")).yesterdayTime || [];
+        history.forEach((entry) => {
+            var _a;
+            const url = entry.url;
+            const baseUrl = new URL(url).origin;
+            if (!organizedHistory[baseUrl]) {
+                const time = ((_a = times.find((x) => x.url === baseUrl)) === null || _a === void 0 ? void 0 : _a.time) || 0;
+                organizedHistory[baseUrl] = { Explored: [], totalTime: msToHM(time) };
+            }
+            if (!organizedHistory[baseUrl]["Explored"].includes(entry.title))
+                organizedHistory[baseUrl]["Explored"].push(entry.title);
+        });
+        return organizedHistory;
+    });
+}
 function hourlyRecap(hourlyTime) {
     var _a;
     return HourlyRecap_awaiter(this, void 0, void 0, function* () {
@@ -419,22 +477,7 @@ function hourlyRecap(hourlyTime) {
             endTime: today,
             maxResults: 1000,
         });
-        const historySummary = {};
-        historyItems.forEach(function (historyItem) {
-            const { url } = historyItem;
-            const domain = new URL(url).hostname;
-            if (historySummary[domain]) {
-                historySummary[domain]++;
-            }
-            else {
-                historySummary[domain] = 1;
-            }
-        });
-        const sortedSummary = Object.entries(historySummary).sort((a, b) => b[1] - a[1]);
-        let summaryText = "Last hour's browsing history summary:\n";
-        sortedSummary.forEach(([domain, count]) => {
-            summaryText += `${domain}: ${count} visits\n`;
-        });
+        const organizedHistory = yield HourlyRecap_organizeHistoryByBaseUrl(historyItems);
         const authKey = (_a = (yield chrome.storage.local.get("authKey"))) === null || _a === void 0 ? void 0 : _a.authKey; // api key
         if (!authKey) {
             yield chrome.storage.local.set({
@@ -451,7 +494,7 @@ function hourlyRecap(hourlyTime) {
             return false;
         }
         yield chrome.storage.local.set({ summaryLock: new Date().getTime() });
-        const summary = yield prevHourSummary(summaryText, authKey, today);
+        const summary = yield prevHourSummary(organizedHistory, authKey, today);
         if (summary === "") {
             yield chrome.storage.local.set({
                 prevHourSummary: [
@@ -471,12 +514,12 @@ function prevHourSummary(history, authKey, date) {
     return HourlyRecap_awaiter(this, void 0, void 0, function* () {
         try {
             const requestBody = {
-                model: "gpt-3.5-turbo-0125",
+                model: model,
                 messages: [
                     {
                         role: "user",
                         content: `
-            ${history}
+            ${JSON.stringify(history)}
             This is the browser history in a certain time period. Summarize this into a simple 4 or 5 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for one hour and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you"
           `,
                     },
@@ -493,7 +536,7 @@ function prevHourSummary(history, authKey, date) {
                     reject(timeoutResponse);
                 }, 30000);
             });
-            const fetchPromise = fetch("https://api.openai.com/v1/chat/completions", {
+            const fetchPromise = fetch(`${baseUrl}/chat/completions`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -861,11 +904,12 @@ var background_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 
 let webTime;
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    var _a;
     if (request.redirect) {
         if (checkDisable()) {
             return;
         }
-        chrome.tabs.update(sender.tab.id, { url: request.redirect });
+        chrome.tabs.update(sender.tab.id, { url: request.redirect + `?from=${(_a = sender.tab) === null || _a === void 0 ? void 0 : _a.url}` });
     }
     else if (request.summarize === "prevDay") {
         dailyRecap()

@@ -11,6 +11,7 @@ module.exports = [
       background: "./src/background.ts",
       content: "./src/content.ts",
       superfocus: "./src/html/superfocus.ts",
+      blocked: "./src/html/blocked.ts",
     },
     mode: "production",
     optimization: {

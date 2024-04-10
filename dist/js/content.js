@@ -8284,10 +8284,9 @@ function handleBlocking() {
         const url = document.location.origin;
         const remainingTime = yield isTimeExceeded(url);
         if (remainingTime !== undefined && remainingTime[0] <= 0) {
-            const isBlocking = (yield chrome.storage.local.get("enableBlockDistractingSites"))
-                .enableBlockDistractingSites || true;
+            const isBlocking = (yield chrome.storage.local.get("enableBlockDistractingSites")).enableBlockDistractingSites;
             isBlocking && redirect();
-            return 0;
+            return remainingTime[1];
         }
         return remainingTime ? remainingTime[1] : undefined;
     });

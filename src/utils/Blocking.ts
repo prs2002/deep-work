@@ -23,11 +23,11 @@ export async function handleBlocking(): Promise<number | undefined> {
   const url = document.location.origin;
   const remainingTime = await isTimeExceeded(url);
   if (remainingTime !== undefined && remainingTime[0] <= 0) {
-    const isBlocking =
-      (await chrome.storage.local.get("enableBlockDistractingSites"))
-        .enableBlockDistractingSites || true;
+    const isBlocking = (
+      await chrome.storage.local.get("enableBlockDistractingSites")
+    ).enableBlockDistractingSites;
     isBlocking && redirect();
-    return 0;
+    return remainingTime[1];
   }
   return remainingTime ? remainingTime[1] : undefined;
 }

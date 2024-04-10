@@ -1,3 +1,5 @@
+import { costPer1000Token_INPUT, costPer1000Token_OUTPUT } from "../CONSTANTS/ChatGPT";
+
 export async function estimatedCost(
   inputToken: number,
   outputToken: number,
@@ -21,8 +23,8 @@ export async function estimatedCost(
     };
   }
 
-  const inputCost = 0.0005 / 1000;
-  const outputCost = 0.0015 / 1000;
+  const inputCost = costPer1000Token_INPUT / 1000;
+  const outputCost = costPer1000Token_OUTPUT / 1000;
   let usage = 0;
   usage += inputCost * inputToken;
   usage += outputCost * outputToken;

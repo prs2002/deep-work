@@ -1,3 +1,4 @@
+import { baseUrl, model } from "../CONSTANTS/ChatGPT";
 import { updateWebsitesInStorage } from "../queryStorage/UpdateWebsitesInStorage";
 import { estimatedCost } from "./EstimatedCost";
 
@@ -31,12 +32,12 @@ function pushToArray(
 async function apiCall(website: string, authKey: any) {
   try {
     const requestBody = {
-      model: "gpt-3.5-turbo-0125",
+      model: model,
       response_format: { type: "json_object" },
       messages: [
         {
           role: "user",
-          content: `Tag the given site as wasteful, productive, or unsure depending on whether it is something that helps in work or is used to kill time. Your output should be a JSON object containing the classification, the URL. For example, if the website is Netflix.com and the description is your response might be: {'CLASSIFICATION': 'Wasteful', 'URL': 'netflix.com'}. Now, classify ${website}
+          content: `Tag the given site as wasteful, productive, or unsure depending on whether it is something that helps in work or is used to kill time. Your output should be a json object containing the classification, the URL. For example, if the website is Netflix.com and the description is your response might be: {'CLASSIFICATION': 'Wasteful', 'URL': 'netflix.com'}. Now, classify ${website}
       `,
         },
       ],
@@ -55,7 +56,7 @@ async function apiCall(website: string, authKey: any) {
         reject(timeoutResponse);
       }, 30000);
     });
-    const fetchPromise = fetch("https://api.openai.com/v1/chat/completions", {
+    const fetchPromise = fetch(`${baseUrl}/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

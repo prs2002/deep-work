@@ -2,14 +2,11 @@
     Monitor user activity and store the time spent on websites
 */
 
+import { WebsiteTime } from "../../types/WebsiteTime";
 import { hourlyRecap } from "../chatGPT/HourlyRecap";
 import { getTaggedTime } from "../queryStorage/GetTaggedTime";
 import { setBadgeText } from "../scripts/setBadgeText";
 
-interface WebsiteTime {
-  url: string;
-  time: number;
-}
 
 interface Website {
   id: string;

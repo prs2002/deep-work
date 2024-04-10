@@ -9,7 +9,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (checkDisable()) {
       return;
     }
-    chrome.tabs.update(sender.tab!.id!, { url: request.redirect });
+    chrome.tabs.update(sender.tab!.id!, { url: request.redirect + `?from=${sender.tab?.url}` });
   } else if (request.summarize === "prevDay") {
     dailyRecap()
       .then(function (result) {

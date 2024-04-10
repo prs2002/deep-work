@@ -1,14 +1,15 @@
 // Code to verify the API key and store it in the local storage
 
 import axios from "axios";
+import { baseUrl, model } from "../CONSTANTS/ChatGPT";
 
 export async function verifyAPIKey(authKey: string) : Promise<number> {
   try {
     await chrome.storage.local.remove("authKey");
     const res = await axios.post(
-      "https://api.openai.com/v1/chat/completions",
+      `${baseUrl}/chat/completions`,
       {
-        model: "gpt-3.5-turbo",
+        model: model,
         messages: [
           {
             role: "system",

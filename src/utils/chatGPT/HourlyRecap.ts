@@ -1,6 +1,34 @@
 import { TaggedTimeURL } from "../../types/TaggedTimeUrl";
+import { WebsiteTime } from "../../types/WebsiteTime";
+import { baseUrl, model } from "../CONSTANTS/ChatGPT";
 import { API_CALL_FAILED_SUMMARY, NO_API_KEY_SUMMARY, SUMMARY_TIME_TOO_SHORT } from "../CONSTANTS/texts";
+import { msToHM } from "../scripts/mmToHM";
 import { estimatedCost } from "./EstimatedCost";
+
+
+interface OrganizedHistory {
+  [key: string]: { Explored: string[]; totalTime: string };
+}
+
+async function organizeHistoryByBaseUrl(
+  history: chrome.history.HistoryItem[]
+): Promise<OrganizedHistory> {
+  const organizedHistory: OrganizedHistory = {};
+  const times : WebsiteTime[] = (await chrome.storage.local.get("yesterdayTime")).yesterdayTime || [];
+  history.forEach((entry) => {
+    const url = entry.url;
+    const baseUrl = new URL(url!).origin;
+
+    if (!organizedHistory[baseUrl]) {
+      const time = times.find((x : WebsiteTime) => x.url === baseUrl)?.time || 0;
+      organizedHistory[baseUrl] = { Explored: [], totalTime: msToHM(time) };
+    }
+    if (!organizedHistory[baseUrl]["Explored"].includes(entry.title!))
+      organizedHistory[baseUrl]["Explored"].push(entry.title!);
+  });
+
+  return organizedHistory;
+}
 
 export async function hourlyRecap(
   hourlyTime: TaggedTimeURL[] | undefined
@@ -50,29 +78,9 @@ export async function hourlyRecap(
     endTime: today,
     maxResults: 1000,
   });
-  const historySummary: {
-    [key: string]: number;
-  } = {};
 
-  historyItems.forEach(function (historyItem) {
-    const { url } = historyItem;
-    const domain = new URL(url!).hostname;
+  const organizedHistory = await organizeHistoryByBaseUrl(historyItems);
 
-    if (historySummary[domain]) {
-      historySummary[domain]++;
-    } else {
-      historySummary[domain] = 1;
-    }
-  });
-
-  const sortedSummary = Object.entries(historySummary).sort(
-    (a, b) => b[1] - a[1]
-  );
-
-  let summaryText = "Last hour's browsing history summary:\n";
-  sortedSummary.forEach(([domain, count]) => {
-    summaryText += `${domain}: ${count} visits\n`;
-  });
   const authKey = (await chrome.storage.local.get("authKey"))?.authKey; // api key
   if (!authKey) {
     await chrome.storage.local.set({
@@ -90,7 +98,7 @@ export async function hourlyRecap(
   }
   await chrome.storage.local.set({ summaryLock: new Date().getTime() });
 
-  const summary = await prevHourSummary(summaryText, authKey, today);
+  const summary = await prevHourSummary(organizedHistory, authKey, today);
 
   if (summary === "") {
     await chrome.storage.local.set({
@@ -109,18 +117,18 @@ export async function hourlyRecap(
 }
 
 async function prevHourSummary(
-  history: string,
+  history: OrganizedHistory,
   authKey: any,
   date: number
 ): Promise<String> {
   try {
     const requestBody = {
-      model: "gpt-3.5-turbo-0125",
+      model: model,
       messages: [
         {
           role: "user",
           content: `
-            ${history}
+            ${JSON.stringify(history)}
             This is the browser history in a certain time period. Summarize this into a simple 4 or 5 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for one hour and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you"
           `,
         },
@@ -141,7 +149,7 @@ async function prevHourSummary(
         reject(timeoutResponse);
       }, 30000);
     });
-    const fetchPromise = fetch("https://api.openai.com/v1/chat/completions", {
+    const fetchPromise = fetch(`${baseUrl}/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

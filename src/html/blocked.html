@@ -1,16 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Access Blocked</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<div class="container">
-  <h1>Access Blocked</h1>
-  <p>Sorry, your access to this page has been blocked because you have spent too much time on it, which could be considered as wasting time.</p>
-  <p>Please consider using your time more productively.</p>
-</div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Access Blocked</title>
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  </head>
+  <body>
+    <div class="topbar"></div>
+    <nav class="nav">
+      <div class="nav__logo">
+        <img src="./js/images/recenter_logo.png" alt="logo" />
+      </div>
+      <div class="nav__title">Recenter</div>
+    </nav>
+    <div class="main_content">
+      <div class="main_content__title">
+        <div class="main_content__title__text">
+          Recenter
+          <img src="./js/images/gifs/3.gif" alt="superfocus" />
+        </div>
+        <div class="main_content__title__text">wants you to focus!</div>
+      </div>
+      <div class="main_content__text">
+        Hey, you wont be able to see this now because you have exceeded the
+        daily allocated time for <strong id="sitename">SITENAME</strong>. You can change this in the
+        recenter's settings
+        <p>To exit, click the button below.</p>
+      </div>
+      <div class="main_content__buttons">
+        <div class="main_content__buttons__text">
+          But wait.. Are you sure you want to exit this?
+        </div>
+        <div class="main_content__buttons__container">
+          <button class="main_content__buttons__container__button" id="exit">
+            Disable blocking
+          </button>
+          <button class="main_content__buttons__container__button" id="work">
+            No, Let's Get Back to Work!
+          </button>
+        </div>
+      </div>
+  </body>
+  <script src="./js/blocked.js"></script>
+  <script src="./superfocus.css"></script>
 </html>
