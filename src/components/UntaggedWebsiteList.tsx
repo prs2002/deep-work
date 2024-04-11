@@ -4,6 +4,7 @@ import "./UntaggedWebsiteList.scss";
 import { updateWebsitesInStorage } from "../utils/queryStorage/UpdateWebsitesInStorage";
 import DropdownWithConfirm from "./DropdownWithConfirm";
 import { preprocessURL } from "../utils/scripts/PreprocessURL";
+import { CiCircleInfo } from "react-icons/ci";
 
 export default function UntaggedWebsiteList() {
   const dropdownOptions: DropdownOptions[] = [
@@ -111,7 +112,12 @@ export default function UntaggedWebsiteList() {
 
   return (
     <div className="untagged_website_list">
-      <div className="untagged_website_list__header">Untagged Sites</div>
+      <div className="untagged_website_list__header">
+        Untagged Sites{" "}
+        <CiCircleInfo title="Untagged websites are not
+yet untagged by GPT, users can 
+tag them manually." />
+      </div>
       <div className="untagged_website_list__outline">
         <div className="untagged_website_list__content">
           {untaggedWebsites.length ? displayWebsites() : "No untagged websites"}

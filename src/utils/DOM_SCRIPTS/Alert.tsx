@@ -23,7 +23,7 @@ function Alert({ updateViolations }: { updateViolations: any }) {
     const input = document.getElementById(
       "non_blocking_alert__more_content__phrase__input"
     ) as HTMLInputElement;
-    if (!input || input.value.toLowerCase() !== "maybe later") {
+    if (!input || input.value.toLowerCase() !== "let me browse") {
       return;
     }
     const root = document.getElementById("recenter_container");

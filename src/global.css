@@ -1,46 +1,64 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap");
 
 :root {
-    --background-color : #FFFFFF;
-    --primary-orange: #FF7020;
-    --secondary-orange: #FFC9AA;
-    --tertiary-orange: #CC4900;
-    --font-color : #202020;
-    --hero-grey: #F4F4F4;
-    --input-grey: #E2E2E2;
-    --placeholder-grey: #777777;
-    --wasteful-red: #FF2020;
-    --secondary-red: #FFAAAA;
-    --tertiary-red: #CC0000;
+  --background-color: #ffffff;
+  --primary-orange: #ff7020;
+  --secondary-orange: #ffc9aa;
+  --tertiary-orange: #cc4900;
+  --font-color: #202020;
+  --hero-grey: #f4f4f4;
+  --input-grey: #e2e2e2;
+  --placeholder-grey: #777777;
+  --wasteful-red: #ff2020;
+  --secondary-red: #ffaaaa;
+  --tertiary-red: #cc0000;
 
-    --blue: #2087FF;
-    --dark-blue: #0052BD;
-    --light-blue: #CBDFFE;
-    --grey: #F4F4F4;
-    --dark-grey: #E2E2E2;
-    --darker-grey: #777777;
-    --red:#FF3B20;
-    --light-red: #FFAAAA;
-    --orange: #FF6F1F;
-    --bad-focus: linear-gradient(180deg, #FFBDBD 0%, rgba(255, 255, 255, 0) 40.64%);
-    --good-focus: linear-gradient(180deg, #BDDDF7 0%, rgba(255, 255, 255, 0) 40.64%);
-
+  --blue: #2087ff;
+  --dark-blue: #0052bd;
+  --light-blue: #cbdffe;
+  --grey: #f4f4f4;
+  --dark-grey: #e2e2e2;
+  --darker-grey: #777777;
+  --red: #ff3b20;
+  --light-red: #ffaaaa;
+  --orange: #ff6f1f;
+  --bad-focus: linear-gradient(
+    180deg,
+    #ffbdbd 0%,
+    rgba(255, 255, 255, 0) 40.64%
+  );
+  --good-focus: linear-gradient(
+    180deg,
+    #bdddf7 0%,
+    rgba(255, 255, 255, 0) 40.64%
+  );
 }
-
-
 
 .container {
-    height: 100%;
-    width: 100%;
-  background: #F4F4F4;
+  width: 380px;
+  height: 440px;
+  background: #f4f4f4;
 }
 
+.container_2 {
+  width: 380px;
+  height: 100%;
+  background: #f4f4f4;
+}
+
+.container_2::-webkit-scrollbar {
+  display: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
 
 * {
-    margin: 0;
-    padding: 0;
-    font-family: Inter;
-    font-size: 12px;
-    font-weight: 400;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 400;
+  box-sizing: border-box;
 }

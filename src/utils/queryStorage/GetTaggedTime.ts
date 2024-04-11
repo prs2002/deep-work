@@ -2,12 +2,8 @@
 Function to get the time of the user on a website along with tag
 */
 
-interface TaggedTimeURL {
-  label: string;
-  value: string;
-  time: number;
-  tag: number;
-}
+import { TaggedTimeURL } from "../../types/TaggedTimeUrl";
+
 
 interface TaggedURL {
   website: string;
@@ -48,7 +44,7 @@ export async function getTaggedTime(
   )?.taggedURLs;
 
   const result: TaggedTimeURL[] = data.map((d) => {
-    return { label: d.url, time: d.time, tag: 0, value: msToHMS(d.time) };
+    return { url: d.url, time: d.time, tag: 0, value: msToHMS(d.time) };
   });
 
   if (type === "weeklyTime") {
@@ -74,7 +70,7 @@ export async function getTaggedTime(
   if (taggedData) {
     for (const d of result) {
       for (const tag of taggedData) {
-        if (tag.website === d.label) {
+        if (tag.website === d.url) {
           d.tag = tag.tag;
         }
       }

@@ -5,6 +5,7 @@ import "./AuthKeyBox.scss";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { verifyAPIKey } from "../utils/chatGPT/VerifyApiKey";
+import { CiCircleInfo } from "react-icons/ci";
 
 export default function AuthKeyBox() {
   const [authKey, setAuthKey] = useState<string>("");
@@ -33,15 +34,23 @@ export default function AuthKeyBox() {
 
   return (
     <div className="auth_key_box">
-      <div className="auth_key_box__header">Auth Key</div>
+      <div className="auth_key_box__header">
+        GPT API Key{" "}
+        <CiCircleInfo
+          title="For users who own GPT keys, 
+you can run Recenter
+with your own key."
+        ></CiCircleInfo>
+      </div>
       <div className="auth_key_box__outline">
         <div className="auth_key_box__content">
           <div className="auth_key_box__content__input">
             <Input
               input={authKey}
-              placeholder="Enter Your Chatgpt Auth Key"
+              placeholder="Enter Your Chatgpt API Key"
               setInput={setAuthKey}
               type={showAuthKey ? "text" : "password"}
+              label="ChatGPT API Key"
             ></Input>
           </div>
           <div className="auth_key_box__content__show">

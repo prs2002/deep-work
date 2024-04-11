@@ -7,6 +7,7 @@ import Input from "./Input";
 import { fetchWebsitesFromStorage } from "../utils/queryStorage/FetchWebsitesFromStorage";
 import { preprocessURL } from "../utils/scripts/PreprocessURL";
 import { updateMaxTime } from "../utils/queryStorage/UpdateMaxTime";
+import { CiCircleInfo } from "react-icons/ci";
 
 export const MaxTimerBox = () => {
   const [maxTime, setMaxTime] = useState<string>("");
@@ -83,7 +84,7 @@ export const MaxTimerBox = () => {
       setActiveOption({ id: "0", value: "Select" });
       setMaxTime("");
     } else {
-      for(let i = 0; i < selectedWebsites.length; i++) {
+      for (let i = 0; i < selectedWebsites.length; i++) {
         await updateMaxTime(selectedWebsites[i], "" + parseInt(maxTime));
       }
       alert("Max time set for selected websites");
@@ -94,11 +95,17 @@ export const MaxTimerBox = () => {
 
   return (
     <div className="max_timer_box">
-      <div className="max_timer_box__header">Max Time</div>
+      <div className="max_timer_box__header">
+        Site Usage Limit{" "}
+        <CiCircleInfo title="For Websites tagged as 'Wasteful', 
+you can limit usage per day. 
+Default is 20mins per day"></CiCircleInfo>
+      </div>
       <div className="max_timer_box__outline">
         <div className="max_timer_box__content">
           <div className="max_timer_box__content__input">
             <Input
+              label="Usage per day (in minutes)"
               input={maxTime}
               placeholder="Enter max time (in minutes)"
               setInput={(time) => {

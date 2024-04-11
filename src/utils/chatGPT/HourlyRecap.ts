@@ -1,34 +1,10 @@
 import { TaggedTimeURL } from "../../types/TaggedTimeUrl";
-import { WebsiteTime } from "../../types/WebsiteTime";
 import { baseUrl, model } from "../CONSTANTS/ChatGPT";
 import { API_CALL_FAILED_SUMMARY, NO_API_KEY_SUMMARY, SUMMARY_TIME_TOO_SHORT } from "../CONSTANTS/texts";
-import { msToHM } from "../scripts/mmToHM";
+import { organizeHistoryByBaseUrl } from "../scripts/processHistory";
 import { estimatedCost } from "./EstimatedCost";
 
 
-interface OrganizedHistory {
-  [key: string]: { Explored: string[]; totalTime: string };
-}
-
-async function organizeHistoryByBaseUrl(
-  history: chrome.history.HistoryItem[]
-): Promise<OrganizedHistory> {
-  const organizedHistory: OrganizedHistory = {};
-  const times : WebsiteTime[] = (await chrome.storage.local.get("yesterdayTime")).yesterdayTime || [];
-  history.forEach((entry) => {
-    const url = entry.url;
-    const baseUrl = new URL(url!).origin;
-
-    if (!organizedHistory[baseUrl]) {
-      const time = times.find((x : WebsiteTime) => x.url === baseUrl)?.time || 0;
-      organizedHistory[baseUrl] = { Explored: [], totalTime: msToHM(time) };
-    }
-    if (!organizedHistory[baseUrl]["Explored"].includes(entry.title!))
-      organizedHistory[baseUrl]["Explored"].push(entry.title!);
-  });
-
-  return organizedHistory;
-}
 
 export async function hourlyRecap(
   hourlyTime: TaggedTimeURL[] | undefined
@@ -79,7 +55,7 @@ export async function hourlyRecap(
     maxResults: 1000,
   });
 
-  const organizedHistory = await organizeHistoryByBaseUrl(historyItems);
+  const organizedHistory = await organizeHistoryByBaseUrl(historyItems, hourlyTime);
 
   const authKey = (await chrome.storage.local.get("authKey"))?.authKey; // api key
   if (!authKey) {
@@ -117,7 +93,7 @@ export async function hourlyRecap(
 }
 
 async function prevHourSummary(
-  history: OrganizedHistory,
+  history: string,
   authKey: any,
   date: number
 ): Promise<String> {
@@ -128,7 +104,7 @@ async function prevHourSummary(
         {
           role: "user",
           content: `
-            ${JSON.stringify(history)}
+            ${history}
             This is the browser history in a certain time period. Summarize this into a simple 4 or 5 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for one hour and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you"
           `,
         },

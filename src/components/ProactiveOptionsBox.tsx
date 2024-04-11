@@ -15,7 +15,7 @@ export default function ProactiveOptionsBox() {
 
   return (
     <div className="proactive_setting">
-      <div className="proactive_setting__header">Proactive Settings</div>
+      <div className="proactive_setting__header">Proactive Features</div>
       <div className="proactive_setting__outline">
         <div className="proactive_setting__content">
           {settings.map((setting, index) => {

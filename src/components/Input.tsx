@@ -8,6 +8,7 @@ interface InputProps {
   setInput: (input: string) => void;
   className?: string;
   disablePaste?: boolean;
+  label?: string;
 }
 
 const Input = ({
@@ -17,6 +18,7 @@ const Input = ({
   setInput,
   className,
   disablePaste,
+  label,
 }: InputProps) => {
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setInput(event.target.value);
@@ -32,6 +34,21 @@ const Input = ({
         onChange={handleChange}
         onPaste={(e) => e.preventDefault()}
       ></input>
+    );
+  }
+
+  if (label) {
+    return (
+      <div className="input_label">
+        <label>{label}</label>
+        <input
+          className={`input_box ${className}`}
+          type={type}
+          placeholder={placeholder}
+          value={input}
+          onChange={handleChange}
+        ></input>
+      </div>
     );
   }
 

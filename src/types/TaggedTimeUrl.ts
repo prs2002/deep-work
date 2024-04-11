@@ -1,5 +1,5 @@
 export interface TaggedTimeURL {
-    label: string;
+    url: string;
     value: string;
     time: number;
     tag: number;

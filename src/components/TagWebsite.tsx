@@ -55,6 +55,7 @@ export default function TagWebsite() {
               placeholder="Enter Website URL"
               setInput={setWebsite}
               type="text"
+              label="Add Website"
             ></Input>
           </div>
           <div className="tag_website__content__dropdown">
@@ -67,13 +68,13 @@ export default function TagWebsite() {
         </div>
         {activeOption.id === "3" && (
           <div className="tag_website__max_time">
-            <div className="tag_website__max_time__title">Max Time</div>
             <div className="tag_website__max_time__input">
               <Input
                 input={maxTime}
-                placeholder="Maximum Time of Usage per day in Minutes"
+                placeholder="Enter site usage duration per day"
                 setInput={setMaxTime}
                 type="text"
+                label="Usage Per Day (in mins)"
               ></Input>
             </div>
           </div>

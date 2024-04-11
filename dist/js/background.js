@@ -237,23 +237,35 @@ function AITagging() {
 }
 
 ;// CONCATENATED MODULE: ./src/utils/CONSTANTS/texts.ts
-const NO_API_KEY_SUMMARY = "Please enter an api key to get the summary";
-const API_CALL_FAILED_SUMMARY = "An unexpected error occurred while trying to generate a summary";
-const SUMMARY_TIME_TOO_SHORT = "Time spent in last hour is too short to summarize";
-const SUMMARY_NO_DATA = "No data found for the last day";
+const NO_API_KEY_SUMMARY = "Please enter an OPENAI API Key to create and display summaries. Here's <a href='https://community.openai.com/t/how-do-i-get-my-api-key/29343' rel='noreferrer' target='_blank'>how to get one</a>";
+const API_CALL_FAILED_SUMMARY = "Whoops, couldn't generate a summary. Not sure why.";
+const SUMMARY_TIME_TOO_SHORT = "Looks like you didn't browse for long enough for a summary. That's probably a good thing!";
+const SUMMARY_NO_DATA = "Huh, we couldn't find any browsing data from yesterday.";
 const ALERT_TEXT__LIGHT = "Feeling Distracted?";
 const ALERT_TEXT__DARK = "Let's Get Back to Work.";
 const ALERT_TEXT__DARK_2 = "You got this!";
 const ALERT_ACTIVITY = "Here is a quick activity to get you back to focus. Step away from the computer and try 5 pushups.";
-const TYPE_PHRASE = "Type the phrase “Maybe Later” to confirm";
+const TYPE_PHRASE = "Type the phrase “Let Me Browse” to confirm";
 const ALERT_GO_BACK = "You can still get Back to Work";
 const ALERT_LEAVE_BUTTON = "Let's Go";
 const ALERT_STAY_BUTTON = "Maybe Later";
 const GREETING_TEXT__LIGHT = "Good Morning!";
-const GREETING_TEXT__DARK = "Let's Begin the Day";
-const GREETING_TEXT__DARK_2 = "With a Pinch of Focus";
+const GREETING_TEXT__DARK = "Let's Do Great Things Today";
+const GREETING_TEXT__DARK_2 = "And That Needs Focus";
 const GREETING_RECAP = "Quick Recap From Yesterday";
 const NO_FUNNY_LINES = "Feeling Distracted?";
+const focusMessage = [
+    { line1: "Yikes!", line2: "Are you not working?" },
+    { line1: "Way off track!", line2: "Your mind is not on work right now!" },
+    { line1: "At this rate…", line2: "It'll take you three years instead of one." },
+    { line1: "More than half your time…", line2: "Is being frittered away" },
+    { line1: "More than half your time…", line2: "Is being frittered away" },
+    { line1: "Just about staying afloat", line2: "Want a wonderfully productive day? Step it up" },
+    { line1: "Not bad, but lots of room", line2: "That is 20 minutes wasted every hour" },
+    { line1: "Good job!", line2: "Go for glory and get to 90%" },
+    { line1: "Feeling fantastically focused!", line2: "Keep it up, champ!" },
+    { line1: "You're a zen master!", line2: "On top of the world!" },
+];
 
 ;// CONCATENATED MODULE: ./src/utils/scripts/mmToHM.ts
 function msToHM(ms) {
@@ -276,6 +288,84 @@ function msToHM(ms) {
     return `${hours}h ${minutes}m`;
 }
 
+;// CONCATENATED MODULE: ./src/utils/scripts/processHistory.ts
+var processHistory_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+function organizeHistoryByBaseUrl(history, time) {
+    return processHistory_awaiter(this, void 0, void 0, function* () {
+        const organizedHistory = {};
+        const times = time ||
+            (yield chrome.storage.local.get("yesterdayTime")).yesterdayTime ||
+            [];
+        history.forEach((entry) => {
+            var _a;
+            const url = entry.url;
+            const baseUrl = cleanURL(new URL(url).origin);
+            if (!organizedHistory[baseUrl]) {
+                const time = ((_a = times.find((x) => x.url === baseUrl)) === null || _a === void 0 ? void 0 : _a.time) || 0;
+                organizedHistory[baseUrl] = { Explored: [], time: msToHM(time) };
+            }
+            if (!organizedHistory[baseUrl]["Explored"].includes(entry.title))
+                organizedHistory[baseUrl]["Explored"].push(entry.title);
+        });
+        Object.keys(organizedHistory).forEach((key) => {
+            organizedHistory[key].Explored = removeRedundantTerms(organizedHistory[key].Explored);
+        });
+        return convertToString(organizedHistory);
+    });
+}
+function removeRedundantTerms(titles) {
+    const termMap = new Map();
+    // Loop through each title
+    titles.forEach((title) => {
+        // Split title into individual terms
+        const terms = title.split(" - ");
+        // Iterate over each term
+        terms.forEach((term) => {
+            // Remove leading and trailing whitespaces
+            term = term.trim();
+            // Add term to map with its count
+            if (termMap.has(term)) {
+                termMap.set(term, termMap.get(term) + 1);
+            }
+            else {
+                termMap.set(term, 1);
+            }
+        });
+    });
+    // Filter out terms that occur more than once
+    const uniqueTerms = Array.from(termMap.keys()).filter((term) => termMap.get(term) === 1);
+    // Reconstruct titles with unique terms
+    const uniqueTitles = titles.map((title) => {
+        const terms = title.split(" - ");
+        const uniqueTermsInTitle = terms.filter((term) => uniqueTerms.includes(term.trim()));
+        return uniqueTermsInTitle.join(" - ");
+    });
+    return uniqueTitles;
+}
+function cleanURL(url) {
+    // Remove protocol (e.g., https://)
+    let cleanedURL = url.replace(/^(https?:\/\/)?/, "");
+    // Remove www subdomain if present
+    cleanedURL = cleanedURL.replace(/^www\./, "");
+    // Remove top-level domain and any subdomains
+    cleanedURL = cleanedURL.replace(/\.[a-z]{2,}$/, "");
+    return cleanedURL;
+}
+function convertToString(organizedHistory) {
+    // Replace all double quotes with an empty string
+    const str = JSON.stringify(organizedHistory);
+    return str.replace(/"/g, "");
+}
+
 ;// CONCATENATED MODULE: ./src/utils/chatGPT/DailyRecap.ts
 var DailyRecap_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -290,24 +380,6 @@ var DailyRecap_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 
 
 
-function organizeHistoryByBaseUrl(history) {
-    return DailyRecap_awaiter(this, void 0, void 0, function* () {
-        const organizedHistory = {};
-        const times = (yield chrome.storage.local.get("yesterdayTime")).yesterdayTime || [];
-        history.forEach((entry) => {
-            var _a;
-            const url = entry.url;
-            const baseUrl = new URL(url).origin;
-            if (!organizedHistory[baseUrl]) {
-                const time = ((_a = times.find((x) => x.url === baseUrl)) === null || _a === void 0 ? void 0 : _a.time) || 0;
-                organizedHistory[baseUrl] = { Explored: [], totalTime: msToHM(time) };
-            }
-            if (!organizedHistory[baseUrl]["Explored"].includes(entry.title))
-                organizedHistory[baseUrl]["Explored"].push(entry.title);
-        });
-        return organizedHistory;
-    });
-}
 function dailyRecap() {
     var _a;
     return DailyRecap_awaiter(this, void 0, void 0, function* () {
@@ -357,13 +429,12 @@ function prevDaySummary(history, authKey, date) {
                     {
                         role: "user",
                         content: `
-          ${JSON.stringify(history)}
+          ${history}
           This is the browser history in a certain time period. Summarize this into a simple 7-8 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for the previous day and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you"
         `,
                     },
                 ],
             };
-            console.log(requestBody.messages[0].content);
             const timeoutPromise = new Promise((resolve, reject) => {
                 setTimeout(() => {
                     const timeoutError = new Error("API call timeout");
@@ -415,24 +486,6 @@ var HourlyRecap_awaiter = (undefined && undefined.__awaiter) || function (thisAr
 
 
 
-function HourlyRecap_organizeHistoryByBaseUrl(history) {
-    return HourlyRecap_awaiter(this, void 0, void 0, function* () {
-        const organizedHistory = {};
-        const times = (yield chrome.storage.local.get("yesterdayTime")).yesterdayTime || [];
-        history.forEach((entry) => {
-            var _a;
-            const url = entry.url;
-            const baseUrl = new URL(url).origin;
-            if (!organizedHistory[baseUrl]) {
-                const time = ((_a = times.find((x) => x.url === baseUrl)) === null || _a === void 0 ? void 0 : _a.time) || 0;
-                organizedHistory[baseUrl] = { Explored: [], totalTime: msToHM(time) };
-            }
-            if (!organizedHistory[baseUrl]["Explored"].includes(entry.title))
-                organizedHistory[baseUrl]["Explored"].push(entry.title);
-        });
-        return organizedHistory;
-    });
-}
 function hourlyRecap(hourlyTime) {
     var _a;
     return HourlyRecap_awaiter(this, void 0, void 0, function* () {
@@ -477,7 +530,7 @@ function hourlyRecap(hourlyTime) {
             endTime: today,
             maxResults: 1000,
         });
-        const organizedHistory = yield HourlyRecap_organizeHistoryByBaseUrl(historyItems);
+        const organizedHistory = yield organizeHistoryByBaseUrl(historyItems, hourlyTime);
         const authKey = (_a = (yield chrome.storage.local.get("authKey"))) === null || _a === void 0 ? void 0 : _a.authKey; // api key
         if (!authKey) {
             yield chrome.storage.local.set({
@@ -519,7 +572,7 @@ function prevHourSummary(history, authKey, date) {
                     {
                         role: "user",
                         content: `
-            ${JSON.stringify(history)}
+            ${history}
             This is the browser history in a certain time period. Summarize this into a simple 4 or 5 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for one hour and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you"
           `,
                     },
@@ -596,7 +649,7 @@ function getTaggedTime(type) {
         // get website tag data
         const taggedData = (_b = (yield chrome.storage.local.get("taggedURLs"))) === null || _b === void 0 ? void 0 : _b.taggedURLs;
         const result = data.map((d) => {
-            return { label: d.url, time: d.time, tag: 0, value: msToHMS(d.time) };
+            return { url: d.url, time: d.time, tag: 0, value: msToHMS(d.time) };
         });
         if (type === "weeklyTime") {
             const numberOfDays = ((_c = (yield chrome.storage.local.get("numberOfDaysInWeek"))) === null || _c === void 0 ? void 0 : _c.numberOfDaysInWeek) || 1;
@@ -615,7 +668,7 @@ function getTaggedTime(type) {
         if (taggedData) {
             for (const d of result) {
                 for (const tag of taggedData) {
-                    if (tag.website === d.label) {
+                    if (tag.website === d.url) {
                         d.tag = tag.tag;
                     }
                 }

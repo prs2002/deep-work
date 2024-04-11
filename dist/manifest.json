@@ -1,5 +1,5 @@
 {
-  "version": "1.9.0",
+  "version": "1.11.0",
   "manifest_version": 3,
   "name": "Recenter",
   "description": "A browser extension to help focus on what needs to be done and motivate you to get there",
@@ -11,6 +11,9 @@
   "action": {
     "default_popup": "js/index.html",
     "default_title": "Recenter"
+  },
+  "side_panel": {
+    "default_path": "js/index_2.html"
   },
   "background": {
     "service_worker": "js/background.js"
@@ -34,6 +37,7 @@
     "unlimitedStorage",
     "history",
     "alarms",
-    "idle"
+    "idle",
+    "sidePanel"
   ]
 }

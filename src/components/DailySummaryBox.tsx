@@ -38,10 +38,7 @@ export default function DailySummaryBox() {
         var yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
         await chrome.storage.local.set({
-          prevDaySummary: [
-            SUMMARY_NO_DATA,
-            yesterday.toDateString(),
-          ],
+          prevDaySummary: [SUMMARY_NO_DATA, yesterday.toDateString()],
         });
         setSummary(SUMMARY_NO_DATA);
         return;
@@ -67,12 +64,12 @@ export default function DailySummaryBox() {
   const timeSummary = [
     {
       label: "Productive",
-      value: msToHM(totalTime * focusRate / 100),
+      value: msToHM((totalTime * focusRate) / 100),
       color: "blue",
     },
     {
       label: "Distracted",
-      value: msToHM(totalTime * (100 - focusRate) / 100),
+      value: msToHM((totalTime * (100 - focusRate)) / 100),
       color: "red",
     },
     { label: "Total", value: msToHM(totalTime), color: "black" },
@@ -117,7 +114,10 @@ export default function DailySummaryBox() {
             ))}
           </div>
           <div className="daily_summary__content__line"></div>
-          <div className="daily_summary__content__summary">{summary}</div>
+          <div
+            className="daily_summary__content__summary"
+            dangerouslySetInnerHTML={{ __html: summary }} 
+          ></div>
         </div>
       </div>
     </>

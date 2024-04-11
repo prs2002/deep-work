@@ -1,35 +1,11 @@
-import { WebsiteTime } from "../../types/WebsiteTime";
 import { baseUrl, model } from "../CONSTANTS/ChatGPT";
 import {
   API_CALL_FAILED_SUMMARY,
   NO_API_KEY_SUMMARY,
 } from "../CONSTANTS/texts";
-import { msToHM } from "../scripts/mmToHM";
+import { organizeHistoryByBaseUrl } from "../scripts/processHistory";
 import { estimatedCost } from "./EstimatedCost";
 
-interface OrganizedHistory {
-  [key: string]: { Explored: string[]; totalTime: string };
-}
-
-async function organizeHistoryByBaseUrl(
-  history: chrome.history.HistoryItem[]
-): Promise<OrganizedHistory> {
-  const organizedHistory: OrganizedHistory = {};
-  const times : WebsiteTime[] = (await chrome.storage.local.get("yesterdayTime")).yesterdayTime || [];
-  history.forEach((entry) => {
-    const url = entry.url;
-    const baseUrl = new URL(url!).origin;
-
-    if (!organizedHistory[baseUrl]) {
-      const time = times.find((x : WebsiteTime) => x.url === baseUrl)?.time || 0;
-      organizedHistory[baseUrl] = { Explored: [], totalTime: msToHM(time) };
-    }
-    if (!organizedHistory[baseUrl]["Explored"].includes(entry.title!))
-      organizedHistory[baseUrl]["Explored"].push(entry.title!);
-  });
-
-  return organizedHistory;
-}
 
 export async function dailyRecap(): Promise<boolean> {
   var yesterday = new Date();
@@ -45,6 +21,7 @@ export async function dailyRecap(): Promise<boolean> {
   });
   
   const organizedHistory = await organizeHistoryByBaseUrl(historyItems);
+  
 
   const authKey = (await chrome.storage.local.get("authKey"))?.authKey; // api key
   if (!authKey) {
@@ -62,6 +39,7 @@ export async function dailyRecap(): Promise<boolean> {
 
   const summary = await prevDaySummary(organizedHistory, authKey, yesterday);
 
+
   if (summary === "") {
     await chrome.storage.local.set({
       prevDaySummary: [API_CALL_FAILED_SUMMARY, yesterday.toDateString()],
@@ -76,7 +54,7 @@ export async function dailyRecap(): Promise<boolean> {
 }
 
 async function prevDaySummary(
-  history: OrganizedHistory,
+  history: string,
   authKey: any,
   date: Date
 ): Promise<String> {
@@ -87,14 +65,12 @@ async function prevDaySummary(
         {
           role: "user",
           content: `
-          ${JSON.stringify(history)}
+          ${history}
           This is the browser history in a certain time period. Summarize this into a simple 7-8 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for the previous day and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you"
         `,
         },
       ],
     };
-
-    console.log(requestBody.messages[0].content);
 
     const timeoutPromise = new Promise<Response>((resolve, reject) => {
       setTimeout(() => {

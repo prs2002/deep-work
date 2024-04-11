@@ -2,32 +2,27 @@ function redirect() {
   chrome.runtime.sendMessage({ redirect: "blocked.html" });
 }
 
-async function isTimeExceeded(url: string): Promise<number[] | undefined> {
-  const time = (await chrome.storage.local.get("maxTimes"))?.maxTimes || {};
-  if (time[url] === undefined) {
-    return undefined;
-  }
-  const maxTime = parseInt(time[url]) * 60 * 1000; // convert to milliseconds
+async function isTimeExceeded(url: string): Promise<number> {
   const currentTime =
     (await chrome.storage.local.get("dailyTime"))?.dailyTime || [];
   const obj = currentTime.find((obj: any) => obj.url === url);
 
   if (obj === undefined) {
-    return undefined;
+    return 0;
   }
   const timeElapsed = obj.time;
-  return [maxTime - timeElapsed, timeElapsed];
+  return timeElapsed;
 }
 
-export async function handleBlocking(): Promise<number | undefined> {
+export async function handleBlocking(
+  maxTime: number,
+  isBlocking: boolean
+): Promise<number> {
   const url = document.location.origin;
-  const remainingTime = await isTimeExceeded(url);
-  if (remainingTime !== undefined && remainingTime[0] <= 0) {
-    const isBlocking = (
-      await chrome.storage.local.get("enableBlockDistractingSites")
-    ).enableBlockDistractingSites;
+  const timeElapsed = await isTimeExceeded(url);
+  if (timeElapsed >= maxTime) {
     isBlocking && redirect();
-    return remainingTime[1];
+    return timeElapsed;
   }
-  return remainingTime ? remainingTime[1] : undefined;
+  return timeElapsed;
 }

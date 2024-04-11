@@ -3,27 +3,46 @@ import ReactDOM from "react-dom/client";
 import { FaRegClock } from "react-icons/fa6";
 import "./Timer.scss";
 import { handleBlocking } from "../Blocking";
+import BlockWarning from "./BlockWarning";
 
 function Timer() {
   const [remainingTime, setRemainingTime] = useState<number>(0);
   const [jiggle, setJiggle] = useState<boolean>(false);
+  const [maxTime, setMaxTime] = useState<number>(-1);
+  const [isBlocking, setIsBlocking] = useState<boolean>(false);
+  const [closed, setClosed] = useState<boolean>(false);
+
   useEffect(() => {
-    const timer = setInterval(async () => {
-      const remainingTime = await handleBlocking();
-      if (remainingTime !== undefined) setRemainingTime(remainingTime / 1000);
-    }, 1000);
-
-    const jiggleTimer = setInterval(() => {
-      setJiggle(true);
-      setTimeout(() => {
-        setJiggle(false);
+    function handleTimer() {
+      const timer = setInterval(async () => {
+        const remainingTime = await handleBlocking(maxTime, isBlocking);
+        setRemainingTime(remainingTime / 1000);
       }, 1000);
-    }, 60000);
 
-    return () => {
-      clearInterval(timer);
-      clearInterval(jiggleTimer);
-    };
+      const jiggleTimer = setInterval(() => {
+        setJiggle(true);
+        setTimeout(() => {
+          setJiggle(false);
+        }, 1000);
+      }, 60000);
+
+      return () => {
+        clearInterval(timer);
+        clearInterval(jiggleTimer);
+      };
+    }
+    if (maxTime !== -1) {
+      return handleTimer();
+    }
+  }, [maxTime, isBlocking]);
+
+  useEffect(() => {
+    chrome.storage.local.get().then((data) => {
+      const url = document.location.origin;
+      if (!data.maxTimes || !data.maxTimes[url]) return;
+      setIsBlocking(data.enableBlockDistractingSites);
+      setMaxTime(parseInt(data.maxTimes[url]) * 60 * 1000);
+    });
   }, []);
 
   function secondsToTime(time: number): string {
@@ -33,9 +52,24 @@ function Timer() {
     const secondsStr: string = String(seconds).padStart(2, "0");
     return `${minutesStr} : ${secondsStr}`;
   }
+  
+  if ((maxTime / 1000) - remainingTime <= 30 && isBlocking && !closed) {
+    return (
+      <BlockWarning
+        handleClose={() => {
+          setClosed(true);
+        }}
+        time={(maxTime / 1000) - remainingTime}
+      />
+    );
+  }
 
   return (
-    <div id="recenter_timer" className={jiggle ? "jiggle" : ""}>
+    <div
+      id="recenter_timer"
+      className={jiggle ? "jiggle" : ""}
+      title="Recenter"
+    >
       <div id="recenter_timer__logo">
         <FaRegClock />
       </div>

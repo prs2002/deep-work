@@ -254,7 +254,7 @@ export default function SiteDetailsBox({
     if (activeOption.id === "3") {
       const prevMaxTimes =
         (await chrome.storage.local.get("maxTimes")).maxTimes || {};
-      prevMaxTimes[website] = maxTime;
+      prevMaxTimes[website] = parseInt(maxTime);
       await chrome.storage.local.set({ maxTimes: prevMaxTimes });
     }
     await updateWebsitesInStorage([
@@ -301,12 +301,12 @@ export default function SiteDetailsBox({
           value: siteTags[tag],
         },
         {
-          label: "Alert Duration (in sec)",
+          label: "Alert Intervals (in sec)",
           value: (promptParameters?.promptInterval ||
             "Not Set (Default)") as string,
         },
         {
-          label: "Max Alert Violation",
+          label: "Alert Tolerance Limit",
           value: (promptParameters?.promptViolations ||
             "Not Set (Default)") as string,
         },
@@ -316,7 +316,7 @@ export default function SiteDetailsBox({
         setMaxTime((res.maxTimes?.[website] || "Not Set (Default)") as string);
 
         siteDetails.push({
-          label: "Max Time (in min)",
+          label: "Usage Per Day (in min)",
           value: (res.maxTimes?.[website] || "Not Set (Default)") as string,
         });
       }
@@ -333,11 +333,11 @@ export default function SiteDetailsBox({
         setMaxTime((maxTimes?.[website] || "Not Set (Default)") as string);
 
         setSiteDetails((prev) => {
-          prev = prev.filter((item) => item.label !== "Max Time (in min)");
+          prev = prev.filter((item) => item.label !== "Usage Per Day (in min)");
           return [
             ...prev,
             {
-              label: "Max Time (in min)",
+              label: "Usage Per Day (in min)",
               value: (maxTimes?.[website] || "Not Set (Default)") as string,
             },
           ];
@@ -345,7 +345,7 @@ export default function SiteDetailsBox({
       } else {
         setMaxTime("");
         setSiteDetails((prev) => {
-          prev = prev.filter((item) => item.label !== "Max Time (in min)");
+          prev = prev.filter((item) => item.label !== "Usage Per Day (in min)");
           return prev;
         });
       }

@@ -12,3 +12,11 @@
     outline: none;
   }
 }
+
+
+.input_label {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}

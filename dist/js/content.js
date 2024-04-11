@@ -25,6 +25,29 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#non_blocking_alert,#non_blocking_aler
 
 /***/ }),
 
+/***/ 4900:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   c: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5500);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2312);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap);"]);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `#greeting_popup,#greeting_popup *{all:revert;margin:0;padding:0;font-family:Inter}#greeting_popup{margin:0;padding:0;position:fixed;display:flex;flex-direction:column;align-items:center;width:320px;min-height:273px;background:#2087ff;right:20px;top:20px;z-index:9999999}#greeting_popup__title{margin-top:24px;width:85%;height:10%;display:flex;gap:9px;align-items:center}#greeting_popup__title__logo{display:flex;align-items:center;justify-content:center}#greeting_popup__title__logo img{width:28px;aspect-ratio:1}#greeting_popup__title__text{display:flex;align-items:center;justify-content:center}#greeting_popup__title__text h1{color:#0052bd;font-size:16px;font-weight:600;font-family:Inter}#greeting_popup__header{margin-top:21px;width:85%;height:25%}#greeting_popup__header img{width:45px}#greeting_popup__header__light{font-family:Inter;font-size:20px;font-weight:700;color:rgba(255,255,255,.6196078431);line-height:24px}#greeting_popup__header__dark{font-family:Inter;font-size:20px;font-weight:700;color:#fff;line-height:24px}#greeting_popup__time{display:block;width:100%;text-align:center;margin-top:14px;font-family:Inter;font-size:48px;font-weight:700;color:#fff;line-height:58px}#greeting_popup__buttons{display:flex;gap:6px;width:85%}#greeting_popup__buttons__button{margin-top:34px;width:133px;padding:7.5px 0;font-family:Inter;font-size:12px;font-weight:400;line-height:15px;border:none;border-radius:38px;cursor:pointer}#greeting_popup__buttons__button.white{background-color:#fff;color:#2087ff}#greeting_popup__buttons__button.blue{border:1px solid #fff;background-color:rgba(0,0,0,0);color:#fff}`, ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 2760:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -1032,44 +1055,9 @@ module.exports = styleTagTransform;
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/publicPath */
-/******/ 	(() => {
-/******/ 		var scriptUrl;
-/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
-/******/ 		var document = __webpack_require__.g.document;
-/******/ 		if (!scriptUrl && document) {
-/******/ 			if (document.currentScript)
-/******/ 				scriptUrl = document.currentScript.src;
-/******/ 			if (!scriptUrl) {
-/******/ 				var scripts = document.getElementsByTagName("script");
-/******/ 				if(scripts.length) {
-/******/ 					var i = scripts.length - 1;
-/******/ 					while (i > -1 && !scriptUrl) scriptUrl = scripts[i--].src;
-/******/ 				}
-/******/ 			}
-/******/ 		}
-/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
-/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
-/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
-/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
-/******/ 		__webpack_require__.p = scriptUrl;
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/nonce */
@@ -1144,7 +1132,7 @@ function getTaggedTime(type) {
         // get website tag data
         const taggedData = (_b = (yield chrome.storage.local.get("taggedURLs"))) === null || _b === void 0 ? void 0 : _b.taggedURLs;
         const result = data.map((d) => {
-            return { label: d.url, time: d.time, tag: 0, value: msToHMS(d.time) };
+            return { url: d.url, time: d.time, tag: 0, value: msToHMS(d.time) };
         });
         if (type === "weeklyTime") {
             const numberOfDays = ((_c = (yield chrome.storage.local.get("numberOfDaysInWeek"))) === null || _c === void 0 ? void 0 : _c.numberOfDaysInWeek) || 1;
@@ -1163,7 +1151,7 @@ function getTaggedTime(type) {
         if (taggedData) {
             for (const d of result) {
                 for (const tag of taggedData) {
-                    if (tag.website === d.label) {
+                    if (tag.website === d.url) {
                         d.tag = tag.tag;
                     }
                 }
@@ -1174,23 +1162,35 @@ function getTaggedTime(type) {
 }
 
 ;// CONCATENATED MODULE: ./src/utils/CONSTANTS/texts.ts
-const NO_API_KEY_SUMMARY = "Please enter an api key to get the summary";
-const API_CALL_FAILED_SUMMARY = "An unexpected error occurred while trying to generate a summary";
-const SUMMARY_TIME_TOO_SHORT = "Time spent in last hour is too short to summarize";
-const SUMMARY_NO_DATA = "No data found for the last day";
+const NO_API_KEY_SUMMARY = "Please enter an OPENAI API Key to create and display summaries. Here's <a href='https://community.openai.com/t/how-do-i-get-my-api-key/29343' rel='noreferrer' target='_blank'>how to get one</a>";
+const API_CALL_FAILED_SUMMARY = "Whoops, couldn't generate a summary. Not sure why.";
+const SUMMARY_TIME_TOO_SHORT = "Looks like you didn't browse for long enough for a summary. That's probably a good thing!";
+const SUMMARY_NO_DATA = "Huh, we couldn't find any browsing data from yesterday.";
 const ALERT_TEXT__LIGHT = "Feeling Distracted?";
 const ALERT_TEXT__DARK = "Let's Get Back to Work.";
 const ALERT_TEXT__DARK_2 = "You got this!";
 const ALERT_ACTIVITY = "Here is a quick activity to get you back to focus. Step away from the computer and try 5 pushups.";
-const TYPE_PHRASE = "Type the phrase “Maybe Later” to confirm";
+const TYPE_PHRASE = "Type the phrase “Let Me Browse” to confirm";
 const ALERT_GO_BACK = "You can still get Back to Work";
 const ALERT_LEAVE_BUTTON = "Let's Go";
 const ALERT_STAY_BUTTON = "Maybe Later";
 const GREETING_TEXT__LIGHT = "Good Morning!";
-const GREETING_TEXT__DARK = "Let's Begin the Day";
-const GREETING_TEXT__DARK_2 = "With a Pinch of Focus";
+const GREETING_TEXT__DARK = "Let's Do Great Things Today";
+const GREETING_TEXT__DARK_2 = "And That Needs Focus";
 const GREETING_RECAP = "Quick Recap From Yesterday";
 const NO_FUNNY_LINES = "Feeling Distracted?";
+const focusMessage = [
+    { line1: "Yikes!", line2: "Are you not working?" },
+    { line1: "Way off track!", line2: "Your mind is not on work right now!" },
+    { line1: "At this rate…", line2: "It'll take you three years instead of one." },
+    { line1: "More than half your time…", line2: "Is being frittered away" },
+    { line1: "More than half your time…", line2: "Is being frittered away" },
+    { line1: "Just about staying afloat", line2: "Want a wonderfully productive day? Step it up" },
+    { line1: "Not bad, but lots of room", line2: "That is 20 minutes wasted every hour" },
+    { line1: "Good job!", line2: "Go for glory and get to 90%" },
+    { line1: "Feeling fantastically focused!", line2: "Keep it up, champ!" },
+    { line1: "You're a zen master!", line2: "On top of the world!" },
+];
 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
 var injectStylesIntoStyleTag = __webpack_require__(4596);
@@ -1297,8 +1297,6 @@ function useToggle(defaultValue) {
     return [value, toggle];
 }
 
-;// CONCATENATED MODULE: ./src/images/gifs/3.gif
-/* harmony default export */ const _3 = (__webpack_require__.p + "images/gifs/3.gif");
 ;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/DailyPopup.tsx
 var DailyPopup_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -1318,7 +1316,7 @@ var DailyPopup_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 
 
 
-
+// import "../../images/gifs/3.gif";
 function DailyPopup() {
     const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
     const gif = chrome.runtime.getURL("js/images/gifs/2.gif");
@@ -1640,7 +1638,7 @@ function Alert_Alert({ updateViolations }) {
     }
     function handleViolation() {
         const input = document.getElementById("non_blocking_alert__more_content__phrase__input");
-        if (!input || input.value.toLowerCase() !== "maybe later") {
+        if (!input || input.value.toLowerCase() !== "let me browse") {
             return;
         }
         const root = document.getElementById("recenter_container");
@@ -8263,33 +8261,69 @@ function redirect() {
     chrome.runtime.sendMessage({ redirect: "blocked.html" });
 }
 function isTimeExceeded(url) {
-    var _a, _b;
+    var _a;
     return Blocking_awaiter(this, void 0, void 0, function* () {
-        const time = ((_a = (yield chrome.storage.local.get("maxTimes"))) === null || _a === void 0 ? void 0 : _a.maxTimes) || {};
-        if (time[url] === undefined) {
-            return undefined;
-        }
-        const maxTime = parseInt(time[url]) * 60 * 1000; // convert to milliseconds
-        const currentTime = ((_b = (yield chrome.storage.local.get("dailyTime"))) === null || _b === void 0 ? void 0 : _b.dailyTime) || [];
+        const currentTime = ((_a = (yield chrome.storage.local.get("dailyTime"))) === null || _a === void 0 ? void 0 : _a.dailyTime) || [];
         const obj = currentTime.find((obj) => obj.url === url);
         if (obj === undefined) {
-            return undefined;
+            return 0;
         }
         const timeElapsed = obj.time;
-        return [maxTime - timeElapsed, timeElapsed];
+        return timeElapsed;
     });
 }
-function handleBlocking() {
+function handleBlocking(maxTime, isBlocking) {
     return Blocking_awaiter(this, void 0, void 0, function* () {
         const url = document.location.origin;
-        const remainingTime = yield isTimeExceeded(url);
-        if (remainingTime !== undefined && remainingTime[0] <= 0) {
-            const isBlocking = (yield chrome.storage.local.get("enableBlockDistractingSites")).enableBlockDistractingSites;
+        const timeElapsed = yield isTimeExceeded(url);
+        if (timeElapsed >= maxTime) {
             isBlocking && redirect();
-            return remainingTime[1];
+            return timeElapsed;
         }
-        return remainingTime ? remainingTime[1] : undefined;
+        return timeElapsed;
     });
+}
+
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/utils/DOM_SCRIPTS/BlockWarning.scss
+var BlockWarning = __webpack_require__(4900);
+;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/BlockWarning.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var BlockWarning_options = {};
+
+BlockWarning_options.styleTagTransform = (styleTagTransform_default());
+BlockWarning_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      BlockWarning_options.insert = insertBySelector_default().bind(null, "head");
+    
+BlockWarning_options.domAPI = (styleDomAPI_default());
+BlockWarning_options.insertStyleElement = (insertStyleElement_default());
+
+var BlockWarning_update = injectStylesIntoStyleTag_default()(BlockWarning/* default */.c, BlockWarning_options);
+
+
+
+
+       /* harmony default export */ const DOM_SCRIPTS_BlockWarning = (BlockWarning/* default */.c && BlockWarning/* default */.c.locals ? BlockWarning/* default */.c.locals : undefined);
+
+;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/BlockWarning.tsx
+
+
+function BlockWarning_BlockWarning({ handleClose, time }) {
+    function handleGetToWork() {
+        window.location.href = "https://www.google.com";
+    }
+    const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__title__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__title__text" }, { children: (0,jsx_runtime.jsx)("h1", { children: "Recenter" }) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__header" }, { children: [(0,jsx_runtime.jsx)("p", Object.assign({ id: "greeting_popup__header__light" }, { children: "You\u2019ve exceeded time limit." })), (0,jsx_runtime.jsx)("p", Object.assign({ id: "greeting_popup__header__dark" }, { children: "This Site Will Be Blocked In" }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_popup__time" }, { children: time })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_popup__buttons" }, { children: [(0,jsx_runtime.jsx)("button", Object.assign({ id: "greeting_popup__buttons__button", className: "white", onClick: handleClose }, { children: "Close" })), (0,jsx_runtime.jsx)("button", Object.assign({ id: "greeting_popup__buttons__button", className: "blue", onClick: handleGetToWork }, { children: "Get to Work" }))] }))] })));
 }
 
 ;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/Timer.tsx
@@ -8308,25 +8342,42 @@ var Timer_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _ar
 
 
 
+
 function Timer_Timer() {
     const [remainingTime, setRemainingTime] = (0,react.useState)(0);
     const [jiggle, setJiggle] = (0,react.useState)(false);
+    const [maxTime, setMaxTime] = (0,react.useState)(-1);
+    const [isBlocking, setIsBlocking] = (0,react.useState)(false);
+    const [closed, setClosed] = (0,react.useState)(false);
     (0,react.useEffect)(() => {
-        const timer = setInterval(() => Timer_awaiter(this, void 0, void 0, function* () {
-            const remainingTime = yield handleBlocking();
-            if (remainingTime !== undefined)
+        function handleTimer() {
+            const timer = setInterval(() => Timer_awaiter(this, void 0, void 0, function* () {
+                const remainingTime = yield handleBlocking(maxTime, isBlocking);
                 setRemainingTime(remainingTime / 1000);
-        }), 1000);
-        const jiggleTimer = setInterval(() => {
-            setJiggle(true);
-            setTimeout(() => {
-                setJiggle(false);
-            }, 1000);
-        }, 60000);
-        return () => {
-            clearInterval(timer);
-            clearInterval(jiggleTimer);
-        };
+            }), 1000);
+            const jiggleTimer = setInterval(() => {
+                setJiggle(true);
+                setTimeout(() => {
+                    setJiggle(false);
+                }, 1000);
+            }, 60000);
+            return () => {
+                clearInterval(timer);
+                clearInterval(jiggleTimer);
+            };
+        }
+        if (maxTime !== -1) {
+            return handleTimer();
+        }
+    }, [maxTime, isBlocking]);
+    (0,react.useEffect)(() => {
+        chrome.storage.local.get().then((data) => {
+            const url = document.location.origin;
+            if (!data.maxTimes || !data.maxTimes[url])
+                return;
+            setIsBlocking(data.enableBlockDistractingSites);
+            setMaxTime(parseInt(data.maxTimes[url]) * 60 * 1000);
+        });
     }, []);
     function secondsToTime(time) {
         const minutes = Math.floor(time / 60);
@@ -8335,7 +8386,12 @@ function Timer_Timer() {
         const secondsStr = String(seconds).padStart(2, "0");
         return `${minutesStr} : ${secondsStr}`;
     }
-    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "recenter_timer", className: jiggle ? "jiggle" : "" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "recenter_timer__logo" }, { children: (0,jsx_runtime.jsx)(FaRegClock, {}) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "recenter_timer__time" }, { children: secondsToTime(remainingTime) }))] })));
+    if ((maxTime / 1000) - remainingTime <= 30 && isBlocking && !closed) {
+        return ((0,jsx_runtime.jsx)(BlockWarning_BlockWarning, { handleClose: () => {
+                setClosed(true);
+            }, time: (maxTime / 1000) - remainingTime }));
+    }
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "recenter_timer", className: jiggle ? "jiggle" : "", title: "Recenter" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "recenter_timer__logo" }, { children: (0,jsx_runtime.jsx)(FaRegClock, {}) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "recenter_timer__time" }, { children: secondsToTime(remainingTime) }))] })));
 }
 function insertTimer() {
     if (document.getElementById("recenter_container__timer") !== null) {

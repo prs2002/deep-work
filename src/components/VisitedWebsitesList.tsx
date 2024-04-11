@@ -87,8 +87,8 @@ export default function VisitedWebsitesList({
   const handleTagChange = (index: number) => {
     updateWebsitesInStorage([
       {
-        id: visitedWebsites[index].label,
-        website: visitedWebsites[index].label,
+        id: visitedWebsites[index].url,
+        website: visitedWebsites[index].url,
         tag: parseInt(activeOption[index].id),
       },
     ]);
@@ -113,13 +113,13 @@ export default function VisitedWebsitesList({
 
   const displayWebsite = () => {
     return visitedWebsites.map((site, index) => {
-      const website = preprocessURL(site.label);
+      const website = preprocessURL(site.url);
       return (
         <div className="visited_website_list__content__list__item" key={index}>
           <div
             className="visited_website_list__content__list__item__website"
             onClick={() => {
-              handleSiteDetails(site.label);
+              handleSiteDetails(site.url);
             }}
           >
             <div

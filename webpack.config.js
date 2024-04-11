@@ -8,6 +8,7 @@ module.exports = [
     name: "javascript",
     entry: {
       index: "./src/index.tsx",
+      index_2: "./src/index_2.tsx",
       background: "./src/background.ts",
       content: "./src/content.ts",
       superfocus: "./src/html/superfocus.ts",
@@ -73,7 +74,7 @@ module.exports = [
           },
         ],
       }),
-      ...getHtmlPlugins(["index"]),
+      ...getHtmlPlugins(["index", "index_2"]),
     ],
     resolve: {
       extensions: [".tsx", ".ts", ".js"],

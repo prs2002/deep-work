@@ -1,4 +1,9 @@
 import { useEffect, useState } from "react";
+import "./Home.scss";
+import { SummaryItem } from "../types/SummaryItem";
+import { calculateProductivity } from "../utils/queryStorage/CalculateProductivity";
+import { TaggedTimeURL } from "../types/TaggedTimeUrl";
+import { getTaggedTime } from "../utils/queryStorage/GetTaggedTime";
 import FilterOptions from "../components/FilterOptions";
 import FocusRateBox from "../components/FocusRateBox";
 import MenuOptions from "../components/MenuOptions";
@@ -6,14 +11,11 @@ import QuickActionsBox from "../components/QuickActionsBox";
 import SummaryBox from "../components/SummaryBox";
 import UsageBreakdown from "../components/UsageBreakdown";
 import UsageChart from "../components/UsageChart";
-import "./Home.scss";
-import { SummaryItem } from "../types/SummaryItem";
-import { calculateProductivity } from "../utils/queryStorage/CalculateProductivity";
-import { TaggedTimeURL } from "../types/TaggedTimeUrl";
-import { getTaggedTime } from "../utils/queryStorage/GetTaggedTime";
 import HourlySummaryBox from "../components/HourlySummaryBox";
 import DailySummaryBox from "../components/DailySummaryBox";
 import SuperFocusMode from "../components/SuperFocusMode";
+import ExtensionDisabledCover from "../components/ExtensionDisabledCover";
+import { focusMessage } from "../utils/CONSTANTS/texts";
 
 interface HomeProps {
   isFocused: boolean;
@@ -23,24 +25,6 @@ interface HomeProps {
 export default function Home({ isFocused, setIsFocused }: HomeProps) {
   const [filter, setFilter] = useState("dailyTime");
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
-
-  const disabledMessage = {
-    line1: "The extension is disabled",
-    line2: "Please enable it to monitor",
-  };
-
-  const focusMessage = [
-    { line1: "Stay focused today!", line2: "Keep trying harder!" },
-    { line1: "You're on track!", line2: "Stay in the zone!" },
-    { line1: "Keep pushing forward!", line2: "Almost there, keep it up!" },
-    { line1: "You're doing great!", line2: "Keep the momentum!" },
-    { line1: "Impressive focus!", line2: "Keep going strong!" },
-    { line1: "Amazing concentration!", line2: "You're unstoppable!" },
-    { line1: "Incredible dedication!", line2: "The sky's the limit!" },
-    { line1: "You're a focus master!", line2: "Unstoppable today!" },
-    { line1: "Maximum focus achieved!", line2: "Keep it up, champ!" },
-    { line1: "You're a focus legend!", line2: "On top of the world!" },
-  ];
 
   const [summary, setSummary] = useState<SummaryItem[]>([
     {
@@ -96,27 +80,14 @@ export default function Home({ isFocused, setIsFocused }: HomeProps) {
 
   return (
     <div className="home_page">
-      {isDisabled && <div className="home_page__disabled"></div>}
+      {isDisabled && <ExtensionDisabledCover setIsDisabled={setIsDisabled}></ExtensionDisabledCover>}
       <div className="home_page__menu">
         <MenuOptions isFocused={isFocused}></MenuOptions>
       </div>
       <div className="home_page__header">
         <h3>Welcome Back</h3>
-        {isDisabled ? (
-          <>
-            <h1>{disabledMessage.line1}</h1>
-            <h1>{disabledMessage.line2}</h1>
-          </>
-        ) : (
-          <>
-            <h1>
-              {focusMessage[Math.floor(Math.min(focusRate, 99) / 10)].line1}
-            </h1>
-            <h1>
-              {focusMessage[Math.floor(Math.min(focusRate, 99) / 10)].line2}
-            </h1>
-          </>
-        )}
+        <h1>{focusMessage[Math.floor(Math.min(focusRate, 99) / 10)].line1}</h1>
+        <h1>{focusMessage[Math.floor(Math.min(focusRate, 99) / 10)].line2}</h1>
       </div>
       <div className="home_page__boxes">
         <FocusRateBox

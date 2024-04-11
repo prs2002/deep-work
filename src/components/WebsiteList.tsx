@@ -4,6 +4,9 @@ import "./WebsiteList.scss";
 import { updateWebsitesInStorage } from "../utils/queryStorage/UpdateWebsitesInStorage";
 import DropdownWithConfirm from "./DropdownWithConfirm";
 import { preprocessURL } from "../utils/scripts/PreprocessURL";
+import useToggle from "../hooks/useToggle";
+import SiteDetailsBox from "./SiteDetailsBox";
+import { CiCircleInfo } from "react-icons/ci";
 
 interface Website {
   id: string;
@@ -29,6 +32,14 @@ export default function WebsiteList() {
 
   const [websites, setWebsites] = useState<Website[]>([]);
   const [activeOption, setActiveOption] = useState<DropdownOptions[]>([]);
+
+  const [showSiteDetails, setShowSiteDetails] = useToggle(false);
+  const [site, setSite] = useState<string>("");
+
+  const handleSiteDetails = (item: string) => {
+    setShowSiteDetails();
+    setSite(item);
+  };
 
   const handleOptionSelect = (option: DropdownOptions, index: number) => {
     setActiveOption((prev) => {
@@ -99,7 +110,12 @@ export default function WebsiteList() {
       const website = preprocessURL(site.website);
       return (
         <div className="website_list__content__row" key={index}>
-          <div className="website_list__content__row__website">
+          <div
+            className="website_list__content__row__website"
+            onClick={() => {
+              handleSiteDetails(site.website);
+            }}
+          >
             {website.slice(0, 20) + (website.length > 20 ? "..." : "")}
           </div>
           <div className="website_list__content__row__dropdown">
@@ -124,7 +140,19 @@ export default function WebsiteList() {
 
   return (
     <div className="website_list">
-      <div className="website_list__header">Website List</div>
+      {showSiteDetails && (
+        <SiteDetailsBox
+          setShowSiteDetails={setShowSiteDetails}
+          website={site}
+        />
+      )}
+      <div className="website_list__header">
+        Website List{" "}
+        <CiCircleInfo
+          title="List of all the websites you have
+visited so far along with tags."
+        />
+      </div>
       <div className="website_list__outline">
         <div className="website_list__content">
           {websites.length ? displayWebsites() : "No websites to display"}

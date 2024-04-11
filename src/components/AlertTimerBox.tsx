@@ -126,11 +126,12 @@ export const AlertTimerBox = () => {
 
   return (
     <div className="alert_timer_box">
-      <div className="alert_timer_box__header">Alert Timer</div>
+      <div className="alert_timer_box__header">Alert Settings</div>
       <div className="alert_timer_box__outline">
         <div className="alert_timer_box__max_time">
           <div className="alert_timer_box__max_time__input">
             <Input
+              label="Alert Intervals"
               input={time}
               placeholder="Enter Duration (in seconds)"
               setInput={(time) => {
@@ -143,6 +144,7 @@ export const AlertTimerBox = () => {
         <div className="alert_timer_box__content">
           <div className="alert_timer_box__content__input">
             <Input
+              label="Alert Tolerance Limit"
               input={violations}
               placeholder="Enter number of violations"
               setInput={(violations) => {

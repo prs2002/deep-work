@@ -39,7 +39,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.button{width:100%;height:40px;border-
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.input_box{width:100%;background:#f0f0f0;padding:12px 0 12px 16px;border:none;border-radius:48px}.input_box::placeholder{color:var(--placeholder-grey)}.input_box:focus{outline:none}`, ""]);
+___CSS_LOADER_EXPORT___.push([module.id, `.input_box{width:100%;background:#f0f0f0;padding:12px 0 12px 16px;border:none;border-radius:48px}.input_box::placeholder{color:var(--placeholder-grey)}.input_box:focus{outline:none}.input_label{display:flex;flex-direction:column;gap:12px;width:100%}`, ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2310,12 +2310,15 @@ var Input_update = injectStylesIntoStyleTag_default()(Input/* default */.c, Inpu
 ;// CONCATENATED MODULE: ./src/components/Input.tsx
 
 
-const Input_Input = ({ type, placeholder, input, setInput, className, disablePaste, }) => {
+const Input_Input = ({ type, placeholder, input, setInput, className, disablePaste, label, }) => {
     function handleChange(event) {
         setInput(event.target.value);
     }
     if (disablePaste) {
         return ((0,jsx_runtime.jsx)("input", { className: `input_box ${className}`, type: type, placeholder: placeholder, value: input, onChange: handleChange, onPaste: (e) => e.preventDefault() }));
+    }
+    if (label) {
+        return ((0,jsx_runtime.jsxs)("div", Object.assign({ className: "input_label" }, { children: [(0,jsx_runtime.jsx)("label", { children: label }), (0,jsx_runtime.jsx)("input", { className: `input_box ${className}`, type: type, placeholder: placeholder, value: input, onChange: handleChange })] })));
     }
     return ((0,jsx_runtime.jsx)("input", { className: `input_box ${className}`, type: type, placeholder: placeholder, value: input, onChange: handleChange }));
 };

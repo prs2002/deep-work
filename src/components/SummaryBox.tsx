@@ -12,7 +12,7 @@ export default function SummaryBox({ filter }: SummaryBoxProps) {
   const summaryColor = ["red", "blue", "orange"];
   const [summary, setSummary] = useState<SummaryItem[]>([
     {
-      label: "Wasteful",
+      label: "Distracted",
       value: "0",
     },
     {
@@ -32,7 +32,7 @@ export default function SummaryBox({ filter }: SummaryBoxProps) {
       }
       const data: SummaryItem[] = [
         {
-          label: "Wasteful",
+          label: "Distracted",
           value: "0",
         },
         {

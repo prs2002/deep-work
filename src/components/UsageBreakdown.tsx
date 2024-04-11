@@ -21,7 +21,7 @@ export default function UsageBreakdown({
 
   const handleSiteDetails = (item: TaggedTimeURL) => {
     setShowSiteDetails();
-    setSite(item.label);
+    setSite(item.url);
   };
 
   const displayWebsites = () => {
@@ -30,7 +30,7 @@ export default function UsageBreakdown({
         // less than 1 percent of total time
         return null;
       }
-      const website = preprocessURL(item.label);
+      const website = preprocessURL(item.url);
       return (
         <div className="usage_breakdown__content__list__item">
           <div

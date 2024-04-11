@@ -5,7 +5,8 @@
     &__list {
       width: 100%;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 12px;
       padding-right: 14px;
       &__item {
         width: 33%;
