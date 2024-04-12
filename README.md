@@ -2,6 +2,8 @@
 A browser extension to help you rebalance, refocus -- and recenter.
 https://recenter.netlify.app/
 
+We built this to solve a problem. I often found myself mindlessly clicking over to reddit, twitter, hacker news or some other site while thinking about a problem. And before I knew it I was being sucked in by something there. Those minutes were adding up. I wanted something that proactively tells me when this is happening and also summarizes how I was spending my time. We've been using it for a few weeks and find it to be massively helpful. Hope it helps you as as well.
+
 Three ways to install this: 
 1) Clone this repo (which allows you to get updates easily with a git pull*)
 2) Download the dist file
