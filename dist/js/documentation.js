@@ -81,6 +81,50 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.app_container{max-width:1440px;width:
 
 /***/ }),
 
+/***/ 1924:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   c: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5500);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2312);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.journey_card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:37px}.journey_card__image{height:75%}.journey_card__image img{height:100%;max-width:100%}.journey_card__content{width:80%;height:25%;display:flex;flex-direction:column;align-items:center;gap:14px}.journey_card__content__title{font-size:26px}.journey_card__content__description{text-align:center;font-size:18px}.journey_card__content__description strong{font-size:18px;font-weight:700}`, ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 3748:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   c: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5500);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2312);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.journey_section__title__blue{font-size:46px;font-weight:700;color:var(--blue);text-align:center}.journey_section__title__black{font-size:46px;font-weight:700;text-align:center}.journey_section__cards{display:grid;grid-template-columns:repeat(3, 1fr);column-gap:40px;row-gap:88px;margin-top:40px}`, ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 5095:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -696,7 +740,6 @@ if (true) {
 /***/ 4808:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-var __webpack_unused_export__;
 /**
  * @license React
  * react-jsx-runtime.production.min.js
@@ -707,7 +750,7 @@ var __webpack_unused_export__;
  * LICENSE file in the root directory of this source tree.
  */
 var f=__webpack_require__(1504),k=Symbol.for("react.element"),l=Symbol.for("react.fragment"),m=Object.prototype.hasOwnProperty,n=f.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner,p={key:!0,ref:!0,__self:!0,__source:!0};
-function q(c,a,g){var b,d={},e=null,h=null;void 0!==g&&(e=""+g);void 0!==a.key&&(e=""+a.key);void 0!==a.ref&&(h=a.ref);for(b in a)m.call(a,b)&&!p.hasOwnProperty(b)&&(d[b]=a[b]);if(c&&c.defaultProps)for(b in a=c.defaultProps,a)void 0===d[b]&&(d[b]=a[b]);return{$$typeof:k,type:c,key:e,ref:h,props:d,_owner:n.current}}__webpack_unused_export__=l;exports.jsx=q;exports.jsxs=q;
+function q(c,a,g){var b,d={},e=null,h=null;void 0!==g&&(e=""+g);void 0!==a.key&&(e=""+a.key);void 0!==a.ref&&(h=a.ref);for(b in a)m.call(a,b)&&!p.hasOwnProperty(b)&&(d[b]=a[b]);if(c&&c.defaultProps)for(b in a=c.defaultProps,a)void 0===d[b]&&(d[b]=a[b]);return{$$typeof:k,type:c,key:e,ref:h,props:d,_owner:n.current}}exports.Fragment=l;exports.jsx=q;exports.jsxs=q;
 
 
 /***/ }),
@@ -12339,12 +12382,144 @@ function MainSection_MainSection_MainSection() {
         } }, { children: (0,jsx_runtime.jsxs)("div", Object.assign({ className: "main_section__content" }, { children: [(0,jsx_runtime.jsx)(NewFeature_NewFeature_NewFeature, {}), (0,jsx_runtime.jsx)(WelcomeSection_WelcomeSection_WelcomeSection, {}), (0,jsx_runtime.jsx)(QuickLinks_QuickLinks_QuickLinks, {}), (0,jsx_runtime.jsxs)("div", Object.assign({ className: "main_section__content__explore" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ className: "main_section__content__explore__text" }, { children: "Explore" })), (0,jsx_runtime.jsx)("div", Object.assign({ className: "main_section__content__explore__icon" }, { children: (0,jsx_runtime.jsx)(FaAngleDown, {}) }))] }))] })) })));
 }
 
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./documentation/components/JourneyCard/JourneyCard.scss
+var JourneyCard = __webpack_require__(1924);
+;// CONCATENATED MODULE: ./documentation/components/JourneyCard/JourneyCard.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var JourneyCard_options = {};
+
+JourneyCard_options.styleTagTransform = (styleTagTransform_default());
+JourneyCard_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      JourneyCard_options.insert = insertBySelector_default().bind(null, "head");
+    
+JourneyCard_options.domAPI = (styleDomAPI_default());
+JourneyCard_options.insertStyleElement = (insertStyleElement_default());
+
+var JourneyCard_update = injectStylesIntoStyleTag_default()(JourneyCard/* default */.c, JourneyCard_options);
+
+
+
+
+       /* harmony default export */ const JourneyCard_JourneyCard = (JourneyCard/* default */.c && JourneyCard/* default */.c.locals ? JourneyCard/* default */.c.locals : undefined);
+
+;// CONCATENATED MODULE: ./documentation/components/JourneyCard/JourneyCard.tsx
+
+
+function JourneyCard_JourneyCard_JourneyCard({ image, title, description, }) {
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ className: "journey_card" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ className: "journey_card__image" }, { children: (0,jsx_runtime.jsx)("img", { src: image, alt: title }) })), (0,jsx_runtime.jsxs)("div", Object.assign({ className: "journey_card__content" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ className: "journey_card__content__title" }, { children: title })), (0,jsx_runtime.jsx)("div", Object.assign({ className: "journey_card__content__description" }, { children: description }))] }))] })));
+}
+
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./documentation/components/JourneySection/JourneySection.scss
+var JourneySection = __webpack_require__(3748);
+;// CONCATENATED MODULE: ./documentation/components/JourneySection/JourneySection.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var JourneySection_options = {};
+
+JourneySection_options.styleTagTransform = (styleTagTransform_default());
+JourneySection_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      JourneySection_options.insert = insertBySelector_default().bind(null, "head");
+    
+JourneySection_options.domAPI = (styleDomAPI_default());
+JourneySection_options.insertStyleElement = (insertStyleElement_default());
+
+var JourneySection_update = injectStylesIntoStyleTag_default()(JourneySection/* default */.c, JourneySection_options);
+
+
+
+
+       /* harmony default export */ const JourneySection_JourneySection = (JourneySection/* default */.c && JourneySection/* default */.c.locals ? JourneySection/* default */.c.locals : undefined);
+
+;// CONCATENATED MODULE: ./documentation/components/JourneySection/JourneySection.tsx
+
+
+
+
+function JourneySection_JourneySection_JourneySection() {
+    const journeyCards = [
+        {
+            image: chrome.runtime.getURL("/images/documentation/journey/install.png"),
+            title: "1. Installation",
+            description: ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: ["This is the step you would take, Adding ", (0,jsx_runtime.jsx)("strong", { children: "Recenter" }), " to your Browser"] })),
+        },
+        {
+            image: chrome.runtime.getURL("/images/documentation/journey/help.png"),
+            title: "2. Help & Documentation",
+            description: (0,jsx_runtime.jsx)(jsx_runtime.Fragment, { children: "Everything about Recenter" }),
+        },
+        {
+            image: chrome.runtime.getURL("/images/documentation/journey/alert.png"),
+            title: "3. Your First Alert",
+            description: ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: ["This Greeting alert quickly introduces ", (0,jsx_runtime.jsx)("strong", { children: "Recenter" }), " to you"] })),
+        },
+        {
+            image: chrome.runtime.getURL("/images/documentation/journey/profile.png"),
+            title: "6. Profile Page",
+            description: (0,jsx_runtime.jsx)(jsx_runtime.Fragment, { children: "Your Badges, Token usage on your premium plan." }),
+        },
+        {
+            image: chrome.runtime.getURL("/images/documentation/journey/configure.png"),
+            title: "5. Configure Page",
+            description: ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: ["This is where you would configure", (0,jsx_runtime.jsx)("strong", { children: "Recenter" }), "to your needs."] })),
+        },
+        {
+            image: chrome.runtime.getURL("/images/documentation/journey/home.png"),
+            title: "4. Home Page",
+            description: ((0,jsx_runtime.jsx)(jsx_runtime.Fragment, { children: "Upfront information to keep you updated with your usage flow." })),
+        },
+        {
+            image: chrome.runtime.getURL("/images/documentation/journey/regular.png"),
+            title: "7. Regular Alerts",
+            description: ((0,jsx_runtime.jsx)(jsx_runtime.Fragment, { children: "These are general alerts, that help steer you away from Distraction" })),
+        },
+        {
+            image: chrome.runtime.getURL("/images/documentation/journey/freemium.png"),
+            title: "8. Freemium Alerts",
+            description: ((0,jsx_runtime.jsx)(jsx_runtime.Fragment, { children: "These alerts are given as Hourly & Daily updates, part of the premium plan." })),
+        },
+        {
+            image: chrome.runtime.getURL("/images/documentation/journey/superfocus.png"),
+            title: "9. Super Focus Mode",
+            description: ((0,jsx_runtime.jsx)(jsx_runtime.Fragment, { children: "Enables proactive focus guidance by blocking distracting sites." })),
+        },
+    ];
+    const bgImage = chrome.runtime.getURL("/images/documentation/journey.png");
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ className: "journey_section" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ className: "journey_section__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ className: "journey_section__title__blue" }, { children: "Making the best of" })), (0,jsx_runtime.jsx)("div", Object.assign({ className: "journey_section__title__black" }, { children: "Your Recenter Journey" }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ className: "journey_section__cards", style: {
+                    background: `url(${bgImage})`,
+                    backgroundSize: "contain",
+                    backgroundPosition: "50% 35%",
+                    backgroundRepeat: "no-repeat",
+                } }, { children: journeyCards.map((card, index) => ((0,react.createElement)(JourneyCard_JourneyCard_JourneyCard, Object.assign({}, card, { key: index })))) }))] })));
+}
+
 ;// CONCATENATED MODULE: ./documentation/pages/Home/Home.tsx
 
 
 
+
 function Home_Home_Home() {
-    return ((0,jsx_runtime.jsx)("div", Object.assign({ className: "home_page" }, { children: (0,jsx_runtime.jsx)(MainSection_MainSection_MainSection, {}) })));
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ className: "home_page" }, { children: [(0,jsx_runtime.jsx)(MainSection_MainSection_MainSection, {}), (0,jsx_runtime.jsx)(JourneySection_JourneySection_JourneySection, {})] })));
 }
 
 ;// CONCATENATED MODULE: ./documentation/App.tsx

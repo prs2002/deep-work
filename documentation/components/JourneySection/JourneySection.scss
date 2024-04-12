@@ -1,0 +1,23 @@
+.journey_section {
+  &__title {
+    &__blue {
+      font-size: 46px;
+      font-weight: 700;
+      color: var(--blue);
+      text-align: center;
+    }
+
+    &__black {
+      font-size: 46px;
+      font-weight: 700;
+      text-align: center;
+    }
+  }
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 40px;
+    row-gap: 88px;
+    margin-top: 40px;
+  }
+}
