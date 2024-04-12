@@ -51,8 +51,8 @@ document.getElementById("work")!.addEventListener("click", handleWork);
 document.getElementById("exit")!.addEventListener("click", () => {
   insertConfirmation(
     exitFocusMode,
-    "Yes, End focus mode",
-    `Are you sure? once you turn off super focus mode,
+    "Yes, End Focus Mode",
+    `Are you sure? Once you turn off Super Focus Mode,
   <strong>Recenter</strong> will not block the distracting websites.`
   );
 });

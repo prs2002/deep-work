@@ -89,9 +89,13 @@ setInterval(async () => {
     (await chrome.storage.local.get("lastTimeSummary")).lastTimeSummary || 0;
   const current = new Date().getTime();
 
-  const enableHourly =
-    (await chrome.storage.local.get("enableHourlyUpdates"))
-      .enableHourlyUpdates || false;
+  let enableHourly = (await chrome.storage.local.get("enableHourlyUpdates"))
+    .enableHourlyUpdates;
+
+  if (typeof enableHourly === "undefined") {
+    await chrome.storage.local.set({ enableHourlyUpdates: true });
+    enableHourly = true;
+  }
 
   if (current - lastTimeSummary >= 61 * 60 * 1000 && enableHourly) {
     // if summary not shown for more than an hour

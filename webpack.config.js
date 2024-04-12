@@ -8,7 +8,6 @@ module.exports = [
     name: "javascript",
     entry: {
       index: "./src/index.tsx",
-      index_2: "./src/index_2.tsx",
       background: "./src/background.ts",
       content: "./src/content.ts",
       superfocus: "./src/html/superfocus.ts",
@@ -74,7 +73,7 @@ module.exports = [
           },
         ],
       }),
-      ...getHtmlPlugins(["index", "index_2"]),
+      ...getHtmlPlugins(["index", "index_2"],["index", "index"], ["container", "container_2"]),
     ],
     resolve: {
       extensions: [".tsx", ".ts", ".js"],
@@ -137,13 +136,29 @@ module.exports = [
   //   },
   // },
 ];
-function getHtmlPlugins(chunks) {
+function getHtmlPlugins(name,chunks, divClass) {
   return chunks.map(
-    (chunk) =>
+    (chunk, index) =>
       new HTMLPlugin({
         title: "React extension",
-        filename: `${chunk}.html`,
+        filename: `${name[index]}.html`,
         chunks: [chunk],
+        templateContent: `
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>React extension</title>
+          </head>
+          <body>
+            <div class="${divClass[index]}">
+              <!-- Your content here -->
+            </div>
+            <script src="${chunk}.js"></script>
+          </body>
+          </html>
+        `,
       })
   );
 }

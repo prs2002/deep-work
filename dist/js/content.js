@@ -8595,8 +8595,12 @@ setInterval(() => content_awaiter(void 0, void 0, void 0, function* () {
     }
     const lastTimeSummary = (yield chrome.storage.local.get("lastTimeSummary")).lastTimeSummary || 0;
     const current = new Date().getTime();
-    const enableHourly = (yield chrome.storage.local.get("enableHourlyUpdates"))
-        .enableHourlyUpdates || false;
+    let enableHourly = (yield chrome.storage.local.get("enableHourlyUpdates"))
+        .enableHourlyUpdates;
+    if (typeof enableHourly === "undefined") {
+        yield chrome.storage.local.set({ enableHourlyUpdates: true });
+        enableHourly = true;
+    }
     if (current - lastTimeSummary >= 61 * 60 * 1000 && enableHourly) {
         // if summary not shown for more than an hour
         insertHourlySummary();

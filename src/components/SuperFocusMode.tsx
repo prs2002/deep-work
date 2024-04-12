@@ -90,12 +90,12 @@ export default function SuperFocusMode() {
     <div className="super_focus_mode">
       <div className="super_focus_mode__content">
         <ToggleButtonWithConfirm
-          phrase="Yes, End focus mode"
+          phrase="Yes, End Focus Mode"
           storeKey="enableSuperFocusMode"
           text="Super Focus Mode"
           textWarning={
             <>
-              Are you sure? once you turn off super focus mode,{" "}
+              Are you sure? Once you turn off Super Focus Mode,{" "}
               <strong>Recenter</strong> will not block the distracting websites.
             </>
           }

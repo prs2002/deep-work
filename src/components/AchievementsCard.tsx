@@ -15,8 +15,7 @@ export default function AchievementsCard({
         <h2>PRODUCTIVITY</h2>
         <h1>{achievementsType.name}</h1>
         <p>
-          You have contributed <span>{achievementsType.time}hrs</span> of
-          productivity this week.
+        You have been productive for <span>{achievementsType.time}hrs</span> this week.
         </p>
       </div>
       <div className="achievements_card__image">
