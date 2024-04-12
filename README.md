@@ -1,5 +1,6 @@
 # recenter
 A browser extension to help you rebalance, refocus -- and recenter.
+https://recenter.netlify.app/
 
 Three ways to install this: 
 1) Clone this repo (which allows you to get updates easily with a git pull*)
