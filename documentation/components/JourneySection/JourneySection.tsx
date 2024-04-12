@@ -40,9 +40,8 @@ export default function JourneySection() {
       title: "5. Configure Page",
       description: (
         <>
-          This is where you would configure
-          <strong>Recenter</strong>
-          to your needs.
+          This is where you would configure <strong>Recenter</strong> to your
+          needs.
         </>
       ),
     },

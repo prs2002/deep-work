@@ -81,6 +81,72 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.app_container{max-width:1440px;width:
 
 /***/ }),
 
+/***/ 945:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   c: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5500);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2312);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.faq_item{width:100%;background-color:var(--grey);padding:30px 60px;cursor:pointer}.faq_item__question{font-size:20px;display:flex;justify-content:space-between}.faq_item__answer{max-height:0;overflow:hidden;transition:margin .5s ease;font-size:18px;margin-right:80px}.faq_item__answer strong{font-weight:700;font-size:18px}.faq_item__answer.open{margin-top:32px;max-height:1000px;transition:margin .5s ease,height .1s ease}`, ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 7327:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   c: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5500);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2312);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.faq_section{margin-top:150px;display:flex;flex-direction:column;align-items:center;justify-content:center}.faq_section__title__blue{font-size:46px;font-weight:700;text-align:center;color:var(--blue)}.faq_section__title__black{font-size:46px;font-weight:700;text-align:center}.faq_section__items{margin-top:40px;width:90%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}`, ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ 8572:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   c: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5500);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2312);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.footer{margin-top:200px;width:100%;display:flex;align-items:center;justify-content:center;background-color:var(--blue);padding:32px 64px}.footer__left{width:calc(20% - 64px);display:flex;gap:17px}.footer__left__logo{display:flex;align-items:center;justify-content:center}.footer__left__logo img{width:29px;aspect-ratio:1/1}.footer__left__text{display:flex;align-items:center;justify-content:center;font-size:var(--paragraph-1);font-weight:700;color:var(--blue)}.footer__middle{width:60%;display:flex;justify-content:center}.footer__middle__items{display:flex;gap:50px}.footer__middle__items__item{cursor:pointer;text-decoration:none;color:#fff}.footer__middle__items__item#icon{display:none}.footer__right{width:calc(20% - 64px);display:flex;justify-content:flex-end;gap:50px}.footer__right__items{display:flex;gap:50px}.footer__right__items__item{cursor:pointer;text-decoration:none;color:#fff;background-color:#000;padding:10px 20px;border-radius:30px}`, ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 1924:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -96,7 +162,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.app_container{max-width:1440px;width:
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.journey_card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:37px}.journey_card__image{height:75%}.journey_card__image img{height:100%;max-width:100%}.journey_card__content{width:80%;height:25%;display:flex;flex-direction:column;align-items:center;gap:14px}.journey_card__content__title{font-size:26px}.journey_card__content__description{text-align:center;font-size:18px}.journey_card__content__description strong{font-size:18px;font-weight:700}`, ""]);
+___CSS_LOADER_EXPORT___.push([module.id, `.journey_card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:37px}.journey_card__image{height:75%;cursor:pointer}.journey_card__image img{height:100%;max-width:100%}.journey_card__content{width:100%;height:25%;display:flex;flex-direction:column;align-items:center;gap:14px}.journey_card__content__title{font-size:26px}@media screen and (max-width: 1200px){.journey_card__content__title{font-size:20px}}.journey_card__content__description{width:80%;text-align:center;font-size:18px}.journey_card__content__description strong{font-size:18px;font-weight:700}@media screen and (max-width: 1200px){.journey_card__content__description{font-size:14px}.journey_card__content__description strong{font-size:14px}}`, ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -162,7 +228,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.main_section{width:100%;display:flex;
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.navbar{margin-top:29px;width:90%;display:flex;align-items:center;justify-content:center}.navbar__left{width:20%;display:flex;gap:17px}.navbar__left__logo{display:flex;align-items:center;justify-content:center}.navbar__left__logo img{width:29px;aspect-ratio:1/1}.navbar__left__text{display:flex;align-items:center;justify-content:center;font-size:var(--paragraph-1);font-weight:700;color:var(--blue)}.navbar__middle{width:60%;display:flex;justify-content:center}.navbar__middle__items{display:flex;gap:50px}.navbar__middle__items__item{cursor:pointer;text-decoration:none;color:#000}.navbar__middle__items__item#icon{display:none}.navbar__right{width:20%;display:flex;justify-content:flex-end;gap:50px}.navbar__right__items{display:flex;gap:50px}.navbar__right__items__item{cursor:pointer;text-decoration:none;color:#000}.navbar__right__items__item#icon{display:none}`, ""]);
+___CSS_LOADER_EXPORT___.push([module.id, `.navbar{margin-top:29px;width:90%;display:flex;align-items:center;justify-content:center}.navbar__left{width:20%;display:flex;gap:17px}.navbar__left__logo{display:flex;align-items:center;justify-content:center}.navbar__left__logo img{width:29px;aspect-ratio:1/1}.navbar__left__text{display:flex;align-items:center;justify-content:center;font-size:var(--paragraph-1);font-weight:700;color:var(--blue)}.navbar__middle{width:60%;display:flex;justify-content:center}.navbar__middle__items{display:flex;gap:50px}.navbar__middle__items__item{cursor:pointer;text-decoration:none;color:#000}.navbar__middle__items__item#icon{display:none}.navbar__right{width:20%;display:flex;justify-content:flex-end;gap:50px}.navbar__right__items{display:flex;gap:50px}.navbar__right__items__item{cursor:pointer;text-decoration:none;color:#fff;background-color:#000;padding:10px 20px;border-radius:30px}`, ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -206,7 +272,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.new_feature{display:flex;gap:.5em;bac
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.quick_links{display:grid;grid-template-columns:repeat(2, 1fr);column-gap:24px;row-gap:24px;width:100%}.quick_links__link_box{background-color:var(--grey);padding:34px;display:flex}.quick_links__link_box__left{width:15%}.quick_links__link_box__left__circle{aspect-ratio:1/1;width:30px;background-color:var(--dark-grey);border-radius:var(--infinity);display:flex;align-items:center;justify-content:center}.quick_links__link_box__middle{width:70%;font-size:20px;display:flex;align-items:center;justify-content:center}.quick_links__link_box__right{width:15%;display:flex;align-items:center;justify-content:center}`, ""]);
+___CSS_LOADER_EXPORT___.push([module.id, `.quick_links{display:grid;grid-template-columns:repeat(2, 1fr);column-gap:24px;row-gap:24px;width:100%}.quick_links__link_box{background-color:var(--grey);padding:34px;display:flex;cursor:pointer}.quick_links__link_box__left{width:15%}.quick_links__link_box__left__circle{aspect-ratio:1/1;width:30px;background-color:var(--dark-grey);border-radius:var(--infinity);display:flex;align-items:center;justify-content:center}.quick_links__link_box__middle{width:70%;font-size:20px;display:flex;align-items:center;justify-content:center}.quick_links__link_box__right{width:15%;display:flex;align-items:center;justify-content:center}`, ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -12481,7 +12547,7 @@ function JourneySection_JourneySection_JourneySection() {
         {
             image: chrome.runtime.getURL("/images/documentation/journey/configure.png"),
             title: "5. Configure Page",
-            description: ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: ["This is where you would configure", (0,jsx_runtime.jsx)("strong", { children: "Recenter" }), "to your needs."] })),
+            description: ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: ["This is where you would configure ", (0,jsx_runtime.jsx)("strong", { children: "Recenter" }), " to your needs."] })),
         },
         {
             image: chrome.runtime.getURL("/images/documentation/journey/home.png"),
@@ -12513,13 +12579,170 @@ function JourneySection_JourneySection_JourneySection() {
                 } }, { children: journeyCards.map((card, index) => ((0,react.createElement)(JourneyCard_JourneyCard_JourneyCard, Object.assign({}, card, { key: index })))) }))] })));
 }
 
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./documentation/components/FAQItem/FAQItem.scss
+var FAQItem = __webpack_require__(945);
+;// CONCATENATED MODULE: ./documentation/components/FAQItem/FAQItem.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var FAQItem_options = {};
+
+FAQItem_options.styleTagTransform = (styleTagTransform_default());
+FAQItem_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      FAQItem_options.insert = insertBySelector_default().bind(null, "head");
+    
+FAQItem_options.domAPI = (styleDomAPI_default());
+FAQItem_options.insertStyleElement = (insertStyleElement_default());
+
+var FAQItem_update = injectStylesIntoStyleTag_default()(FAQItem/* default */.c, FAQItem_options);
+
+
+
+
+       /* harmony default export */ const FAQItem_FAQItem = (FAQItem/* default */.c && FAQItem/* default */.c.locals ? FAQItem/* default */.c.locals : undefined);
+
+;// CONCATENATED MODULE: ./documentation/components/FAQItem/FAQItem.tsx
+
+
+
+
+function FAQItem_FAQItem_FAQItem({ question, answer }) {
+    const [isOpen, setIsOpen] = (0,react.useState)(false);
+    function toggleOpen() {
+        setIsOpen((prev) => !prev);
+    }
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ className: "faq_item" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ className: "faq_item__question", onClick: toggleOpen }, { children: [question, " ", (0,jsx_runtime.jsx)(FaAngleDown, {})] })), (0,jsx_runtime.jsx)("div", Object.assign({ className: "faq_item__answer " + (isOpen ? "open" : "") }, { children: answer }))] })));
+}
+
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./documentation/components/FAQSection/FAQSection.scss
+var FAQSection = __webpack_require__(7327);
+;// CONCATENATED MODULE: ./documentation/components/FAQSection/FAQSection.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var FAQSection_options = {};
+
+FAQSection_options.styleTagTransform = (styleTagTransform_default());
+FAQSection_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      FAQSection_options.insert = insertBySelector_default().bind(null, "head");
+    
+FAQSection_options.domAPI = (styleDomAPI_default());
+FAQSection_options.insertStyleElement = (insertStyleElement_default());
+
+var FAQSection_update = injectStylesIntoStyleTag_default()(FAQSection/* default */.c, FAQSection_options);
+
+
+
+
+       /* harmony default export */ const FAQSection_FAQSection = (FAQSection/* default */.c && FAQSection/* default */.c.locals ? FAQSection/* default */.c.locals : undefined);
+
+;// CONCATENATED MODULE: ./documentation/components/FAQSection/FAQSection.tsx
+
+
+
+function FAQSection_FAQSection_FAQSection() {
+    const faqItems = [
+        {
+            question: "Why do my websites keep getting blocked?",
+            answer: ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: ["This happens when you have ", (0,jsx_runtime.jsx)("strong", { children: "Block Distracting Sites" }), " ", "enabled in your settings. This setting automatically blocks websites to get to focus after some iterative alerts.,"] })),
+        },
+        {
+            question: "Why do my websites keep getting blocked?",
+            answer: ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: ["This happens when you have ", (0,jsx_runtime.jsx)("strong", { children: "Block Distracting Sites" }), " ", "enabled in your settings. This setting automatically blocks websites to get to focus after some iterative alerts.,"] })),
+        },
+        {
+            question: "Why do my websites keep getting blocked?",
+            answer: ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: ["This happens when you have ", (0,jsx_runtime.jsx)("strong", { children: "Block Distracting Sites" }), " ", "enabled in your settings. This setting automatically blocks websites to get to focus after some iterative alerts.,"] })),
+        },
+    ];
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ className: "faq_section" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ className: "faq_section__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ className: "faq_section__title__blue" }, { children: "Frequently Asked" })), (0,jsx_runtime.jsx)("div", Object.assign({ className: "faq_section__title__black" }, { children: "Questions" }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ className: "faq_section__items" }, { children: faqItems.map((item, index) => ((0,jsx_runtime.jsx)(FAQItem_FAQItem_FAQItem, Object.assign({}, item), index))) }))] })));
+}
+
 ;// CONCATENATED MODULE: ./documentation/pages/Home/Home.tsx
 
 
 
 
+
 function Home_Home_Home() {
-    return ((0,jsx_runtime.jsxs)("div", Object.assign({ className: "home_page" }, { children: [(0,jsx_runtime.jsx)(MainSection_MainSection_MainSection, {}), (0,jsx_runtime.jsx)(JourneySection_JourneySection_JourneySection, {})] })));
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ className: "home_page" }, { children: [(0,jsx_runtime.jsx)(MainSection_MainSection_MainSection, {}), (0,jsx_runtime.jsx)(JourneySection_JourneySection_JourneySection, {}), (0,jsx_runtime.jsx)(FAQSection_FAQSection_FAQSection, {})] })));
+}
+
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./documentation/components/Footer/Footer.scss
+var Footer = __webpack_require__(8572);
+;// CONCATENATED MODULE: ./documentation/components/Footer/Footer.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var Footer_options = {};
+
+Footer_options.styleTagTransform = (styleTagTransform_default());
+Footer_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      Footer_options.insert = insertBySelector_default().bind(null, "head");
+    
+Footer_options.domAPI = (styleDomAPI_default());
+Footer_options.insertStyleElement = (insertStyleElement_default());
+
+var Footer_update = injectStylesIntoStyleTag_default()(Footer/* default */.c, Footer_options);
+
+
+
+
+       /* harmony default export */ const Footer_Footer = (Footer/* default */.c && Footer/* default */.c.locals ? Footer/* default */.c.locals : undefined);
+
+;// CONCATENATED MODULE: ./documentation/components/Footer/Footer.tsx
+
+
+
+function Footer_Footer_Footer() {
+    const middleLinks = [
+        {
+            name: "Getting Started",
+            href: "#getting-started",
+        },
+        {
+            name: "Essentials",
+            href: "#essentials",
+        },
+        {
+            name: "Alerts",
+            href: "#alerts",
+        },
+        {
+            name: "FAQs",
+            href: "#faqs",
+        },
+    ];
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ className: "footer" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ className: "footer__left" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ className: "footer__left__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: recenter_logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ className: "footer__left__text" }, { children: "Recenter" }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ className: "footer__middle" }, { children: (0,jsx_runtime.jsx)("div", Object.assign({ className: "footer__middle__items" }, { children: middleLinks.map((link) => {
+                        return ((0,jsx_runtime.jsx)("a", Object.assign({ href: link.href, className: "footer__middle__items__item" }, { children: link.name }), link.name));
+                    }) })) })), (0,jsx_runtime.jsx)("div", Object.assign({ className: "footer__right" }, { children: (0,jsx_runtime.jsx)("div", Object.assign({ className: "footer__right__items" }, { children: (0,jsx_runtime.jsx)("a", Object.assign({ href: "https://github.com/CominiLearning/recenter", rel: "noreferrer", target: "_blank", className: "footer__right__items__item", id: "item" }, { children: "Download" })) })) }))] })));
 }
 
 ;// CONCATENATED MODULE: ./documentation/App.tsx
@@ -12528,8 +12751,9 @@ function Home_Home_Home() {
 
 
 
+
 function App_App() {
-    return ((0,jsx_runtime.jsxs)("div", Object.assign({ className: "app_container" }, { children: [(0,jsx_runtime.jsx)("div", { className: "app_container__blue_line" }), (0,jsx_runtime.jsx)(Navbar_Navbar_Navbar, {}), (0,jsx_runtime.jsx)(Routes, { children: (0,jsx_runtime.jsx)(Route, { path: "/", element: (0,jsx_runtime.jsx)(Home_Home_Home, {}) }) })] })));
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ className: "app_container" }, { children: [(0,jsx_runtime.jsx)("div", { className: "app_container__blue_line" }), (0,jsx_runtime.jsx)(Navbar_Navbar_Navbar, {}), (0,jsx_runtime.jsx)(Routes, { children: (0,jsx_runtime.jsx)(Route, { path: "/", element: (0,jsx_runtime.jsx)(Home_Home_Home, {}) }) }), (0,jsx_runtime.jsx)(Footer_Footer_Footer, {})] })));
 }
 
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./documentation/global.css

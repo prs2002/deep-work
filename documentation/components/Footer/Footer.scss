@@ -1,12 +1,14 @@
-.navbar {
-  margin-top: 29px;
-  width: 90%;
+.footer {
+  margin-top: 200px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--blue);
+  padding: 32px 64px;
 
   &__left {
-    width: 20%;
+    width: calc(20% - 64px);
     display: flex;
     gap: 17px;
     &__logo {
@@ -40,7 +42,7 @@
       &__item {
         cursor: pointer;
         text-decoration: none;
-        color: #000000;
+        color: white;
         &#icon {
           display: none;
         }
@@ -49,7 +51,7 @@
   }
 
   &__right {
-    width: 20%;
+    width: calc(20% - 64px);
     display: flex;
     justify-content: flex-end;
     gap: 50px;
