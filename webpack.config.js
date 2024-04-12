@@ -12,6 +12,7 @@ module.exports = [
       content: "./src/content.ts",
       superfocus: "./src/html/superfocus.ts",
       blocked: "./src/html/blocked.ts",
+      documentation: "./documentation/documentation.tsx",
     },
     mode: "production",
     optimization: {
@@ -47,7 +48,7 @@ module.exports = [
               loader: "file-loader",
               options: {
                 context: "src/images",
-                outputPath: "images",
+                outputPath: "../images",
                 name: "[path][name].[ext]",
               },
             },
@@ -62,7 +63,7 @@ module.exports = [
           { from: "./src/data/", to: "../data" },
           {
             from: "./src/html/",
-            to: "../",
+            to: "../html/",
             filter: (resourcePath) => {
               // Check if the file is HTML
               return (
@@ -73,7 +74,6 @@ module.exports = [
           },
         ],
       }),
-      ...getHtmlPlugins(["index", "index_2"],["index", "index"], ["container", "container_2"]),
     ],
     resolve: {
       extensions: [".tsx", ".ts", ".js"],
@@ -101,42 +101,31 @@ module.exports = [
       ],
     },
     output: {
-      path: path.join(__dirname, "dist/"),
+      path: path.join(__dirname, "dist/styles/"),
       filename: "[name].css",
     },
   },
-  // {
-  //   name: "dom",
-  //   entry: {
-  //     superfocus: "./src/html/superfocus.ts",
-  //   },
-  //   mode: "production",
-  //   optimization: {
-  //     minimize: false,
-  //   },
-  //   module: {
-  //     rules: [
-  //       {
-  //         test: /\.tsx?$/,
-  //         use: [
-  //           {
-  //             loader: "ts-loader",
-  //             options: {
-  //               compilerOptions: { noEmit: false },
-  //             },
-  //           },
-  //         ],
-  //         exclude: /node_modules/,
-  //       },
-  //     ],
-  //   },
-  //   output: {
-  //     path: path.join(__dirname, "dist/"),
-  //     filename: "[name].js",
-  //   },
-  // },
+  {
+    name: "html",
+    entry: {},
+    plugins: [
+      ...getHtmlPlugins(
+        ["index", "index_2", "documentation"],
+        ["../js/index", "../js/index", "../js/documentation"],
+        ["container", "container_2", "container"]
+      ),
+    ],
+    mode: "production",
+    optimization: {
+      minimize: false,
+    },
+    output: {
+      path: path.join(__dirname, "dist/html/"),
+      filename: "[name].html",
+    },
+  },
 ];
-function getHtmlPlugins(name,chunks, divClass) {
+function getHtmlPlugins(name, chunks, divClass) {
   return chunks.map(
     (chunk, index) =>
       new HTMLPlugin({

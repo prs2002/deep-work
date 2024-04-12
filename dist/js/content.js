@@ -1318,8 +1318,8 @@ var DailyPopup_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 
 // import "../../images/gifs/3.gif";
 function DailyPopup() {
-    const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
-    const gif = chrome.runtime.getURL("js/images/gifs/2.gif");
+    const logo = chrome.runtime.getURL("images/recenter_logo.png");
+    const gif = chrome.runtime.getURL("images/gifs/2.gif");
     const [summary, setSummary] = (0,react.useState)("");
     const [showSummary, setShowSummary] = useToggle(false);
     const [focusRate, setFocusRate] = (0,react.useState)(0);
@@ -1624,7 +1624,7 @@ var Alert_update = injectStylesIntoStyleTag_default()(Alert/* default */.c, Aler
 
 function Alert_Alert({ updateViolations }) {
     const [isMore, setIsMore] = (0,react.useState)(false);
-    const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
+    const logo = chrome.runtime.getURL("images/recenter_logo.png");
     function onClose() {
         const root = document.getElementById("recenter_container");
         if (root) {
@@ -1719,7 +1719,7 @@ function FinalAlert_FinalAlert({ line }) {
         }
         window.location.href = "https://www.google.com";
     }
-    const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
+    const logo = chrome.runtime.getURL("images/recenter_logo.png");
     return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "final_alert" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "final_alert__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "final_alert__title__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "final_alert__title__text" }, { children: (0,jsx_runtime.jsx)("h1", { children: "Recenter" }) }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "final_alert__line" }, { children: line })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "final_alert__activity" }, { children: ALERT_ACTIVITY })), (0,jsx_runtime.jsx)("button", Object.assign({ id: "final_alert__button", onClick: onClose }, { children: "Let's Go!" }))] })));
 }
 function insertFinalAlert(line) {
@@ -8258,7 +8258,7 @@ var Blocking_awaiter = (undefined && undefined.__awaiter) || function (thisArg, 
     });
 };
 function redirect() {
-    chrome.runtime.sendMessage({ redirect: "blocked.html" });
+    chrome.runtime.sendMessage({ redirect: "html/blocked.html" });
 }
 function isTimeExceeded(url) {
     var _a;
@@ -8612,7 +8612,7 @@ chrome.storage.local.get("enableSuperFocusMode", (res) => {
     if (isBlocking) {
         getTag(document.location.origin).then((res) => {
             if (res === 3) {
-                chrome.runtime.sendMessage({ redirect: "superfocus.html" });
+                chrome.runtime.sendMessage({ redirect: "html/superfocus.html" });
             }
         });
     }

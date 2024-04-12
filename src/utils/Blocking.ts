@@ -1,5 +1,5 @@
 function redirect() {
-  chrome.runtime.sendMessage({ redirect: "blocked.html" });
+  chrome.runtime.sendMessage({ redirect: "html/blocked.html" });
 }
 
 async function isTimeExceeded(url: string): Promise<number> {

@@ -4,16 +4,16 @@
   "name": "Recenter",
   "description": "A browser extension to help focus on what needs to be done and motivate you to get there",
   "icons": {
-    "16": "js/images/recenter_logo.png",
-    "48": "js/images/recenter_logo.png",
-    "128": "js/images/recenter_logo.png"
+    "16": "images/recenter_logo.png",
+    "48": "images/recenter_logo.png",
+    "128": "images/recenter_logo.png"
   },
   "action": {
-    "default_popup": "js/index.html",
+    "default_popup": "html/index.html",
     "default_title": "Recenter"
   },
   "side_panel": {
-    "default_path": "js/index_2.html"
+    "default_path": "html/index_2.html"
   },
   "background": {
     "service_worker": "js/background.js"
@@ -26,7 +26,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["js/images/recenter_logo.png", "js/images/gifs/*.gif"],
+      "resources": ["images/recenter_logo.png", "images/gifs/*.gif", "images/documentation/*.png"],
       "matches": ["<all_urls>"]
     }
   ],

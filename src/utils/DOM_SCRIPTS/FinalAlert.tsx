@@ -11,7 +11,7 @@ function FinalAlert({ line }: { line: string }) {
     window.location.href = "https://www.google.com";
   }
 
-  const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
+  const logo = chrome.runtime.getURL("images/recenter_logo.png");
 
   return (
     <div id="final_alert">

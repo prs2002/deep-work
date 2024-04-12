@@ -5,7 +5,7 @@ import { ALERT_GO_BACK, ALERT_LEAVE_BUTTON, ALERT_STAY_BUTTON, ALERT_TEXT__DARK,
 
 function Alert({ updateViolations }: { updateViolations: any }) {
   const [isMore, setIsMore] = useState(false);
-  const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
+  const logo = chrome.runtime.getURL("images/recenter_logo.png");
   function onClose() {
     const root = document.getElementById("recenter_container");
     if (root) {

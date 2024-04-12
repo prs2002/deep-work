@@ -9,8 +9,8 @@ import { SUMMARY_NO_DATA } from "../CONSTANTS/texts";
 // import "../../images/gifs/3.gif";
 
 function DailyPopup() {
-  const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
-  const gif = chrome.runtime.getURL("js/images/gifs/2.gif");
+  const logo = chrome.runtime.getURL("images/recenter_logo.png");
+  const gif = chrome.runtime.getURL("images/gifs/2.gif");
 
   const [summary, setSummary] = useState<string>("");
   const [showSummary, setShowSummary] = useToggle(false);

@@ -1,0 +1,23 @@
+.new_feature {
+  display: flex;
+  gap: 0.5em;
+  background-color: var(--grey);
+  border-radius: 30px;
+  padding: 15px 24px;
+  width: fit-content;
+  &__new_text {
+    background-color: var(--blue);
+    color: white;
+    border-radius: 18px;
+    padding: 5px 11px;
+    font-size: 14px;
+  }
+  &__feature {
+    font-size: 24px;
+
+    & strong {
+      font-size: 24px;
+      font-weight: 700;
+    }
+  }
+}
