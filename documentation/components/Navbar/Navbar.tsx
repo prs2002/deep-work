@@ -1,23 +1,24 @@
 import "./Navbar.scss";
 import logo from "../../../src/images/recenter_logo.png";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const middleLinks = [
     {
       name: "Getting Started",
-      href: "#getting-started",
+      href: "/",
     },
     {
       name: "Essentials",
-      href: "#essentials",
+      href: "/essentials",
     },
     {
       name: "Alerts",
-      href: "#alerts",
+      href: "/alerts",
     },
     {
       name: "FAQs",
-      href: "#faqs",
+      href: "/faqs",
     },
   ];
 
@@ -33,13 +34,13 @@ export default function Navbar() {
         <div className="navbar__middle__items">
           {middleLinks.map((link) => {
             return (
-              <a
-                href={link.href}
+              <Link
+                to={link.href}
                 className="navbar__middle__items__item"
                 key={link.name}
               >
                 {link.name}
-              </a>
+              </Link>
             );
           })}
         </div>

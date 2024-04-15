@@ -1,0 +1,10 @@
+.content_section {
+  width: 100%;
+  &__title {
+    font-size: 46px;
+    font-weight: 700;
+    color: var(--blue);
+    margin-bottom: 30px;
+  }
+  margin-bottom: 40px;
+}
