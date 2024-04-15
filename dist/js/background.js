@@ -757,7 +757,7 @@ class WebTime {
                     !origin.startsWith("chrome-extension://") &&
                     !this.isDisabled) {
                     this.isInFocus && this.updateDataHelper(origin, this.focusedTab.id);
-                    this.isInFocus && this.saveData(this.focusedTab);
+                    this.isInFocus && this.saveData();
                     this.isInFocus && this.addToUntagged(origin);
                 }
             });
@@ -811,11 +811,11 @@ class WebTime {
             found = false;
         }
     }
-    saveData(tab) {
+    saveData() {
         this.storeDailyTime();
         this.storeWeeklyTime();
         this.storeMonthlyTime();
-        this.storeHourlyTime(tab);
+        this.storeHourlyTime();
     }
     addToUntagged(url) {
         return WebTime_awaiter(this, void 0, void 0, function* () {
@@ -874,14 +874,14 @@ class WebTime {
             return;
         });
     }
-    storeHourlyTime(tab) {
+    storeHourlyTime() {
         var _a;
         return WebTime_awaiter(this, void 0, void 0, function* () {
             // Store the time spent on the website for the hour
             const dateString = new Date().getTime(); // Get the current time
             const oldDate = ((_a = (yield chrome.storage.local.get("hourBegin"))) === null || _a === void 0 ? void 0 : _a.hourBegin) || 0; // Get the last hour beginning
             if (dateString - oldDate > 60 * 60 * 1000) {
-                yield this.setNewHour(tab);
+                yield this.setNewHour();
             }
             yield chrome.storage.local.set({ hourlyTime: this.hourlyTime });
             return;
@@ -910,19 +910,17 @@ class WebTime {
     setNewMonth() {
         return WebTime_awaiter(this, void 0, void 0, function* () {
             const month = new Date().getMonth();
-            yield chrome.storage.local.set({ numberOfDays: 1 });
             yield chrome.storage.local.set({ monthToday: month });
             yield chrome.storage.local.set({ monthlyTime: [] });
             this.monthlyTime = [];
+            yield this.setNewDay(); // Reset the daily time as well
         });
     }
-    setNewHour(tab) {
+    setNewHour() {
         return WebTime_awaiter(this, void 0, void 0, function* () {
             const time = new Date().getTime();
             yield chrome.storage.local.set({ hourBegin: time });
-            hourlyRecap(yield getTaggedTime("hourlyTime")).then(() => {
-                // tab.id && chrome.tabs.sendMessage(tab.id, { message: "HourlySummary" });
-            });
+            hourlyRecap(yield getTaggedTime("hourlyTime"));
             yield chrome.storage.local.set({ hourlyTime: [] });
             this.hourlyTime = [];
         });

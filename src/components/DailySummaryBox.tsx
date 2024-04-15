@@ -3,7 +3,12 @@ import "./DailySummaryBox.scss";
 import { dailyRecap } from "../utils/chatGPT/DailyRecap";
 import { getTaggedTime } from "../utils/queryStorage/GetTaggedTime";
 import { msToHM } from "../utils/scripts/mmToHM";
-import { SUMMARY_NO_DATA } from "../utils/CONSTANTS/texts";
+import {
+  SUMMARY_NO_DATA,
+  SUMMARY_TIME_TOO_SHORT,
+  API_CALL_FAILED_SUMMARY,
+  NO_API_KEY_SUMMARY,
+} from "../utils/CONSTANTS/texts";
 
 export default function DailySummaryBox() {
   const [summary, setSummary] = useState<string>("Processing");
@@ -22,7 +27,13 @@ export default function DailySummaryBox() {
       if (
         !prevDaySummary ||
         yesterday.toDateString() !== prevDaySummary[1] ||
-        prevDaySummary[0].length < 70 // error message
+        prevDaySummary[0].length < 70 ||
+        [
+          SUMMARY_NO_DATA,
+          SUMMARY_TIME_TOO_SHORT,
+          API_CALL_FAILED_SUMMARY,
+          NO_API_KEY_SUMMARY,
+        ].includes(prevDaySummary[0]) // error message
       ) {
         await dailyRecap();
       }
@@ -116,7 +127,7 @@ export default function DailySummaryBox() {
           <div className="daily_summary__content__line"></div>
           <div
             className="daily_summary__content__summary"
-            dangerouslySetInnerHTML={{ __html: summary }} 
+            dangerouslySetInnerHTML={{ __html: summary }}
           ></div>
         </div>
       </div>

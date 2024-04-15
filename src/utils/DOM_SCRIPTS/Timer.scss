@@ -1,55 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap");
+
 #recenter_timer {
-  z-index: 9999999;
-  border-radius: 60px;
-  position: fixed;
-  top: 20px;
-  right: 30px;
-  min-width: 164px;
-  background: #ff3b20;
-  padding: 15px 14px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  z-index: 9999999 !important;
+  border-radius: 60px !important;
+  position: fixed !important;
+  top: 20px !important;
+  right: 30px !important;
+  min-width: 164px !important;
+  background: #ff3b20 !important;
+  padding: 15px 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
   &__logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     & * {
-      color: #b70000;
-      font-size: 28px;
+      color: #b70000 !important;
+      font-size: 28px !important;
     }
   }
 
   &__time {
-    font-family: Inter;
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 34px;
-    color: #ffffff;
+    font-family: Inter !important;
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    line-height: 34px !important;
+    color: #ffffff !important;
   }
 
   &.jiggle {
-    animation: jiggle 0.5s ease-in-out;
+    animation: jiggle 0.5s ease-in-out !important;
   }
 }
 
 @keyframes jiggle {
   0% {
-    transform: rotate(0);
+    transform: rotate(0) !important;
   }
   20% {
-    transform: rotate(-10deg);
+    transform: rotate(-10deg) !important;
   }
   40% {
-    transform: rotate(10deg);
+    transform: rotate(10deg) !important;
   }
   60% {
-    transform: rotate(-10deg);
+    transform: rotate(-10deg) !important;
   }
   80% {
-    transform: rotate(10deg);
+    transform: rotate(10deg) !important;
   }
   100% {
-    transform: rotate(0);
+    transform: rotate(0) !important;
   }
 }

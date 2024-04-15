@@ -1,94 +1,94 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap");
 #final_alert,
 #final_alert * {
-  all: revert;
-  margin: 0;
-  padding: 0;
+  all: revert !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 #final_alert {
-  width: 675px;
-  min-height: 256px;
-  background: #2087ff;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 999999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 675px !important;
+  min-height: 256px !important;
+  background: #2087ff !important;
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 999999 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
   &__title {
-    display: flex;
-    gap: 7px;
-    margin-top: 30px;
+    display: flex !important;
+    gap: 7px !important;
+    margin-top: 30px !important;
 
     &__logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
 
       & img {
-        width: 28px;
-        aspect-ratio: 1;
+        width: 28px !important;
+        aspect-ratio: 1 !important;
       }
     }
 
     &__text {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
       & h1 {
-        font-family: Inter;
-        font-size: 16px;
-        font-weight: 600;
-        line-height: 19px;
-        letter-spacing: 0em;
-        padding: 0;
-        color: #0052bd;
+        font-family: Inter !important;
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        line-height: 19px !important;
+        letter-spacing: 0em !important;
+        padding: 0 !important;
+        color: #0052bd !important;
       }
     }
   }
 
   &__line {
-    margin-top: 24px;
-    width: 525px;
-    text-align: center;
-    font-family: Inter;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 24px;
-    letter-spacing: 0em;
-    color: #ffffff;
+    margin-top: 24px !important;
+    width: 525px !important;
+    text-align: center !important;
+    font-family: Inter !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    line-height: 24px !important;
+    letter-spacing: 0em !important;
+    color: #ffffff !important;
   }
 
   &__activity {
-    font-family: Inter;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 16px;
-    letter-spacing: 0em;
-    text-align: center;
-    margin-top: 14px;
-    color: #ffffff;
+    font-family: Inter !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    line-height: 16px !important;
+    letter-spacing: 0em !important;
+    text-align: center !important;
+    margin-top: 14px !important;
+    color: #ffffff !important;
   }
 
   &__button {
-    background: #ffffff;
-    margin-top: 29px;
-    padding: 7.5px 37px;
-    border-radius: 38px;
-    border: none;
-    cursor: pointer;
-    font-family: Inter;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 19px;
-    letter-spacing: 0;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
+    background: #ffffff !important;
+    margin-top: 29px !important;
+    padding: 7.5px 37px !important;
+    border-radius: 38px !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-family: Inter !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 19px !important;
+    letter-spacing: 0 !important;
+    color: black !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-bottom: 30px !important;
   }
 }

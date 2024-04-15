@@ -75,7 +75,7 @@ export class WebTime {
           !this.isDisabled
         ) {
           this.isInFocus && this.updateDataHelper(origin, this.focusedTab!.id!);
-          this.isInFocus && this.saveData(this.focusedTab!);
+          this.isInFocus && this.saveData();
           this.isInFocus && this.addToUntagged(origin);
         }
       });
@@ -129,11 +129,11 @@ export class WebTime {
       found = false;
     }
   }
-  saveData(tab: chrome.tabs.Tab) {
+  saveData() {
     this.storeDailyTime();
     this.storeWeeklyTime();
     this.storeMonthlyTime();
-    this.storeHourlyTime(tab);
+    this.storeHourlyTime();
   }
 
   async addToUntagged(url: string) {
@@ -189,13 +189,13 @@ export class WebTime {
     await chrome.storage.local.set({ dailyTime: this.dailyTime });
     return;
   }
-  async storeHourlyTime(tab: chrome.tabs.Tab) {
+  async storeHourlyTime() {
     // Store the time spent on the website for the hour
     const dateString = new Date().getTime(); // Get the current time
     const oldDate =
       (await chrome.storage.local.get("hourBegin"))?.hourBegin || 0; // Get the last hour beginning
     if (dateString - oldDate > 60 * 60 * 1000) {
-      await this.setNewHour(tab);
+      await this.setNewHour();
     }
     await chrome.storage.local.set({ hourlyTime: this.hourlyTime });
     return;
@@ -222,18 +222,16 @@ export class WebTime {
   }
   async setNewMonth() {
     const month: number = new Date().getMonth();
-    await chrome.storage.local.set({ numberOfDays: 1 });
     await chrome.storage.local.set({ monthToday: month });
     await chrome.storage.local.set({ monthlyTime: [] });
     this.monthlyTime = [];
+    await this.setNewDay(); // Reset the daily time as well
   }
 
-  async setNewHour(tab: chrome.tabs.Tab) {
+  async setNewHour() {
     const time: number = new Date().getTime();
     await chrome.storage.local.set({ hourBegin: time });
-    hourlyRecap(await getTaggedTime("hourlyTime")).then(() => {
-      // tab.id && chrome.tabs.sendMessage(tab.id, { message: "HourlySummary" });
-    });
+    hourlyRecap(await getTaggedTime("hourlyTime"));
     await chrome.storage.local.set({ hourlyTime: [] });
     this.hourlyTime = [];
   }
