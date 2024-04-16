@@ -491,14 +491,16 @@ function hourlyRecap(hourlyTime) {
     return HourlyRecap_awaiter(this, void 0, void 0, function* () {
         var today = new Date().getTime();
         var hourAgo = today - 1000 * 60 * 60;
+        const authKey = (_a = (yield chrome.storage.local.get("authKey"))) === null || _a === void 0 ? void 0 : _a.authKey; // api key
         if (!hourlyTime) {
+            if (!authKey) {
+                yield chrome.storage.local.set({
+                    prevHourSummary: [NO_API_KEY_SUMMARY, today, 0, 0],
+                });
+                return false;
+            }
             yield chrome.storage.local.set({
-                prevHourSummary: [
-                    SUMMARY_TIME_TOO_SHORT,
-                    today,
-                    0,
-                    0,
-                ],
+                prevHourSummary: [SUMMARY_TIME_TOO_SHORT, today, 0, 0],
             });
             return false;
         }
@@ -512,6 +514,17 @@ function hourlyRecap(hourlyTime) {
             }
         }, 0);
         const unfocusedTime = timeSpent - productiveTime;
+        if (!authKey) {
+            yield chrome.storage.local.set({
+                prevHourSummary: [
+                    NO_API_KEY_SUMMARY,
+                    today,
+                    productiveTime,
+                    unfocusedTime,
+                ],
+            });
+            return false;
+        }
         if (timeSpent <= 15 * 60 * 1000) {
             // if time spent less than 15 min
             yield chrome.storage.local.set({
@@ -531,18 +544,8 @@ function hourlyRecap(hourlyTime) {
             maxResults: 1000,
         });
         const organizedHistory = yield organizeHistoryByBaseUrl(historyItems, hourlyTime);
-        const authKey = (_a = (yield chrome.storage.local.get("authKey"))) === null || _a === void 0 ? void 0 : _a.authKey; // api key
-        if (!authKey) {
-            yield chrome.storage.local.set({
-                prevHourSummary: [
-                    NO_API_KEY_SUMMARY,
-                    today,
-                    productiveTime, unfocusedTime
-                ],
-            });
-            return false;
-        }
-        const lastCalled = (yield chrome.storage.local.get("summaryLock")).summaryLock;
+        const lastCalled = (yield chrome.storage.local.get("summaryLock"))
+            .summaryLock;
         if (new Date().getTime() - lastCalled <= 30 * 1000) {
             return false;
         }
@@ -554,12 +557,14 @@ function hourlyRecap(hourlyTime) {
                     API_CALL_FAILED_SUMMARY,
                     today,
                     productiveTime,
-                    unfocusedTime
+                    unfocusedTime,
                 ],
             });
             return false;
         }
-        yield chrome.storage.local.set({ prevHourSummary: [summary, today, productiveTime, unfocusedTime] });
+        yield chrome.storage.local.set({
+            prevHourSummary: [summary, today, productiveTime, unfocusedTime],
+        });
         return true;
     });
 }
@@ -868,7 +873,14 @@ class WebTime {
             const dateString = new Date().toDateString(); // Get the current date
             const oldDate = ((_a = (yield chrome.storage.local.get("today"))) === null || _a === void 0 ? void 0 : _a.today) || ""; // Get the last date the user was active
             if (oldDate !== dateString) {
-                yield this.setNewDay();
+                const month = new Date().getMonth();
+                const lastMonth = (yield chrome.storage.local.get("monthToday")).monthToday || 0;
+                if (month !== lastMonth) {
+                    yield this.setNewDay(false);
+                }
+                else {
+                    yield this.setNewDay(true);
+                }
             }
             yield chrome.storage.local.set({ dailyTime: this.dailyTime });
             return;
@@ -887,11 +899,13 @@ class WebTime {
             return;
         });
     }
-    setNewDay() {
+    setNewDay(isNewMonth) {
         return WebTime_awaiter(this, void 0, void 0, function* () {
             const dateString = new Date().toDateString();
-            let numberOfDays = (yield chrome.storage.local.get("numberOfDays")).numberOfDays || 0;
-            yield chrome.storage.local.set({ numberOfDays: numberOfDays + 1 });
+            if (!isNewMonth) {
+                let numberOfDays = (yield chrome.storage.local.get("numberOfDays")).numberOfDays || 0;
+                yield chrome.storage.local.set({ numberOfDays: numberOfDays + 1 });
+            }
             yield chrome.storage.local.set({ today: dateString });
             yield chrome.storage.local.set({ dailyTime: [] });
             yield chrome.storage.local.set({ yesterdayTime: this.dailyTime });
@@ -910,10 +924,10 @@ class WebTime {
     setNewMonth() {
         return WebTime_awaiter(this, void 0, void 0, function* () {
             const month = new Date().getMonth();
+            yield chrome.storage.local.set({ numberOfDays: 1 });
             yield chrome.storage.local.set({ monthToday: month });
             yield chrome.storage.local.set({ monthlyTime: [] });
             this.monthlyTime = [];
-            yield this.setNewDay(); // Reset the daily time as well
         });
     }
     setNewHour() {

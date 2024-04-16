@@ -1,14 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap");
 
-#greeting_popup,
-#greeting_popup * {
+#block_warning,
+#block_warning * {
   all: revert !important;
   margin: 0 !important;
   padding: 0 !important;
   font-family: Inter !important;
 }
 
-#greeting_popup {
+#block_warning {
   margin: 0 !important;
   padding: 0 !important;
   position: fixed !important;

@@ -11,32 +11,32 @@ export default function BlockWarning({ handleClose, time }: BlockWarningProps) {
   }
   const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
   return (
-    <div id="greeting_popup">
-      <div id="greeting_popup__title">
-        <div id="greeting_popup__title__logo">
+    <div id="block_warning">
+      <div id="block_warning__title">
+        <div id="block_warning__title__logo">
           <img src={logo} alt="logo" />
         </div>
-        <div id="greeting_popup__title__text">
+        <div id="block_warning__title__text">
           <h1>Recenter</h1>
         </div>
       </div>
-      <div id="greeting_popup__header">
-        <p id="greeting_popup__header__light">You’ve exceeded time limit.</p>
-        <p id="greeting_popup__header__dark">This Site Will Be Blocked In</p>
+      <div id="block_warning__header">
+        <p id="block_warning__header__light">You’ve exceeded time limit.</p>
+        <p id="block_warning__header__dark">This Site Will Be Blocked In</p>
       </div>
-      <div id="greeting_popup__time">
+      <div id="block_warning__time">
         {time}
       </div>
-      <div id="greeting_popup__buttons">
+      <div id="block_warning__buttons">
         <button
-          id="greeting_popup__buttons__button"
+          id="block_warning__buttons__button"
           className="white"
           onClick={handleClose}
         >
           Close
         </button>
         <button
-          id="greeting_popup__buttons__button"
+          id="block_warning__buttons__button"
           className="blue"
           onClick={handleGetToWork}
         >

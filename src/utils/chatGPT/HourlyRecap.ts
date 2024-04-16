@@ -1,24 +1,30 @@
 import { TaggedTimeURL } from "../../types/TaggedTimeUrl";
 import { baseUrl, model } from "../CONSTANTS/ChatGPT";
-import { API_CALL_FAILED_SUMMARY, NO_API_KEY_SUMMARY, SUMMARY_TIME_TOO_SHORT } from "../CONSTANTS/texts";
+import {
+  API_CALL_FAILED_SUMMARY,
+  NO_API_KEY_SUMMARY,
+  SUMMARY_TIME_TOO_SHORT,
+} from "../CONSTANTS/texts";
 import { organizeHistoryByBaseUrl } from "../scripts/processHistory";
 import { estimatedCost } from "./EstimatedCost";
-
-
 
 export async function hourlyRecap(
   hourlyTime: TaggedTimeURL[] | undefined
 ): Promise<boolean> {
   var today = new Date().getTime();
   var hourAgo = today - 1000 * 60 * 60;
+
+  const authKey = (await chrome.storage.local.get("authKey"))?.authKey; // api key
+
   if (!hourlyTime) {
+    if (!authKey) {
+      await chrome.storage.local.set({
+        prevHourSummary: [NO_API_KEY_SUMMARY, today, 0, 0],
+      });
+      return false;
+    }
     await chrome.storage.local.set({
-      prevHourSummary: [
-        SUMMARY_TIME_TOO_SHORT,
-        today,
-        0,
-        0,
-      ],
+      prevHourSummary: [SUMMARY_TIME_TOO_SHORT, today, 0, 0],
     });
     return false;
   }
@@ -34,6 +40,18 @@ export async function hourlyRecap(
   }, 0);
 
   const unfocusedTime = timeSpent - productiveTime;
+
+  if (!authKey) {
+    await chrome.storage.local.set({
+      prevHourSummary: [
+        NO_API_KEY_SUMMARY,
+        today,
+        productiveTime,
+        unfocusedTime,
+      ],
+    });
+    return false;
+  }
 
   if (timeSpent <= 15 * 60 * 1000) {
     // if time spent less than 15 min
@@ -55,20 +73,12 @@ export async function hourlyRecap(
     maxResults: 1000,
   });
 
-  const organizedHistory = await organizeHistoryByBaseUrl(historyItems, hourlyTime);
-
-  const authKey = (await chrome.storage.local.get("authKey"))?.authKey; // api key
-  if (!authKey) {
-    await chrome.storage.local.set({
-      prevHourSummary: [
-        NO_API_KEY_SUMMARY,
-        today,
-        productiveTime, unfocusedTime
-      ],
-    });
-    return false;
-  }
-  const lastCalled = (await chrome.storage.local.get("summaryLock")).summaryLock;
+  const organizedHistory = await organizeHistoryByBaseUrl(
+    historyItems,
+    hourlyTime
+  );
+  const lastCalled = (await chrome.storage.local.get("summaryLock"))
+    .summaryLock;
   if (new Date().getTime() - lastCalled <= 30 * 1000) {
     return false;
   }
@@ -82,13 +92,15 @@ export async function hourlyRecap(
         API_CALL_FAILED_SUMMARY,
         today,
         productiveTime,
-        unfocusedTime
+        unfocusedTime,
       ],
     });
     return false;
   }
 
-  await chrome.storage.local.set({ prevHourSummary: [summary, today, productiveTime, unfocusedTime] });
+  await chrome.storage.local.set({
+    prevHourSummary: [summary, today, productiveTime, unfocusedTime],
+  });
   return true;
 }
 

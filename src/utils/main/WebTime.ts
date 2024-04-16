@@ -7,7 +7,6 @@ import { hourlyRecap } from "../chatGPT/HourlyRecap";
 import { getTaggedTime } from "../queryStorage/GetTaggedTime";
 import { setBadgeText } from "../scripts/setBadgeText";
 
-
 interface Website {
   id: string;
   website: string;
@@ -184,7 +183,14 @@ export class WebTime {
     const dateString = new Date().toDateString(); // Get the current date
     const oldDate = (await chrome.storage.local.get("today"))?.today || ""; // Get the last date the user was active
     if (oldDate !== dateString) {
-      await this.setNewDay();
+      const month: number = new Date().getMonth();
+      const lastMonth: number =
+        (await chrome.storage.local.get("monthToday")).monthToday || 0;
+      if (month !== lastMonth) {
+        await this.setNewDay(false);
+      } else {
+        await this.setNewDay(true);
+      }
     }
     await chrome.storage.local.set({ dailyTime: this.dailyTime });
     return;
@@ -201,11 +207,13 @@ export class WebTime {
     return;
   }
 
-  async setNewDay() {
+  async setNewDay(isNewMonth: boolean) {
     const dateString = new Date().toDateString();
-    let numberOfDays =
-      (await chrome.storage.local.get("numberOfDays")).numberOfDays || 0;
-    await chrome.storage.local.set({ numberOfDays: numberOfDays + 1 });
+    if (!isNewMonth) {
+      let numberOfDays =
+        (await chrome.storage.local.get("numberOfDays")).numberOfDays || 0;
+      await chrome.storage.local.set({ numberOfDays: numberOfDays + 1 });
+    }
     await chrome.storage.local.set({ today: dateString });
     await chrome.storage.local.set({ dailyTime: [] });
     await chrome.storage.local.set({ yesterdayTime: this.dailyTime });
@@ -222,10 +230,10 @@ export class WebTime {
   }
   async setNewMonth() {
     const month: number = new Date().getMonth();
+    await chrome.storage.local.set({ numberOfDays: 1 });
     await chrome.storage.local.set({ monthToday: month });
     await chrome.storage.local.set({ monthlyTime: [] });
     this.monthlyTime = [];
-    await this.setNewDay(); // Reset the daily time as well
   }
 
   async setNewHour() {

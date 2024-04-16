@@ -74,7 +74,10 @@ export default function HourlySummaryBox() {
             </div>
           </div>
           <div className="hourly_summary__content__line"></div>
-          <div className="hourly_summary__content__summary">{summary}</div>
+          <div
+            className="hourly_summary__content__summary"
+            dangerouslySetInnerHTML={{ __html: summary }}
+          ></div>
         </div>
       </div>
     </>

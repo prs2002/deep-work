@@ -7,6 +7,11 @@ import Profile from "./pages/Profile";
 
 function App() {
   const [isFocused, setIsFocused] = useState<boolean>(true);
+
+  function handleHelpClick() {
+    chrome.tabs.create({ url: "html/documentation.html" });
+  }
+
   return (
     <div className="app" id={isFocused ? "good" : "bad"}>
       <div className="app__top_bar" id={isFocused ? "good" : "bad"}></div>
@@ -32,6 +37,7 @@ function App() {
           element={<Profile isFocused={isFocused}></Profile>}
         ></Route>
       </Routes>
+      <div className="app__help_button" onClick={handleHelpClick}>?</div>
     </div>
   );
 }
