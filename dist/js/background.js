@@ -486,11 +486,11 @@ var HourlyRecap_awaiter = (undefined && undefined.__awaiter) || function (thisAr
 
 
 
-function hourlyRecap(hourlyTime) {
+function hourlyRecap(hourlyTime, date) {
     var _a;
     return HourlyRecap_awaiter(this, void 0, void 0, function* () {
         var today = new Date().getTime();
-        var hourAgo = today - 1000 * 60 * 60;
+        var hourAgo = date;
         const authKey = (_a = (yield chrome.storage.local.get("authKey"))) === null || _a === void 0 ? void 0 : _a.authKey; // api key
         if (!hourlyTime) {
             if (!authKey) {
@@ -504,6 +504,12 @@ function hourlyRecap(hourlyTime) {
             });
             return false;
         }
+        yield chrome.storage.local.set({
+            lastHourlyTime: {
+                hourlyTime: hourlyTime,
+                hour: date,
+            },
+        });
         const timeSpent = hourlyTime.reduce((acc, website) => acc + website.time, 0);
         const productiveTime = hourlyTime.reduce((acc, website) => {
             if (website.tag === 1) {
@@ -893,7 +899,7 @@ class WebTime {
             const dateString = new Date().getTime(); // Get the current time
             const oldDate = ((_a = (yield chrome.storage.local.get("hourBegin"))) === null || _a === void 0 ? void 0 : _a.hourBegin) || 0; // Get the last hour beginning
             if (dateString - oldDate > 60 * 60 * 1000) {
-                yield this.setNewHour();
+                yield this.setNewHour(oldDate);
             }
             yield chrome.storage.local.set({ hourlyTime: this.hourlyTime });
             return;
@@ -930,11 +936,11 @@ class WebTime {
             this.monthlyTime = [];
         });
     }
-    setNewHour() {
+    setNewHour(oldDate) {
         return WebTime_awaiter(this, void 0, void 0, function* () {
             const time = new Date().getTime();
             yield chrome.storage.local.set({ hourBegin: time });
-            hourlyRecap(yield getTaggedTime("hourlyTime"));
+            hourlyRecap(yield getTaggedTime("hourlyTime"), oldDate);
             yield chrome.storage.local.set({ hourlyTime: [] });
             this.hourlyTime = [];
         });
@@ -1048,7 +1054,7 @@ function loadData() {
 }
 chrome.runtime.onInstalled.addListener((reason) => {
     if (reason.reason === "install") {
-        chrome.tabs.create({ url: "html/documentation.html" });
+        chrome.tabs.create({ url: "https://recenter.netlify.app/" });
     }
 });
 function checkAlarm() {

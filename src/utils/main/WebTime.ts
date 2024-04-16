@@ -201,7 +201,7 @@ export class WebTime {
     const oldDate =
       (await chrome.storage.local.get("hourBegin"))?.hourBegin || 0; // Get the last hour beginning
     if (dateString - oldDate > 60 * 60 * 1000) {
-      await this.setNewHour();
+      await this.setNewHour(oldDate);
     }
     await chrome.storage.local.set({ hourlyTime: this.hourlyTime });
     return;
@@ -236,10 +236,10 @@ export class WebTime {
     this.monthlyTime = [];
   }
 
-  async setNewHour() {
+  async setNewHour(oldDate: number) {
     const time: number = new Date().getTime();
     await chrome.storage.local.set({ hourBegin: time });
-    hourlyRecap(await getTaggedTime("hourlyTime"));
+    hourlyRecap(await getTaggedTime("hourlyTime"), oldDate);
     await chrome.storage.local.set({ hourlyTime: [] });
     this.hourlyTime = [];
   }

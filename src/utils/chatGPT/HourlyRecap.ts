@@ -9,10 +9,11 @@ import { organizeHistoryByBaseUrl } from "../scripts/processHistory";
 import { estimatedCost } from "./EstimatedCost";
 
 export async function hourlyRecap(
-  hourlyTime: TaggedTimeURL[] | undefined
+  hourlyTime: TaggedTimeURL[] | undefined,
+  date: number
 ): Promise<boolean> {
   var today = new Date().getTime();
-  var hourAgo = today - 1000 * 60 * 60;
+  var hourAgo = date;
 
   const authKey = (await chrome.storage.local.get("authKey"))?.authKey; // api key
 
@@ -28,6 +29,13 @@ export async function hourlyRecap(
     });
     return false;
   }
+
+  await chrome.storage.local.set({
+    lastHourlyTime: {
+      hourlyTime: hourlyTime,
+      hour: date,
+    },
+  });
 
   const timeSpent = hourlyTime.reduce((acc, website) => acc + website.time, 0);
 

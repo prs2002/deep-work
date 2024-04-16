@@ -12,7 +12,6 @@ module.exports = [
       content: "./src/content.ts",
       superfocus: "./src/html/superfocus.ts",
       blocked: "./src/html/blocked.ts",
-      documentation: "./documentation/documentation.tsx",
     },
     mode: "production",
     optimization: {

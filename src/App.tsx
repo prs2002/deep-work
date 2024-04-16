@@ -9,7 +9,7 @@ function App() {
   const [isFocused, setIsFocused] = useState<boolean>(true);
 
   function handleHelpClick() {
-    chrome.tabs.create({ url: "html/documentation.html" });
+    chrome.tabs.create({ url: "https://recenter.netlify.app/" });
   }
 
   return (
