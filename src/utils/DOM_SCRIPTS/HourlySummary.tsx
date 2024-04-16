@@ -11,6 +11,7 @@ const handleClose = () => {
 };
 
 function HourlySummary() {
+  const logo = chrome.runtime.getURL("images/recenter_logo.png");
   const [unfocused, setUnfocused] = useState<number>(0);
   const [productive, setProductive] = useState<number>(0);
   const focusRate = (productive / Math.max(productive + unfocused, 1)) * 100;
@@ -51,7 +52,12 @@ function HourlySummary() {
   return (
     <div id="hourly_summary">
       <div id="hourly_summary__title">
-        <h3>Hourly Recap</h3>
+      <div id="hourly_summary__title__logo">
+          <img src={logo} alt="logo" />
+        </div>
+        <div id="hourly_summary__title__text">
+          <h3>Hourly Recap</h3>
+        </div>
       </div>
       <div id="hourly_summary__content">
         <div id="hourly_summary__content__header">

@@ -1,4 +1,4 @@
-import "./DailySummary.scss"
+import "./DailySummary.scss";
 
 interface DailySummaryProps {
   focusRate: number;
@@ -11,12 +11,18 @@ export default function DailySummary({
   focusRate,
   timeSummary,
   summary,
-  handleClose
+  handleClose,
 }: DailySummaryProps) {
+  const logo = chrome.runtime.getURL("images/recenter_logo.png");
   return (
     <div id="daily_summary">
       <div id="daily_summary__title">
-        <h3>Daily Recap</h3>
+        <div id="daily_summary__title__logo">
+          <img src={logo} alt="logo" />
+        </div>
+        <div id="daily_summary__title__text">
+          <h3>Daily Recap</h3>
+        </div>
       </div>
       <div id="daily_summary__content">
         <div id="daily_summary__content__header">
@@ -53,7 +59,14 @@ export default function DailySummary({
         </div>
         <div id="daily_summary__content__line"></div>
         <div id="daily_summary__content__summary">{summary}</div>
-        <div id="daily_summary__content__button"><button id="daily_summary__content__button__btn" onClick={handleClose}>Go to Work</button></div>
+        <div id="daily_summary__content__button">
+          <button
+            id="daily_summary__content__button__btn"
+            onClick={handleClose}
+          >
+            Go to Work
+          </button>
+        </div>
       </div>
     </div>
   );
