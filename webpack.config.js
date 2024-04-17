@@ -109,9 +109,9 @@ module.exports = [
     entry: {},
     plugins: [
       ...getHtmlPlugins(
-        ["index", "index_2", "documentation"],
-        ["../js/index", "../js/index", "../js/documentation"],
-        ["container", "container_2", "container"]
+        ["index", "index_2"],
+        ["../js/index", "../js/index"],
+        ["container", "container_2"]
       ),
     ],
     mode: "production",
