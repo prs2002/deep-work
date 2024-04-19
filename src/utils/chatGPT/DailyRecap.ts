@@ -1,4 +1,4 @@
-import { baseUrl, model } from "../CONSTANTS/ChatGPT";
+import { DAILY_RECAP_PROMPT, baseUrl, model } from "../CONSTANTS/ChatGPT";
 import {
   API_CALL_FAILED_SUMMARY,
   NO_API_KEY_SUMMARY,
@@ -64,10 +64,7 @@ async function prevDaySummary(
       messages: [
         {
           role: "user",
-          content: `
-          ${history}
-          This is the browser history in a certain time period. Summarize this into a simple 7-8 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for the previous day and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you"
-        `,
+          content: DAILY_RECAP_PROMPT(history),
         },
       ],
     };

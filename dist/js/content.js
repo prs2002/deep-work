@@ -117,6 +117,29 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#greeting_popup,#greeting_popup *{all:
 
 /***/ }),
 
+/***/ 6256:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   c: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5500);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2312);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap);"]);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `#greeting_popup_first,#greeting_popup_first *{all:revert !important;margin:0 !important;padding:0 !important;font-family:Inter !important}#greeting_popup_first{margin:0 !important;padding:0 !important;position:fixed !important;display:flex !important;flex-direction:column !important;align-items:center !important;width:320px !important;min-height:310px !important;background:#2087ff !important;right:20px !important;top:20px !important;z-index:9999999 !important}#greeting_popup_first__title{margin-top:24px !important;width:85% !important;height:10% !important;display:flex !important;gap:9px !important;align-items:center !important}#greeting_popup_first__title__logo{display:flex !important;align-items:center !important;justify-content:center !important}#greeting_popup_first__title__logo img{width:28px !important;aspect-ratio:1 !important}#greeting_popup_first__title__text{display:flex !important;align-items:center !important;justify-content:center !important}#greeting_popup_first__title__text h1{color:#0052bd !important;font-size:16px !important;font-weight:600 !important;font-family:Inter !important}#greeting_popup_first__header{margin-top:21px !important;width:85% !important;height:25% !important}#greeting_popup_first__header img{width:45px !important}#greeting_popup_first__header__light{font-family:Inter !important;font-size:20px !important;font-weight:700 !important;color:rgba(255,255,255,.6196078431) !important;line-height:24px !important}#greeting_popup_first__header__dark{font-family:Inter !important;font-size:20px !important;font-weight:700 !important;color:#fff !important;line-height:24px !important}#greeting_popup_first__buttons{display:flex !important}#greeting_popup_first__buttons__button{margin-top:34px !important;width:250px !important;padding:7.5px 0 !important;font-family:Inter !important;font-size:12px !important;font-weight:400 !important;line-height:15px !important;border:none !important;border-radius:38px !important;cursor:pointer !important}#greeting_popup_first__buttons__button.white{background-color:#fff !important;color:#2087ff !important}`, ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 7147:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -133,7 +156,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#greeting_popup,#greeting_popup *{all:
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `#hourly_summary,#hourly_summary *{all:revert !important;margin:0 !important;padding:0 !important;font-family:Inter !important}#hourly_summary{box-shadow:0px 4px 4px 0px rgba(0,0,0,.2509803922) !important;margin:0 !important;padding:0 !important;position:fixed !important;display:flex !important;flex-direction:column !important;align-items:center !important;width:320px !important;min-height:380px !important;background:#fff !important;right:20px !important;top:20px !important;z-index:9999999 !important;width:328px !important;margin-bottom:28px !important}#hourly_summary__title{width:85% !important;margin-bottom:16px !important;margin-top:31px !important;display:flex !important;gap:9px !important;align-items:center !important}#hourly_summary__title__logo{display:flex !important;align-items:center !important;justify-content:center !important}#hourly_summary__title__logo img{width:28px !important;aspect-ratio:1 !important}#hourly_summary__title__text{display:flex !important;align-items:center !important;justify-content:center !important}#hourly_summary__title__text>h3{color:#0052bd !important;font-size:16px !important;letter-spacing:0em !important}#hourly_summary__content{border-radius:30px !important;height:100% !important;width:100% !important;display:flex !important;flex-direction:column !important;align-items:center !important}#hourly_summary__content__header{padding:24px 0 !important;padding-bottom:0 !important;width:90% !important}#hourly_summary__content__header__focus_rate{padding-left:4px !important;font-size:24px !important;font-weight:700 !important;color:#000 !important}#hourly_summary__content__header__title{padding-left:4px !important;font-weight:700 !important;font-size:16px !important;color:rgba(0,0,0,.62) !important}#hourly_summary__content__header__bar{width:calc(100% - 24px) !important;margin-top:10px !important;height:6px !important;border-radius:20px !important;background:#d9d9d9 !important}#hourly_summary__content__header__bar__fill{border-radius:20px !important;background-color:#2087ff !important;height:100% !important}#hourly_summary__content__time{padding:24px 0 !important;width:90% !important}#hourly_summary__content__time__row{display:flex !important}#hourly_summary__content__time__row__label{width:70% !important;display:flex !important;align-items:center !important;gap:10px !important;padding:5px 0px !important;color:#373737 !important}#hourly_summary__content__time__row__label__color{height:10px !important;aspect-ratio:1 !important;border-radius:100% !important}#hourly_summary__content__time__row__label__color.blue{background-color:#2087ff !important}#hourly_summary__content__time__row__label__color.red{background-color:#ff3b20 !important}#hourly_summary__content__time__row__label__color.black{background-color:#000 !important}#hourly_summary__content__time__row__value{width:30% !important;text-align:right !important;font-weight:700 !important;color:#000 !important}#hourly_summary__content__line{border:1px solid #ebebeb !important;width:85% !important}#hourly_summary__content__summary{font-size:13px !important;padding:24px !important;color:#000 !important}#hourly_summary__content__button{width:85% !important}#hourly_summary__content__button__btn{width:100% !important;padding:7.5px 0 !important;font-size:12px !important;background:#2087ff !important;border-radius:38px !important;color:#fff !important;border:none !important;margin-bottom:24px !important;cursor:pointer !important}`, ""]);
+___CSS_LOADER_EXPORT___.push([module.id, `#hourly_summary,#hourly_summary *{all:revert !important;margin:0 !important;padding:0 !important;font-family:Inter !important}#hourly_summary{box-shadow:0px 4px 4px 0px rgba(0,0,0,.2509803922) !important;margin:0 !important;padding:0 !important;position:fixed !important;display:flex !important;flex-direction:column !important;align-items:center !important;width:320px !important;min-height:380px !important;background:#fff !important;right:20px !important;top:20px !important;z-index:9999999 !important;width:328px !important;margin-bottom:28px !important}#hourly_summary__title{width:85% !important;margin-bottom:16px !important;margin-top:31px !important;display:flex !important;gap:9px !important;align-items:center !important}#hourly_summary__title__logo{display:flex !important;align-items:center !important;justify-content:center !important}#hourly_summary__title__logo img{width:28px !important;aspect-ratio:1 !important}#hourly_summary__title__text{display:flex !important;align-items:center !important;justify-content:center !important}#hourly_summary__title__text>h3{color:#0052bd !important;font-size:16px !important;letter-spacing:0em !important}#hourly_summary__content{border-radius:30px !important;height:100% !important;width:100% !important;display:flex !important;flex-direction:column !important;align-items:center !important}#hourly_summary__content__header{padding:24px 0 !important;padding-bottom:0 !important;width:90% !important}#hourly_summary__content__header__focus_rate{padding-left:4px !important;font-size:24px !important;font-weight:700 !important;color:#000 !important}#hourly_summary__content__header__title{padding-left:4px !important;font-weight:700 !important;font-size:14px !important;color:rgba(0,0,0,.62) !important}#hourly_summary__content__header__bar{width:calc(100% - 24px) !important;margin-top:10px !important;height:6px !important;border-radius:20px !important;background:#d9d9d9 !important}#hourly_summary__content__header__bar__fill{border-radius:20px !important;background-color:#2087ff !important;height:100% !important}#hourly_summary__content__time{padding:24px 0 !important;width:90% !important}#hourly_summary__content__time__row{display:flex !important}#hourly_summary__content__time__row__label{width:70% !important;display:flex !important;align-items:center !important;gap:10px !important;padding:5px 0px !important;color:#373737 !important}#hourly_summary__content__time__row__label__color{height:10px !important;aspect-ratio:1 !important;border-radius:100% !important}#hourly_summary__content__time__row__label__color.blue{background-color:#2087ff !important}#hourly_summary__content__time__row__label__color.red{background-color:#ff3b20 !important}#hourly_summary__content__time__row__label__color.black{background-color:#000 !important}#hourly_summary__content__time__row__value{width:30% !important;text-align:right !important;font-weight:700 !important;color:#000 !important}#hourly_summary__content__line{border:1px solid #ebebeb !important;width:85% !important}#hourly_summary__content__summary{font-size:13px !important;padding:24px !important;color:#000 !important}#hourly_summary__content__button{width:85% !important}#hourly_summary__content__button__btn{width:100% !important;padding:7.5px 0 !important;font-size:12px !important;background:#2087ff !important;border-radius:38px !important;color:#fff !important;border:none !important;margin-bottom:24px !important;cursor:pointer !important}`, ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1286,7 +1309,7 @@ var DailySummary_update = injectStylesIntoStyleTag_default()(DailySummary/* defa
 
 function DailySummary_DailySummary({ focusRate, timeSummary, summary, handleClose, }) {
     const logo = chrome.runtime.getURL("images/recenter_logo.png");
-    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__title__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__title__text" }, { children: (0,jsx_runtime.jsx)("h3", { children: "Daily Recap" }) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__content" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__content__header" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__content__header__focus_rate" }, { children: [focusRate.toFixed(0), "%"] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__header__title" }, { children: "Focus Rate Yesterday" })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__header__bar" }, { children: (0,jsx_runtime.jsx)("div", { id: "daily_summary__content__header__bar__fill", style: { width: `${focusRate}%` } }) }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__time" }, { children: timeSummary.map((time, index) => ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__content__time__row" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__content__time__row__label" }, { children: [(0,jsx_runtime.jsx)("div", { id: "daily_summary__content__time__row__label__color", className: time.color }), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__time__row__label__name" }, { children: time.label }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__time__row__value" }, { children: time.value }))] }), index))) })), (0,jsx_runtime.jsx)("div", { id: "daily_summary__content__line" }), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__summary" }, { children: summary })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__button" }, { children: (0,jsx_runtime.jsx)("button", Object.assign({ id: "daily_summary__content__button__btn", onClick: handleClose }, { children: "Go to Work" })) }))] }))] })));
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__title__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__title__text" }, { children: (0,jsx_runtime.jsx)("h3", { children: "Daily Recap" }) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__content" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__content__header" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__content__header__focus_rate" }, { children: [focusRate.toFixed(0), "%"] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__header__title" }, { children: "Focus Rate Yesterday" })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__header__bar" }, { children: (0,jsx_runtime.jsx)("div", { id: "daily_summary__content__header__bar__fill", style: { width: `${focusRate}%` } }) }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__time" }, { children: timeSummary.map((time, index) => ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__content__time__row" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "daily_summary__content__time__row__label" }, { children: [(0,jsx_runtime.jsx)("div", { id: "daily_summary__content__time__row__label__color", className: time.color }), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__time__row__label__name" }, { children: time.label }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__time__row__value" }, { children: time.value }))] }), index))) })), (0,jsx_runtime.jsx)("div", { id: "daily_summary__content__line" }), (0,jsx_runtime.jsx)("div", { id: "daily_summary__content__summary", dangerouslySetInnerHTML: { __html: summary } }), (0,jsx_runtime.jsx)("div", Object.assign({ id: "daily_summary__content__button" }, { children: (0,jsx_runtime.jsx)("button", Object.assign({ id: "daily_summary__content__button__btn", onClick: handleClose }, { children: "Go to Work" })) }))] }))] })));
 }
 
 ;// CONCATENATED MODULE: ./src/hooks/useToggle.ts
@@ -1297,6 +1320,45 @@ function useToggle(defaultValue) {
         setValue((prev) => !prev);
     }
     return [value, toggle];
+}
+
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/utils/DOM_SCRIPTS/GreetingsFirst.scss
+var GreetingsFirst = __webpack_require__(6256);
+;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/GreetingsFirst.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var GreetingsFirst_options = {};
+
+GreetingsFirst_options.styleTagTransform = (styleTagTransform_default());
+GreetingsFirst_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      GreetingsFirst_options.insert = insertBySelector_default().bind(null, "head");
+    
+GreetingsFirst_options.domAPI = (styleDomAPI_default());
+GreetingsFirst_options.insertStyleElement = (insertStyleElement_default());
+
+var GreetingsFirst_update = injectStylesIntoStyleTag_default()(GreetingsFirst/* default */.c, GreetingsFirst_options);
+
+
+
+
+       /* harmony default export */ const DOM_SCRIPTS_GreetingsFirst = (GreetingsFirst/* default */.c && GreetingsFirst/* default */.c.locals ? GreetingsFirst/* default */.c.locals : undefined);
+
+;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/GreetingsFirst.tsx
+
+
+
+function GreetingsFirst_GreetingsFirst({ logo, gif, handleClose, }) {
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_first_popup" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_first_popup__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_first_popup__title__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_first_popup__title__text" }, { children: (0,jsx_runtime.jsx)("h1", { children: "Recenter" }) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "greeting_first_popup__header" }, { children: [(0,jsx_runtime.jsx)("img", { src: gif, alt: "greeting" }), (0,jsx_runtime.jsx)("p", Object.assign({ id: "greeting_first_popup__header__light" }, { children: GREETING_TEXT__LIGHT })), (0,jsx_runtime.jsx)("p", Object.assign({ id: "greeting_first_popup__header__dark" }, { children: GREETING_TEXT__DARK })), (0,jsx_runtime.jsx)("p", Object.assign({ id: "greeting_first_popup__header__dark" }, { children: GREETING_TEXT__DARK_2 }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "greeting_first_popup__buttons" }, { children: (0,jsx_runtime.jsx)("button", Object.assign({ id: "greeting_first_popup__buttons__button", className: "white", onClick: handleClose }, { children: "Get to work" })) }))] })));
 }
 
 ;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/DailyPopup.tsx
@@ -1318,10 +1380,11 @@ var DailyPopup_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 
 
 
-// import "../../images/gifs/3.gif";
-function DailyPopup() {
+
+function DailyPopup({ isFirst }) {
     const logo = chrome.runtime.getURL("images/recenter_logo.png");
-    const gif = chrome.runtime.getURL("images/gifs/2.gif");
+    const gif_number = Math.floor(Math.random() * 13 + 1);
+    const gif = chrome.runtime.getURL(`images/gifs/${gif_number}.gif`);
     const [summary, setSummary] = (0,react.useState)("");
     const [showSummary, setShowSummary] = useToggle(false);
     const [focusRate, setFocusRate] = (0,react.useState)(0);
@@ -1354,10 +1417,7 @@ function DailyPopup() {
                     var yesterday = new Date();
                     yesterday.setDate(yesterday.getDate() - 1);
                     yield chrome.storage.local.set({
-                        prevDaySummary: [
-                            SUMMARY_NO_DATA,
-                            yesterday.toDateString(),
-                        ],
+                        prevDaySummary: [SUMMARY_NO_DATA, yesterday.toDateString()],
                     });
                     setSummary(SUMMARY_NO_DATA);
                     return;
@@ -1396,12 +1456,15 @@ function DailyPopup() {
     const handleSummary = () => {
         setShowSummary();
     };
+    if (isFirst) {
+        return ((0,jsx_runtime.jsx)(GreetingsFirst_GreetingsFirst, { gif: gif, handleClose: handleClose, logo: logo }));
+    }
     if (summary === "") {
         return (0,jsx_runtime.jsx)(jsx_runtime.Fragment, {});
     }
     return ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [!showSummary && ((0,jsx_runtime.jsx)(Greetings_Greetings, { focusRate: focusRate, gif: gif, logo: logo, handleClose: handleClose, setShowSummary: handleSummary })), showSummary && ((0,jsx_runtime.jsx)(DailySummary_DailySummary, { focusRate: focusRate, summary: summary, timeSummary: timeSummary, handleClose: handleClose }))] }));
 }
-function insertGreetings() {
+function insertGreetings(isFirst) {
     if (document.getElementById("recenter_container") !== null) {
         return;
     }
@@ -1409,7 +1472,7 @@ function insertGreetings() {
     root.id = "recenter_container";
     document.body.appendChild(root);
     const rootDiv = client.createRoot(root);
-    rootDiv.render((0,jsx_runtime.jsx)(react.StrictMode, { children: (0,jsx_runtime.jsx)(DailyPopup, {}) }));
+    rootDiv.render((0,jsx_runtime.jsx)(react.StrictMode, { children: (0,jsx_runtime.jsx)(DailyPopup, { isFirst: isFirst }) }));
 }
 
 ;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/GreetingPopup.ts
@@ -1419,8 +1482,8 @@ function insertGreetings() {
     It will contain a greeting message and a button to close the popup. It will also automatically close after some time.
 */
 
-function addGreetingPopup() {
-    insertGreetings();
+function addGreetingPopup(isFirstTime) {
+    insertGreetings(isFirstTime);
 }
 
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/utils/DOM_SCRIPTS/HourlySummary.scss
@@ -1479,6 +1542,7 @@ function HourlySummary_HourlySummary() {
     const logo = chrome.runtime.getURL("images/recenter_logo.png");
     const [unfocused, setUnfocused] = (0,react.useState)(0);
     const [productive, setProductive] = (0,react.useState)(0);
+    const [timeframe, setTimeframe] = (0,react.useState)(" in the Past Hour");
     const focusRate = (productive / Math.max(productive + unfocused, 1)) * 100;
     const timeSummary = [
         {
@@ -1501,6 +1565,19 @@ function HourlySummary_HourlySummary() {
                 if (prevHourSummary.length === 0) {
                     return;
                 }
+                const hour = ((yield chrome.storage.local.get("lastHourlyTime")).lastHourlyTime ||
+                    {}).hour || undefined;
+                if (hour) {
+                    const timeFrameStart = new Date(hour).toLocaleTimeString("en-US", {
+                        hour: "numeric",
+                        minute: "numeric",
+                    });
+                    const timeFrameEnd = new Date(hour + 60 * 60 * 1000).toLocaleTimeString("en-US", {
+                        hour: "numeric",
+                        minute: "numeric",
+                    });
+                    setTimeframe(` (${timeFrameStart} to ${timeFrameEnd})`);
+                }
                 setProductive(prevHourSummary[2]);
                 setUnfocused(prevHourSummary[3]);
             });
@@ -1511,7 +1588,7 @@ function HourlySummary_HourlySummary() {
         // if user spent less than 10 min in last hour, don't alert
         return (0,jsx_runtime.jsx)(jsx_runtime.Fragment, {});
     }
-    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__title__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__title__text" }, { children: (0,jsx_runtime.jsx)("h3", { children: "Hourly Recap" }) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__content" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__content__header" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__content__header__focus_rate" }, { children: [focusRate.toFixed(0), "%"] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__header__title" }, { children: "Focus Rate in the past hour" })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__header__bar" }, { children: (0,jsx_runtime.jsx)("div", { id: "hourly_summary__content__header__bar__fill", style: { width: `${focusRate}%` } }) }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__time" }, { children: timeSummary.map((time, index) => ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__content__time__row" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__content__time__row__label" }, { children: [(0,jsx_runtime.jsx)("div", { id: "hourly_summary__content__time__row__label__color", className: time.color }), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__time__row__label__name" }, { children: time.label }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__time__row__value" }, { children: time.value }))] }), index))) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__button" }, { children: (0,jsx_runtime.jsx)("button", Object.assign({ id: "hourly_summary__content__button__btn", onClick: handleClose }, { children: "Go to Work" })) }))] }))] })));
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__title__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__title__text" }, { children: (0,jsx_runtime.jsx)("h3", { children: "Hourly Recap" }) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__content" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__content__header" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__content__header__focus_rate" }, { children: [focusRate.toFixed(0), "%"] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__content__header__title" }, { children: ["Focus Rate ", timeframe] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__header__bar" }, { children: (0,jsx_runtime.jsx)("div", { id: "hourly_summary__content__header__bar__fill", style: { width: `${focusRate}%` } }) }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__time" }, { children: timeSummary.map((time, index) => ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__content__time__row" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "hourly_summary__content__time__row__label" }, { children: [(0,jsx_runtime.jsx)("div", { id: "hourly_summary__content__time__row__label__color", className: time.color }), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__time__row__label__name" }, { children: time.label }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__time__row__value" }, { children: time.value }))] }), index))) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "hourly_summary__content__button" }, { children: (0,jsx_runtime.jsx)("button", Object.assign({ id: "hourly_summary__content__button__btn", onClick: handleClose }, { children: "Go to Work" })) }))] }))] })));
 }
 function insertHourlySummary() {
     if (document.getElementById("recenter_container") !== null) {
@@ -8579,17 +8656,19 @@ function setIsDisabled() {
 setIsDisabled();
 nudgeUser = new NudgeUser(checkDisable());
 chrome.storage.local.get("lastGreeted", (data) => {
-    if (data.lastGreeted === undefined) {
-        addGreetingPopup();
-        chrome.storage.local.set({ lastGreeted: new Date().toDateString() });
-    }
-    else {
-        const today = new Date().toDateString();
-        if (data.lastGreeted !== today) {
-            addGreetingPopup();
-            chrome.storage.local.set({ lastGreeted: today });
+    setTimeout(() => {
+        if (data.lastGreeted === undefined) {
+            addGreetingPopup(true);
+            chrome.storage.local.set({ lastGreeted: new Date().toDateString() });
         }
-    }
+        else {
+            const today = new Date().toDateString();
+            if (data.lastGreeted !== today) {
+                addGreetingPopup();
+                chrome.storage.local.set({ lastGreeted: today });
+            }
+        }
+    }, 2000);
 });
 new ProactiveTimer();
 setInterval(() => content_awaiter(void 0, void 0, void 0, function* () {

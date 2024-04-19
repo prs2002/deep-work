@@ -6,6 +6,6 @@
 
 import { insertGreetings } from "./DailyPopup";
 
-export function addGreetingPopup() {
-  insertGreetings();
+export function addGreetingPopup(isFirstTime?: boolean) {
+  insertGreetings(isFirstTime);
 }

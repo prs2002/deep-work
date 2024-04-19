@@ -6,11 +6,16 @@ import Greetings from "./Greetings";
 import DailySummary from "./DailySummary";
 import useToggle from "../../hooks/useToggle";
 import { SUMMARY_NO_DATA } from "../CONSTANTS/texts";
-// import "../../images/gifs/3.gif";
+import GreetingsFirst from "./GreetingsFirst";
 
-function DailyPopup() {
+interface DailyPopupProps {
+  isFirst?: boolean;
+}
+
+function DailyPopup({ isFirst }: DailyPopupProps) {
   const logo = chrome.runtime.getURL("images/recenter_logo.png");
-  const gif = chrome.runtime.getURL("images/gifs/2.gif");
+  const gif_number = Math.floor(Math.random() * 13 + 1);
+  const gif = chrome.runtime.getURL(`images/gifs/${gif_number}.gif`);
 
   const [summary, setSummary] = useState<string>("");
   const [showSummary, setShowSummary] = useToggle(false);
@@ -49,10 +54,7 @@ function DailyPopup() {
         var yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
         await chrome.storage.local.set({
-          prevDaySummary: [
-            SUMMARY_NO_DATA,
-            yesterday.toDateString(),
-          ],
+          prevDaySummary: [SUMMARY_NO_DATA, yesterday.toDateString()],
         });
         setSummary(SUMMARY_NO_DATA);
         return;
@@ -98,6 +100,15 @@ function DailyPopup() {
   const handleSummary = () => {
     setShowSummary();
   };
+  if (isFirst) {
+    return (
+      <GreetingsFirst
+        gif={gif}
+        handleClose={handleClose}
+        logo={logo}
+      ></GreetingsFirst>
+    );
+  }
 
   if (summary === "") {
     return <></>;
@@ -126,7 +137,7 @@ function DailyPopup() {
   );
 }
 
-export function insertGreetings() {
+export function insertGreetings(isFirst?: boolean) {
   if (document.getElementById("recenter_container") !== null) {
     return;
   }
@@ -136,7 +147,7 @@ export function insertGreetings() {
   const rootDiv = ReactDOM.createRoot(root);
   rootDiv.render(
     <React.StrictMode>
-      <DailyPopup />
+      <DailyPopup isFirst={isFirst} />
     </React.StrictMode>
   );
 }

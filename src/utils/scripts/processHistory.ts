@@ -3,7 +3,7 @@ import { WebsiteTime } from "../../types/WebsiteTime";
 import { msToHM } from "./mmToHM";
 
 interface OrganizedHistory {
-  [key: string]: { Explored: string[]; time: string };
+  [key: string]: { Explored: string[]; time: string | number };
 }
 
 export async function organizeHistoryByBaseUrl(
@@ -21,7 +21,7 @@ export async function organizeHistoryByBaseUrl(
 
     if (!organizedHistory[baseUrl]) {
       const time = times.find((x: WebsiteTime) => x.url === baseUrl)?.time || 0;
-      organizedHistory[baseUrl] = { Explored: [], time: msToHM(time) };
+      organizedHistory[baseUrl] = { Explored: [], time: time };
     }
     if (!organizedHistory[baseUrl]["Explored"].includes(entry.title!))
       organizedHistory[baseUrl]["Explored"].push(entry.title!);
@@ -32,7 +32,7 @@ export async function organizeHistoryByBaseUrl(
       organizedHistory[key].Explored
     );
   });
-  return convertToString(organizedHistory);
+  return convertToString(removeLessSignificantTerms(organizedHistory));
 }
 
 function removeRedundantTerms(titles: string[]) {
@@ -91,4 +91,23 @@ function convertToString(organizedHistory: OrganizedHistory) {
   // Replace all double quotes with an empty string
   const str = JSON.stringify(organizedHistory);
   return str.replace(/"/g, "");
+}
+
+function removeLessSignificantTerms(organizedHistory: OrganizedHistory) {
+  // removing sites with time less than 1 minute and less than 3 visits
+
+  const keys = Object.keys(organizedHistory);
+
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    const site = organizedHistory[key];
+    const time: number = site.time as number;
+    if (time < 60 * 1000 && site.Explored.length < 3) {
+      delete organizedHistory[key];
+    } else {
+      site.time = msToHM(time);
+    }
+  }
+
+  return organizedHistory;
 }

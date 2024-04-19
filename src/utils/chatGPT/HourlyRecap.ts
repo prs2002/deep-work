@@ -1,5 +1,5 @@
 import { TaggedTimeURL } from "../../types/TaggedTimeUrl";
-import { baseUrl, model } from "../CONSTANTS/ChatGPT";
+import { HOURLY_RECAP_PROMPT, baseUrl, model } from "../CONSTANTS/ChatGPT";
 import {
   API_CALL_FAILED_SUMMARY,
   NO_API_KEY_SUMMARY,
@@ -12,7 +12,7 @@ export async function hourlyRecap(
   hourlyTime: TaggedTimeURL[] | undefined,
   date: number
 ): Promise<boolean> {
-  var today = new Date().getTime();
+  var today = date + 60 * 60 * 1000;
   var hourAgo = date;
 
   const authKey = (await chrome.storage.local.get("authKey"))?.authKey; // api key
@@ -123,10 +123,7 @@ async function prevHourSummary(
       messages: [
         {
           role: "user",
-          content: `
-            ${history}
-            This is the browser history in a certain time period. Summarize this into a simple 4 or 5 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for one hour and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you"
-          `,
+          content: HOURLY_RECAP_PROMPT(history),
         },
       ],
     };

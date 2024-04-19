@@ -6,6 +6,7 @@ export default function HourlySummaryBox() {
   const [summary, setSummary] = useState<string>(SUMMARY_TIME_TOO_SHORT);
   const [productive, setProductive] = useState<number>(0);
   const [unfocused, setUnfocused] = useState<number>(0);
+  const [timeframe, setTimeframe] = useState<string>(" in the Past Hour");
   useEffect(() => {
     async function getSummary() {
       const prevHourSummary =
@@ -13,6 +14,25 @@ export default function HourlySummaryBox() {
         [];
       if (prevHourSummary.length === 0) {
         return;
+      }
+      const hour: number | undefined =
+        (
+          (await chrome.storage.local.get("lastHourlyTime")).lastHourlyTime ||
+          {}
+        ).hour || undefined;
+      if (hour) {
+        const timeFrameStart = new Date(hour).toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+        });
+        const timeFrameEnd = new Date(hour + 60 * 60 * 1000).toLocaleTimeString(
+          "en-US",
+          {
+            hour: "numeric",
+            minute: "numeric",
+          }
+        );
+        setTimeframe(` (${timeFrameStart} to ${timeFrameEnd})`);
       }
       setSummary(prevHourSummary[0]);
       setProductive(prevHourSummary[2] / 60000);
@@ -36,7 +56,7 @@ export default function HourlySummaryBox() {
               %
             </div>
             <div className="hourly_summary__content__header__title">
-              Focus Rate in Past Hour
+              Focus Rate {timeframe}
             </div>
             <div className="hourly_summary__content__header__bar">
               <div

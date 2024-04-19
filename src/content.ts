@@ -67,16 +67,18 @@ setIsDisabled();
 nudgeUser = new NudgeUser(checkDisable());
 
 chrome.storage.local.get("lastGreeted", (data) => {
-  if (data.lastGreeted === undefined) {
-    addGreetingPopup();
-    chrome.storage.local.set({ lastGreeted: new Date().toDateString() });
-  } else {
-    const today = new Date().toDateString();
-    if (data.lastGreeted !== today) {
-      addGreetingPopup();
-      chrome.storage.local.set({ lastGreeted: today });
+  setTimeout(() => {
+    if (data.lastGreeted === undefined) {
+      addGreetingPopup(true);
+      chrome.storage.local.set({ lastGreeted: new Date().toDateString() });
+    } else {
+      const today = new Date().toDateString();
+      if (data.lastGreeted !== today) {
+        addGreetingPopup();
+        chrome.storage.local.set({ lastGreeted: today });
+      }
     }
-  }
+  }, 2000);
 });
 
 new ProactiveTimer();

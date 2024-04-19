@@ -58,7 +58,10 @@ export default function DailySummary({
           ))}
         </div>
         <div id="daily_summary__content__line"></div>
-        <div id="daily_summary__content__summary">{summary}</div>
+        <div
+          id="daily_summary__content__summary"
+          dangerouslySetInnerHTML={{ __html: summary }}
+        ></div>
         <div id="daily_summary__content__button">
           <button
             id="daily_summary__content__button__btn"

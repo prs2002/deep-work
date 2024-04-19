@@ -14,6 +14,7 @@ function HourlySummary() {
   const logo = chrome.runtime.getURL("images/recenter_logo.png");
   const [unfocused, setUnfocused] = useState<number>(0);
   const [productive, setProductive] = useState<number>(0);
+  const [timeframe, setTimeframe] = useState<string>(" in the Past Hour");
   const focusRate = (productive / Math.max(productive + unfocused, 1)) * 100;
 
   const timeSummary = [
@@ -37,6 +38,25 @@ function HourlySummary() {
         [];
       if (prevHourSummary.length === 0) {
         return;
+      }
+      const hour: number | undefined =
+        (
+          (await chrome.storage.local.get("lastHourlyTime")).lastHourlyTime ||
+          {}
+        ).hour || undefined;
+      if (hour) {
+        const timeFrameStart = new Date(hour).toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+        });
+        const timeFrameEnd = new Date(hour + 60 * 60 * 1000).toLocaleTimeString(
+          "en-US",
+          {
+            hour: "numeric",
+            minute: "numeric",
+          }
+        );
+        setTimeframe(` (${timeFrameStart} to ${timeFrameEnd})`);
       }
       setProductive(prevHourSummary[2]);
       setUnfocused(prevHourSummary[3]);
@@ -65,7 +85,7 @@ function HourlySummary() {
             {focusRate.toFixed(0)}%
           </div>
           <div id="hourly_summary__content__header__title">
-            Focus Rate in the past hour
+            Focus Rate {timeframe}
           </div>
           <div id="hourly_summary__content__header__bar">
             <div

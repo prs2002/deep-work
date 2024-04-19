@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap");
+
+#greeting_popup_first,
+#greeting_popup_first * {
+  all: revert !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: Inter !important;
+}
+
+#greeting_popup_first {
+  margin: 0 !important;
+  padding: 0 !important;
+  position: fixed !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 320px !important;
+  min-height: 310px !important;
+  background: #2087ff !important;
+  right: 20px !important;
+  top: 20px !important;
+  z-index: 9999999 !important;
+
+  &__title {
+    margin-top: 24px !important;
+    width: 85% !important;
+    height: 10% !important;
+    display: flex !important;
+    gap: 9px !important;
+    align-items: center !important;
+    &__logo {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      & img {
+        width: 28px !important;
+        aspect-ratio: 1 !important;
+      }
+    }
+    &__text {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      & h1 {
+        color: #0052bd !important;
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        font-family: Inter !important;
+      }
+    }
+  }
+  &__header {
+    margin-top: 21px !important;
+    width: 85% !important;
+    height: 25% !important;
+
+    & img {
+      width: 45px !important;
+    }
+
+    &__light {
+      font-family: Inter !important;
+      font-size: 20px !important;
+      font-weight: 700 !important;
+      color: #ffffff9e !important;
+      line-height: 24px !important;
+    }
+    &__dark {
+      font-family: Inter !important;
+      font-size: 20px !important;
+      font-weight: 700 !important;
+      color: #ffffff !important;
+      line-height: 24px !important;
+    }
+  }
+
+  &__buttons {
+    display: flex !important;
+
+    &__button {
+      margin-top: 34px !important;
+      width: 250px !important;
+      padding: 7.5px 0 !important;
+      font-family: Inter !important;
+      font-size: 12px !important;
+      font-weight: 400 !important;
+      line-height: 15px !important;
+      border: none !important;
+      border-radius: 38px !important;
+      cursor: pointer !important;
+      &.white {
+        background-color: #ffffff !important;
+        color: #2087ff !important;
+      }
+    }
+  }
+}

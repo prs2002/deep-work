@@ -8,11 +8,17 @@ const baseUrl = "https://api.openai.com/v1";
 const model = "gpt-3.5-turbo-0125";
 const costPer1000Token_INPUT = 0.0005;
 const costPer1000Token_OUTPUT = 0.0015;
-// Anyscale CONSTANTS
-// export const baseUrl = "https://api.endpoints.anyscale.com/v1";
-// export const model = "mistralai/Mistral-7B-Instruct-v0.1";
-// export const costPer1000Token_INPUT = 0.00015;
-// export const costPer1000Token_OUTPUT = 0.00015;
+// Prompts
+const HOURLY_RECAP_PROMPT = (history) => {
+    return `
+    ${history}
+    This is the browser history in a certain time period. Summarize this into a simple 4 or 5 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for one hour and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you". Pay special attention to any interesting titles and use those in commenting on what the user might have been doing.`;
+};
+const DAILY_RECAP_PROMPT = (history) => {
+    return `
+  ${history}
+  This is the browser history in a certain time period. Summarize this into a simple 7-8 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for the previous day and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you". Pay special attention to any interesting titles and use those in commenting on what the user might have been doing.`;
+};
 
 ;// CONCATENATED MODULE: ./src/utils/queryStorage/UpdateWebsitesInStorage.ts
 /*
@@ -311,7 +317,7 @@ function organizeHistoryByBaseUrl(history, time) {
             const baseUrl = cleanURL(new URL(url).origin);
             if (!organizedHistory[baseUrl]) {
                 const time = ((_a = times.find((x) => x.url === baseUrl)) === null || _a === void 0 ? void 0 : _a.time) || 0;
-                organizedHistory[baseUrl] = { Explored: [], time: msToHM(time) };
+                organizedHistory[baseUrl] = { Explored: [], time: time };
             }
             if (!organizedHistory[baseUrl]["Explored"].includes(entry.title))
                 organizedHistory[baseUrl]["Explored"].push(entry.title);
@@ -319,7 +325,7 @@ function organizeHistoryByBaseUrl(history, time) {
         Object.keys(organizedHistory).forEach((key) => {
             organizedHistory[key].Explored = removeRedundantTerms(organizedHistory[key].Explored);
         });
-        return convertToString(organizedHistory);
+        return convertToString(removeLessSignificantTerms(organizedHistory));
     });
 }
 function removeRedundantTerms(titles) {
@@ -364,6 +370,22 @@ function convertToString(organizedHistory) {
     // Replace all double quotes with an empty string
     const str = JSON.stringify(organizedHistory);
     return str.replace(/"/g, "");
+}
+function removeLessSignificantTerms(organizedHistory) {
+    // removing sites with time less than 1 minute and less than 3 visits
+    const keys = Object.keys(organizedHistory);
+    for (let i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const site = organizedHistory[key];
+        const time = site.time;
+        if (time < 60 * 1000 && site.Explored.length < 3) {
+            delete organizedHistory[key];
+        }
+        else {
+            site.time = msToHM(time);
+        }
+    }
+    return organizedHistory;
 }
 
 ;// CONCATENATED MODULE: ./src/utils/chatGPT/DailyRecap.ts
@@ -428,10 +450,7 @@ function prevDaySummary(history, authKey, date) {
                 messages: [
                     {
                         role: "user",
-                        content: `
-          ${history}
-          This is the browser history in a certain time period. Summarize this into a simple 7-8 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for the previous day and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you"
-        `,
+                        content: DAILY_RECAP_PROMPT(history),
                     },
                 ],
             };
@@ -489,7 +508,7 @@ var HourlyRecap_awaiter = (undefined && undefined.__awaiter) || function (thisAr
 function hourlyRecap(hourlyTime, date) {
     var _a;
     return HourlyRecap_awaiter(this, void 0, void 0, function* () {
-        var today = new Date().getTime();
+        var today = date + 60 * 60 * 1000;
         var hourAgo = date;
         const authKey = (_a = (yield chrome.storage.local.get("authKey"))) === null || _a === void 0 ? void 0 : _a.authKey; // api key
         if (!hourlyTime) {
@@ -582,10 +601,7 @@ function prevHourSummary(history, authKey, date) {
                 messages: [
                     {
                         role: "user",
-                        content: `
-            ${history}
-            This is the browser history in a certain time period. Summarize this into a simple 4 or 5 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for one hour and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you"
-          `,
+                        content: HOURLY_RECAP_PROMPT(history),
                     },
                 ],
             };
