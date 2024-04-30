@@ -9,15 +9,19 @@ const model = "gpt-3.5-turbo-0125";
 const costPer1000Token_INPUT = 0.0005;
 const costPer1000Token_OUTPUT = 0.0015;
 // Prompts
-const HOURLY_RECAP_PROMPT = (history) => {
+const HOURLY_RECAP_PROMPT = (history, productivePercentage) => {
     return `
-    ${history}
-    This is the browser history in a certain time period. Summarize this into a simple 4 or 5 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for one hour and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you". Pay special attention to any interesting titles and use those in commenting on what the user might have been doing.`;
+    Productive for ${productivePercentage.toFixed(2)}%
+    History:
+      ${history}
+      This is the browser history in a certain time period. Summarize this into a simple 4 or 5 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for one hour and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you". Pay special attention to any interesting titles and use those in commenting on what the user might have been doing. Have an unusual introduction and a cold-open to the summary. Acknowledge how well the user spent time overall without referring to the percentage`;
 };
-const DAILY_RECAP_PROMPT = (history) => {
+const DAILY_RECAP_PROMPT = (history, productivePercentage) => {
     return `
+  Productive for ${productivePercentage.toFixed(2)}%
+    History:
   ${history}
-  This is the browser history in a certain time period. Summarize this into a simple 7-8 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for the previous day and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you". Pay special attention to any interesting titles and use those in commenting on what the user might have been doing.`;
+  This is the browser history in a certain time period. Summarize this into a simple 7-8 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for the previous day and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you". Pay special attention to any interesting titles and use those in commenting on what the user might have been doing. Have an unusual introduction and a cold-open to the summary. Acknowledge how well the user spent time overall without referring to the percentage`;
 };
 
 ;// CONCATENATED MODULE: ./src/utils/queryStorage/UpdateWebsitesInStorage.ts
@@ -273,6 +277,70 @@ const focusMessage = [
     { line1: "You're a zen master!", line2: "On top of the world!" },
 ];
 
+;// CONCATENATED MODULE: ./src/utils/queryStorage/GetTaggedTime.ts
+/*
+Function to get the time of the user on a website along with tag
+*/
+var GetTaggedTime_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+function msToHMS(ms) {
+    // 1- Convert to seconds:
+    let seconds = Math.floor(ms / 1000);
+    // 2- Extract hours:
+    const hours = Math.floor(seconds / 3600); // 3,600 seconds in 1 hour
+    seconds = seconds % 3600; // seconds remaining after extracting hours
+    // 3- Extract minutes:
+    const minutes = Math.floor(seconds / 60); // 60 seconds in 1 minute
+    // 4- Keep only seconds not extracted to minutes:
+    seconds = seconds % 60;
+    return `${hours}h ${minutes}m ${seconds}s`;
+}
+function getTaggedTime(type) {
+    var _a, _b, _c, _d;
+    return GetTaggedTime_awaiter(this, void 0, void 0, function* () {
+        const data = (_a = (yield chrome.storage.local.get(type))) === null || _a === void 0 ? void 0 : _a[type];
+        if (!data) {
+            return;
+        }
+        // get website tag data
+        const taggedData = (_b = (yield chrome.storage.local.get("taggedURLs"))) === null || _b === void 0 ? void 0 : _b.taggedURLs;
+        const result = data.map((d) => {
+            return { url: d.url, time: d.time, tag: 0, value: msToHMS(d.time) };
+        });
+        if (type === "weeklyTime") {
+            const numberOfDays = ((_c = (yield chrome.storage.local.get("numberOfDaysInWeek"))) === null || _c === void 0 ? void 0 : _c.numberOfDaysInWeek) || 1;
+            result.forEach((d) => {
+                d.time = d.time / numberOfDays;
+                d.value = msToHMS(d.time);
+            });
+        }
+        if (type === "monthlyTime") {
+            const numberOfDays = ((_d = (yield chrome.storage.local.get("numberOfDays"))) === null || _d === void 0 ? void 0 : _d.numberOfDays) || 1;
+            result.forEach((d) => {
+                d.time = d.time / numberOfDays;
+                d.value = msToHMS(d.time);
+            });
+        }
+        if (taggedData) {
+            for (const d of result) {
+                for (const tag of taggedData) {
+                    if (tag.website === d.url) {
+                        d.tag = tag.tag;
+                    }
+                }
+            }
+        }
+        return result;
+    });
+}
+
 ;// CONCATENATED MODULE: ./src/utils/scripts/mmToHM.ts
 function msToHM(ms) {
     // 1- Convert to seconds:
@@ -388,6 +456,67 @@ function removeLessSignificantTerms(organizedHistory) {
     return organizedHistory;
 }
 
+;// CONCATENATED MODULE: ./src/utils/chatGPT/API_CALL.ts
+var API_CALL_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+function apiCallWithTimeout(prompt, timeout = 30000, purpose, authKey) {
+    return API_CALL_awaiter(this, void 0, void 0, function* () {
+        try {
+            const requestBody = {
+                model: model,
+                messages: [
+                    {
+                        role: "user",
+                        content: prompt,
+                    },
+                ],
+            };
+            const timeoutPromise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const timeoutError = new Error("API call timeout");
+                    const timeoutResponse = new Response(JSON.stringify({ error: timeoutError }), {
+                        status: 408,
+                        statusText: "Request Timeout",
+                        headers: { "Content-Type": "application/json" },
+                    });
+                    reject(timeoutResponse);
+                }, timeout);
+            });
+            const fetchPromise = fetch(`${baseUrl}/chat/completions`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${authKey}`,
+                },
+                body: JSON.stringify(requestBody),
+            });
+            const res = yield Promise.race([fetchPromise, timeoutPromise]);
+            if (!res.ok) {
+                console.log(res);
+                throw new Error("API request failed");
+            }
+            const data = yield res.json();
+            const inputTokens = data.usage.prompt_tokens;
+            const outputTokens = data.usage.completion_tokens;
+            yield estimatedCost(inputTokens, outputTokens, purpose);
+            const summary = data.choices[0].message.content;
+            return summary;
+        }
+        catch (err) {
+            return err.message;
+        }
+    });
+}
+
 ;// CONCATENATED MODULE: ./src/utils/chatGPT/DailyRecap.ts
 var DailyRecap_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -398,6 +527,7 @@ var DailyRecap_awaiter = (undefined && undefined.__awaiter) || function (thisArg
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 
 
 
@@ -429,7 +559,19 @@ function dailyRecap() {
             return false;
         }
         yield chrome.storage.local.set({ summaryLock: new Date().getTime() });
-        const summary = yield prevDaySummary(organizedHistory, authKey, yesterday);
+        const yesterdayTime = yield getTaggedTime("yesterdayTime");
+        if (!yesterdayTime) {
+            yield chrome.storage.local.set({
+                prevDaySummary: [SUMMARY_NO_DATA, yesterday.toDateString()],
+            });
+            return false;
+        }
+        const totalTime = yesterdayTime.reduce((acc, website) => acc + website.time, 0);
+        const focusRate = totalTime &&
+            (yesterdayTime.reduce((acc, website) => acc + (website.tag === 1 ? website.time : 0), 0) /
+                totalTime) *
+                100;
+        const summary = yield prevDaySummary(organizedHistory, authKey, yesterday, focusRate);
         if (summary === "") {
             yield chrome.storage.local.set({
                 prevDaySummary: [API_CALL_FAILED_SUMMARY, yesterday.toDateString()],
@@ -442,52 +584,9 @@ function dailyRecap() {
         return true;
     });
 }
-function prevDaySummary(history, authKey, date) {
+function prevDaySummary(history, authKey, date, focusRate) {
     return DailyRecap_awaiter(this, void 0, void 0, function* () {
-        try {
-            const requestBody = {
-                model: model,
-                messages: [
-                    {
-                        role: "user",
-                        content: DAILY_RECAP_PROMPT(history),
-                    },
-                ],
-            };
-            const timeoutPromise = new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    const timeoutError = new Error("API call timeout");
-                    const timeoutResponse = new Response(JSON.stringify({ error: timeoutError }), {
-                        status: 408,
-                        statusText: "Request Timeout",
-                        headers: { "Content-Type": "application/json" },
-                    });
-                    reject(timeoutResponse);
-                }, 30000);
-            });
-            const fetchPromise = fetch(`${baseUrl}/chat/completions`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${authKey}`,
-                },
-                body: JSON.stringify(requestBody),
-            });
-            const res = yield Promise.race([fetchPromise, timeoutPromise]);
-            if (!res.ok) {
-                console.log(res);
-                throw new Error("API request failed");
-            }
-            const data = yield res.json();
-            const inputTokens = data.usage.prompt_tokens;
-            const outputTokens = data.usage.completion_tokens;
-            yield estimatedCost(inputTokens, outputTokens, `dailyRecap ${date.toDateString()}`);
-            const summary = data.choices[0].message.content;
-            return summary;
-        }
-        catch (err) {
-            return err.message;
-        }
+        return yield apiCallWithTimeout(DAILY_RECAP_PROMPT(history, focusRate), 30000, `dailyRecap ${date.toDateString()}`, authKey);
     });
 }
 
@@ -508,7 +607,8 @@ var HourlyRecap_awaiter = (undefined && undefined.__awaiter) || function (thisAr
 function hourlyRecap(hourlyTime, date) {
     var _a;
     return HourlyRecap_awaiter(this, void 0, void 0, function* () {
-        var today = date + 60 * 60 * 1000;
+        // var today = date + 60 * 60 * 1000;
+        var today = new Date().getTime();
         var hourAgo = date;
         const authKey = (_a = (yield chrome.storage.local.get("authKey"))) === null || _a === void 0 ? void 0 : _a.authKey; // api key
         if (!hourlyTime) {
@@ -575,7 +675,8 @@ function hourlyRecap(hourlyTime, date) {
             return false;
         }
         yield chrome.storage.local.set({ summaryLock: new Date().getTime() });
-        const summary = yield prevHourSummary(organizedHistory, authKey, today);
+        const productivePercentage = (productiveTime / (timeSpent + 1)) * 100;
+        const summary = yield prevHourSummary(organizedHistory, authKey, today, productivePercentage);
         if (summary === "") {
             yield chrome.storage.local.set({
                 prevHourSummary: [
@@ -593,115 +694,9 @@ function hourlyRecap(hourlyTime, date) {
         return true;
     });
 }
-function prevHourSummary(history, authKey, date) {
+function prevHourSummary(history, authKey, date, productiveTime) {
     return HourlyRecap_awaiter(this, void 0, void 0, function* () {
-        try {
-            const requestBody = {
-                model: model,
-                messages: [
-                    {
-                        role: "user",
-                        content: HOURLY_RECAP_PROMPT(history),
-                    },
-                ],
-            };
-            const timeoutPromise = new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    const timeoutError = new Error("API call timeout");
-                    const timeoutResponse = new Response(JSON.stringify({ error: timeoutError }), {
-                        status: 408,
-                        statusText: "Request Timeout",
-                        headers: { "Content-Type": "application/json" },
-                    });
-                    reject(timeoutResponse);
-                }, 30000);
-            });
-            const fetchPromise = fetch(`${baseUrl}/chat/completions`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${authKey}`,
-                },
-                body: JSON.stringify(requestBody),
-            });
-            const res = yield Promise.race([fetchPromise, timeoutPromise]);
-            if (!res.ok) {
-                throw new Error("API request failed");
-            }
-            const data = yield res.json();
-            const inputTokens = data.usage.prompt_tokens;
-            const outputTokens = data.usage.completion_tokens;
-            yield estimatedCost(inputTokens, outputTokens, `hourlyRecap ${date}`);
-            const summary = data.choices[0].message.content;
-            return summary;
-        }
-        catch (err) {
-            return err.message;
-        }
-    });
-}
-
-;// CONCATENATED MODULE: ./src/utils/queryStorage/GetTaggedTime.ts
-/*
-Function to get the time of the user on a website along with tag
-*/
-var GetTaggedTime_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-function msToHMS(ms) {
-    // 1- Convert to seconds:
-    let seconds = Math.floor(ms / 1000);
-    // 2- Extract hours:
-    const hours = Math.floor(seconds / 3600); // 3,600 seconds in 1 hour
-    seconds = seconds % 3600; // seconds remaining after extracting hours
-    // 3- Extract minutes:
-    const minutes = Math.floor(seconds / 60); // 60 seconds in 1 minute
-    // 4- Keep only seconds not extracted to minutes:
-    seconds = seconds % 60;
-    return `${hours}h ${minutes}m ${seconds}s`;
-}
-function getTaggedTime(type) {
-    var _a, _b, _c, _d;
-    return GetTaggedTime_awaiter(this, void 0, void 0, function* () {
-        const data = (_a = (yield chrome.storage.local.get(type))) === null || _a === void 0 ? void 0 : _a[type];
-        if (!data) {
-            return;
-        }
-        // get website tag data
-        const taggedData = (_b = (yield chrome.storage.local.get("taggedURLs"))) === null || _b === void 0 ? void 0 : _b.taggedURLs;
-        const result = data.map((d) => {
-            return { url: d.url, time: d.time, tag: 0, value: msToHMS(d.time) };
-        });
-        if (type === "weeklyTime") {
-            const numberOfDays = ((_c = (yield chrome.storage.local.get("numberOfDaysInWeek"))) === null || _c === void 0 ? void 0 : _c.numberOfDaysInWeek) || 1;
-            result.forEach((d) => {
-                d.time = d.time / numberOfDays;
-                d.value = msToHMS(d.time);
-            });
-        }
-        if (type === "monthlyTime") {
-            const numberOfDays = ((_d = (yield chrome.storage.local.get("numberOfDays"))) === null || _d === void 0 ? void 0 : _d.numberOfDays) || 1;
-            result.forEach((d) => {
-                d.time = d.time / numberOfDays;
-                d.value = msToHMS(d.time);
-            });
-        }
-        if (taggedData) {
-            for (const d of result) {
-                for (const tag of taggedData) {
-                    if (tag.website === d.url) {
-                        d.tag = tag.tag;
-                    }
-                }
-            }
-        }
-        return result;
+        return yield apiCallWithTimeout(HOURLY_RECAP_PROMPT(history, productiveTime), 30000, `hourlyRecap ${date}`, authKey);
     });
 }
 

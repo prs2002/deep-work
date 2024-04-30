@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "./HourlySummaryBox.scss";
 import { SUMMARY_TIME_TOO_SHORT } from "../utils/CONSTANTS/texts";
+import { hourlyRecap } from "../utils/chatGPT/HourlyRecap";
+import { getPrevHourTime } from "../utils/queryStorage/GetPrevHourTime";
 
 export default function HourlySummaryBox() {
   const [summary, setSummary] = useState<string>(SUMMARY_TIME_TOO_SHORT);
@@ -9,12 +11,9 @@ export default function HourlySummaryBox() {
   const [timeframe, setTimeframe] = useState<string>(" in the Past Hour");
   useEffect(() => {
     async function getSummary() {
-      const prevHourSummary =
+      let prevHourSummary =
         (await chrome.storage.local.get("prevHourSummary")).prevHourSummary ||
         [];
-      if (prevHourSummary.length === 0) {
-        return;
-      }
       const hour: number | undefined =
         (
           (await chrome.storage.local.get("lastHourlyTime")).lastHourlyTime ||
@@ -25,14 +24,20 @@ export default function HourlySummaryBox() {
           hour: "numeric",
           minute: "numeric",
         });
-        const timeFrameEnd = new Date(hour + 60 * 60 * 1000).toLocaleTimeString(
-          "en-US",
-          {
-            hour: "numeric",
-            minute: "numeric",
-          }
-        );
+        const timeFrameEnd = new Date().toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+        });
         setTimeframe(` (${timeFrameStart} to ${timeFrameEnd})`);
+      }
+      if (prevHourSummary.length === 0) {
+        await hourlyRecap(
+          await getPrevHourTime(),
+          hour || new Date().getTime() - 60 * 60 * 1000
+        );
+        prevHourSummary =
+          (await chrome.storage.local.get("prevHourSummary")).prevHourSummary ||
+          [];
       }
       setSummary(prevHourSummary[0]);
       setProductive(prevHourSummary[2] / 60000);

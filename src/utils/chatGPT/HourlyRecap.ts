@@ -1,18 +1,19 @@
 import { TaggedTimeURL } from "../../types/TaggedTimeUrl";
-import { HOURLY_RECAP_PROMPT, baseUrl, model } from "../CONSTANTS/ChatGPT";
+import { HOURLY_RECAP_PROMPT } from "../CONSTANTS/ChatGPT";
 import {
   API_CALL_FAILED_SUMMARY,
   NO_API_KEY_SUMMARY,
   SUMMARY_TIME_TOO_SHORT,
 } from "../CONSTANTS/texts";
 import { organizeHistoryByBaseUrl } from "../scripts/processHistory";
-import { estimatedCost } from "./EstimatedCost";
+import { apiCallWithTimeout } from "./API_CALL";
 
 export async function hourlyRecap(
   hourlyTime: TaggedTimeURL[] | undefined,
   date: number
 ): Promise<boolean> {
-  var today = date + 60 * 60 * 1000;
+  // var today = date + 60 * 60 * 1000;
+  var today = new Date().getTime();
   var hourAgo = date;
 
   const authKey = (await chrome.storage.local.get("authKey"))?.authKey; // api key
@@ -92,7 +93,14 @@ export async function hourlyRecap(
   }
   await chrome.storage.local.set({ summaryLock: new Date().getTime() });
 
-  const summary = await prevHourSummary(organizedHistory, authKey, today);
+  const productivePercentage = (productiveTime / (timeSpent + 1)) * 100;
+
+  const summary = await prevHourSummary(
+    organizedHistory,
+    authKey,
+    today,
+    productivePercentage
+  );
 
   if (summary === "") {
     await chrome.storage.local.set({
@@ -115,52 +123,13 @@ export async function hourlyRecap(
 async function prevHourSummary(
   history: string,
   authKey: any,
-  date: number
+  date: number,
+  productiveTime: number
 ): Promise<String> {
-  try {
-    const requestBody = {
-      model: model,
-      messages: [
-        {
-          role: "user",
-          content: HOURLY_RECAP_PROMPT(history),
-        },
-      ],
-    };
-
-    const timeoutPromise = new Promise<Response>((resolve, reject) => {
-      setTimeout(() => {
-        const timeoutError = new Error("API call timeout");
-        const timeoutResponse = new Response(
-          JSON.stringify({ error: timeoutError }),
-          {
-            status: 408,
-            statusText: "Request Timeout",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-        reject(timeoutResponse);
-      }, 30000);
-    });
-    const fetchPromise = fetch(`${baseUrl}/chat/completions`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${authKey}`,
-      },
-      body: JSON.stringify(requestBody),
-    });
-    const res: Response = await Promise.race([fetchPromise, timeoutPromise]);
-    if (!res.ok) {
-      throw new Error("API request failed");
-    }
-    const data = await res.json();
-    const inputTokens = data.usage.prompt_tokens;
-    const outputTokens = data.usage.completion_tokens;
-    await estimatedCost(inputTokens, outputTokens, `hourlyRecap ${date}`);
-    const summary = data.choices[0].message.content;
-    return summary;
-  } catch (err) {
-    return (err as Error).message;
-  }
+  return await apiCallWithTimeout(
+    HOURLY_RECAP_PROMPT(history, productiveTime),
+    30000,
+    `hourlyRecap ${date}`,
+    authKey
+  );
 }

@@ -1,11 +1,12 @@
-import { DAILY_RECAP_PROMPT, baseUrl, model } from "../CONSTANTS/ChatGPT";
+import { DAILY_RECAP_PROMPT } from "../CONSTANTS/ChatGPT";
 import {
   API_CALL_FAILED_SUMMARY,
   NO_API_KEY_SUMMARY,
+  SUMMARY_NO_DATA,
 } from "../CONSTANTS/texts";
+import { getTaggedTime } from "../queryStorage/GetTaggedTime";
 import { organizeHistoryByBaseUrl } from "../scripts/processHistory";
-import { estimatedCost } from "./EstimatedCost";
-
+import { apiCallWithTimeout } from "./API_CALL";
 
 export async function dailyRecap(): Promise<boolean> {
   var yesterday = new Date();
@@ -19,9 +20,8 @@ export async function dailyRecap(): Promise<boolean> {
     endTime: endTime,
     maxResults: 1000,
   });
-  
+
   const organizedHistory = await organizeHistoryByBaseUrl(historyItems);
-  
 
   const authKey = (await chrome.storage.local.get("authKey"))?.authKey; // api key
   if (!authKey) {
@@ -37,8 +37,34 @@ export async function dailyRecap(): Promise<boolean> {
   }
   await chrome.storage.local.set({ summaryLock: new Date().getTime() });
 
-  const summary = await prevDaySummary(organizedHistory, authKey, yesterday);
+  const yesterdayTime = await getTaggedTime("yesterdayTime");
 
+  if (!yesterdayTime) {
+    await chrome.storage.local.set({
+      prevDaySummary: [SUMMARY_NO_DATA, yesterday.toDateString()],
+    });
+    return false;
+  }
+
+  const totalTime = yesterdayTime.reduce(
+    (acc, website) => acc + website.time,
+    0
+  );
+  const focusRate =
+    totalTime &&
+    (yesterdayTime.reduce(
+      (acc, website) => acc + (website.tag === 1 ? website.time : 0),
+      0
+    ) /
+      totalTime) *
+      100;
+
+  const summary = await prevDaySummary(
+    organizedHistory,
+    authKey,
+    yesterday,
+    focusRate
+  );
 
   if (summary === "") {
     await chrome.storage.local.set({
@@ -56,57 +82,13 @@ export async function dailyRecap(): Promise<boolean> {
 async function prevDaySummary(
   history: string,
   authKey: any,
-  date: Date
+  date: Date,
+  focusRate: number
 ): Promise<String> {
-  try {
-    const requestBody = {
-      model: model,
-      messages: [
-        {
-          role: "user",
-          content: DAILY_RECAP_PROMPT(history),
-        },
-      ],
-    };
-
-    const timeoutPromise = new Promise<Response>((resolve, reject) => {
-      setTimeout(() => {
-        const timeoutError = new Error("API call timeout");
-        const timeoutResponse = new Response(
-          JSON.stringify({ error: timeoutError }),
-          {
-            status: 408,
-            statusText: "Request Timeout",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-        reject(timeoutResponse);
-      }, 30000);
-    });
-    const fetchPromise = fetch(`${baseUrl}/chat/completions`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${authKey}`,
-      },
-      body: JSON.stringify(requestBody),
-    });
-    const res: Response = await Promise.race([fetchPromise, timeoutPromise]);
-    if (!res.ok) {
-      console.log(res);
-      throw new Error("API request failed");
-    }
-    const data = await res.json();
-    const inputTokens = data.usage.prompt_tokens;
-    const outputTokens = data.usage.completion_tokens;
-    await estimatedCost(
-      inputTokens,
-      outputTokens,
-      `dailyRecap ${date.toDateString()}`
-    );
-    const summary = data.choices[0].message.content;
-    return summary;
-  } catch (err) {
-    return (err as Error).message;
-  }
+  return await apiCallWithTimeout(
+    DAILY_RECAP_PROMPT(history, focusRate),
+    30000,
+    `dailyRecap ${date.toDateString()}`,
+    authKey
+  );
 }
