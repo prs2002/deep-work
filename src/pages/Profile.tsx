@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import AchievementsCard from "../components/AchievementsCard";
-import Navbar from "../components/Navbar";
+import AchievementsCard from "../components/AchievementsCard/AchievementsCard";
+import Navbar from "../components/Navbar/Navbar";
 import { Achievements } from "../types/Achievements";
 import "./Profile.scss";
 import { weeklyProductivity } from "../utils/Achievements";
-import ConfigureOptions from "../components/ConfigureOptions";
-import UsageBox from "../components/UsageBox";
+import ConfigureOptions from "../components/ConfigureOptions/ConfigureOptions";
+import UsageBox from "../components/UsageBox/UsageBox";
 
 interface ProfileProps {
   isFocused: boolean;

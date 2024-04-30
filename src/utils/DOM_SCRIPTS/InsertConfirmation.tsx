@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./InsertConfirmation.scss";
 import { RxCross1 } from "react-icons/rx";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
+import Input from "../../components/Input/Input";
+import Button from "../../components/Button/Button";
 
 interface ConfirmationPopupProps {
   setShowPopup: () => void;

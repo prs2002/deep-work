@@ -1,0 +1,128 @@
+.alert_timer_box {
+  width: 328px;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__header {
+    margin-bottom: 10px;
+    font-size: 1.25rem;
+    letter-spacing: 0em;
+    width: 100%;
+  }
+  &__outline {
+    border: 2px solid #f0f0f0;
+    border-radius: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__content {
+    width: calc(100% - 20px);
+    display: flex;
+    margin-top: 18px;
+    justify-content: space-between;
+
+
+    &__input {
+      width: 200px;
+    }
+
+    &__dropdown {
+      width: 100px;
+      height: 40px;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 26px;
+    }
+  }
+
+  &__max_time {
+    margin: 0 14px;
+    margin-top: 20px;
+    width: 100%;
+    padding: 0 10px;
+    &__input {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    &__title {
+      margin-bottom: 12px;
+    }
+  }
+
+  &__button {
+    width: 100%;
+    padding: 0 10px;
+    margin-top: 16px;
+    margin-bottom: 30px;
+  }
+
+  &__select_website {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__header {
+      padding-top: 25px;
+      padding-left: 24px;
+      font-size: 16px;
+      line-height: 19px;
+      letter-spacing: 0em;
+      margin-right: auto;
+    }
+
+    &__websites {
+      padding-right: 10px;
+      padding-top: 21px;
+      padding-bottom: 21px;
+      border: 2px solid #f0f0f0;
+      border-radius: 28px;
+      width: 290px;
+      margin-top: 16px;
+      margin-bottom: 16px;
+      &__list {
+        height: 100px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+        &::-webkit-scrollbar {
+          width: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: #f0f0f0;
+          border-radius: 20px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: #848484;
+          width: 5px;
+          border-radius: 20px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+          background: #555;
+        }
+
+        &__item {
+          display: flex;
+          gap: 10px;
+          margin-left: 20px;
+          & input {
+            width: 15px;
+            height: 15px;
+          }
+        }
+      }
+    }
+    &__count {
+      padding-left: 14px;
+      letter-spacing: 0em;
+      margin-right: auto;
+    }
+  }
+}

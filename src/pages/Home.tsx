@@ -4,17 +4,17 @@ import { SummaryItem } from "../types/SummaryItem";
 import { calculateProductivity } from "../utils/queryStorage/CalculateProductivity";
 import { TaggedTimeURL } from "../types/TaggedTimeUrl";
 import { getTaggedTime } from "../utils/queryStorage/GetTaggedTime";
-import FilterOptions from "../components/FilterOptions";
-import FocusRateBox from "../components/FocusRateBox";
-import MenuOptions from "../components/MenuOptions";
-import QuickActionsBox from "../components/QuickActionsBox";
-import SummaryBox from "../components/SummaryBox";
-import UsageBreakdown from "../components/UsageBreakdown";
-import UsageChart from "../components/UsageChart";
-import HourlySummaryBox from "../components/HourlySummaryBox";
-import DailySummaryBox from "../components/DailySummaryBox";
-import SuperFocusMode from "../components/SuperFocusMode";
-import ExtensionDisabledCover from "../components/ExtensionDisabledCover";
+import FilterOptions from "../components/FilterOptions/FilterOptions";
+import FocusRateBox from "../components/FocusRateBox/FocusRateBox";
+import MenuOptions from "../components/MenuOptions/MenuOptions";
+import QuickActionsBox from "../components/QuickActionsBox/QuickActionsBox";
+import SummaryBox from "../components/SummaryBox/SummaryBox";
+import UsageBreakdown from "../components/UsageBreakdown/UsageBreakdown";
+import UsageChart from "../components/UsageChart/UsageChart";
+import HourlySummaryBox from "../components/HourlySummaryBox/HourlySummaryBox";
+import DailySummaryBox from "../components/DailySummaryBox/DailySummaryBox";
+import SuperFocusMode from "../components/SuperFocusMode/SuperFocusMode";
+import ExtensionDisabledCover from "../components/ExtensionDisableCover/ExtensionDisabledCover";
 import { focusMessage } from "../utils/CONSTANTS/texts";
 
 interface HomeProps {

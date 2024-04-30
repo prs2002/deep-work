@@ -1,0 +1,49 @@
+.toggle_button {
+    display: flex;
+  
+    &:last-of-type {
+      margin-bottom: 24px;
+    }
+  
+    &__enable {
+      width: 70%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    &__enable_button {
+      width: 30%;
+      display: flex;
+      justify-content: flex-end;
+  
+      &__container {
+        display: inline-block;
+        cursor: pointer;
+  
+        &__switch {
+          position: relative;
+          width: 57px;
+          height: 28px;
+          border-radius: 28px;
+          display: flex;
+          align-items: center;
+          background: #f4f4f4;
+          &__circle {
+            aspect-ratio: 1;
+            width: 16px;
+            border-radius: 100%;
+            position: absolute;
+            transition: transform 0.3s;
+            margin-left: 5px;
+            background: black;
+  
+            &.on {
+              background: var(--blue);
+              transform: translateX(28px);
+            }
+          }
+        }
+      }
+    }
+  }
+  

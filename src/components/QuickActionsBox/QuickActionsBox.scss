@@ -1,0 +1,27 @@
+.quick_actions_box {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+  width: 160px;
+  height: 104px;
+  border-radius: 15px;
+
+  &__content {
+    margin: 16px 20px;
+    width: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    &__action {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      cursor: pointer;
+      text-decoration: none;
+      color: #000000;
+      & > p {
+        letter-spacing: 0em;
+      }
+    }
+  }
+}

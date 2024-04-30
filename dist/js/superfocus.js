@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 6856:
+/***/ 9556:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -24,7 +24,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.button{width:100%;height:40px;border-
 
 /***/ }),
 
-/***/ 4148:
+/***/ 5176:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -2276,9 +2276,9 @@ function RxZoomOut (props) {
   return GenIcon({"tag":"svg","attr":{"viewBox":"0 0 15 15","fill":"none"},"child":[{"tag":"path","attr":{"fillRule":"evenodd","clipRule":"evenodd","d":"M6.5 10C8.433 10 10 8.433 10 6.5C10 4.567 8.433 3 6.5 3C4.567 3 3 4.567 3 6.5C3 8.433 4.567 10 6.5 10ZM6.5 11C7.56251 11 8.53901 10.6318 9.30884 10.0159L12.1464 12.8536C12.3417 13.0488 12.6583 13.0488 12.8536 12.8536C13.0488 12.6583 13.0488 12.3417 12.8536 12.1464L10.0159 9.30884C10.6318 8.53901 11 7.56251 11 6.5C11 4.01472 8.98528 2 6.5 2C4.01472 2 2 4.01472 2 6.5C2 8.98528 4.01472 11 6.5 11ZM4.75 6C4.47386 6 4.25 6.22386 4.25 6.5C4.25 6.77614 4.47386 7 4.75 7H8.25C8.52614 7 8.75 6.77614 8.75 6.5C8.75 6.22386 8.52614 6 8.25 6H4.75Z","fill":"currentColor"},"child":[]}]})(props);
 };
 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/Input.scss
-var Input = __webpack_require__(4148);
-;// CONCATENATED MODULE: ./src/components/Input.scss
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/Input/Input.scss
+var Input = __webpack_require__(5176);
+;// CONCATENATED MODULE: ./src/components/Input/Input.scss
 
       
       
@@ -2305,12 +2305,12 @@ var Input_update = injectStylesIntoStyleTag_default()(Input/* default */.c, Inpu
 
 
 
-       /* harmony default export */ const components_Input = (Input/* default */.c && Input/* default */.c.locals ? Input/* default */.c.locals : undefined);
+       /* harmony default export */ const Input_Input = (Input/* default */.c && Input/* default */.c.locals ? Input/* default */.c.locals : undefined);
 
-;// CONCATENATED MODULE: ./src/components/Input.tsx
+;// CONCATENATED MODULE: ./src/components/Input/Input.tsx
 
 
-const Input_Input = ({ type, placeholder, input, setInput, className, disablePaste, label, }) => {
+const Input_Input_Input = ({ type, placeholder, input, setInput, className, disablePaste, label, }) => {
     function handleChange(event) {
         setInput(event.target.value);
     }
@@ -2322,11 +2322,11 @@ const Input_Input = ({ type, placeholder, input, setInput, className, disablePas
     }
     return ((0,jsx_runtime.jsx)("input", { className: `input_box ${className}`, type: type, placeholder: placeholder, value: input, onChange: handleChange }));
 };
-/* harmony default export */ const src_components_Input = (Input_Input);
+/* harmony default export */ const components_Input_Input = (Input_Input_Input);
 
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/Button.scss
-var Button = __webpack_require__(6856);
-;// CONCATENATED MODULE: ./src/components/Button.scss
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/components/Button/Button.scss
+var Button = __webpack_require__(9556);
+;// CONCATENATED MODULE: ./src/components/Button/Button.scss
 
       
       
@@ -2353,12 +2353,12 @@ var Button_update = injectStylesIntoStyleTag_default()(Button/* default */.c, Bu
 
 
 
-       /* harmony default export */ const components_Button = (Button/* default */.c && Button/* default */.c.locals ? Button/* default */.c.locals : undefined);
+       /* harmony default export */ const Button_Button = (Button/* default */.c && Button/* default */.c.locals ? Button/* default */.c.locals : undefined);
 
-;// CONCATENATED MODULE: ./src/components/Button.tsx
+;// CONCATENATED MODULE: ./src/components/Button/Button.tsx
 
 
-function Button_Button({ text, onClick }) {
+function Button_Button_Button({ text, onClick }) {
     return ((0,jsx_runtime.jsx)("div", Object.assign({ className: "button", onClick: onClick }, { children: text })));
 }
 
@@ -2384,9 +2384,9 @@ function ConfirmationPopup({ setShowPopup, text, handleConfirm, phrase, }) {
             alert(`Please type ${phrase} to confirm`);
         }
     };
-    return ((0,jsx_runtime.jsx)("div", Object.assign({ className: "confirmation_popup" }, { children: (0,jsx_runtime.jsxs)("div", Object.assign({ className: "confirmation_popup__details" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ className: "confirmation_popup__details__header" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ className: "confirmation_popup__details__header__title" }, { children: "Warning!" })), (0,jsx_runtime.jsx)("div", Object.assign({ className: "confirmation_popup__details__header__buttons" }, { children: (0,jsx_runtime.jsx)("div", Object.assign({ className: "confirmation_popup__details__header__buttons__close", onClick: handleSiteDetails }, { children: (0,jsx_runtime.jsx)(RxCross1, { className: "confirmation_popup__details__header__buttons__close_cross" }) })) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ className: "confirmation_popup__details__content" }, { children: [(0,jsx_runtime.jsx)("div", { className: "confirmation_popup__details__content__text", dangerouslySetInnerHTML: { __html: text } }), (0,jsx_runtime.jsxs)("div", Object.assign({ className: "confirmation_popup__details__content__input" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ className: "confirmation_popup__details__content__input__label" }, { children: ["Type the phrase \"", phrase, "\" to confirm"] })), (0,jsx_runtime.jsx)("div", Object.assign({ className: "confirmation_popup__details__content__input__container" }, { children: (0,jsx_runtime.jsx)(src_components_Input, { input: input, placeholder: "", setInput: (input) => {
+    return ((0,jsx_runtime.jsx)("div", Object.assign({ className: "confirmation_popup" }, { children: (0,jsx_runtime.jsxs)("div", Object.assign({ className: "confirmation_popup__details" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ className: "confirmation_popup__details__header" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ className: "confirmation_popup__details__header__title" }, { children: "Warning!" })), (0,jsx_runtime.jsx)("div", Object.assign({ className: "confirmation_popup__details__header__buttons" }, { children: (0,jsx_runtime.jsx)("div", Object.assign({ className: "confirmation_popup__details__header__buttons__close", onClick: handleSiteDetails }, { children: (0,jsx_runtime.jsx)(RxCross1, { className: "confirmation_popup__details__header__buttons__close_cross" }) })) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ className: "confirmation_popup__details__content" }, { children: [(0,jsx_runtime.jsx)("div", { className: "confirmation_popup__details__content__text", dangerouslySetInnerHTML: { __html: text } }), (0,jsx_runtime.jsxs)("div", Object.assign({ className: "confirmation_popup__details__content__input" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ className: "confirmation_popup__details__content__input__label" }, { children: ["Type the phrase \"", phrase, "\" to confirm"] })), (0,jsx_runtime.jsx)("div", Object.assign({ className: "confirmation_popup__details__content__input__container" }, { children: (0,jsx_runtime.jsx)(components_Input_Input, { input: input, placeholder: "", setInput: (input) => {
                                             setInput(input);
-                                        }, type: "text", disablePaste: true }) }))] }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ className: "confirmation_popup__details__button" }, { children: (0,jsx_runtime.jsx)(Button_Button, { onClick: checkInput, text: "Confirm" }) }))] })) })));
+                                        }, type: "text", disablePaste: true }) }))] }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ className: "confirmation_popup__details__button" }, { children: (0,jsx_runtime.jsx)(Button_Button_Button, { onClick: checkInput, text: "Confirm" }) }))] })) })));
 }
 function insertConfirmation(handleConfirm, phrase, text) {
     if (document.getElementById("recenter_container") !== null) {

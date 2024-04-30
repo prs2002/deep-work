@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import ConfigureOptions from "../components/ConfigureOptions";
-import Navbar from "../components/Navbar";
-import TagWebsite from "../components/TagWebsite";
-import UntaggedWebsiteList from "../components/UntaggedWebsiteList";
-import WebsiteList from "../components/WebsiteList";
+import ConfigureOptions from "../components/ConfigureOptions/ConfigureOptions";
+import Navbar from "../components/Navbar/Navbar";
+import TagWebsite from "../components/TagWebsite/TagWebsite";
+import UntaggedWebsiteList from "../components/UntaggedWebsiteList/UntaggedWebsiteList";
+import WebsiteList from "../components/WebsiteList/WebsiteList";
 import "./Configure.scss";
-import GeneralSettingsBox from "../components/GeneralSettingsBox";
-import AuthKeyBox from "../components/AuthKeyBox";
-import { AlertTimerBox } from "../components/AlertTimerBox";
+import GeneralSettingsBox from "../components/GeneralSettingsBox/GeneralSettingsBox";
+import AuthKeyBox from "../components/AuthKeyBox/AuthKeyBox";
+import { AlertTimerBox } from "../components/AlertTimerBox/AlertTimerBox";
 import { useLocation } from "react-router-dom";
-import ProactiveOptionsBox from "../components/ProactiveOptionsBox";
-import { MaxTimerBox } from "../components/MaxTimerBox";
+import ProactiveOptionsBox from "../components/ProactiveOptionsBox/ProactiveOptionsBox";
+import { MaxTimerBox } from "../components/MaxTimerBox/MaxTimerBox";
 
 interface ConfigureProps {
   isFocused: boolean;

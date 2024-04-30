@@ -1,0 +1,42 @@
+.menu_options {
+  width: 252px;
+  padding: 5px 6px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+
+  &#good {
+    background: white;
+  }
+
+  &#bad {
+    background: white;
+  }
+
+  &__option {
+    padding: 6px 12.5px;
+    border-radius: 18px;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: none;
+
+    &#good {
+      color: #7F7F7F;
+    }
+    
+    &#bad {
+      color: #7F7F7F;
+    }
+
+    &.selected {
+      background-color: black;
+      &#good {
+        color: white;
+      }
+      
+      &#bad {
+        color: white;
+      }
+    }
+  }
+}

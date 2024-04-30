@@ -1,0 +1,13 @@
+.button {
+    width: 100%;
+    height: 40px;
+    border-radius: 38px;
+    background: var(--blue);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-family: Inter;
+}

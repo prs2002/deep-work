@@ -1,0 +1,45 @@
+.configure_options {
+  width: 330px;
+  padding: 8px 10px;
+  border-radius: 60px;
+  display: flex;
+  justify-content: space-between;
+
+  &#good {
+    background: white;
+  }
+
+  &#bad {
+    background: white;
+  }
+
+  &__option {
+    border-radius: 48px;
+    width: 154px;
+    height: 34px;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: Inter;
+    font-size: 1.25rem;
+    letter-spacing: 0em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &#good {
+      color: #7f7f7f;
+    }
+
+    &#bad {
+      color: #7f7f7f;
+    }
+    &.selected {
+      background-color: black;
+      &#good {
+        color: white;
+      }
+      &#bad {
+        color: white;
+      }
+    }
+  }
+}
