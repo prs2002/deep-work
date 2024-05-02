@@ -6,6 +6,8 @@ import "./UsageBreakdown.scss";
 import { preprocessURL } from "../../utils/scripts/PreprocessURL";
 import { SlOptionsVertical } from "react-icons/sl";
 import { msToHM } from "../../utils/scripts/mmToHM";
+import { CiCircleInfo } from "react-icons/ci";
+import { Tooltip } from "react-tooltip";
 
 interface UsageBreakdownProps {
   totalTime: number;
@@ -44,7 +46,14 @@ export default function UsageBreakdown({
               ></div>
               {website.slice(0, 20) + (website.length > 20 ? "..." : "")}
             </div>
-            <div className="usage_breakdown__content__list__item__details__usage" title={((100 * item.time) / totalTime).toFixed(2) + "% " + msToHM(item.time)}>
+            <div
+              className="usage_breakdown__content__list__item__details__usage"
+              title={
+                ((100 * item.time) / totalTime).toFixed(2) +
+                "% " +
+                msToHM(item.time)
+              }
+            >
               {`${((100 * item.time) / totalTime).toFixed(0)}%`}
               <SlOptionsVertical
                 onClick={() => {
@@ -76,6 +85,13 @@ export default function UsageBreakdown({
       <div className="usage_breakdown__content">
         <div className="usage_breakdown__content__title">
           <h3>Usage Breakdown</h3>
+          <CiCircleInfo
+            data-tooltip-id="usage-breakdown-tooltip"
+            data-tooltip-content="Visual breakdown of websites you visited today and their contribution to today's analysis.            "
+            data-tooltip-place="bottom"
+            className="info-icon"
+          />
+          <Tooltip id="usage-breakdown-tooltip" className="tooltip"></Tooltip>
         </div>
         <div className="usage_breakdown__content__outline">
           <div className="usage_breakdown__content__list">

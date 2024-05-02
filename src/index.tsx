@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./global.css";
+import "./tooltip.scss";
 import { MemoryRouter } from "react-router-dom";
 
 const root =

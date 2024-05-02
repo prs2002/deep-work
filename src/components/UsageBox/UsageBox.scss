@@ -1,62 +1,66 @@
-.usage_box {
+.usage_summary {
+  width: 328px;
+  height: 182px;
+  margin-top: 30px;
+  &__title {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    & > h3 {
+      font-size: 1.25rem;
+      letter-spacing: 0em;
+      font-weight: 600;
+    }
+  }
+  &__content {
     border: 2px solid #f0f0f0;
     border-radius: 30px;
-    width:328px;
-    height: 173px;
-    margin-bottom: 28px;
-    &__content {
-      padding: 18px;
-  
-      &__title {
-        margin-bottom: 16px;
-        & > h3 {
-          font-size: 1.25rem;
-          letter-spacing: 0em;
-        }
-      }
-      &__list {
-        width: 100%;
+    height: 72%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    &__usage {
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      &__row {
         display: flex;
-        flex-direction: column;
-        gap: 12px;
-        height: 100px;
-        padding-right: 14px;
-        &__item {
+        &__label {
+          width: 70%;
           display: flex;
-          &__summary {
-            width: 70%;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 5px 0px;
-            color: #373737;
-            &__color {
-              height: 15px;
-              aspect-ratio: 1;
-              border-radius: 100%;
-  
-              &#grey {
-                background-color: var(--input-grey);
-              }
-  
-              &#red {
-                background-color: var(--wasteful-red);
-              }
-  
-              &#orange {
-                background-color: var(--primary-orange);
-              }
+          align-items: center;
+          gap: 10px;
+          padding: 5px 0px;
+          color: #373737;
+          &__color {
+            height: 10px;
+            aspect-ratio: 1;
+            border-radius: 100%;
+
+            &#blue {
+              background-color: var(--blue);
+            }
+            &#red {
+              background-color: var(--red);
+            }
+            &#black {
+              background-color: #000000;
             }
           }
-          &__time {
-            width: 30%;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            padding: 5px 10px;
-            font-weight: 600;
-          }
+        }
+        &__value {
+          width: 30%;
+          text-align: right;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
       }
     }
+  }
 }

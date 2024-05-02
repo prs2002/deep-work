@@ -6,6 +6,8 @@ import Dropdown from "../Dropdown/Dropdown";
 import Input from "../Input/Input";
 import { fetchWebsitesFromStorage } from "../../utils/queryStorage/FetchWebsitesFromStorage";
 import { preprocessURL } from "../../utils/scripts/PreprocessURL";
+import { CiCircleInfo } from "react-icons/ci";
+import { Tooltip } from "react-tooltip";
 
 export const AlertTimerBox = () => {
   const [time, setTime] = useState<string>("");
@@ -126,7 +128,19 @@ export const AlertTimerBox = () => {
 
   return (
     <div className="alert_timer_box">
-      <div className="alert_timer_box__header">Alert Settings</div>
+      <div className="alert_timer_box__header">Alert Settings
+
+      <CiCircleInfo
+          data-tooltip-id="alert-list-tooltip"
+          data-tooltip-content="Customize how and when Recenter should alert you by adjusting the intervals between each alert and respective tolerance limit"
+          data-tooltip-place="bottom"
+          className="info-icon"
+        />
+        <Tooltip
+          id="alert-list-tooltip"
+          className="tooltip"
+        ></Tooltip>
+      </div>
       <div className="alert_timer_box__outline">
         <div className="alert_timer_box__max_time">
           <div className="alert_timer_box__max_time__input">

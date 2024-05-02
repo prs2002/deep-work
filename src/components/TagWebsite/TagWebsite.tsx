@@ -5,6 +5,8 @@ import Dropdown from "../Dropdown/Dropdown";
 import Input from "../Input/Input";
 import "./TagWebsite.scss";
 import { tagWebsite } from "../../utils/queryStorage/TagWebsite";
+import { CiCircleInfo } from "react-icons/ci";
+import { Tooltip } from "react-tooltip";
 const dropdownOptions: DropdownOptions[] = [
   {
     id: "1",
@@ -46,7 +48,16 @@ export default function TagWebsite() {
 
   return (
     <div className="tag_website">
-      <div className="tag_website__header">Tag Website</div>
+      <div className="tag_website__header">
+        Tag Website
+        <CiCircleInfo
+          data-tooltip-id="tag-website-tooltip"
+          data-tooltip-content="Tag websites so Recenter can keep track of your productivity."
+          data-tooltip-place="bottom"
+          className="info-icon"
+        />
+        <Tooltip id="tag-website-tooltip" className="tooltip"></Tooltip>
+      </div>
       <div className="tag_website__outline">
         <div className="tag_website__content">
           <div className="tag_website__content__input">

@@ -7,12 +7,8 @@ import { preprocessURL } from "../../utils/scripts/PreprocessURL";
 import useToggle from "../../hooks/useToggle";
 import SiteDetailsBox from "../SiteDetailsBox/SiteDetailsBox";
 import { CiCircleInfo } from "react-icons/ci";
-
-interface Website {
-  id: string;
-  website: string;
-  tag: number;
-}
+import { Website } from "../../types/Website";
+import { Tooltip } from "react-tooltip";
 
 export default function WebsiteList() {
   const dropdownOptions: DropdownOptions[] = [
@@ -149,9 +145,15 @@ export default function WebsiteList() {
       <div className="website_list__header">
         Website List{" "}
         <CiCircleInfo
-          title="List of all the websites you have
-visited so far along with tags."
+          data-tooltip-id="website-list-tooltip"
+          data-tooltip-content="List of all the websites you have visited so far along with tags."
+          data-tooltip-place="bottom"
+          className="info-icon"
         />
+        <Tooltip
+          id="website-list-tooltip"
+          className="tooltip"
+        ></Tooltip>
       </div>
       <div className="website_list__outline">
         <div className="website_list__content">

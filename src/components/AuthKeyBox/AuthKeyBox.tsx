@@ -6,6 +6,7 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { verifyAPIKey } from "../../utils/chatGPT/VerifyApiKey";
 import { CiCircleInfo } from "react-icons/ci";
+import { Tooltip } from "react-tooltip";
 
 export default function AuthKeyBox() {
   const [authKey, setAuthKey] = useState<string>("");
@@ -37,10 +38,14 @@ export default function AuthKeyBox() {
       <div className="auth_key_box__header">
         GPT API Key{" "}
         <CiCircleInfo
-          title="For users who own GPT keys, 
-you can run Recenter
-with your own key."
-        ></CiCircleInfo>
+          data-tooltip-id="auth-tooltip"
+          data-tooltip-content="For users who own GPT keys, 
+          you can run Recenter
+          with your own key."
+          data-tooltip-place="bottom"
+          className="info-icon"
+        />
+        <Tooltip id="auth-tooltip" className="tooltip"></Tooltip>
       </div>
       <div className="auth_key_box__outline">
         <div className="auth_key_box__content">

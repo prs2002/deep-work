@@ -8,6 +8,7 @@ import { fetchWebsitesFromStorage } from "../../utils/queryStorage/FetchWebsites
 import { preprocessURL } from "../../utils/scripts/PreprocessURL";
 import { updateMaxTime } from "../../utils/queryStorage/UpdateMaxTime";
 import { CiCircleInfo } from "react-icons/ci";
+import { Tooltip } from "react-tooltip";
 
 export const MaxTimerBox = () => {
   const [maxTime, setMaxTime] = useState<string>("");
@@ -97,9 +98,15 @@ export const MaxTimerBox = () => {
     <div className="max_timer_box">
       <div className="max_timer_box__header">
         Site Usage Limit{" "}
-        <CiCircleInfo title="For Websites tagged as 'Wasteful', 
-you can limit usage per day. 
-Default is 20mins per day"></CiCircleInfo>
+        <CiCircleInfo
+          data-tooltip-id="max-time-list-tooltip"
+          data-tooltip-content="For Websites tagged as 'Wasteful', 
+          you can limit usage per day. 
+          Default is 20mins per day"
+          data-tooltip-place="bottom"
+          className="info-icon"
+        />
+        <Tooltip id="max-time-list-tooltip" className="tooltip"></Tooltip>
       </div>
       <div className="max_timer_box__outline">
         <div className="max_timer_box__content">

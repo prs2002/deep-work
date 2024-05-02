@@ -9,6 +9,10 @@
     font-size: 1.25rem;
     letter-spacing: 0em;
     width: 100%;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-weight: 600;
   }
   &__outline {
     border: 2px solid #f0f0f0;
@@ -19,10 +23,12 @@
     align-items: center;
   }
   &__content {
-    width: calc(100% - 20px);
+    width: 100%;
     display: flex;
     margin-top: 18px;
     justify-content: space-between;
+    padding: 0 14px;
+    gap: 10px;
 
 
     &__input {

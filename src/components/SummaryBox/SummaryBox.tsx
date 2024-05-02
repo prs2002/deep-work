@@ -3,10 +3,42 @@ import "./SummaryBox.scss";
 import { TaggedTimeURL } from "../../types/TaggedTimeUrl";
 import { getTaggedTime } from "../../utils/queryStorage/GetTaggedTime";
 import { SummaryItem } from "../../types/SummaryItem";
+import { Tooltip } from "react-tooltip";
+import { Link } from "react-router-dom";
 
 interface SummaryBoxProps {
   filter: string;
 }
+
+const toolTips = [
+  {
+    text: "Collective Data of sites tagged as “Productive”",
+    props: {
+      className: "tooltip",
+      clickable: false,
+    },
+  },
+  {
+    text: 'Collective Data of sites tagged as "Wasteful"',
+    props: {
+      className: "tooltip",
+      clickable: false,
+    },
+  },
+  {
+    text: (
+      <>
+        Collective data of "Untagged Sites". To add a tag, move to{" "}
+        <Link to={"/configure"}>Configure Page</Link>
+      </>
+    ),
+
+    props: {
+      className: "tooltip",
+      clickable: true,
+    },
+  },
+];
 
 export default function SummaryBox({ filter }: SummaryBoxProps) {
   const summaryColor = ["red", "blue", "orange"];
@@ -58,7 +90,7 @@ export default function SummaryBox({ filter }: SummaryBoxProps) {
       }
       setTotalTime(unsure_time + wasteful_time + productive_time);
       data[0].value = (wasteful_time / 3600000).toFixed(1);
-      data[1].value =  (productive_time / 3600000).toFixed(1);
+      data[1].value = (productive_time / 3600000).toFixed(1);
       data[2].value = (unsure_time / 3600000).toFixed(1);
       setSummary(data);
     });
@@ -70,15 +102,35 @@ export default function SummaryBox({ filter }: SummaryBoxProps) {
         <div className="summary_box__content__list">
           {summary.map((summary_item, index) => {
             return (
-              <div className="summary_box__content__list__item" key={index}>
+              <div
+                className="summary_box__content__list__item"
+                key={index}
+                data-tooltip-id={`${index}-summary-tooltip`}
+                data-tooltip-place="bottom"
+              >
                 <div className="summary_box__content__list__item__time">
-                  <div className="summary_box__content__list__item__time__spent">{summary_item.value}</div>
-                  <div className="summary_box__content__list__item__time__total">{" / " + (totalTime / 3600000).toFixed(1) + "hrs"}</div>
+                  <div className="summary_box__content__list__item__time__spent">
+                    {summary_item.value}
+                  </div>
+                  <div className="summary_box__content__list__item__time__total">
+                    {" / " + (totalTime / 3600000).toFixed(1) + "hrs"}
+                  </div>
                 </div>
                 <div className="summary_box__content__list__item__type">
-                  <div className="summary_box__content__list__item__type__color" id={summaryColor[index]}></div>
-                  <div className="summary_box__content__list__item__type__type">{summary_item.label}</div>
+                  <div
+                    className="summary_box__content__list__item__type__color"
+                    id={summaryColor[index]}
+                  ></div>
+                  <div className="summary_box__content__list__item__type__type">
+                    {summary_item.label}
+                  </div>
                 </div>
+                <Tooltip
+                  id={`${index}-summary-tooltip`}
+                  {...toolTips[index].props}
+                >
+                  {toolTips[index].text}
+                </Tooltip>
               </div>
             );
           })}

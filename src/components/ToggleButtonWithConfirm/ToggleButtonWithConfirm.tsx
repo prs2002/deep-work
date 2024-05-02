@@ -1,6 +1,8 @@
 import { ReactNode, useEffect, useState } from "react";
 import "./ToggleButtonWithConfirm.scss";
 import ConfirmationPopup from "../ConfirmationPopup/ConfirmationPopup";
+import { CiCircleInfo } from "react-icons/ci";
+import { Tooltip } from "react-tooltip";
 
 interface ToggleButtonWithConfirmProps {
   text: string;
@@ -9,6 +11,7 @@ interface ToggleButtonWithConfirmProps {
   textWarning: ReactNode;
   opposite?: boolean;
   callback?: (type: string) => Promise<void>;
+  toolTipText?: string;
 }
 
 export default function ToggleButtonWithConfirm({
@@ -18,6 +21,7 @@ export default function ToggleButtonWithConfirm({
   textWarning,
   opposite,
   callback,
+  toolTipText,
 }: ToggleButtonWithConfirmProps) {
   const [isOn, setIsOn] = useState<boolean>(false);
   const [showWarning, setShowWarning] = useState<boolean>(false);
@@ -52,7 +56,21 @@ export default function ToggleButtonWithConfirm({
 
   return (
     <div className="toggle_button">
-      <div className="toggle_button__enable">{text}</div>
+      <div className="toggle_button__enable">
+        {text}{" "}
+        {toolTipText && (
+          <>
+            {" "}
+            <CiCircleInfo
+              data-tooltip-id={`${text}-list-tooltip`}
+              data-tooltip-content={toolTipText}
+              data-tooltip-place="bottom"
+              className="info-icon"
+            />
+            <Tooltip id={`${text}-list-tooltip`} className="tooltip"></Tooltip>
+          </>
+        )}
+      </div>
       <div className="toggle_button__enable_button">
         <div
           className={`toggle_button__enable_button__container ${

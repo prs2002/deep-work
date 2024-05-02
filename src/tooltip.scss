@@ -1,0 +1,16 @@
+.tooltip {
+  max-width: 250px;
+  text-align: center;
+  background-color: #000000;
+  z-index: 9999999999999;
+
+  & a {
+    color: #ffffff;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.info-icon:hover {
+  color: var(--blue);
+}

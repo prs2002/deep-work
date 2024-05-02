@@ -22,10 +22,12 @@ export default function GeneralSettingsBox() {
             text="Disable Extension"
             phrase={phrase}
             textWarning={textWarning}
+            toolTipText="Disabling Extension would prevent Recenter from tracking or providing insights about your progress"
           ></ToggleButtonWithConfirm>
           <ToggleButton
             storeKey="isDisabledOnWeekend"
             text="Disable Extension on Weekend"
+            toolTipText="Recenter works 24/7 to keep you productive but you can change this anytime."
           ></ToggleButton>
         </div>
       </div>

@@ -9,6 +9,8 @@ import {
   API_CALL_FAILED_SUMMARY,
   NO_API_KEY_SUMMARY,
 } from "../../utils/CONSTANTS/texts";
+import { CiCircleInfo } from "react-icons/ci";
+import { Tooltip } from "react-tooltip";
 
 export default function DailySummaryBox() {
   const [summary, setSummary] = useState<string>("Processing");
@@ -90,6 +92,13 @@ export default function DailySummaryBox() {
       <div className="daily_summary">
         <div className="daily_summary__title">
           <h3>Daily Recap</h3>
+          <CiCircleInfo
+            data-tooltip-id="daily-tooltip"
+            data-tooltip-content="Premium Alerts to give you a recap on how the previous day went with a narrative summary."
+            data-tooltip-place="bottom"
+            className="info-icon"
+          />
+          <Tooltip id="daily-tooltip" className="tooltip"></Tooltip>
         </div>
         <div className="daily_summary__content">
           <div className="daily_summary__content__header">

@@ -3,6 +3,8 @@ import "./HourlySummaryBox.scss";
 import { SUMMARY_TIME_TOO_SHORT } from "../../utils/CONSTANTS/texts";
 import { hourlyRecap } from "../../utils/chatGPT/HourlyRecap";
 import { getPrevHourTime } from "../../utils/queryStorage/GetPrevHourTime";
+import { CiCircleInfo } from "react-icons/ci";
+import { Tooltip } from "react-tooltip";
 
 export default function HourlySummaryBox() {
   const [summary, setSummary] = useState<string>(SUMMARY_TIME_TOO_SHORT);
@@ -50,6 +52,13 @@ export default function HourlySummaryBox() {
       <div className="hourly_summary">
         <div className="hourly_summary__title">
           <h3>Hourly Updates</h3>
+          <CiCircleInfo
+            data-tooltip-id="hourly-tooltip"
+            data-tooltip-content="Premium Alerts to update you on how the last hour went with a narrative summary."
+            data-tooltip-place="bottom"
+            className="info-icon"
+          />
+          <Tooltip id="hourly-tooltip" className="tooltip"></Tooltip>
         </div>
         <div className="hourly_summary__content">
           <div className="hourly_summary__content__header">

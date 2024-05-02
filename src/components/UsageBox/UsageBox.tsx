@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import "./UsageBox.scss";
+import { CiCircleInfo } from "react-icons/ci";
+import { Tooltip } from "react-tooltip";
 
 export default function UsageBox() {
   const [usage, setUsage] = useState([
@@ -51,32 +53,42 @@ export default function UsageBox() {
     });
   }, []);
 
-  const usageColor = ["grey", "orange", "red"];
+  const colors = ["blue", "red", "black"]
+
   return (
-    <div className="usage_box">
-      <div className="usage_box__content">
-        <div className="usage_box__content__title">
-          <h3>Summary</h3>
+    <>
+      <div className="usage_summary">
+        <div className="usage_summary__title">
+          <h3>Usage Summary</h3>
+          <CiCircleInfo
+            data-tooltip-id="usage_tooltip"
+            data-tooltip-content="Daily, Weekly and Monthly API usage breakdown to keep you updated on how much you are spending."
+            data-tooltip-place="bottom"
+            className="info-icon"
+          />
+          <Tooltip id="usage_tooltip" className="tooltip"></Tooltip>
         </div>
-        <div className="usage_box__content__list">
-          {usage.map((item, index) => {
-            return (
-              <div className="usage_box__content__list__item" key={index}>
-                <div className="usage_box__content__list__item__summary">
+        <div className="usage_summary__content">
+          <div className="usage_summary__content__usage">
+            {usage.map((time, index) => (
+              <div className="usage_summary__content__usage__row" key={index}>
+                <div className="usage_summary__content__usage__row__label">
                   <div
-                    className="usage_box__content__list__item__summary__color"
-                    id={usageColor[index]}
+                    className="usage_summary__content__usage__row__label__color"
+                    id={colors[index]}
                   ></div>
-                  {item.label}
+                  <div className="usage_summary__content__usage__row__label__name">
+                    {time.label}
+                  </div>
                 </div>
-                <div className="usage_box__content__list__item__time">
-                  {item.value.toFixed(6)}$
+                <div className="usage_summary__content__usage__row__value">
+                  {time.value.toFixed(2)}$
                 </div>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

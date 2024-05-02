@@ -32,6 +32,10 @@
     #bdddf7 0%,
     rgba(255, 255, 255, 0) 40.64%
   );
+
+  /* Tooltip */
+
+  --rt-opacity: 1 !important;
 }
 
 .container {
@@ -62,3 +66,4 @@ body::-webkit-scrollbar {
   font-weight: 400;
   box-sizing: border-box;
 }
+

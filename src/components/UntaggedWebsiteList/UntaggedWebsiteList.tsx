@@ -5,6 +5,7 @@ import { updateWebsitesInStorage } from "../../utils/queryStorage/UpdateWebsites
 import DropdownWithConfirm from "../DropdownWithConfirm/DropdownWithConfirm";
 import { preprocessURL } from "../../utils/scripts/PreprocessURL";
 import { CiCircleInfo } from "react-icons/ci";
+import { Tooltip } from "react-tooltip";
 
 export default function UntaggedWebsiteList() {
   const dropdownOptions: DropdownOptions[] = [
@@ -114,9 +115,15 @@ export default function UntaggedWebsiteList() {
     <div className="untagged_website_list">
       <div className="untagged_website_list__header">
         Untagged Sites{" "}
-        <CiCircleInfo title="Untagged websites are not
-yet untagged by GPT, users can 
-tag them manually." />
+        <CiCircleInfo
+          data-tooltip-id="untagged-list-tooltip"
+          data-tooltip-content="Untagged websites are not
+          yet untagged by GPT, users can 
+          tag them manually."
+          data-tooltip-place="bottom"
+          className="info-icon"
+        />
+        <Tooltip id="untagged-list-tooltip" className="tooltip"></Tooltip>
       </div>
       <div className="untagged_website_list__outline">
         <div className="untagged_website_list__content">
