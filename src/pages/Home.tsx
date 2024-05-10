@@ -15,7 +15,7 @@ import HourlySummaryBox from "../components/HourlySummaryBox/HourlySummaryBox";
 import DailySummaryBox from "../components/DailySummaryBox/DailySummaryBox";
 import SuperFocusMode from "../components/SuperFocusMode/SuperFocusMode";
 import ExtensionDisabledCover from "../components/ExtensionDisableCover/ExtensionDisabledCover";
-import { focusMessage } from "../utils/CONSTANTS/texts";
+import HomePageHeader from "../components/HomePageHeader/HomePageHeader";
 
 interface HomeProps {
   isFocused: boolean;
@@ -80,15 +80,15 @@ export default function Home({ isFocused, setIsFocused }: HomeProps) {
 
   return (
     <div className="home_page">
-      {isDisabled && <ExtensionDisabledCover setIsDisabled={setIsDisabled}></ExtensionDisabledCover>}
+      {isDisabled && (
+        <ExtensionDisabledCover
+          setIsDisabled={setIsDisabled}
+        ></ExtensionDisabledCover>
+      )}
       <div className="home_page__menu">
         <MenuOptions isFocused={isFocused}></MenuOptions>
       </div>
-      <div className="home_page__header">
-        <h3>Welcome Back</h3>
-        <h1>{focusMessage[Math.floor(Math.min(focusRate, 99) / 10)].line1}</h1>
-        <h1>{focusMessage[Math.floor(Math.min(focusRate, 99) / 10)].line2}</h1>
-      </div>
+      <HomePageHeader focusRate={focusRate}></HomePageHeader>
       <div className="home_page__boxes">
         <FocusRateBox
           focusRate={focusRate}

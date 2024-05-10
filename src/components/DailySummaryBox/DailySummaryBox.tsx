@@ -11,6 +11,7 @@ import {
 } from "../../utils/CONSTANTS/texts";
 import { CiCircleInfo } from "react-icons/ci";
 import { Tooltip } from "react-tooltip";
+import ProgressBar from "../ProgressBar/ProgressBar";
 
 export default function DailySummaryBox() {
   const [summary, setSummary] = useState<string>("Processing");
@@ -109,10 +110,11 @@ export default function DailySummaryBox() {
               Focus Rate Yesterday
             </div>
             <div className="daily_summary__content__header__bar">
-              <div
-                className="daily_summary__content__header__bar__fill"
-                style={{ width: `${focusRate}%` }}
-              ></div>
+              <ProgressBar
+                color="blue"
+                fill={focusRate}
+                total={100}
+              ></ProgressBar>
             </div>
           </div>
           <div className="daily_summary__content__time">

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import "./HourlySummaryBox.scss";
 import { SUMMARY_TIME_TOO_SHORT } from "../../utils/CONSTANTS/texts";
-import { hourlyRecap } from "../../utils/chatGPT/HourlyRecap";
-import { getPrevHourTime } from "../../utils/queryStorage/GetPrevHourTime";
 import { CiCircleInfo } from "react-icons/ci";
 import { Tooltip } from "react-tooltip";
+import { getSummary } from "../../utils/getHourlySummary";
+import ProgressBar from "../ProgressBar/ProgressBar";
 
 export default function HourlySummaryBox() {
   const [summary, setSummary] = useState<string>(SUMMARY_TIME_TOO_SHORT);
@@ -12,40 +12,7 @@ export default function HourlySummaryBox() {
   const [unfocused, setUnfocused] = useState<number>(0);
   const [timeframe, setTimeframe] = useState<string>(" in the Past Hour");
   useEffect(() => {
-    async function getSummary() {
-      let prevHourSummary =
-        (await chrome.storage.local.get("prevHourSummary")).prevHourSummary ||
-        [];
-      const hour: number | undefined =
-        (
-          (await chrome.storage.local.get("lastHourlyTime")).lastHourlyTime ||
-          {}
-        ).hour || undefined;
-      if (hour) {
-        const timeFrameStart = new Date(hour).toLocaleTimeString("en-US", {
-          hour: "numeric",
-          minute: "numeric",
-        });
-        const timeFrameEnd = new Date().toLocaleTimeString("en-US", {
-          hour: "numeric",
-          minute: "numeric",
-        });
-        setTimeframe(` (${timeFrameStart} to ${timeFrameEnd})`);
-      }
-      if (prevHourSummary.length === 0) {
-        await hourlyRecap(
-          await getPrevHourTime(),
-          hour || new Date().getTime() - 60 * 60 * 1000
-        );
-        prevHourSummary =
-          (await chrome.storage.local.get("prevHourSummary")).prevHourSummary ||
-          [];
-      }
-      setSummary(prevHourSummary[0]);
-      setProductive(prevHourSummary[2] / 60000);
-      setUnfocused(prevHourSummary[3] / 60000);
-    }
-    getSummary();
+    getSummary(setTimeframe, setProductive, setUnfocused, setSummary);
   }, []);
   return (
     <>
@@ -73,14 +40,11 @@ export default function HourlySummaryBox() {
               Focus Rate {timeframe}
             </div>
             <div className="hourly_summary__content__header__bar">
-              <div
-                className="hourly_summary__content__header__bar__fill"
-                style={{
-                  width: `${
-                    (productive * 100) / Math.max(productive + unfocused, 1)
-                  }%`,
-                }}
-              ></div>
+              <ProgressBar
+                color="blue"
+                fill={productive}
+                total={productive + unfocused}
+              ></ProgressBar>
             </div>
           </div>
           <div className="hourly_summary__content__time">

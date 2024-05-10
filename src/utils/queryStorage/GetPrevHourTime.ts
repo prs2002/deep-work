@@ -8,6 +8,10 @@ export async function getPrevHourTime() {
     (await chrome.storage.local.get("lastHourlyTime")).lastHourlyTime || {};
   const data: WebsiteTime[] | null = lastHourlyTime.hourlyTime;
 
+  if(!data) {
+    return [];
+  }
+
   const taggedData: TaggedURL[] | null = (
     await chrome.storage.local.get("taggedURLs")
   )?.taggedURLs;

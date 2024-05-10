@@ -20,20 +20,7 @@
     left: 50%;
     transform: translateX(-50%);
   }
-  &__header {
-    margin-top: 100px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    & > h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: 0em;
-      text-align: center;
-    }
-  }
-
+  
   &__boxes {
     width: 100%;
     display: flex;

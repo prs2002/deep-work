@@ -8,6 +8,7 @@ import { SlOptionsVertical } from "react-icons/sl";
 import { msToHM } from "../../utils/scripts/mmToHM";
 import { CiCircleInfo } from "react-icons/ci";
 import { Tooltip } from "react-tooltip";
+import ProgressBar from "../ProgressBar/ProgressBar";
 
 interface UsageBreakdownProps {
   totalTime: number;
@@ -63,11 +64,11 @@ export default function UsageBreakdown({
             </div>
           </div>
           <div className="usage_breakdown__content__list__item__bar">
-            <div
-              className="usage_breakdown__content__list__item__bar__fill"
-              style={{ width: `${(100 * item.time) / totalTime}%` }}
-              id={websiteColor[item.tag]}
-            ></div>
+            <ProgressBar
+              fill={item.time}
+              total={totalTime}
+              color={websiteColor[item.tag]}
+            ></ProgressBar>
           </div>
         </div>
       );

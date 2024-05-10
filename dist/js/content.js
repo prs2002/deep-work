@@ -133,7 +133,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#greeting_popup,#greeting_popup *{all:
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `#greeting_popup_first,#greeting_popup_first *{all:revert !important;margin:0 !important;padding:0 !important;font-family:Inter !important}#greeting_popup_first{margin:0 !important;padding:0 !important;position:fixed !important;display:flex !important;flex-direction:column !important;align-items:center !important;width:320px !important;min-height:310px !important;background:#2087ff !important;right:20px !important;top:20px !important;z-index:9999999 !important}#greeting_popup_first__title{margin-top:24px !important;width:85% !important;height:10% !important;display:flex !important;gap:9px !important;align-items:center !important}#greeting_popup_first__title__logo{display:flex !important;align-items:center !important;justify-content:center !important}#greeting_popup_first__title__logo img{width:28px !important;aspect-ratio:1 !important}#greeting_popup_first__title__text{display:flex !important;align-items:center !important;justify-content:center !important}#greeting_popup_first__title__text h1{color:#0052bd !important;font-size:16px !important;font-weight:600 !important;font-family:Inter !important}#greeting_popup_first__header{margin-top:21px !important;width:85% !important;height:25% !important}#greeting_popup_first__header img{width:45px !important}#greeting_popup_first__header__light{font-family:Inter !important;font-size:20px !important;font-weight:700 !important;color:rgba(255,255,255,.6196078431) !important;line-height:24px !important}#greeting_popup_first__header__dark{font-family:Inter !important;font-size:20px !important;font-weight:700 !important;color:#fff !important;line-height:24px !important}#greeting_popup_first__buttons{display:flex !important}#greeting_popup_first__buttons__button{margin-top:34px !important;width:250px !important;padding:7.5px 0 !important;font-family:Inter !important;font-size:12px !important;font-weight:400 !important;line-height:15px !important;border:none !important;border-radius:38px !important;cursor:pointer !important}#greeting_popup_first__buttons__button.white{background-color:#fff !important;color:#2087ff !important}`, ""]);
+___CSS_LOADER_EXPORT___.push([module.id, `#greeting_first_popup,#greeting_first_popup *{all:revert !important;margin:0 !important;padding:0 !important;font-family:Inter !important}#greeting_first_popup{margin:0 !important;padding:0 !important;position:fixed !important;display:flex !important;flex-direction:column !important;align-items:center !important;width:320px !important;min-height:310px !important;background:#2087ff !important;right:20px !important;top:20px !important;z-index:9999999 !important}#greeting_first_popup__title{margin-top:24px !important;width:85% !important;height:10% !important;display:flex !important;gap:9px !important;align-items:center !important}#greeting_first_popup__title__logo{display:flex !important;align-items:center !important;justify-content:center !important}#greeting_first_popup__title__logo img{width:28px !important;aspect-ratio:1 !important}#greeting_first_popup__title__text{display:flex !important;align-items:center !important;justify-content:center !important}#greeting_first_popup__title__text h1{color:#0052bd !important;font-size:16px !important;font-weight:600 !important;font-family:Inter !important}#greeting_first_popup__header{margin-top:21px !important;width:85% !important;height:25% !important}#greeting_first_popup__header img{width:45px !important}#greeting_first_popup__header__light{font-family:Inter !important;font-size:20px !important;font-weight:700 !important;color:rgba(255,255,255,.6196078431) !important;line-height:24px !important}#greeting_first_popup__header__dark{font-family:Inter !important;font-size:20px !important;font-weight:700 !important;color:#fff !important;line-height:24px !important}#greeting_first_popup__buttons{display:flex !important}#greeting_first_popup__buttons__button{margin-top:34px !important;width:250px !important;padding:7.5px 0 !important;font-family:Inter !important;font-size:12px !important;font-weight:400 !important;line-height:15px !important;border:none !important;border-radius:38px !important;cursor:pointer !important}#greeting_first_popup__buttons__button.white{background-color:#fff !important;color:#2087ff !important}`, ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -179,7 +179,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#hourly_summary,#hourly_summary *{all:
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `#recenter_timer{z-index:9999999999 !important;border-radius:60px !important;position:fixed !important;top:20px !important;right:30px !important;min-width:164px !important;background:#ff3b20 !important;padding:15px 14px !important;display:flex !important;align-items:center !important;gap:14px !important}#recenter_timer__logo{display:flex !important;align-items:center !important;justify-content:center !important}#recenter_timer__logo *{color:#b70000 !important;font-size:28px !important}#recenter_timer__time{font-family:Inter !important;font-size:28px !important;font-weight:700 !important;line-height:34px !important;color:#fff !important}#recenter_timer.jiggle{animation:jiggle .5s ease-in-out !important}@keyframes jiggle{0%{transform:rotate(0) !important}20%{transform:rotate(-10deg) !important}40%{transform:rotate(10deg) !important}60%{transform:rotate(-10deg) !important}80%{transform:rotate(10deg) !important}100%{transform:rotate(0) !important}}`, ""]);
+___CSS_LOADER_EXPORT___.push([module.id, `#recenter_timer{z-index:9999999999 !important;border-radius:60px !important;position:fixed !important;top:20px !important;right:30px !important;min-width:164px !important;padding:15px 14px !important;display:flex !important;align-items:center !important;gap:14px !important}#recenter_timer.recenter_timer__red{background:#ff3b20 !important}#recenter_timer.recenter_timer__red-2{animation:scaleShrink 1s ease-in-out;background:#ff6f1f !important}#recenter_timer__logo{display:flex !important;align-items:center !important;justify-content:center !important}#recenter_timer__logo *{color:#b70000 !important;font-size:28px !important}#recenter_timer__time{font-family:Inter !important;font-size:28px !important;font-weight:700 !important;line-height:34px !important;color:#fff !important}@keyframes scaleShrink{0%,100%{transform:scale(1)}50%{transform:scale(0.95)}}`, ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1517,8 +1517,30 @@ var HourlySummary_update = injectStylesIntoStyleTag_default()(HourlySummary/* de
 
        /* harmony default export */ const DOM_SCRIPTS_HourlySummary = (HourlySummary/* default */.c && HourlySummary/* default */.c.locals ? HourlySummary/* default */.c.locals : undefined);
 
-;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/HourlySummary.tsx
-var HourlySummary_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+;// CONCATENATED MODULE: ./src/utils/CONSTANTS/ChatGPT.ts
+// ChatGPT CONSTANTS
+const baseUrl = "https://api.openai.com/v1";
+const model = "gpt-3.5-turbo-0125";
+const costPer1000Token_INPUT = 0.0005;
+const costPer1000Token_OUTPUT = 0.0015;
+// Prompts
+const HOURLY_RECAP_PROMPT = (history, productivePercentage) => {
+    return `
+    Productive for ${productivePercentage.toFixed(2)}%
+    History:
+      ${history}
+      This is the browser history in a certain time period. Summarize this into a simple 4 or 5 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for one hour and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you". Pay special attention to any interesting titles and use those in commenting on what the user might have been doing. Have an unusual introduction and a cold-open to the summary. Acknowledge how well the user spent time overall without referring to the percentage`;
+};
+const DAILY_RECAP_PROMPT = (history, productivePercentage) => {
+    return `
+  Productive for ${productivePercentage.toFixed(2)}%
+    History:
+  ${history}
+  This is the browser history in a certain time period. Summarize this into a simple 7-8 sentence summary. The goal of this summary is to help the user realize what they have been browsing and if that is wasteful. This should encourage them to spend less time on wasteful non-productive sites. This is also a summary for the previous day and can say so. It is implicit that this is the browser history so need not be mentioned. This can be funny. This should be in accessible english and speak directly to the user and refer to them as "you". Pay special attention to any interesting titles and use those in commenting on what the user might have been doing. Have an unusual introduction and a cold-open to the summary. Acknowledge how well the user spent time overall without referring to the percentage`;
+};
+
+;// CONCATENATED MODULE: ./src/utils/scripts/processHistory.ts
+var processHistory_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -1527,6 +1549,399 @@ var HourlySummary_awaiter = (undefined && undefined.__awaiter) || function (this
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
+function organizeHistoryByBaseUrl(history, time) {
+    return processHistory_awaiter(this, void 0, void 0, function* () {
+        const organizedHistory = {};
+        const times = time ||
+            (yield chrome.storage.local.get("yesterdayTime")).yesterdayTime ||
+            [];
+        history.forEach((entry) => {
+            var _a;
+            const url = entry.url;
+            const baseUrl = cleanURL(new URL(url).origin);
+            if (!organizedHistory[baseUrl]) {
+                const time = ((_a = times.find((x) => x.url === baseUrl)) === null || _a === void 0 ? void 0 : _a.time) || 0;
+                organizedHistory[baseUrl] = { Explored: [], time: time };
+            }
+            if (!organizedHistory[baseUrl]["Explored"].includes(entry.title))
+                organizedHistory[baseUrl]["Explored"].push(entry.title);
+        });
+        Object.keys(organizedHistory).forEach((key) => {
+            organizedHistory[key].Explored = removeRedundantTerms(organizedHistory[key].Explored);
+        });
+        return convertToString(removeLessSignificantTerms(organizedHistory));
+    });
+}
+function removeRedundantTerms(titles) {
+    const termMap = new Map();
+    // Loop through each title
+    titles.forEach((title) => {
+        // Split title into individual terms
+        const terms = title.split(" - ");
+        // Iterate over each term
+        terms.forEach((term) => {
+            // Remove leading and trailing whitespaces
+            term = term.trim();
+            // Add term to map with its count
+            if (termMap.has(term)) {
+                termMap.set(term, termMap.get(term) + 1);
+            }
+            else {
+                termMap.set(term, 1);
+            }
+        });
+    });
+    // Filter out terms that occur more than once
+    const uniqueTerms = Array.from(termMap.keys()).filter((term) => termMap.get(term) === 1);
+    // Reconstruct titles with unique terms
+    const uniqueTitles = titles.map((title) => {
+        const terms = title.split(" - ");
+        const uniqueTermsInTitle = terms.filter((term) => uniqueTerms.includes(term.trim()));
+        return uniqueTermsInTitle.join(" - ");
+    });
+    return uniqueTitles;
+}
+function cleanURL(url) {
+    // Remove protocol (e.g., https://)
+    let cleanedURL = url.replace(/^(https?:\/\/)?/, "");
+    // Remove www subdomain if present
+    cleanedURL = cleanedURL.replace(/^www\./, "");
+    // Remove top-level domain and any subdomains
+    cleanedURL = cleanedURL.replace(/\.[a-z]{2,}$/, "");
+    return cleanedURL;
+}
+function convertToString(organizedHistory) {
+    // Replace all double quotes with an empty string
+    const str = JSON.stringify(organizedHistory);
+    return str.replace(/"/g, "");
+}
+function removeLessSignificantTerms(organizedHistory) {
+    // removing sites with time less than 1 minute and less than 3 visits
+    const keys = Object.keys(organizedHistory);
+    for (let i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const site = organizedHistory[key];
+        const time = site.time;
+        if (time < 60 * 1000 && site.Explored.length < 3) {
+            delete organizedHistory[key];
+        }
+        else {
+            site.time = msToHM(time);
+        }
+    }
+    return organizedHistory;
+}
+
+;// CONCATENATED MODULE: ./src/utils/chatGPT/EstimatedCost.ts
+var EstimatedCost_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+function estimatedCost(inputToken, outputToken, purpose) {
+    var _a;
+    return EstimatedCost_awaiter(this, void 0, void 0, function* () {
+        let prevUsage = ((_a = (yield chrome.storage.local.get("usage"))) === null || _a === void 0 ? void 0 : _a.usage) || {
+            monthly: { month: "", usage: [] },
+            weekly: { week: "", usage: [] },
+            daily: { day: "", usage: [] },
+        };
+        if (prevUsage.monthly === undefined ||
+            prevUsage.weekly === undefined ||
+            prevUsage.daily === undefined) {
+            prevUsage = {
+                monthly: { month: "", usage: [] },
+                weekly: { week: "", usage: [] },
+                daily: { day: "", usage: [] },
+            };
+        }
+        const inputCost = costPer1000Token_INPUT / 1000;
+        const outputCost = costPer1000Token_OUTPUT / 1000;
+        let usage = 0;
+        usage += inputCost * inputToken;
+        usage += outputCost * outputToken;
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth();
+        const currentWeek = currentDate.getDay();
+        const currentDay = currentDate.toDateString();
+        // Update current month, week, and day if necessary
+        if (prevUsage.monthly.month !== currentMonth) {
+            // new month
+            prevUsage.monthly.month = currentMonth;
+            prevUsage.monthly.usage = [];
+        }
+        if (prevUsage.weekly.week !== currentWeek && currentWeek === 1) {
+            // monday
+            prevUsage.weekly.week = currentWeek;
+            prevUsage.weekly.usage = [];
+        }
+        if (prevUsage.daily.day !== currentDay) {
+            // new day
+            prevUsage.daily.day = currentDay;
+            prevUsage.daily.usage = [];
+        }
+        // Store usage in the corresponding arrays
+        prevUsage.monthly.usage.push({ cost: usage, purpose: purpose });
+        prevUsage.weekly.usage.push({ cost: usage, purpose: purpose });
+        prevUsage.daily.usage.push({ cost: usage, purpose: purpose });
+        yield chrome.storage.local.set({ usage: prevUsage });
+    });
+}
+
+;// CONCATENATED MODULE: ./src/utils/chatGPT/API_CALL.ts
+var API_CALL_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+function apiCallWithTimeout(prompt, timeout = 30000, purpose, authKey) {
+    return API_CALL_awaiter(this, void 0, void 0, function* () {
+        try {
+            const requestBody = {
+                model: model,
+                messages: [
+                    {
+                        role: "user",
+                        content: prompt,
+                    },
+                ],
+            };
+            const timeoutPromise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const timeoutError = new Error("API call timeout");
+                    const timeoutResponse = new Response(JSON.stringify({ error: timeoutError }), {
+                        status: 408,
+                        statusText: "Request Timeout",
+                        headers: { "Content-Type": "application/json" },
+                    });
+                    reject(timeoutResponse);
+                }, timeout);
+            });
+            const fetchPromise = fetch(`${baseUrl}/chat/completions`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${authKey}`,
+                },
+                body: JSON.stringify(requestBody),
+            });
+            const res = yield Promise.race([fetchPromise, timeoutPromise]);
+            if (!res.ok) {
+                console.log(res);
+                throw new Error("API request failed");
+            }
+            const data = yield res.json();
+            const inputTokens = data.usage.prompt_tokens;
+            const outputTokens = data.usage.completion_tokens;
+            yield estimatedCost(inputTokens, outputTokens, purpose);
+            const summary = data.choices[0].message.content;
+            return summary;
+        }
+        catch (err) {
+            return err.message;
+        }
+    });
+}
+
+;// CONCATENATED MODULE: ./src/utils/chatGPT/HourlyRecap.ts
+var HourlyRecap_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+function hourlyRecap(hourlyTime, date) {
+    var _a;
+    return HourlyRecap_awaiter(this, void 0, void 0, function* () {
+        // var today = date + 60 * 60 * 1000;
+        var today = new Date().getTime();
+        var hourAgo = date;
+        const authKey = (_a = (yield chrome.storage.local.get("authKey"))) === null || _a === void 0 ? void 0 : _a.authKey; // api key
+        if (!hourlyTime) {
+            if (!authKey) {
+                yield chrome.storage.local.set({
+                    prevHourSummary: [NO_API_KEY_SUMMARY, today, 0, 0],
+                });
+                return false;
+            }
+            yield chrome.storage.local.set({
+                prevHourSummary: [SUMMARY_TIME_TOO_SHORT, today, 0, 0],
+            });
+            return false;
+        }
+        yield chrome.storage.local.set({
+            lastHourlyTime: {
+                hourlyTime: hourlyTime,
+                hour: date,
+            },
+        });
+        const timeSpent = hourlyTime.reduce((acc, website) => acc + website.time, 0);
+        const productiveTime = hourlyTime.reduce((acc, website) => {
+            if (website.tag === 1) {
+                return acc + website.time;
+            }
+            else {
+                return acc;
+            }
+        }, 0);
+        const unfocusedTime = timeSpent - productiveTime;
+        if (!authKey) {
+            yield chrome.storage.local.set({
+                prevHourSummary: [
+                    NO_API_KEY_SUMMARY,
+                    today,
+                    productiveTime,
+                    unfocusedTime,
+                ],
+            });
+            return false;
+        }
+        if (timeSpent <= 15 * 60 * 1000) {
+            // if time spent less than 15 min
+            yield chrome.storage.local.set({
+                prevHourSummary: [
+                    SUMMARY_TIME_TOO_SHORT,
+                    today,
+                    productiveTime,
+                    unfocusedTime,
+                ],
+            });
+            return false;
+        }
+        const historyItems = yield chrome.history.search({
+            text: "",
+            startTime: hourAgo,
+            endTime: today,
+            maxResults: 1000,
+        });
+        const organizedHistory = yield organizeHistoryByBaseUrl(historyItems, hourlyTime);
+        const lastCalled = (yield chrome.storage.local.get("summaryLock"))
+            .summaryLock;
+        if (new Date().getTime() - lastCalled <= 30 * 1000) {
+            return false;
+        }
+        yield chrome.storage.local.set({ summaryLock: new Date().getTime() });
+        const productivePercentage = (productiveTime / (timeSpent + 1)) * 100;
+        const summary = yield prevHourSummary(organizedHistory, authKey, today, productivePercentage);
+        if (summary === "") {
+            yield chrome.storage.local.set({
+                prevHourSummary: [
+                    API_CALL_FAILED_SUMMARY,
+                    today,
+                    productiveTime,
+                    unfocusedTime,
+                ],
+            });
+            return false;
+        }
+        yield chrome.storage.local.set({
+            prevHourSummary: [summary, today, productiveTime, unfocusedTime],
+        });
+        return true;
+    });
+}
+function prevHourSummary(history, authKey, date, productiveTime) {
+    return HourlyRecap_awaiter(this, void 0, void 0, function* () {
+        return yield apiCallWithTimeout(HOURLY_RECAP_PROMPT(history, productiveTime), 30000, `hourlyRecap ${date}`, authKey);
+    });
+}
+
+;// CONCATENATED MODULE: ./src/utils/queryStorage/GetPrevHourTime.ts
+var GetPrevHourTime_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+function getPrevHourTime() {
+    var _a;
+    return GetPrevHourTime_awaiter(this, void 0, void 0, function* () {
+        const lastHourlyTime = (yield chrome.storage.local.get("lastHourlyTime")).lastHourlyTime || {};
+        const data = lastHourlyTime.hourlyTime;
+        if (!data) {
+            return [];
+        }
+        const taggedData = (_a = (yield chrome.storage.local.get("taggedURLs"))) === null || _a === void 0 ? void 0 : _a.taggedURLs;
+        const result = data.map((d) => {
+            return { url: d.url, time: d.time, tag: 0, value: msToHM(d.time) };
+        });
+        if (taggedData) {
+            for (const d of result) {
+                for (const tag of taggedData) {
+                    if (tag.website === d.url) {
+                        d.tag = tag.tag;
+                    }
+                }
+            }
+        }
+        return result;
+    });
+}
+
+;// CONCATENATED MODULE: ./src/utils/getHourlySummary.ts
+var getHourlySummary_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+function getSummary(setTimeframe, setProductive, setUnfocused, setSummary) {
+    return getHourlySummary_awaiter(this, void 0, void 0, function* () {
+        let prevHourSummary = (yield chrome.storage.local.get("prevHourSummary")).prevHourSummary || [];
+        const hour = ((yield chrome.storage.local.get("lastHourlyTime")).lastHourlyTime || {})
+            .hour || undefined;
+        if (prevHourSummary.length === 0) {
+            yield hourlyRecap(yield getPrevHourTime(), hour || new Date().getTime() - 60 * 60 * 1000);
+            prevHourSummary =
+                (yield chrome.storage.local.get("prevHourSummary")).prevHourSummary || [];
+        }
+        if (hour) {
+            const timeFrameStart = new Date(hour).toLocaleTimeString("en-US", {
+                hour: "numeric",
+                minute: "numeric",
+            });
+            const timeFrameEnd = new Date(prevHourSummary[1]).toLocaleTimeString("en-US", {
+                hour: "numeric",
+                minute: "numeric",
+            });
+            setTimeframe(` (${timeFrameStart} to ${timeFrameEnd})`);
+        }
+        setSummary && setSummary(prevHourSummary[0]);
+        setProductive(prevHourSummary[2] / 60000);
+        setUnfocused(prevHourSummary[3] / 60000);
+    });
+}
+
+;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/HourlySummary.tsx
+
 
 
 
@@ -1558,31 +1973,7 @@ function HourlySummary_HourlySummary() {
         { label: "Total", value: msToHM(productive + unfocused), color: "black" },
     ];
     (0,react.useEffect)(() => {
-        function getSummary() {
-            return HourlySummary_awaiter(this, void 0, void 0, function* () {
-                const prevHourSummary = (yield chrome.storage.local.get("prevHourSummary")).prevHourSummary ||
-                    [];
-                if (prevHourSummary.length === 0) {
-                    return;
-                }
-                const hour = ((yield chrome.storage.local.get("lastHourlyTime")).lastHourlyTime ||
-                    {}).hour || undefined;
-                if (hour) {
-                    const timeFrameStart = new Date(hour).toLocaleTimeString("en-US", {
-                        hour: "numeric",
-                        minute: "numeric",
-                    });
-                    const timeFrameEnd = new Date(hour + 60 * 60 * 1000).toLocaleTimeString("en-US", {
-                        hour: "numeric",
-                        minute: "numeric",
-                    });
-                    setTimeframe(` (${timeFrameStart} to ${timeFrameEnd})`);
-                }
-                setProductive(prevHourSummary[2]);
-                setUnfocused(prevHourSummary[3]);
-            });
-        }
-        getSummary();
+        getSummary(setTimeframe, setProductive, setUnfocused);
     }, []);
     if (productive + unfocused <= 60 * 10 * 1000) {
         // if user spent less than 10 min in last hour, don't alert
@@ -8402,8 +8793,8 @@ function BlockWarning_BlockWarning({ handleClose, time }) {
     function handleGetToWork() {
         window.location.href = "https://www.google.com";
     }
-    const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
-    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "block_warning" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "block_warning__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "block_warning__title__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "block_warning__title__text" }, { children: (0,jsx_runtime.jsx)("h1", { children: "Recenter" }) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "block_warning__header" }, { children: [(0,jsx_runtime.jsx)("p", Object.assign({ id: "block_warning__header__light" }, { children: "You\u2019ve exceeded time limit." })), (0,jsx_runtime.jsx)("p", Object.assign({ id: "block_warning__header__dark" }, { children: "This Site Will Be Blocked In" }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "block_warning__time" }, { children: time })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "block_warning__buttons" }, { children: [(0,jsx_runtime.jsx)("button", Object.assign({ id: "block_warning__buttons__button", className: "white", onClick: handleClose }, { children: "Close" })), (0,jsx_runtime.jsx)("button", Object.assign({ id: "block_warning__buttons__button", className: "blue", onClick: handleGetToWork }, { children: "Get to Work" }))] }))] })));
+    const logo = chrome.runtime.getURL("images/recenter_logo.png");
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "block_warning" }, { children: [(0,jsx_runtime.jsxs)("div", Object.assign({ id: "block_warning__title" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "block_warning__title__logo" }, { children: (0,jsx_runtime.jsx)("img", { src: logo, alt: "logo" }) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "block_warning__title__text" }, { children: (0,jsx_runtime.jsx)("h1", { children: "Recenter" }) }))] })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "block_warning__header" }, { children: [(0,jsx_runtime.jsx)("p", Object.assign({ id: "block_warning__header__light" }, { children: "You've exceeded time limit." })), (0,jsx_runtime.jsx)("p", Object.assign({ id: "block_warning__header__dark" }, { children: "This Site Will Be Blocked In" }))] })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "block_warning__time" }, { children: time })), (0,jsx_runtime.jsxs)("div", Object.assign({ id: "block_warning__buttons" }, { children: [(0,jsx_runtime.jsx)("button", Object.assign({ id: "block_warning__buttons__button", className: "white", onClick: handleClose }, { children: "Close" })), (0,jsx_runtime.jsx)("button", Object.assign({ id: "block_warning__buttons__button", className: "blue", onClick: handleGetToWork }, { children: "Get to Work" }))] }))] })));
 }
 
 ;// CONCATENATED MODULE: ./src/utils/DOM_SCRIPTS/Timer.tsx
@@ -8425,31 +8816,36 @@ var Timer_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _ar
 
 function Timer_Timer() {
     const [remainingTime, setRemainingTime] = (0,react.useState)(0);
-    const [jiggle, setJiggle] = (0,react.useState)(false);
     const [maxTime, setMaxTime] = (0,react.useState)(-1);
     const [isBlocking, setIsBlocking] = (0,react.useState)(false);
     const [closed, setClosed] = (0,react.useState)(false);
+    const [color, setColor] = (0,react.useState)("red");
+    console.log(color);
     (0,react.useEffect)(() => {
         function handleTimer() {
             const timer = setInterval(() => Timer_awaiter(this, void 0, void 0, function* () {
                 const remainingTime = yield handleBlocking(maxTime, isBlocking);
                 setRemainingTime(remainingTime / 1000);
+                const minutes = Math.floor(remainingTime / 60000);
+                if (minutes % 2) {
+                    if (color !== "red-2") {
+                        setColor("red-2");
+                    }
+                }
+                else {
+                    if (color !== "red") {
+                        setColor("red");
+                    }
+                }
             }), 1000);
-            const jiggleTimer = setInterval(() => {
-                setJiggle(true);
-                setTimeout(() => {
-                    setJiggle(false);
-                }, 1000);
-            }, 60000);
             return () => {
                 clearInterval(timer);
-                clearInterval(jiggleTimer);
             };
         }
         if (maxTime !== -1) {
             return handleTimer();
         }
-    }, [maxTime, isBlocking]);
+    }, [maxTime, isBlocking, color]);
     (0,react.useEffect)(() => {
         chrome.storage.local.get().then((data) => {
             const url = document.location.origin;
@@ -8466,12 +8862,12 @@ function Timer_Timer() {
         const secondsStr = String(seconds).padStart(2, "0");
         return `${minutesStr} : ${secondsStr}`;
     }
-    if ((maxTime / 1000) - remainingTime <= 30 && isBlocking && !closed) {
+    if (maxTime / 1000 - remainingTime <= 30 && isBlocking && !closed) {
         return ((0,jsx_runtime.jsx)(BlockWarning_BlockWarning, { handleClose: () => {
                 setClosed(true);
-            }, time: (maxTime / 1000) - remainingTime }));
+            }, time: maxTime / 1000 - remainingTime }));
     }
-    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "recenter_timer", className: jiggle ? "jiggle" : "", title: "Recenter" }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "recenter_timer__logo" }, { children: (0,jsx_runtime.jsx)(FaRegClock, {}) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "recenter_timer__time" }, { children: secondsToTime(remainingTime) }))] })));
+    return ((0,jsx_runtime.jsxs)("div", Object.assign({ id: "recenter_timer", title: "Recenter", className: "recenter_timer__" + color }, { children: [(0,jsx_runtime.jsx)("div", Object.assign({ id: "recenter_timer__logo" }, { children: (0,jsx_runtime.jsx)(FaRegClock, {}) })), (0,jsx_runtime.jsx)("div", Object.assign({ id: "recenter_timer__time" }, { children: secondsToTime(remainingTime) }))] })));
 }
 function insertTimer() {
     if (document.getElementById("recenter_container__timer") !== null) {
@@ -8656,6 +9052,9 @@ function setIsDisabled() {
 setIsDisabled();
 nudgeUser = new NudgeUser(checkDisable());
 chrome.storage.local.get("lastGreeted", (data) => {
+    if (checkDisable()) {
+        return;
+    }
     setTimeout(() => {
         if (data.lastGreeted === undefined) {
             addGreetingPopup(true);
@@ -8672,7 +9071,7 @@ chrome.storage.local.get("lastGreeted", (data) => {
 });
 new ProactiveTimer();
 setInterval(() => content_awaiter(void 0, void 0, void 0, function* () {
-    if (!document.hasFocus()) {
+    if (!document.hasFocus() || checkDisable()) {
         return;
     }
     const lastTimeSummary = (yield chrome.storage.local.get("lastTimeSummary")).lastTimeSummary || 0;

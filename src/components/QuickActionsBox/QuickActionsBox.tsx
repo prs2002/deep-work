@@ -4,7 +4,7 @@ import { FaAngleRight } from "react-icons/fa";
 
 export default function QuickActionsBox() {
   const quickActions = [
-    { action: "Add a website", path: "/configure?type=websites" },
+    { action: "Tag a website", path: "/configure?type=websites" },
     { action: "Change Alerts", path: "/configure?type=settings" },
     { action: "Achievements", path: "/profile" },
   ];

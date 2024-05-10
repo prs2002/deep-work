@@ -2,6 +2,7 @@ import ReactDOM from "react-dom/client";
 import "./HourlySummary.scss";
 import React, { useEffect, useState } from "react";
 import { msToHM } from "../scripts/mmToHM";
+import { getSummary } from "../getHourlySummary";
 
 const handleClose = () => {
   const root = document.getElementById("recenter_container");
@@ -32,36 +33,7 @@ function HourlySummary() {
   ];
 
   useEffect(() => {
-    async function getSummary() {
-      const prevHourSummary =
-        (await chrome.storage.local.get("prevHourSummary")).prevHourSummary ||
-        [];
-      if (prevHourSummary.length === 0) {
-        return;
-      }
-      const hour: number | undefined =
-        (
-          (await chrome.storage.local.get("lastHourlyTime")).lastHourlyTime ||
-          {}
-        ).hour || undefined;
-      if (hour) {
-        const timeFrameStart = new Date(hour).toLocaleTimeString("en-US", {
-          hour: "numeric",
-          minute: "numeric",
-        });
-        const timeFrameEnd = new Date(hour + 60 * 60 * 1000).toLocaleTimeString(
-          "en-US",
-          {
-            hour: "numeric",
-            minute: "numeric",
-          }
-        );
-        setTimeframe(` (${timeFrameStart} to ${timeFrameEnd})`);
-      }
-      setProductive(prevHourSummary[2]);
-      setUnfocused(prevHourSummary[3]);
-    }
-    getSummary();
+    getSummary(setTimeframe, setProductive, setUnfocused);
   }, []);
 
   if (productive + unfocused <= 60 * 10 * 1000) {
@@ -72,7 +44,7 @@ function HourlySummary() {
   return (
     <div id="hourly_summary">
       <div id="hourly_summary__title">
-      <div id="hourly_summary__title__logo">
+        <div id="hourly_summary__title__logo">
           <img src={logo} alt="logo" />
         </div>
         <div id="hourly_summary__title__text">

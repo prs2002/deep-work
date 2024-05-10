@@ -9,7 +9,7 @@ export default function BlockWarning({ handleClose, time }: BlockWarningProps) {
   function handleGetToWork() {
     window.location.href = "https://www.google.com";
   }
-  const logo = chrome.runtime.getURL("js/images/recenter_logo.png");
+  const logo = chrome.runtime.getURL("images/recenter_logo.png");
   return (
     <div id="block_warning">
       <div id="block_warning__title">
@@ -21,7 +21,7 @@ export default function BlockWarning({ handleClose, time }: BlockWarningProps) {
         </div>
       </div>
       <div id="block_warning__header">
-        <p id="block_warning__header__light">You’ve exceeded time limit.</p>
+        <p id="block_warning__header__light">You've exceeded time limit.</p>
         <p id="block_warning__header__dark">This Site Will Be Blocked In</p>
       </div>
       <div id="block_warning__time">

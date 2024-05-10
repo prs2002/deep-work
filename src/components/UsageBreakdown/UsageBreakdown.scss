@@ -96,28 +96,22 @@
           }
         }
         &__bar {
-          width: calc(100%);
+          width: 100%;
           background-color: var(--header-color);
           height: 6px;
-          border-radius: 20px;
-          background: #d9d9d9;
-          &__fill {
-            border-radius: 1em;
-            height: 100%;
-            &#blue {
-              background-color: var(--blue);
-            }
+          & #blue {
+            background-color: var(--blue);
+          }
 
-            &#red {
-              background-color: var(--red);
-            }
+          & #red {
+            background-color: var(--red);
+          }
 
-            &#orange {
-              background-color: var(--orange);
-            }
-            &#grey {
-              background-color: var(--grey);
-            }
+          & #orange {
+            background-color: var(--orange);
+          }
+          & #grey {
+            background-color: var(--grey);
           }
         }
       }

@@ -67,6 +67,9 @@ setIsDisabled();
 nudgeUser = new NudgeUser(checkDisable());
 
 chrome.storage.local.get("lastGreeted", (data) => {
+  if (checkDisable()) {
+    return;
+  }
   setTimeout(() => {
     if (data.lastGreeted === undefined) {
       addGreetingPopup(true);
@@ -84,7 +87,7 @@ chrome.storage.local.get("lastGreeted", (data) => {
 new ProactiveTimer();
 
 setInterval(async () => {
-  if (!document.hasFocus()) {
+  if (!document.hasFocus() || checkDisable()) {
     return;
   }
   const lastTimeSummary =

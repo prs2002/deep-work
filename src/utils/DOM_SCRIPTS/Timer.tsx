@@ -7,34 +7,41 @@ import BlockWarning from "./BlockWarning";
 
 function Timer() {
   const [remainingTime, setRemainingTime] = useState<number>(0);
-  const [jiggle, setJiggle] = useState<boolean>(false);
   const [maxTime, setMaxTime] = useState<number>(-1);
   const [isBlocking, setIsBlocking] = useState<boolean>(false);
   const [closed, setClosed] = useState<boolean>(false);
+  const [color, setColor] = useState<string>("red");
+
+  console.log(color);
+  
 
   useEffect(() => {
     function handleTimer() {
       const timer = setInterval(async () => {
         const remainingTime = await handleBlocking(maxTime, isBlocking);
         setRemainingTime(remainingTime / 1000);
-      }, 1000);
 
-      const jiggleTimer = setInterval(() => {
-        setJiggle(true);
-        setTimeout(() => {
-          setJiggle(false);
-        }, 1000);
-      }, 60000);
+        const minutes: number = Math.floor(remainingTime / 60000);
+
+        if (minutes % 2) {
+          if (color !== "red-2") {
+            setColor("red-2");
+          }
+        } else {
+          if (color !== "red") {
+            setColor("red");
+          }
+        }
+      }, 1000);
 
       return () => {
         clearInterval(timer);
-        clearInterval(jiggleTimer);
       };
     }
     if (maxTime !== -1) {
       return handleTimer();
     }
-  }, [maxTime, isBlocking]);
+  }, [maxTime, isBlocking, color]);
 
   useEffect(() => {
     chrome.storage.local.get().then((data) => {
@@ -52,24 +59,20 @@ function Timer() {
     const secondsStr: string = String(seconds).padStart(2, "0");
     return `${minutesStr} : ${secondsStr}`;
   }
-  
-  if ((maxTime / 1000) - remainingTime <= 30 && isBlocking && !closed) {
+
+  if (maxTime / 1000 - remainingTime <= 30 && isBlocking && !closed) {
     return (
       <BlockWarning
         handleClose={() => {
           setClosed(true);
         }}
-        time={(maxTime / 1000) - remainingTime}
+        time={maxTime / 1000 - remainingTime}
       />
     );
   }
 
   return (
-    <div
-      id="recenter_timer"
-      className={jiggle ? "jiggle" : ""}
-      title="Recenter"
-    >
+    <div id="recenter_timer" title="Recenter" className={"recenter_timer__" + color}>
       <div id="recenter_timer__logo">
         <FaRegClock />
       </div>
