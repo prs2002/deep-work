@@ -9,7 +9,7 @@ function App() {
   const [isFocused, setIsFocused] = useState<boolean>(true);
 
   function handleHelpClick() {
-    chrome.tabs.create({ url: "https://recenter.netlify.app/docs" });
+    chrome.tabs.create({ url: "https://recenter.netlify.app" });
   }
 
   return (
@@ -17,7 +17,7 @@ function App() {
       <div className="app__top_bar" id={isFocused ? "good" : "bad"}></div>
       <Routes>
         <Route
-          path="/"
+          path="/home"
           element={
             <Home isFocused={isFocused} setIsFocused={setIsFocused}></Home>
           }
